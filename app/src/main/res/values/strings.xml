@@ -243,4 +243,7 @@
     <!-- FoodOrderPaymentFragment -->
     <string name="fragment_food_order_payment_input_pw">사용 중인 결제 비밀번호 입력</string>
     <string name="fragment_food_order_payment_find_pw">결제 비밀번호 찾기</string>
+
+    <!-- EventFragment -->
+    <string name="fragment_event_title_bar">이벤트</string>
 </resources>
