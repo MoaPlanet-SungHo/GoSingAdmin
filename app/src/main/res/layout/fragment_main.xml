@@ -326,7 +326,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_main_eat_order"
+            android:id="@+id/cl_main_food_order"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/cl_main_point_history"
@@ -334,31 +334,31 @@
             app:layout_constraintTop_toTopOf="@id/cl_main_ad_management">
 
             <ImageView
-                android:id="@+id/iv_main_eat_order"
+                android:id="@+id/iv_main_food_order"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
-                android:contentDescription="@string/fragment_main_eat_order_description"
+                android:contentDescription="@string/fragment_main_food_order_description"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_eat_order"
-                app:layout_constraintBottom_toTopOf="@id/tv_main_eat_order"
+                android:src="@drawable/ic_food_order"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_food_order"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/tv_main_eat_order"
+                android:id="@+id/tv_main_food_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:fontFamily="@font/font_gd_13"
-                android:text="@string/fragment_main_eat_order"
+                android:text="@string/fragment_main_food_order"
                 android:textColor="@color/color_000000"
                 android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_main_eat_order"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_food_order"
                 tools:ignore="SpUsage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

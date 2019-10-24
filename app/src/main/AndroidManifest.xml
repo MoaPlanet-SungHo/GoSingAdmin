@@ -31,7 +31,7 @@
         <activity android:name=".main.submenu.ad.activity.GoSingAdActivity" />
         <activity android:name=".main.submenu.store.StoreActivity" />
         <activity android:name=".main.submenu.review.ReviewActivity" />
-        <activity android:name=".main.submenu.eat.EatOrderActivity" />
+        <activity android:name=".main.submenu.food.activity.FoodOrderActivity" />
         <activity android:name=".main.submenu.non_member.NonMemberSaveActivity" />
     </application>
 

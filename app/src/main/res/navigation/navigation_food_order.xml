@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_food_order"
+    app:startDestination="@id/fragment_food_order">
+
+    <fragment
+        android:id="@+id/fragment_food_order"
+        android:name="com.moaplanet.gosingadmin.main.submenu.food.fragment.FoodOrderFragment"
+        tools:layout="@layout/fragment_food_order" >
+        <action
+            android:id="@+id/action_fragment_food_order_payment"
+            app:destination="@id/fragment_food_order_payment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_food_order_payment"
+        android:name="com.moaplanet.gosingadmin.main.submenu.food.fragment.FoodOrderPaymentFragment"
+        tools:layout="@layout/fragment_password_input" />
+</navigation>
