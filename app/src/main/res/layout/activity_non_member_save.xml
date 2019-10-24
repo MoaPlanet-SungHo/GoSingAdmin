@@ -4,76 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.submenu.non_member.NonMemberSaveActivity">
+    tools:context=".main.submenu.non_member.activity.NonMemberSaveActivity">
 
-    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
-        android:id="@+id/common_non_member_save_title_bar"
+    <fragment
+        android:id="@+id/fm_gosing_ad_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/activity_non_member_save_title_bar"/>
-
-    <TextView
-        android:id="@+id/tv_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:fontFamily="@font/font_gd_15"
-        android:text="@string/fragment_main_point_balance"
-        android:textColor="@color/color_000000"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_non_member_save_title_bar"
-        tools:ignore="SpUsage" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/tv_main_point"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:fontFamily="@font/font_gd_17"-->
-<!--        android:text="58,000원"-->
-<!--        android:textColor="@color/color_000000"-->
-<!--        android:textSize="30dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tv_main_point_title"-->
-<!--        tools:ignore="SpUsage" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/tv_main_schedule_point"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:drawableStart="@drawable/ic_question_mark"-->
-<!--        android:drawablePadding="6dp"-->
-<!--        android:fontFamily="@font/font_gd_13"-->
-<!--        android:text="활성 예정 포인트 : 1,000원"-->
-<!--        android:textColor="@color/color_777777"-->
-<!--        android:textSize="12dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tv_main_point"-->
-<!--        tools:ignore="SpUsage" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btn_main_charge_point"-->
-<!--        android:layout_width="110dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginTop="25dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:background="@drawable/border_rect_18_18_18_18_0dp_trans_4300ff"-->
-<!--        android:fontFamily="@font/font_gd_15"-->
-<!--        android:text="@string/fragment_main_charge_point"-->
-<!--        android:textColor="@color/color_ffffff"-->
-<!--        android:textSize="14dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/btn_main_withdrawal_point"-->
-<!--        app:layout_constraintHorizontal_chainStyle="packed"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tv_main_schedule_point"-->
-<!--        tools:ignore="SpUsage" />-->
+        app:navGraph="@navigation/navigation_non_member_save" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.non_member;
+package com.moaplanet.gosingadmin.main.submenu.non_member.activity;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;

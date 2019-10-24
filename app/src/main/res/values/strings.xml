@@ -179,8 +179,8 @@
     <string name="header_slide_menu_login">로그인</string>
     <string name="header_slide_menu_sign_up">회원가입</string>
 
-    <!-- NonMemberSaveActivity -->
-    <string name="activity_non_member_save_title_bar">비회원 적립</string>
+    <!-- NonMemberSaveFragment -->
+    <string name="fragment_non_member_save_title_bar">비회원 적립</string>
 
     <!-- StoreActivity -->
     <string name="activity_store_title_bar">업소 정보 등록</string>
@@ -246,4 +246,13 @@
 
     <!-- EventFragment -->
     <string name="fragment_event_title_bar">이벤트</string>
+
+    <!-- SavePhoneNumber -->
+    <string name="fragment_save_phone_number_charge">충전하기</string>
+    <string name="fragment_save_phone_number_point">GOSING포인트 잔액</string>
+    <string name="fragment_save_phone_number_input_phone_number">휴대폰 번호 입력</string>
+    <string name="fragment_save_phone_number_save_point_number">
+        GOSING포인트를 적립할 고객님의 핸드폰 번호를\n입력하세요.</string>
+    <string name="fragment_save_phone_number_max_two">
+        - 동일한 고객에게 하루 최대 2회 적립금을 지급할 수 있습니다.</string>
 </resources>

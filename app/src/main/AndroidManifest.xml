@@ -32,7 +32,7 @@
         <activity android:name=".main.submenu.store.StoreActivity" />
         <activity android:name=".main.submenu.review.ReviewActivity" />
         <activity android:name=".main.submenu.food.activity.FoodOrderActivity" />
-        <activity android:name=".main.submenu.non_member.NonMemberSaveActivity" />
+        <activity android:name=".main.submenu.non_member.activity.NonMemberSaveActivity" />
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
 import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
-import com.moaplanet.gosingadmin.main.submenu.non_member.NonMemberSaveActivity;
+import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
