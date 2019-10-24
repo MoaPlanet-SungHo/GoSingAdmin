@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="slide_menu">
+        <item>이벤트</item>
+        <item>공지사항</item>
+        <item>고객센터</item>
+        <item>설정</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    tools:context=".intro.GoSingAdminConfirmPermissionActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_gosing_admin_confirm_permission_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/common_go_sing_admin_logo"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_gosing_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_gd_14"
+            android:lineSpacingExtra="5dp"
+            android:text="@string/activity_go_sing_admin_confirm_permission_header"
+            android:textAlignment="center"
+            android:textColor="@color/color_000000"
+            android:textSize="15dp"
+            tools:ignore="SpUsage" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_gosing_admin_confirm_permission_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/color_f6faff"
+        android:paddingStart="20dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_gosing_admin_confirm_permission_header">
+
+        <!-- 위치 -->
+        <ImageView
+            android:id="@+id/iv_gosing_admin_confirm_permission_gps"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12.3dp"
+            android:contentDescription="@string/activity_go_sing_admin_confirm_permission_gps"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_gps"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_gosing_admin_confirm_permission_gps_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_gd_15"
+            android:maxLines="1"
+            android:text="@string/activity_go_sing_admin_confirm_permission_gps"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_gosing_admin_confirm_permission_gps"
+            app:layout_constraintStart_toEndOf="@id/iv_gosing_admin_confirm_permission_gps"
+            app:layout_constraintTop_toTopOf="@id/iv_gosing_admin_confirm_permission_gps"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_gosing_admin_confirm_permission_gps_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/font_gd_13"
+            android:maxLines="1"
+            android:text="@string/activity_go_sing_admin_confirm_permission_gps_reason"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@id/tv_gosing_admin_confirm_permission_gps_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_gosing_admin_confirm_permission_gps_title"
+            tools:ignore="SpUsage" />
+
+        <!-- 카메라 -->
+        <ImageView
+            android:id="@+id/iv_gosing_admin_confirm_permission_camera"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12.3dp"
+            android:contentDescription="@string/activity_go_sing_admin_confirm_permission_camera"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gosing_admin_confirm_permission_gps_reason" />
+
+        <TextView
+            android:id="@+id/tv_gosing_admin_confirm_permission_camera_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_gd_15"
+            android:maxLines="1"
+            android:text="@string/activity_go_sing_admin_confirm_permission_camera"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_gosing_admin_confirm_permission_camera"
+            app:layout_constraintStart_toEndOf="@id/iv_gosing_admin_confirm_permission_camera"
+            app:layout_constraintTop_toTopOf="@id/iv_gosing_admin_confirm_permission_camera"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_gosing_admin_confirm_permission_camera_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/font_gd_13"
+            android:maxLines="1"
+            android:text="@string/activity_go_sing_admin_confirm_permission_camera_reason"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@id/tv_gosing_admin_confirm_permission_camera_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_gosing_admin_confirm_permission_camera_title"
+            tools:ignore="SpUsage" />
+
+        <!-- 저장공간 -->
+        <ImageView
+            android:id="@+id/iv_gosing_admin_confirm_permission_storage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12.3dp"
+            android:contentDescription="@string/activity_go_sing_admin_confirm_permission_camera"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_storage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gosing_admin_confirm_permission_camera_reason" />
+
+        <TextView
+            android:id="@+id/tv_gosing_admin_confirm_permission_storage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_gd_15"
+            android:maxLines="1"
+            android:text="@string/activity_go_sing_admin_confirm_permission_storage"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_gosing_admin_confirm_permission_storage"
+            app:layout_constraintStart_toEndOf="@id/iv_gosing_admin_confirm_permission_storage"
+            app:layout_constraintTop_toTopOf="@id/iv_gosing_admin_confirm_permission_storage"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_gosing_admin_confirm_permission_storage_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/font_gd_13"
+            android:maxLines="1"
+            android:text="@string/activity_go_sing_admin_confirm_permission_camera_reason"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@id/tv_gosing_admin_confirm_permission_storage_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_gosing_admin_confirm_permission_storage_title"
+            tools:ignore="SpUsage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/font_gd_13"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/activity_go_sing_admin_confirm_permission_reason"
+        android:textColor="@color/color_000000"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_gosing_admin_confirm_permission_group"
+        tools:ignore="SpUsage" />
+
+    <Button
+        android:id="@+id/btn_confirm_permission_done"
+        style="@style/CommonGradientButton"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:text="@string/activity_go_sing_admin_confirm_permission_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_sign_up"
+    app:startDestination="@id/fragment_sign_up_terms_of_agreement">
+
+    <fragment
+        android:id="@+id/fragment_sign_up_terms_of_agreement"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.SignUpTermsOfAgreementFragment"
+        tools:layout="@layout/fragment_sign_up_terms_of_agreement">
+        <action
+            android:id="@+id/action_fragment_sign_up_self_certification"
+            app:destination="@id/fragment_self_certification" />
+        <action
+            android:id="@+id/action_fragment_create_account"
+            app:destination="@id/fragment_create_account" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_self_certification"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.SelfCertificationFragment"
+        tools:layout="@layout/fragment_self_certification">
+        <action
+            android:id="@+id/action_fragment_create_account"
+            app:destination="@id/fragment_create_account" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_create_account"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.CreateAccountFragment"
+        tools:layout="@layout/fragment_create_account">
+        <action
+            android:id="@+id/action_fragment_sign_up_input_password"
+            app:destination="@id/fragment_sign_up_input_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_sign_up_input_password"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.SignUpInputPasswordFragment"
+        tools:layout="@layout/fragment_password_input">
+        <action
+            android:id="@+id/action_fragment_sign_up_input_password_check"
+            app:destination="@id/fragment_sign_up_input_password_check" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_sign_up_input_password_check"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.SignUpInputPasswordFragment"
+        tools:layout="@layout/fragment_password_input">
+        <action
+            android:id="@+id/action_fragment_sign_up_complete"
+            app:destination="@id/fragment_sign_up_complete" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_sign_up_complete"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.SignUpCompleteFragment"
+        tools:layout="@layout/fragment_sign_up_complete" />
+</navigation>

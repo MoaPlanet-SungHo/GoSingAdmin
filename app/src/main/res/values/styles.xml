@@ -1,0 +1,88 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/color_ffffff</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="CommonGradientButton" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_height">71dp</item>
+        <item name="android:background">@drawable/selector_common_gradient_button_width_shadow
+        </item>
+        <item name="android:fontFamily">@font/font_gd_15</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textColor">@color/selector_gradient_button_text_color</item>
+        <item name="android:textSize" tools:ignore="SpUsage">17dp</item>
+    </style>
+
+    <style name="DefaultButton" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/selector_default_button</item>
+        <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
+        <item name="android:fontFamily">@font/font_gd_15</item>
+        <item name="android:textColor">@color/selector_default_button_text_color</item>
+    </style>
+
+    <style name="AllCheckBox">
+        <item name="android:background">@color/color_00000000</item>
+        <item name="android:button">@drawable/selector_all_checkbox</item>
+        <item name="android:fontFamily">@font/font_gd_15</item>
+        <item name="android:textSize" tools:ignore="SpUsage">14dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="DefaultCheckBox">
+        <item name="android:background">@color/color_00000000</item>
+        <item name="android:button">@drawable/selector_checkbox</item>
+        <item name="android:fontFamily">@font/font_gd_13</item>
+        <item name="android:textSize" tools:ignore="SpUsage">13dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="DefaultEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@drawable/cursor_rect_4300ff</item>
+        <item name="android:textSize" tools:ignore="SpUsage">13dp</item>
+        <item name="android:fontFamily">@font/font_gd_13</item>
+        <item name="android:textColor">@color/color_000000</item>
+        <item name="android:textColorHint">@color/color_aaaaaa</item>
+        <item name="android:background">@drawable/selector_default_edit_text</item>
+        <item name="android:paddingStart">11dp</item>
+        <item name="android:paddingEnd">11dp</item>
+        <item name="android:theme">@style/DefaultEditText</item>
+    </style>
+
+    <style name="CommonUnderLineEditExt" parent="Widget.AppCompat.EditText">
+        <item name="android:colorControlNormal">@color/color_f5f5f5</item>
+        <item name="android:colorControlActivated">@color/color_f5f5f5</item>
+        <item name="android:textSize" tools:ignore="SpUsage">14dp</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_rect_4300ff</item>
+        <item name="android:fontFamily">@font/font_gd_13</item>
+        <item name="android:textColorHint">@color/color_aaaaaa</item>
+        <item name="android:textColor">@color/color_000000</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:theme">@style/CommonUnderLineEditExt</item>
+    </style>
+
+    <style name="CommonUnderLineEditExtWidthCheck" parent="CommonUnderLineEditExt">
+        <item name="android:textSize" tools:ignore="SpUsage">18dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:drawableEnd">@drawable/ic_checkbox_nor</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="NavigationTheme" parent="AppTheme">
+        <item name="android:listPreferredItemHeightSmall">65dp</item>
+        <item name="android:listPreferredItemPaddingStart">0dp</item>
+        <item name="android:listPreferredItemPaddingEnd">0dp</item>
+    </style>
+
+</resources>

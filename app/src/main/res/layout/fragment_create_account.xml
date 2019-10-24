@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff">
+
+    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
+        android:id="@+id/common_create_account_title_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/sign_up_title" />
+
+    <TextView
+        android:id="@+id/tv_create_account_email_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/font_gd_14"
+        android:text="@string/fragment_create_account_email"
+        android:textColor="@color/color_000000"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/common_create_account_title_bar"
+        tools:ignore="SpUsage" />
+
+    <EditText
+        android:id="@+id/et_create_account_email"
+        style="@style/DefaultEditText"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/fragment_create_account_input_email_hint"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toStartOf="@id/btn_create_account_email_check"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_account_email_title"
+        tools:ignore="SpUsage" />
+
+    <Button
+        android:id="@+id/btn_create_account_email_check"
+        style="@style/DefaultButton"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/fragment_create_account_input_email_check"
+        app:layout_constraintBottom_toBottomOf="@id/et_create_account_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_create_account_email" />
+
+    <TextView
+        android:id="@+id/tv_create_account_email_err"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/font_gd_13"
+        android:text="@string/fragment_create_account_input_email_err"
+        android:textColor="@color/color_ff4a24"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="@id/et_create_account_email"
+        app:layout_constraintTop_toBottomOf="@id/et_create_account_email"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_create_account_pw_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/font_gd_14"
+        android:text="@string/fragment_create_account_pw"
+        android:textColor="@color/color_000000"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_account_email_err"
+        tools:ignore="SpUsage" />
+
+    <EditText
+        android:id="@+id/et_create_account_pw"
+        style="@style/DefaultEditText"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/fragment_create_account_input_pw_hint"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_account_pw_title"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_create_account_pw_err"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/font_gd_13"
+        android:text="@string/fragment_create_account_input_pw_err"
+        android:textColor="@color/color_ff4a24"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="@id/et_create_account_pw"
+        app:layout_constraintTop_toBottomOf="@id/et_create_account_pw"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_create_account_pw_check_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/font_gd_14"
+        android:text="@string/fragment_create_account_pw_check"
+        android:textColor="@color/color_000000"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_account_pw_err"
+        tools:ignore="SpUsage" />
+
+    <EditText
+        android:id="@+id/et_create_account_pw_check"
+        style="@style/DefaultEditText"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/fragment_create_account_input_pw_check_hint"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_create_account_pw_check_title"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_create_account_pw_check_err"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/font_gd_13"
+        android:text="@string/fragment_create_account_input_pw_err"
+        android:textColor="@color/color_ff4a24"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="@id/et_create_account_pw_check"
+        app:layout_constraintTop_toBottomOf="@id/et_create_account_pw_check"
+        tools:ignore="SpUsage" />
+
+    <Button
+        android:id="@+id/btn_create_account_done"
+        style="@style/CommonGradientButton"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

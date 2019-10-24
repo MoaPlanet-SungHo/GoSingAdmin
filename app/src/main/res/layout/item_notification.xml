@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_ffffff"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <TextView
+        android:id="@+id/tv_item_notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@drawable/ic_notification_4300ff_arrow"
+        android:drawablePadding="7dp"
+        android:fontFamily="@font/font_gd_15"
+        android:text="강남 노래타운"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_item_notification_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_13"
+        android:text="09/05 16시20분"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_notification_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_item_notification_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/font_gd_15"
+        android:text="01095659494 님에게 고씽포인트 3,000원이 지급되었습니다."
+        android:textColor="@color/color_000000"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_notification_title"
+        tools:ignore="SpUsage" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/under_line_height"
+        android:layout_marginTop="30dp"
+        android:background="@color/color_f5f5f5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_notification_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

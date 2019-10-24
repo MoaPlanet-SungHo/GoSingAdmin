@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_title_bar"
+            android:layout_width="0dp"
+            android:layout_height="59dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_gd_15"
+                android:text="@string/fragment_main_title"
+                android:textColor="@color/color_000000"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_main_slide_menu"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="0dp"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/fragment_main_side_menu_description"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_slide_menu"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_main_notification"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:paddingStart="0dp"
+                android:paddingEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@string/fragment_main_notify_description"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_notify"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/under_line_height"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_main_point_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/fragment_main_point_balance"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_main_title_bar"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_main_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_gd_17"
+            android:text="58,000원"
+            android:textColor="@color/color_000000"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_main_point_title"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_main_schedule_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_question_mark"
+            android:drawablePadding="6dp"
+            android:fontFamily="@font/font_gd_13"
+            android:text="활성 예정 포인트 : 1,000원"
+            android:textColor="@color/color_777777"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_main_point"
+            tools:ignore="SpUsage" />
+
+        <Button
+            android:id="@+id/btn_main_charge_point"
+            android:layout_width="110dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/border_rect_18_18_18_18_0dp_trans_4300ff"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/fragment_main_charge_point"
+            android:textColor="@color/color_ffffff"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_main_withdrawal_point"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_main_schedule_point"
+            tools:ignore="SpUsage" />
+
+        <Button
+            android:id="@+id/btn_main_withdrawal_point"
+            android:layout_width="110dp"
+            android:layout_height="36dp"
+            android:background="@drawable/border_rect_18_18_18_18_07dp_4300ff_ffffff"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/fragment_main_withdrawal_point"
+            android:textColor="@color/color_4300ff"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_main_charge_point"
+            app:layout_constraintTop_toTopOf="@id/btn_main_charge_point"
+            tools:ignore="SpUsage" />
+
+        <View
+            android:id="@+id/view_main_point_underline"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/under_line_height"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/color_f5f5f5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_main_charge_point" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_store_management"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toStartOf="@id/cl_main_review_management"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_main_point_underline">
+
+            <ImageView
+                android:id="@+id/iv_main_store_management"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/fragment_main_store_management_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_store_management"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_store_management"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_main_store_management"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_store_management"
+                android:textColor="@color/color_000000"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_store_management"
+                tools:ignore="SpUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_review_management"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/cl_main_point_history"
+            app:layout_constraintStart_toEndOf="@id/cl_main_store_management"
+            app:layout_constraintTop_toTopOf="@id/cl_main_store_management">
+
+            <ImageView
+                android:id="@+id/iv_main_review_management"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/fragment_main_review_management_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_review_management"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_review_management"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_main_review_management"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_review_management"
+                android:textColor="@color/color_000000"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_review_management"
+                tools:ignore="SpUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_point_history"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cl_main_review_management"
+            app:layout_constraintTop_toTopOf="@id/cl_main_store_management">
+
+            <ImageView
+                android:id="@+id/iv_main_point_history"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/fragment_main_point_history_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_point_history"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_point_history"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_main_point_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_point_history"
+                android:textColor="@color/color_000000"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_point_history"
+                tools:ignore="SpUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_ad_management"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23.3dp"
+            app:layout_constraintEnd_toStartOf="@id/cl_main_review_management"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_main_store_management">
+
+            <ImageView
+                android:id="@+id/iv_main_ad_management"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/fragment_main_ad_management_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_ad_management"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_ad_management"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_main_ad_management"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_ad_management"
+                android:textColor="@color/color_000000"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_ad_management"
+                tools:ignore="SpUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_eat_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/cl_main_point_history"
+            app:layout_constraintStart_toEndOf="@id/cl_main_store_management"
+            app:layout_constraintTop_toTopOf="@id/cl_main_ad_management">
+
+            <ImageView
+                android:id="@+id/iv_main_eat_order"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/fragment_main_eat_order_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_eat_order"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_eat_order"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_main_eat_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_eat_order"
+                android:textColor="@color/color_000000"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_eat_order"
+                tools:ignore="SpUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_main_non_member_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cl_main_review_management"
+            app:layout_constraintTop_toTopOf="@id/cl_main_ad_management">
+
+            <ImageView
+                android:id="@+id/iv_main_non_member_save"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/fragment_main_non_member_save_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_non_member_save"
+                app:layout_constraintBottom_toTopOf="@id/tv_main_non_member_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_main_non_member_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_non_member_save"
+                android:textColor="@color/color_000000"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_non_member_save"
+                tools:ignore="SpUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_main_menu_underline"
+            android:layout_width="0dp"
+            android:layout_height="6.7dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/color_f5f5f5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_main_ad_management" />
+
+        <LinearLayout
+            android:id="@+id/ll_main_notice_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_main_menu_underline">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_main_notice_header"
+                android:layout_width="match_parent"
+                android:layout_height="51dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:drawableEnd="@drawable/ic_aaaaaa_arrow"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/font_gd_15"
+                    android:text="@string/fragment_main_notice_title"
+                    android:textColor="@color/color_000000"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpUsage" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/color_f5f5f5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_main_notice_group">
+
+            <CheckBox
+                android:id="@+id/cb_main_ceo_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/color_00000000"
+                android:button="@null"
+                android:drawableEnd="@drawable/selector_main_ceo_info_checkbox"
+                android:drawablePadding="3dp"
+                android:fontFamily="@font/font_gd_15"
+                android:text="@string/fragment_main_ceo_info"
+                android:textColor="@color/color_777777"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage" />
+
+            <LinearLayout
+                android:id="@+id/ll_main_ceo_info_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cb_main_ceo_info">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="@string/fragment_main_ceo_name"
+                    android:textColor="@color/color_777777"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="@string/fragment_main_numbers"
+                    android:textColor="@color/color_777777"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="@string/fragment_main_address"
+                    android:textColor="@color/color_777777"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="@string/fragment_main_email"
+                    android:textColor="@color/color_777777"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_main_not_responsible"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/font_gd_13"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/fragment_main_not_responsible"
+                android:textColor="@color/color_aaaaaa"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_main_ceo_info_content"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/tv_main_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/font_gd_13"
+                android:text="@string/fragment_main_copyright"
+                android:textColor="@color/color_000000"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_not_responsible"
+                tools:ignore="SpUsage" />
+
+            <Button
+                style="@style/CommonGradientButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+                android:text="@string/fragment_main_make_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_main_copyright" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

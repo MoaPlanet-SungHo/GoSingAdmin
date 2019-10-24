@@ -1,0 +1,210 @@
+<resources>
+    <string name="app_name">GoSingAdmin</string>
+
+    <!-- Common -->
+    <string name="common_go_sing_admin_logo">고싱 관리자 로고</string>
+    <string name="sign_up_title">회원가입</string>
+
+    <!-- NoTitleDialog -->
+    <string name="dialog_no_title_done">확인</string>
+
+    <!-- CommonTitleBar -->
+    <string name="common_title_bar_back_description">뒤로가기 버튼</string>
+
+    <!-- IntoActivity -->
+    <string name="activity_intro_login">로그인</string>
+    <string name="activity_intro_sign_up">GOSING 회원가입</string>
+
+    <!-- GoSingAdminConfirmPermissionActivity -->
+    <string name="activity_go_sing_admin_confirm_permission_header">
+        GOSING 앱을 이용하기 위해서는\n다음 권한을 허용해 주셔야 합니다.</string>
+    <string name="activity_go_sing_admin_confirm_permission_gps">위치 (선택)</string>
+    <string name="activity_go_sing_admin_confirm_permission_gps_reason">
+        현재 위치 자동 수신</string>
+    <string name="activity_go_sing_admin_confirm_permission_camera">카메라 (선택)</string>
+    <string name="activity_go_sing_admin_confirm_permission_camera_reason">
+        업소 사진 촬영 및 등록</string>
+    <string name="activity_go_sing_admin_confirm_permission_storage">저장공간 (선택)</string>
+    <string name="activity_go_sing_admin_confirm_permission_storage_reason">
+        업소 사진 등록</string>
+    <string name="activity_go_sing_admin_confirm_permission_reason">
+        선택적 접근권한은 해당 기능을 사용할 때 허용이 필요하며\n
+        비 허용 시에도 해당 기능 외 서비스 이용이 가능합니다.</string>
+    <string name="activity_go_sing_admin_confirm_permission_done">확인</string>
+
+    <!-- SignUpTermsOfAgreementFragment -->
+    <string name="fragment_sign_up_terms_of_agreement_title">가입 약관동의</string>
+    <string name="fragment_sign_up_terms_of_agreement_all_check">전체 동의</string>
+    <string name="fragment_sign_up_terms_of_agreement_read_all">전문보기</string>
+    <string name="fragment_sign_up_terms_of_agreement_use_agreement">이용약관 동의 (필수)</string>
+    <string name="fragment_sign_up_terms_of_agreement_banking_agreement">
+        전자금융거래 이용약관 (필수)</string>
+    <string name="fragment_sign_up_terms_of_agreement_personal_info_agreement">
+        개인정보 수집 및 이용동의 (필수)</string>
+    <string name="fragment_sign_up_terms_of_agreement_third_party_agreement">
+        개인정보 제3자 제공동의 (필수)</string>
+    <string name="fragment_sign_up_terms_of_agreement_age_agreement">
+        만 14세 이상 회원입니다. (필수)</string>
+    <string name="fragment_sign_up_terms_of_agreement_event_agreement">
+        GOSING 혜택 알림 동의 (선택) </string>
+    <string name="fragment_sign_up_terms_of_agreement_next_step">다음</string>
+
+    <!-- CreateAccountFragment -->
+    <string name="fragment_create_account_email">이메일 아이디</string>
+    <string name="fragment_create_account_input_email_hint">이메일을 입력하세요.</string>
+    <string name="fragment_create_account_input_email_check">중복확인</string>
+    <string name="fragment_create_account_input_email_err">이메일 혁식을 다시 확인해 주세요</string>
+    <string name="fragment_create_account_pw">로그인 비밀번호</string>
+    <string name="fragment_create_account_input_pw_hint">
+        영문/숫자/특수문자 8~20자로 입력해 주세요.</string>
+    <string name="fragment_create_account_input_pw_err">
+        영문/숫자/특수문자 8자~20자로 입력해 주세요.</string>
+    <string name="fragment_create_account_pw_check">로그인 비밀번호 확인</string>
+    <string name="fragment_create_account_input_pw_check_hint">
+        비밀번호를 한 번 더 입력해주세요.</string>
+    <string name="fragment_create_account_input_pw_check_err">
+        입력한 비밀번호가 서로 일치하지 않습니다.</string>
+    <string name="fragment_create_account_exist_email">
+        이미 존재하는 이메일 아이디입니다.다른 이메일 주소를 입력해 주세요.</string>
+
+    <!-- SignUpInputPasswordFragment -->
+    <string name="fragment_password_input_new_password_title">결제 비밀번호 등록</string>
+    <string name="fragment_password_input_new_password_explanation">
+        GOSING 포인트 충전과 결제 시\n사용되는 비밀번호를 등록해 주세요
+    </string>
+    <string name="fragment_password_input_again_payment_password">
+        결제 비밀번호를 한 번 더 입력해 주세요.
+    </string>
+
+    <!-- SignUpCompleteFragment -->
+    <string name="fragment_sign_up_complete_welcome">
+        GOSING 회원이 되신것을\n환영합니다!
+    </string>
+    <string name="fragment_sign_up_complete_input_code_title">영업자 코드를 입력하세요. (선택)</string>
+    <string name="fragment_sign_up_completed_input_code_hint">영업자 코드 입력</string>
+    <string name="fragment_sign_up_completed_input_code_check">확인</string>
+    <string name="fragment_sign_up_completed_input_code_err">
+        영업자 코드에 해당하는 회원이 존재하지 않습니다.</string>
+    <string name="fragment_sign_up_completed_register_store">업소 등록하기</string>
+    <string name="fragment_sign_up_completed_title">회원가입 완료</string>
+
+    <!-- LoginActivity -->
+    <string name="activity_login_gosing_text_description">고싱 텍스트</string>
+    <string name="activity_login_input_email">이메일 아이디 입력</string>
+    <string name="activity_login_input_pw">로그인 비밀번호 입력</string>
+    <string name="activity_login_forget_login_info">로그인 정보를 잊으셨나요?</string>
+    <string name="activity_login_btn_login">로그인</string>
+    <string name="activity_login_find_id">아이디 찾기</string>
+    <string name="activity_login_change_pw">비밀번호 변경</string>
+
+    <!-- MainFragment -->
+    <string name="fragment_main_title">GOSING</string>
+    <string name="fragment_main_point_balance">GOSING포인트 잔액</string>
+    <string name="fragment_main_charge_point">충전</string>
+    <string name="fragment_main_withdrawal_point">출금</string>
+    <string name="fragment_main_side_menu_description">사이드 메뉴 아이콘</string>
+    <string name="fragment_main_notify_description">알림 아이콘</string>
+    <string name="fragment_main_store_management">업소관리</string>
+    <string name="fragment_main_store_management_description">업소 관리 아이콘</string>
+    <string name="fragment_main_review_management">리뷰관리</string>
+    <string name="fragment_main_review_management_description">리뷰 관리 아이콘</string>
+    <string name="fragment_main_point_history">포인트 내역</string>
+    <string name="fragment_main_point_history_description">포인트 내역 아이콘</string>
+    <string name="fragment_main_ad_management">광고관리</string>
+    <string name="fragment_main_ad_management_description">광고관리 아이콘</string>
+    <string name="fragment_main_eat_order">먹거리주문</string>
+    <string name="fragment_main_eat_order_description">먹거리주문 아이콘</string>
+    <string name="fragment_main_non_member_save">비회원 적립</string>
+    <string name="fragment_main_non_member_save_description">비회원 적립 아이콘</string>
+    <string name="fragment_main_notice_title">공지사항</string>
+    <string name="fragment_main_ceo_info">(주)모아플래닛 사업자 정보</string>
+    <string name="fragment_main_ceo_name">대표이사 : 임승옥</string>
+    <string name="fragment_main_numbers">
+        사업자등록번호 : 000&#8211;00&#8211;00000 | 통신판매업신고 : XX00000호</string>
+    <string name="fragment_main_address">본사 : 서울시 금천구 가산디지털1로 168</string>
+    <string name="fragment_main_email">고객센터 : surpport@moaplanet.co.kf</string>
+    <string name="fragment_main_copyright">Copyright MOA. All Rights Resesrved.</string>
+    <string name="fragment_main_make_code">결제 코드 생성</string>
+    <string name="fragment_main_not_responsible">
+        (주)모아플래닛은 통신판매중개자로서 거래 당사자가 아니며 상품 거래 정보 및
+        거래에 대하여 책임을 지지 않습니다.</string>
+
+    <!-- PointHistoryActivity-->
+    <string name="activity_point_history_point_balance">GOSING포인트 잔액</string>
+    <string name="activity_point_history_active_schedule_point">활성 에정 포인트</string>
+    <string name="activity_point_history_remove_schedule_point">당월 소멸 예정 포인트</string>
+
+    <!-- PointHistoryFragment -->
+    <string name="item_point_history_plus_point">+ %s 원</string>
+    <string name="item_point_history_minus_point">- %s 원</string>
+
+    <!-- NotificationActivity -->
+    <string name="activity_notification_title">알림</string>
+
+    <!-- AdSelectFragment -->
+    <string name="fragment_ad_select_title">광고관리</string>
+    <string name="fragment_ad_select_paymentable_amount">결제 가능한 GOSING포인트</string>
+    <string name="fragment_ad_select_charge_point">충전하기</string>
+    <string name="fragment_ad_sub_title">
+        GOSING포인트로\nGOSING PLUS 광고 상품을 구입하세요!</string>
+    <string name="activity_ad_select_ad_explanation">
+        GOSING PLUS 적용 시 사장님의 업소가 고객 APP상단에
+        \n노출되어 더 많은 고객에게 업소를 홍보할 수 있습니다.</string>
+    <string name="fragment_ad_select_product_description">광고 상품 이미지</string>
+    <string name="fragment_ad_select_thirty_day_product">GOSING PLUS (30일)</string>
+    <string name="fragment_ad_select_fifteen_day_product">GOSING PLUS (15일)</string>
+    <string name="fragment_ad_select_not_use_ad">현재 적용 중인 광고 상품이 없습니다.</string>
+    <string name="fragment_ad_select_use_product">현재 적용 중인 광고 상품</string>
+    <string name="fragment_ad_select_use_product_info">
+        - GOSING PLUS / 광고 만료일 : 2019년 10월 9일 17시 30분</string>
+
+    <!-- AdPaymentFragment -->
+    <string name="fragment_ad_payment_product_thumbnail_description">상품 이미지</string>
+    <string name="fragment_ad_payment_product_expiry_date">구입 후 광고 상품 만료일</string>
+    <string name="fragment_ad_payment_product">구입할 상품</string>
+    <string name="fragment_ad_payment_agree">광고 상품 구입 안내를 읽고 동의합니다.</string>
+    <string name="fragment_ad_payment_agree_read_all">전문보기</string>
+    <string name="fragment_ad_payment_product_payment">결제하기</string>
+
+    <!-- AdInputPwFragment -->
+    <string name="fragment_ad_input_pw_title">결제하기</string>
+    <string name="fragment_ad_input_pw_use_input_pw">사용 중인 결제 비밀번호 입력</string>
+    <string name="fragment_ad_input_pw_find_pw">결재 비밀번호 찾기</string>
+    <string name="fragment_ad_input_pw_payment_success">GOSING PLUS 광고상품을 구입하였습니다.</string>
+
+    <!-- header_side_menu -->
+    <string name="header_slide_menu_profile_description">프로필 이미지</string>
+    <string name="header_slide_menu_point_title">GOSING포인트</string>
+    <string name="header_slide_menu_yet_not_admin">아직 GOSING 사장님이 아니세요?</string>
+    <string name="header_slide_menu_login">로그인</string>
+    <string name="header_slide_menu_sign_up">회원가입</string>
+
+    <!-- NonMemberSaveActivity -->
+    <string name="activity_non_member_save_title_bar">비회원 적립</string>
+
+    <!-- StoreActivity -->
+    <string name="activity_store_title_bar">업소 정보 등록</string>
+    <string name="activity_store_add_info">업소 정보를 등록하세요</string>
+    <string name="activity_store_name">업소명 *</string>
+    <string name="activity_store_input_name">업소명을 입력해 주세요</string>
+    <string name="activity_store_search_address">주소 검색</string>
+    <string name="activity_store_now_location">현 위치</string>
+    <string name="activity_store_address">업소 주소 *</string>
+    <string name="activity_store_input_detail_address">나머지 상세 주소를 입력해 주세요</string>
+    <string name="activity_store_short_address">간략 주소 *</string>
+    <string name="activity_store_input_short_address">간략 주소를 입력해 주세요.(20자 이내)</string>
+    <string name="activity_store_call_number">업소 전화번호 *</string>
+    <string name="activity_store_input_call_number">업소 전화번호를 입력해 주세요.</string>
+    <string name="activity_store_thumbnail">대표사진</string>
+    <string name="activity_store_thumbnail_select">(선택)</string>
+    <string name="activity_store_thumbnail_info_one">- 매장을 대표할 수 있는 사진을 등록해 주세요.</string>
+    <string name="activity_store_thumbnail_info_two">- 사진은 최소 3장 ~ 최대 8장까지 추가 가능합니다.</string>
+    <string name="activity_store_thumbnail_info_three">- 사진은 장당 5MB까지 PNG, JPG 파일만 추가 가능합니다.</string>
+    <string name="activity_store_room_info">룸 정보</string>
+    <string name="activity_store_room_info_select">(선택)</string>
+    <string name="activity_store_large_room_input_price">시간당 가격을 입력해 주세요.</string>
+    <string name="activity_store_input_ceo_comment">
+        고객님들께 남기실 안내 사항을 적어 주세요.
+        \n욕설, 도배 등의 운영 정책과 맞지 않는 글은 사전 경고 없이 차단 삭제 될 수 있습니다.
+    </string>
+</resources>
