@@ -182,6 +182,43 @@
     <!-- NonMemberSaveActivity -->
     <string name="activity_non_member_save_title_bar">비회원 적립</string>
 
+    <!-- MakingQRcodeActivity -->
+    <string name="common_hint_text">0원</string>
+    <string name="payment_amount_qr">결제금액</string>
+    <string name="left_parentheses">(</string>
+    <string name="right_parentheses">)</string>
+    <string name="save_money">적립</string>
+    <string name="no_save_money">비적립</string>
+    <string name="total_payment_amount_qr">총 결제금액</string>
+    <string name="customer_reserve_fund">고객 적립금</string>
+    <string name="balance_gosing_point">결제 후 GOSING포인트 잔액</string>
+    <string name="save_money_content">30,000원</string>
+    <string name="no_save_money_content">25,000원</string>
+    <string name="total_payment_amount_qr_content">55,000원</string>
+    <string name="customer_reserve_fund_content">3,000원</string>
+    <string name="balance_gosing_point_content">35,000원</string>
+    <string name="common_next_btn">다음</string>
+    <string name="common_save_money_help">결제 금액(적립)에 대한 설명 UI를 띄움</string>
+    <string name="common_no_save_money_help">결제 금액(비적립)에 대한 설명 UI를 띄움</string>
+    <string name="common_save_money_won">결제 금액(적립)을 입력할 수 있는 UI</string>
+    <string name="common_no_save_money_won">결제 금액(비적립)을 입력할 수 있는 UI</string>
+    <string name="common_save_money_clear_btn">결제 금액(적립)에 입력된 금액을 0원으로 초기화한다.</string>
+    <string name="common_no_save_money_clear_btn">결제 금액(비적립)에 입력된 금액을 0원으로 초기화한다.</string>
+    <string name="common_total_money">총 결제 금액으로(적립)과 결제 금액(비적립)이 합산된 금액이다.</string>
+    <string name="gosing_plus_15day_price">55,000원</string>
+    <string name="delivery_amount_content">3,000 원</string>
+
+    <!-- PaymentQRcodeActivity -->
+    <string name="common_qr_left_above_description">QR코드 왼쪽 위</string>
+    <string name="common_qr_right_above_description">QR코드 오른쪽 위</string>
+    <string name="common_qr_left_under_description">QR코드 왼쪽 아래</string>
+    <string name="common_qr_right_under_description">QR코드 오른쪽 아래</string>
+    <string name="common_qr_code">QR코드</string>
+    <string name="qr_code_show_notice">생성된 코드를 고객에게 보여주세요.</string>
+    <string name="qr_code_input_timer">03 : 15</string>
+    <string name="karaoke_name">신풍 노래방 가산점</string>
+    <string name="total_payment_amount">총 결제 금액</string>
+
     <!-- StoreActivity -->
     <string name="activity_store_title_bar">업소 정보 등록</string>
     <string name="activity_store_add_info">업소 정보를 등록하세요</string>
@@ -207,4 +244,6 @@
         고객님들께 남기실 안내 사항을 적어 주세요.
         \n욕설, 도배 등의 운영 정책과 맞지 않는 글은 사전 경고 없이 차단 삭제 될 수 있습니다.
     </string>
+
+
 </resources>

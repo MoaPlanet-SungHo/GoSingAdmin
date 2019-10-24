@@ -557,6 +557,7 @@
                 tools:ignore="SpUsage" />
 
             <Button
+                android:id="@+id/payment_qrcode_product"
                 style="@style/CommonGradientButton"
                 android:layout_width="0dp"
                 android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"

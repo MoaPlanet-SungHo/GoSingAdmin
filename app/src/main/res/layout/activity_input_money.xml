@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff">
+
+    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
+        android:id="@+id/common_inputmoney_title_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_main_payment_amount_qr1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/font_gd_13"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/payment_amount_qr"
+        android:textColor="@color/color_000000"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/common_inputmoney_title_bar"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_left_parentheses1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/font_gd_15"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/left_parentheses"
+        android:textColor="@color/color_000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_payment_amount_qr1"
+        app:layout_constraintStart_toEndOf="@id/tv_main_payment_amount_qr1"
+        app:layout_constraintTop_toTopOf="@id/tv_main_payment_amount_qr1"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_save_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_15"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/save_money"
+        android:textColor="@color/color_4300ff"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_left_parentheses1"
+        app:layout_constraintStart_toEndOf="@id/tv_main_left_parentheses1"
+        app:layout_constraintTop_toTopOf="@id/tv_main_left_parentheses1"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_right_parentheses1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_15"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/right_parentheses"
+        android:textColor="@color/color_000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_save_money"
+        app:layout_constraintStart_toEndOf="@id/tv_main_save_money"
+        app:layout_constraintTop_toTopOf="@id/tv_main_save_money"
+        tools:ignore="SpUsage" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:contentDescription="@string/common_save_money_help"
+        android:src="@drawable/ic_common_help_btn"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_payment_amount_qr1"
+        app:layout_constraintStart_toEndOf="@id/tv_main_right_parentheses1"
+        app:layout_constraintTop_toTopOf="@id/tv_main_payment_amount_qr1" />
+
+    <ImageView
+        android:id="@+id/iv_main_save_money"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="21.7dp"
+        android:contentDescription="@string/common_save_money_won"
+        android:src="@drawable/ic_common_money"
+        app:layout_constraintStart_toStartOf="@id/tv_main_payment_amount_qr1"
+        app:layout_constraintTop_toBottomOf="@id/tv_main_payment_amount_qr1" />
+
+    <EditText
+        android:id="@+id/et_main_input_save_money"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/font_gd_17"
+        android:hint="@string/common_hint_text"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/save_money_content"
+        android:textColor="@color/color_000000"
+        android:textColorHint="@color/color_c7c7c7"
+        android:textSize="27dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_main_save_money"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_main_save_money"
+        app:layout_constraintTop_toTopOf="@id/iv_main_save_money"
+        tools:ignore="LabelFor,SpUsage" />
+
+    <ImageView
+        android:id="@+id/iv_main_save_money_clear"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/common_save_money_clear_btn"
+        android:src="@drawable/ic_common_clear_btn"
+        app:layout_constraintEnd_toEndOf="@id/et_main_input_save_money"
+        app:layout_constraintTop_toTopOf="@id/iv_main_save_money" />
+
+    <TextView
+        android:id="@+id/tv_main_payment_amount_qr2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:fontFamily="@font/font_gd_13"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/payment_amount_qr"
+        android:textColor="@color/color_000000"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@id/iv_main_save_money"
+        app:layout_constraintTop_toBottomOf="@id/iv_main_save_money"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_left_parentheses2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/font_gd_15"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/left_parentheses"
+        android:textColor="@color/color_000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_payment_amount_qr2"
+        app:layout_constraintStart_toEndOf="@id/tv_main_payment_amount_qr2"
+        app:layout_constraintTop_toTopOf="@id/tv_main_payment_amount_qr2"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_no_save_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_15"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/no_save_money"
+        android:textColor="@color/color_4300ff"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_left_parentheses2"
+        app:layout_constraintStart_toEndOf="@id/tv_main_left_parentheses2"
+        app:layout_constraintTop_toTopOf="@id/tv_main_left_parentheses2"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_right_parentheses2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_15"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/right_parentheses"
+        android:textColor="@color/color_000000"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_no_save_money"
+        app:layout_constraintStart_toEndOf="@id/tv_main_no_save_money"
+        app:layout_constraintTop_toTopOf="@id/tv_main_no_save_money"
+        tools:ignore="SpUsage" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:contentDescription="@string/common_no_save_money_help"
+        android:src="@drawable/ic_common_help_btn"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_payment_amount_qr2"
+        app:layout_constraintStart_toEndOf="@id/tv_main_right_parentheses2"
+        app:layout_constraintTop_toTopOf="@id/tv_main_payment_amount_qr2" />
+
+    <ImageView
+        android:id="@+id/iv_main_no_save_money"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="21.7dp"
+        android:contentDescription="@string/common_save_money_won"
+        android:src="@drawable/ic_common_money"
+        app:layout_constraintStart_toStartOf="@id/tv_main_payment_amount_qr2"
+        app:layout_constraintTop_toBottomOf="@id/tv_main_payment_amount_qr2" />
+
+    <EditText
+        android:id="@+id/et_main_input_no_save_money"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/font_gd_17"
+        android:hint="@string/common_hint_text"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:text="@string/no_save_money_content"
+        android:textColor="@color/color_000000"
+        android:textColorHint="@color/color_c7c7c7"
+        android:textSize="27dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_main_no_save_money"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_main_no_save_money"
+        app:layout_constraintTop_toTopOf="@id/iv_main_no_save_money"
+        tools:ignore="LabelFor,SpUsage" />
+
+    <ImageView
+        android:id="@+id/iv_main_no_save_money_clear"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/common_save_money_clear_btn"
+        android:src="@drawable/ic_common_clear_btn"
+        app:layout_constraintEnd_toEndOf="@id/et_main_input_no_save_money"
+        app:layout_constraintTop_toTopOf="@id/iv_main_no_save_money" />
+
+    <View
+        android:id="@+id/v_main_bottom_line"
+        android:layout_width="0dp"
+        android:layout_height="6.7dp"
+        android:layout_marginTop="42dp"
+        android:background="@color/color_f5f5f5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_main_no_save_money" />
+
+    <TextView
+        android:id="@+id/tv_main_total_payment_amount_qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38.3dp"
+        android:fontFamily="@font/font_gd_13"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/total_payment_amount_qr"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@id/tv_main_payment_amount_qr1"
+        app:layout_constraintTop_toBottomOf="@id/v_main_bottom_line"
+        tools:ignore="SpUsage" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="9dp"
+        android:contentDescription="@string/common_total_money"
+        android:src="@drawable/ic_common_money"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_total_payment_amount_qr_content"
+        app:layout_constraintEnd_toStartOf="@id/tv_main_total_payment_amount_qr_content"
+        app:layout_constraintTop_toTopOf="@id/tv_main_total_payment_amount_qr_content" />
+
+    <TextView
+        android:id="@+id/tv_main_total_payment_amount_qr_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_17"
+        android:gravity="end"
+        android:lineSpacingExtra="10.7dp"
+        android:text="@string/total_payment_amount_qr_content"
+        android:textColor="@color/color_4300ff"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_total_payment_amount_qr"
+        app:layout_constraintEnd_toEndOf="@id/et_main_input_save_money"
+        app:layout_constraintTop_toTopOf="@id/tv_main_total_payment_amount_qr"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_customer_reserve_fund"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:fontFamily="@font/font_gd_13"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/customer_reserve_fund"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@id/tv_main_total_payment_amount_qr"
+        app:layout_constraintTop_toBottomOf="@id/tv_main_total_payment_amount_qr"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_customer_reserve_fund_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_17"
+        android:gravity="end"
+        android:text="@string/customer_reserve_fund_content"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_customer_reserve_fund"
+        app:layout_constraintEnd_toEndOf="@id/tv_main_total_payment_amount_qr_content"
+        app:layout_constraintTop_toTopOf="@id/tv_main_customer_reserve_fund"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_balance_gosing_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/font_gd_13"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/balance_gosing_point"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@id/tv_main_customer_reserve_fund"
+        app:layout_constraintTop_toBottomOf="@id/tv_main_customer_reserve_fund"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/tv_main_balance_gosing_point_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_17"
+        android:gravity="end"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/balance_gosing_point_content"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_main_balance_gosing_point"
+        app:layout_constraintEnd_toEndOf="@id/tv_main_customer_reserve_fund_content"
+        app:layout_constraintTop_toTopOf="@id/tv_main_balance_gosing_point"
+        tools:ignore="SpUsage" />
+
+    <Button
+        android:id="@+id/make_qr_code"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/font_gd_15"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:text="@string/common_next_btn"
+        android:textColor="@color/color_ffffff"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tv_main_balance_gosing_point_content"
+        app:layout_constraintStart_toStartOf="@id/tv_main_balance_gosing_point"
+        tools:ignore="SpUsage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
