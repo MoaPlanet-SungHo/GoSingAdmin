@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
                 R.id.fragment_setting)
                 .setDrawerLayout(drawerLayout)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.fm_main_nav_host);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
     public void initListener() {
 
     }
+
 
     public void openNavigation() {
         drawerLayout.openDrawer(GravityCompat.START);

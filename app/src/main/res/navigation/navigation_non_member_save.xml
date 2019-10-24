@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_non_member_save"
+    app:startDestination="@id/fragment_save_phone_number">
+
+    <fragment
+        android:id="@+id/fragment_save_phone_number"
+        android:name="com.moaplanet.gosingadmin.main.submenu.non_member.fragment.SavePhoneNumber"
+        tools:layout="@layout/fragment_save_phone_number" />
+</navigation>

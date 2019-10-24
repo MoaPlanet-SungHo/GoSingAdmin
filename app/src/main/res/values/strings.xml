@@ -112,8 +112,8 @@
     <string name="fragment_main_point_history_description">포인트 내역 아이콘</string>
     <string name="fragment_main_ad_management">광고관리</string>
     <string name="fragment_main_ad_management_description">광고관리 아이콘</string>
-    <string name="fragment_main_eat_order">먹거리주문</string>
-    <string name="fragment_main_eat_order_description">먹거리주문 아이콘</string>
+    <string name="fragment_main_food_order">먹거리주문</string>
+    <string name="fragment_main_food_order_description">먹거리주문 아이콘</string>
     <string name="fragment_main_non_member_save">비회원 적립</string>
     <string name="fragment_main_non_member_save_description">비회원 적립 아이콘</string>
     <string name="fragment_main_notice_title">공지사항</string>
@@ -169,7 +169,7 @@
     <!-- AdInputPwFragment -->
     <string name="fragment_ad_input_pw_title">결제하기</string>
     <string name="fragment_ad_input_pw_use_input_pw">사용 중인 결제 비밀번호 입력</string>
-    <string name="fragment_ad_input_pw_find_pw">결재 비밀번호 찾기</string>
+    <string name="fragment_ad_input_pw_find_pw">결제 비밀번호 찾기</string>
     <string name="fragment_ad_input_pw_payment_success">GOSING PLUS 광고상품을 구입하였습니다.</string>
 
     <!-- header_side_menu -->
@@ -179,8 +179,8 @@
     <string name="header_slide_menu_login">로그인</string>
     <string name="header_slide_menu_sign_up">회원가입</string>
 
-    <!-- NonMemberSaveActivity -->
-    <string name="activity_non_member_save_title_bar">비회원 적립</string>
+    <!-- NonMemberSaveFragment -->
+    <string name="fragment_non_member_save_title_bar">비회원 적립</string>
 
     <!-- MakingQRcodeActivity -->
     <string name="common_hint_text">0원</string>
@@ -245,5 +245,52 @@
         \n욕설, 도배 등의 운영 정책과 맞지 않는 글은 사전 경고 없이 차단 삭제 될 수 있습니다.
     </string>
 
+    <!-- FoodOrderFragment -->
+    <string name="fragment_food_order_food_order">먹거리 주문</string>
+    <string name="fragment_food_order_paymentable_amount">결제 가능한 GOSING포인트</string>
+    <string name="fragment_food_order_charge_point">충전하기</string>
+    <string name="fragment_food_order_price">주문 금액</string>
+    <string name="fragment_food_order_delivery_price">배달료</string>
+    <string name="fragment_food_order_commission">주문 수수료</string>
+    <string name="fragment_food_order_payment_price">결제 금액</string>
+    <string name="fragment_food_order_delivery_precautions">결제 금액</string>
+    <string name="fragment_food_order_third_party_personal_info_agree">개인정보 제 3자 정보 제공 동의</string>
+    <string name="fragment_food_order_payment_agree">위 내용을 확인하였으며 결제에 동의합니다.</string>
+    <string name="fragment_food_order_payment">주문하기</string>
+    <string name="fragment_food_order_read_all">전문 보기</string>
+
+    <!-- item_food_order_menu -->
+    <string name="item_food_order_food_description">음식 이미지</string>
+    <string name="item_food_order_plus">+</string>
+    <string name="item_food_order_minus">-</string>
+
+    <!-- FoodOrderPaymentFragment -->
+    <string name="fragment_food_order_payment_title_bar">결제하기</string>
+
+    <!-- FoodOrderDialog -->
+    <string name="dialog_food_order_close_description">닫기 버튼</string>
+    <string name="dialog_food_order_title">주문 / 결제 내역</string>
+    <string name="dialog_food_order_history">주문 내역</string>
+    <string name="dialog_food_order_time">주문 시간</string>
+    <string name="dialog_food_order_price">주문 금액</string>
+    <string name="dialog_food_order_delivery_price">배달료</string>
+    <string name="dialog_food_order_commission">주문 수수료</string>
+    <string name="dialog_food_order_total_price">결제 금액</string>
+
+    <!-- FoodOrderPaymentFragment -->
+    <string name="fragment_food_order_payment_input_pw">사용 중인 결제 비밀번호 입력</string>
+    <string name="fragment_food_order_payment_find_pw">결제 비밀번호 찾기</string>
+
+    <!-- EventFragment -->
+    <string name="fragment_event_title_bar">이벤트</string>
+
+    <!-- SavePhoneNumber -->
+    <string name="fragment_save_phone_number_charge">충전하기</string>
+    <string name="fragment_save_phone_number_point">GOSING포인트 잔액</string>
+    <string name="fragment_save_phone_number_input_phone_number">휴대폰 번호 입력</string>
+    <string name="fragment_save_phone_number_save_point_number">
+        GOSING포인트를 적립할 고객님의 핸드폰 번호를\n입력하세요.</string>
+    <string name="fragment_save_phone_number_max_two">
+        - 동일한 고객에게 하루 최대 2회 적립금을 지급할 수 있습니다.</string>
 
 </resources>

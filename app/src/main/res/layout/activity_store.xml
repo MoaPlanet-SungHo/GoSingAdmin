@@ -678,7 +678,7 @@
                 android:paddingStart="11dp"
                 android:paddingTop="13dp"
                 android:paddingEnd="11dp"
-                android:paddingBottom="23dp"
+                android:paddingBottom="54.3dp"
                 android:textColor="@color/color_000000"
                 android:textColorHint="@color/color_aaaaaa"
                 android:textSize="13dp"

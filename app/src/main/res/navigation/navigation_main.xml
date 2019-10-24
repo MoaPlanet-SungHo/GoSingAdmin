@@ -9,18 +9,18 @@
         android:id="@+id/fragment_main"
         android:name="com.moaplanet.gosingadmin.main.MainFragment"
         tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_fragment_notice"
-            app:destination="@id/fragment_notice" />
-        <action
-            android:id="@+id/action_fragment_customer_center"
-            app:destination="@id/fragment_customer_center" />
-        <action
-            android:id="@+id/action_fragment_event"
-            app:destination="@id/fragment_event" />
-        <action
-            android:id="@+id/action_fragment_setting"
-            app:destination="@id/fragment_setting" />
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_notice"-->
+<!--            app:destination="@id/fragment_notice" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_customer_center"-->
+<!--            app:destination="@id/fragment_customer_center" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_event"-->
+<!--            app:destination="@id/fragment_event" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_setting"-->
+<!--            app:destination="@id/fragment_setting" />-->
     </fragment>
     <fragment
         android:id="@+id/fragment_event"

@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.qrpayment.PaymentActivity;
 import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
-import com.moaplanet.gosingadmin.main.submenu.eat.EatOrderActivity;
-import com.moaplanet.gosingadmin.main.submenu.non_member.NonMemberSaveActivity;
+import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
+import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
 
     private View view;
     private View btnPointHistory, btnNotification, btnAd, btnStore,
-            btnReview, btnEatOrder, btnNonmemberSave;
+            btnReview, btnFoodOrder, btnNonmemberSave;
     private View slideMenu;
     private Button mBtnMakeQrCode;
 
@@ -54,7 +54,7 @@ public class MainFragment extends Fragment {
         slideMenu = view.findViewById(R.id.cl_main_slide_menu);
         btnStore = view.findViewById(R.id.cl_main_store_management);
         btnReview = view.findViewById(R.id.cl_main_review_management);
-        btnEatOrder = view.findViewById(R.id.cl_main_eat_order);
+        btnFoodOrder = view.findViewById(R.id.cl_main_food_order);
         btnNonmemberSave = view.findViewById(R.id.cl_main_non_member_save);
         mBtnMakeQrCode = view.findViewById(R.id.payment_qrcode_product);
     }
@@ -65,7 +65,7 @@ public class MainFragment extends Fragment {
         btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
         btnStore.setOnClickListener(view -> moveActivity(StoreActivity.class));
         btnReview.setOnClickListener(view -> moveActivity(ReviewActivity.class));
-        btnEatOrder.setOnClickListener(view -> moveActivity(EatOrderActivity.class));
+        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
         btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
         slideMenu.setOnClickListener(view -> {
             if (getActivity() != null && getActivity() instanceof MainActivity) {

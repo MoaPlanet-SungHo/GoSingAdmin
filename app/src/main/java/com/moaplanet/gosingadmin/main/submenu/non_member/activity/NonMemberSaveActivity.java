@@ -1,12 +1,12 @@
-package com.moaplanet.gosingadmin.main.submenu.eat;
+package com.moaplanet.gosingadmin.main.submenu.non_member.activity;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 
-public class EatOrderActivity extends BaseActivity {
+public class NonMemberSaveActivity extends BaseActivity {
     @Override
     public int layoutRes() {
-        return R.layout.activity_eat_order;
+        return R.layout.activity_non_member_save;
     }
 
     @Override

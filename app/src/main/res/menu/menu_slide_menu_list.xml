@@ -6,7 +6,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/fragment_main"
+            android:id="@+id/fragment_event"
             android:title="@null"
             app:actionLayout="@layout/item_side_menu" />
         <item
