@@ -99,62 +99,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_header_slide_menu_non_member_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_header_slide_menu_non_member_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="56.7dp"
-            android:fontFamily="@font/font_gd_15"
-            android:text="@string/header_slide_menu_yet_not_admin"
-            android:textColor="@color/color_000000"
-            android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpUsage" />
-
-        <Button
-            android:id="@+id/btn_header_slide_menu_header_login"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="4.5dp"
-            android:background="@drawable/bg_gradient_button"
-            android:fontFamily="@font/font_gd_15"
-            android:text="@string/header_slide_menu_login"
-            android:textColor="@color/color_ffffff"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_header_slide_menu_sign_up"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_header_slide_menu_non_member_title"
-            tools:ignore="SpUsage" />
-
-        <Button
-            android:id="@+id/btn_header_slide_menu_sign_up"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="4.5dp"
-            android:layout_marginEnd="17dp"
-            android:background="@drawable/border_rect_4_4_4_4_1dp_4300ff_ffffff"
-            android:fontFamily="@font/font_gd_15"
-            android:text="@string/header_slide_menu_sign_up"
-            android:textColor="@color/color_4300ff"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_header_slide_menu_header_login"
-            app:layout_constraintTop_toTopOf="@id/btn_header_slide_menu_header_login"
-            tools:ignore="SpUsage" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="8.7dp"
