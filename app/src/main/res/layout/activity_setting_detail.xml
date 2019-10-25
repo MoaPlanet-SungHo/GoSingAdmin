@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
+        android:id="@+id/common_notice_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/terms_service"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="21.5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/detail_data_one"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_small_arrow" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_e9e9e9" />
+    <!--위치기반 -->
+    <RelativeLayout
+        android:id="@+id/terms_location"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="21.5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/detail_data_two"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_small_arrow" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_e9e9e9" />
+
+    <!--전자금융거래 -->
+    <RelativeLayout
+        android:id="@+id/terms_finance"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="21.5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/detail_data_three"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_small_arrow" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_e9e9e9" />
+
+    <!--개인정보 -->
+    <RelativeLayout
+        android:id="@+id/terms_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="21.5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/detail_data_four"
+            android:textColor="@color/color_000000"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_small_arrow" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_e9e9e9" />
+
+</LinearLayout>

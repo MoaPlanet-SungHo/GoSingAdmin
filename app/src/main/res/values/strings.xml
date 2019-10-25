@@ -284,6 +284,28 @@
     <!-- EventFragment -->
     <string name="fragment_event_title_bar">이벤트</string>
 
+    <!-- SettingFragment -->
+    <string name="title">설정</string>
+    <string name="payment_password">결제 비밀번호</string>
+    <string name="payment_password_change">결제 비밀번호 변경</string>
+    <string name="noti_settings">알림 설정</string>
+    <string name="gosing_benefit_noti">GOSING 혜택 알림</string>
+    <string name="gosing_benefit_noti_content">GOSING의 이벤트 정보와 다양한 혜택 알림을 수신합니다.</string>
+    <string name="night_time_benefit_noti">야간시간 혜택 알림</string>
+    <string name="night_time_benefit_noti_content">야간 시간 알림을 해제하면 21시~08시 사이에는 알림을 수신하지 않습니다.</string>
+    <string name="service_info">서비스 정보</string>
+    <string name="terms_and_policies">약관 및 정책</string>
+    <string name="app_version">앱 버전 1.0.0</string>
+    <string name="app_version_content">현재 최신 버전입니다.</string>
+
+    <!-- SettingDetail -->
+    <!-- SettingDetailActivity-->
+    <string name="terms_title">약관 및 정책</string>
+    <string name="detail_data_one">서비스 이용약관</string>
+    <string name="detail_data_two">위치기반 서비스 이용약관</string>
+    <string name="detail_data_three">전자금융거래 이용약관</string>
+    <string name="detail_data_four">개인정보 처리 방침</string>
+    
     <!-- SavePhoneNumber -->
     <string name="fragment_save_phone_number_charge">충전하기</string>
     <string name="fragment_save_phone_number_point">GOSING포인트 잔액</string>
