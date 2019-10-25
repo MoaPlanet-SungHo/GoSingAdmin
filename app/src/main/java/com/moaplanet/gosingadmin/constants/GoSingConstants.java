@@ -6,6 +6,7 @@ package com.moaplanet.gosingadmin.constants;
 public class GoSingConstants {
 
     // bundle key 관련
+    public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
     public static final String BUNDLE_KEY_TYPE_PASSWORD = "PASSWORD_TYPE";
     public static final String BUNDLE_KEY_BEFORE_INPUT_PASSWORD = "BEFORE_INPUT_PASSWORD";
 

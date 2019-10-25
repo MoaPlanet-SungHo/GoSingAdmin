@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/fragment_charge">
+
+    <fragment
+        android:id="@+id/fragment_charge"
+        android:name="com.moaplanet.gosingadmin.main.submenu.charge.fragment.ChargeFragment"
+        tools:layout="@layout/fragment_charge">
+        <action
+            android:id="@+id/action_fragment_charge_complete"
+            app:destination="@id/fragment_charge_complete" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_charge_complete"
+        android:name="com.moaplanet.gosingadmin.main.submenu.charge.fragment.ChargeCompleteFragment"
+        tools:layout="@layout/fragment_charge_complete" />
+</navigation>

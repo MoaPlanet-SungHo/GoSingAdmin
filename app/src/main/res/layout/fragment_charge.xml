@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff">
+
+    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
+        android:id="@+id/title_charge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/fragment_charge_title_bar" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_charge"
+        style="@style/TabLayoutText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title_charge"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/color_4300ff"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/color_4300ff"
+        app:tabTextColor="@color/color_aaaaaa" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_charge"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_charge" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

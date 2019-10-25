@@ -37,6 +37,9 @@
         <activity android:name=".main.slide_menu.setting.SettingDetailActivity"/>
         <activity android:name=".main.slide_menu.setting.SettingDetailDataActivity"/>
         <activity android:name=".main.submenu.non_member.activity.NonMemberSaveActivity" />
+        <activity android:name=".main.submenu.charge.activity.ChargeActivity"/>
+        <activity android:name=".main.submenu.charge.activity.CardRegisterActivity"/>
+        <activity android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity"/>
     </application>
 
 </manifest>

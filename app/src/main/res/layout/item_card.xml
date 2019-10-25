@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_item_card_added_icon"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@null"
+        android:button="@null"
+        android:drawableStart="@drawable/ic_checkbox_nor"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/font_gd_13"
+        android:gravity="start|center_vertical"
+        android:text="나의 하나카드"
+        android:textColor="@color/color_000000"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_e9e9e9"
+        app:layout_constraintBottom_toBottomOf="@id/btn_item_card_added_icon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

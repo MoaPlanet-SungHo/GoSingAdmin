@@ -85,4 +85,9 @@
         <item name="android:listPreferredItemPaddingEnd">0dp</item>
     </style>
 
+    <style name="TabLayoutText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/font_gd_15</item>
+        <item name="android:textSize" tools:ignore="SpUsage">14dp</item>
+    </style>
+
 </resources>

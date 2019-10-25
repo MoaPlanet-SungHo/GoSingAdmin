@@ -15,10 +15,12 @@ import androidx.fragment.app.Fragment;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.qrpayment.PaymentActivity;
 import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
+import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
 
@@ -28,7 +30,7 @@ public class MainFragment extends Fragment {
     private View btnPointHistory, btnNotification, btnAd, btnStore,
             btnReview, btnFoodOrder, btnNonmemberSave;
     private View slideMenu;
-    private Button mBtnMakeQrCode;
+    private Button mBtnMakeQrCode, btnCargePoint, btnWithdrawal;
 
     @Nullable
     @Override
@@ -57,6 +59,8 @@ public class MainFragment extends Fragment {
         btnFoodOrder = view.findViewById(R.id.cl_main_food_order);
         btnNonmemberSave = view.findViewById(R.id.cl_main_non_member_save);
         mBtnMakeQrCode = view.findViewById(R.id.payment_qrcode_product);
+        btnCargePoint = view.findViewById(R.id.btn_main_charge_point);
+        btnWithdrawal = view.findViewById(R.id.btn_main_withdrawal_point);
     }
 
     private void initListener() {
@@ -72,7 +76,9 @@ public class MainFragment extends Fragment {
                 ((MainActivity) getActivity()).openNavigation();
             }
         });
-        mBtnMakeQrCode.setOnClickListener(view -> moveActivity( PaymentActivity.class));
+        mBtnMakeQrCode.setOnClickListener(view -> moveActivity(PaymentActivity.class));
+        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
+        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
     }
 
     private void moveActivity(Class moveClass) {

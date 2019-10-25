@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff">
+
+    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
+        android:id="@+id/title_fragment_card_info_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_fragment_card_info_register_content_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_fragment_card_info_register"
+        app:layout_constraintTop_toBottomOf="@id/title_fragment_card_info_register">
+
+        <TextView
+            android:id="@+id/tv_fragment_card_info_register_title_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_14"
+            android:lineSpacingExtra="4.3dp"
+            android:text="카드번호"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_number_1"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="7dp"
+            android:inputType="number"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="xxxx"
+            android:lineSpacingExtra="4.7dp"
+            android:maxLength="4"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_number_2"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toStartOf="@id/et_fragment_card_info_register_card_number_2"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_card_info_register_title_card_number"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_number_2"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="xxxx"
+            android:inputType="number"
+            android:lineSpacingExtra="4.7dp"
+            android:maxLength="4"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_number_3"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toStartOf="@id/et_fragment_card_info_register_card_number_3"
+            app:layout_constraintStart_toEndOf="@id/et_fragment_card_info_register_card_number_1"
+            app:layout_constraintTop_toTopOf="@id/et_fragment_card_info_register_card_number_1"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_number_3"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="xxxx"
+            android:inputType="number"
+            android:lineSpacingExtra="4.7dp"
+            android:maxLength="4"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_number_4"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toStartOf="@id/et_fragment_card_info_register_card_number_4"
+            app:layout_constraintStart_toEndOf="@id/et_fragment_card_info_register_card_number_2"
+            app:layout_constraintTop_toTopOf="@id/et_fragment_card_info_register_card_number_2"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_number_4"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="xxxx"
+            android:lineSpacingExtra="4.7dp"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_validity_1"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_fragment_card_info_register_card_number_3"
+            app:layout_constraintTop_toTopOf="@id/et_fragment_card_info_register_card_number_3"
+            tools:ignore="SpUsage" />
+
+
+        <TextView
+            android:id="@+id/tv_fragment_card_info_register_title_card_validity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_gd_14"
+            android:lineSpacingExtra="4.3dp"
+            android:text="유효기간"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@id/et_fragment_card_info_register_card_number_1"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_validity_1"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="MM"
+            android:inputType="number"
+            android:lineSpacingExtra="4.7dp"
+            android:maxLength="2"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_validity_2"
+            app:layout_constraintEnd_toEndOf="@id/et_fragment_card_info_register_card_number_1"
+            app:layout_constraintStart_toStartOf="@id/et_fragment_card_info_register_card_number_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_card_info_register_title_card_validity"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_validity_2"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="8dp"
+            android:inputType="number"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="YY"
+            android:lineSpacingExtra="4.7dp"
+            android:maxLength="2"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_birth"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="@id/et_fragment_card_info_register_card_number_2"
+            app:layout_constraintStart_toStartOf="@id/et_fragment_card_info_register_card_number_2"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_card_info_register_title_card_validity"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_fragment_card_info_register_title_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_gd_14"
+            android:lineSpacingExtra="4.3dp"
+            android:text="생년월일"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@id/et_fragment_card_info_register_card_validity_1"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_birth"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="start|center_vertical"
+            android:hint="YYMMDD 혹은 사업자등록번호"
+            android:inputType="number"
+            android:lineSpacingExtra="4.7dp"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_card_password"
+            android:paddingStart="11dp"
+            android:paddingEnd="11dp"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_card_info_register_title_birth"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tv_fragment_card_info_register_title_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_gd_14"
+            android:lineSpacingExtra="4.3dp"
+            android:text="비밀번호"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@id/et_fragment_card_info_register_card_birth"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_card_password"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="center"
+            android:hint="앞두자리"
+            android:lineSpacingExtra="4.7dp"
+            android:inputType="number"
+            android:maxLength="2"
+            android:nextFocusDown="@+id/et_fragment_card_info_register_title_card_nick_name"
+            android:paddingStart="11dp"
+            android:paddingEnd="11dp"
+            android:singleLine="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="@id/et_fragment_card_info_register_card_validity_1"
+            app:layout_constraintStart_toStartOf="@id/et_fragment_card_info_register_card_validity_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_card_info_register_title_password"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/font_gd_14"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="4.3dp"
+            android:text="**"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/et_fragment_card_info_register_card_password"
+            app:layout_constraintStart_toEndOf="@id/et_fragment_card_info_register_card_password"
+            app:layout_constraintTop_toTopOf="@id/et_fragment_card_info_register_card_password"
+            tools:ignore="SpUsage" />
+
+        <View
+            android:id="@+id/view_fragment_card_info_register_card_password_under_line"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/color_e9e9e9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_fragment_card_info_register_card_password" />
+
+        <TextView
+            android:id="@+id/tv_fragment_card_info_register_title_card_nick_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_gd_14"
+            android:lineSpacingExtra="4.3dp"
+            android:text="카드 닉네임"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@id/view_fragment_card_info_register_card_password_under_line"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:id="@+id/et_fragment_card_info_register_title_card_nick_name"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+            android:gravity="start|center_vertical"
+            android:hint="영문,숫자(특수문자)를 10자리 이하로 입력하세요."
+            android:lineSpacingExtra="4.7dp"
+            android:maxLength="10"
+            android:paddingStart="11dp"
+            android:paddingEnd="11dp"
+            android:singleLine="true"
+            android:inputType="number"
+            android:textColor="@color/color_aaaaaa"
+            android:textColorHint="@color/color_aaaaaa"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_card_info_register_title_card_nick_name"
+            tools:ignore="SpUsage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/btn_fragment_card_info_register"
+        style="@style/CommonGradientButton"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:text="@string/fragment_card_info_register_button"
+        android:textColor="@color/color_ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
