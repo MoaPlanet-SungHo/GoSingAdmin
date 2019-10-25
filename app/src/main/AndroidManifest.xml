@@ -31,7 +31,11 @@
         <activity android:name=".main.submenu.ad.activity.GoSingAdActivity" />
         <activity android:name=".main.submenu.store.StoreActivity" />
         <activity android:name=".main.submenu.review.ReviewActivity" />
+        <activity android:name=".main.qrpayment.PaymentActivity"/>
+        <activity android:name=".main.qrpayment.PaymentQrActivity"/>
         <activity android:name=".main.submenu.food.activity.FoodOrderActivity" />
+        <activity android:name=".main.slide_menu.setting.SettingDetailActivity"/>
+        <activity android:name=".main.slide_menu.setting.SettingDetailDataActivity"/>
         <activity android:name=".main.submenu.non_member.activity.NonMemberSaveActivity" />
     </application>
 

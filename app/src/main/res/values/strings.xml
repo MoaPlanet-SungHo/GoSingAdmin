@@ -179,6 +179,43 @@
     <!-- NonMemberSaveFragment -->
     <string name="fragment_non_member_save_title_bar">비회원 적립</string>
 
+    <!-- MakingQRcodeActivity -->
+    <string name="common_hint_text">0원</string>
+    <string name="payment_amount_qr">결제금액</string>
+    <string name="left_parentheses">(</string>
+    <string name="right_parentheses">)</string>
+    <string name="save_money">적립</string>
+    <string name="no_save_money">비적립</string>
+    <string name="total_payment_amount_qr">총 결제금액</string>
+    <string name="customer_reserve_fund">고객 적립금</string>
+    <string name="balance_gosing_point">결제 후 GOSING포인트 잔액</string>
+    <string name="save_money_content">30,000원</string>
+    <string name="no_save_money_content">25,000원</string>
+    <string name="total_payment_amount_qr_content">55,000원</string>
+    <string name="customer_reserve_fund_content">3,000원</string>
+    <string name="balance_gosing_point_content">35,000원</string>
+    <string name="common_next_btn">다음</string>
+    <string name="common_save_money_help">결제 금액(적립)에 대한 설명 UI를 띄움</string>
+    <string name="common_no_save_money_help">결제 금액(비적립)에 대한 설명 UI를 띄움</string>
+    <string name="common_save_money_won">결제 금액(적립)을 입력할 수 있는 UI</string>
+    <string name="common_no_save_money_won">결제 금액(비적립)을 입력할 수 있는 UI</string>
+    <string name="common_save_money_clear_btn">결제 금액(적립)에 입력된 금액을 0원으로 초기화한다.</string>
+    <string name="common_no_save_money_clear_btn">결제 금액(비적립)에 입력된 금액을 0원으로 초기화한다.</string>
+    <string name="common_total_money">총 결제 금액으로(적립)과 결제 금액(비적립)이 합산된 금액이다.</string>
+    <string name="gosing_plus_15day_price">55,000원</string>
+    <string name="delivery_amount_content">3,000 원</string>
+
+    <!-- PaymentQRcodeActivity -->
+    <string name="common_qr_left_above_description">QR코드 왼쪽 위</string>
+    <string name="common_qr_right_above_description">QR코드 오른쪽 위</string>
+    <string name="common_qr_left_under_description">QR코드 왼쪽 아래</string>
+    <string name="common_qr_right_under_description">QR코드 오른쪽 아래</string>
+    <string name="common_qr_code">QR코드</string>
+    <string name="qr_code_show_notice">생성된 코드를 고객에게 보여주세요.</string>
+    <string name="qr_code_input_timer">03 : 15</string>
+    <string name="karaoke_name">신풍 노래방 가산점</string>
+    <string name="total_payment_amount">총 결제 금액</string>
+
     <!-- StoreActivity -->
     <string name="activity_store_title_bar">업소 정보 등록</string>
     <string name="activity_store_add_info">업소 정보를 등록하세요</string>
@@ -243,6 +280,28 @@
 
     <!-- EventFragment -->
     <string name="fragment_event_title_bar">이벤트</string>
+
+    <!-- SettingFragment -->
+    <string name="title">설정</string>
+    <string name="payment_password">결제 비밀번호</string>
+    <string name="payment_password_change">결제 비밀번호 변경</string>
+    <string name="noti_settings">알림 설정</string>
+    <string name="gosing_benefit_noti">GOSING 혜택 알림</string>
+    <string name="gosing_benefit_noti_content">GOSING의 이벤트 정보와 다양한 혜택 알림을 수신합니다.</string>
+    <string name="night_time_benefit_noti">야간시간 혜택 알림</string>
+    <string name="night_time_benefit_noti_content">야간 시간 알림을 해제하면 21시~08시 사이에는 알림을 수신하지 않습니다.</string>
+    <string name="service_info">서비스 정보</string>
+    <string name="terms_and_policies">약관 및 정책</string>
+    <string name="app_version">앱 버전 1.0.0</string>
+    <string name="app_version_content">현재 최신 버전입니다.</string>
+
+    <!-- SettingDetail -->
+    <!-- SettingDetailActivity-->
+    <string name="terms_title">약관 및 정책</string>
+    <string name="detail_data_one">서비스 이용약관</string>
+    <string name="detail_data_two">위치기반 서비스 이용약관</string>
+    <string name="detail_data_three">전자금융거래 이용약관</string>
+    <string name="detail_data_four">개인정보 처리 방침</string>
 
     <!-- SavePhoneNumberFragment -->
     <string name="fragment_save_phone_number_charge">충전하기</string>

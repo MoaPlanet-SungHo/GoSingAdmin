@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.main.qrpayment.PaymentActivity;
 import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
 import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
@@ -26,6 +28,7 @@ public class MainFragment extends Fragment {
     private View btnPointHistory, btnNotification, btnAd, btnStore,
             btnReview, btnFoodOrder, btnNonmemberSave;
     private View slideMenu;
+    private Button mBtnMakeQrCode;
 
     @Nullable
     @Override
@@ -53,6 +56,7 @@ public class MainFragment extends Fragment {
         btnReview = view.findViewById(R.id.cl_main_review_management);
         btnFoodOrder = view.findViewById(R.id.cl_main_food_order);
         btnNonmemberSave = view.findViewById(R.id.cl_main_non_member_save);
+        mBtnMakeQrCode = view.findViewById(R.id.payment_qrcode_product);
     }
 
     private void initListener() {
@@ -68,6 +72,7 @@ public class MainFragment extends Fragment {
                 ((MainActivity) getActivity()).openNavigation();
             }
         });
+        mBtnMakeQrCode.setOnClickListener(view -> moveActivity( PaymentActivity.class));
     }
 
     private void moveActivity(Class moveClass) {
