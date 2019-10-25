@@ -93,6 +93,7 @@
         app:layout_constraintTop_toTopOf="@id/tv_main_qr_code_show_notice">
 
         <TextView
+            android:id="@+id/show_five_minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

@@ -3,8 +3,10 @@ package com.moaplanet.gosingadmin.intro;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
@@ -16,6 +18,7 @@ import com.moaplanet.gosingadmin.intro.sign_up.SignUpActivity;
 public class IntroActivity extends BaseActivity {
 
     private Button btnSignUp, btnLogin;
+    private LinearLayout llLogin;
 
     @Override
     public int layoutRes() {
@@ -27,6 +30,8 @@ public class IntroActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         btnSignUp = findViewById(R.id.btn_intro_sign_up);
         btnLogin = findViewById(R.id.btn_intro_login);
+        llLogin = findViewById(R.id.ll_intro_user_group);
+        llLogin.setVisibility(View.GONE);
     }
 
     @Override
@@ -44,6 +49,8 @@ public class IntroActivity extends BaseActivity {
             delayHandler.postDelayed(() -> {
                 moveActivity(GoSingAdminConfirmPermissionActivity.class);
             }, 1800);
+        }else{
+            llLogin.setVisibility(View.VISIBLE);
         }
     }
 
