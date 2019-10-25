@@ -175,9 +175,6 @@
     <!-- header_side_menu -->
     <string name="header_slide_menu_profile_description">프로필 이미지</string>
     <string name="header_slide_menu_point_title">GOSING포인트</string>
-    <string name="header_slide_menu_yet_not_admin">아직 GOSING 사장님이 아니세요?</string>
-    <string name="header_slide_menu_login">로그인</string>
-    <string name="header_slide_menu_sign_up">회원가입</string>
 
     <!-- NonMemberSaveFragment -->
     <string name="fragment_non_member_save_title_bar">비회원 적립</string>
