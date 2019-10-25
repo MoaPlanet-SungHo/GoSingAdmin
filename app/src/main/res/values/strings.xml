@@ -244,12 +244,29 @@
     <!-- EventFragment -->
     <string name="fragment_event_title_bar">이벤트</string>
 
-    <!-- SavePhoneNumber -->
+    <!-- SavePhoneNumberFragment -->
     <string name="fragment_save_phone_number_charge">충전하기</string>
     <string name="fragment_save_phone_number_point">GOSING포인트 잔액</string>
+    <string name="fragment_save_phone_number_next_step">다음</string>
     <string name="fragment_save_phone_number_input_phone_number">휴대폰 번호 입력</string>
     <string name="fragment_save_phone_number_save_point_number">
         GOSING포인트를 적립할 고객님의 핸드폰 번호를\n입력하세요.</string>
     <string name="fragment_save_phone_number_max_two">
         - 동일한 고객에게 하루 최대 2회 적립금을 지급할 수 있습니다.</string>
+
+    <!-- SavePointFragment -->
+    <string name="fragment_save_point_input_gosing_point">적립할 GOSING포인트를 입력하세요.</string>
+    <string name="fragment_save_point_money_description">원화 아이콘</string>
+    <string name="fragment_save_point_input_money_hint">0원</string>
+    <string name="fragment_save_point_max_save">1회 최대 적립금</string>
+    <string name="fragment_save_point_balance_point">적립 후 GOSING포인트 잔액</string>
+    <string name="fragment_save_point_saving">적립하기</string>
+    <string name="fragment_save_point_max_tow_give">
+        - 동일한 고객에게 하루 최대 2회 적립금을 지급할 수 있습니다.</string>
+
+    <!-- NonMemberSavePassword -->
+    <string name="fragment_non_member_password_title_bar">비회원 적립</string>
+    <string name="fragment_non_member_password_title">사용 중인 결제 비밀번호 입력</string>
+    <string name="fragment_non_member_password_error">결제 비밀번호가 일치하지 않습니다.</string>
+    <string name="fragment_non_member_password_find_pw">결제 비밀번호 찾기</string>
 </resources>

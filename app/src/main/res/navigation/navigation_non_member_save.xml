@@ -7,6 +7,23 @@
 
     <fragment
         android:id="@+id/fragment_save_phone_number"
-        android:name="com.moaplanet.gosingadmin.main.submenu.non_member.fragment.SavePhoneNumber"
-        tools:layout="@layout/fragment_save_phone_number" />
+        android:name="com.moaplanet.gosingadmin.main.submenu.non_member.fragment.SavePhoneNumberFragment"
+        tools:layout="@layout/fragment_save_phone_number" >
+        <action
+            android:id="@+id/action_fragment_save_point"
+            app:destination="@id/fragment_save_point" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_save_point"
+        android:name="com.moaplanet.gosingadmin.main.submenu.non_member.fragment.SavePointFragment"
+        tools:layout="@layout/fragment_save_point" >
+        <action
+            android:id="@+id/actionfragment_non_member_save_password"
+            app:destination="@id/fragment_non_member_save_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_non_member_save_password"
+        android:name="com.moaplanet.gosingadmin.main.submenu.non_member.fragment.NonMemberSavePassword"
+        tools:layout="@layout/fragment_password_input" />
 </navigation>
