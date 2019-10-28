@@ -40,6 +40,7 @@
         <activity android:name=".main.submenu.charge.activity.ChargeActivity"/>
         <activity android:name=".main.submenu.charge.activity.CardRegisterActivity"/>
         <activity android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity"/>
+        <activity android:name=".main.slide_menu.information.InformationActivity"/>
     </application>
 
 </manifest>

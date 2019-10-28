@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalAct
 import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
 
+import org.w3c.dom.Text;
+
 public class MainFragment extends Fragment {
 
     private View view;
@@ -31,6 +34,7 @@ public class MainFragment extends Fragment {
             btnReview, btnFoodOrder, btnNonmemberSave;
     private View slideMenu;
     private Button mBtnMakeQrCode, btnCargePoint, btnWithdrawal;
+
 
     @Nullable
     @Override
@@ -61,6 +65,7 @@ public class MainFragment extends Fragment {
         mBtnMakeQrCode = view.findViewById(R.id.payment_qrcode_product);
         btnCargePoint = view.findViewById(R.id.btn_main_charge_point);
         btnWithdrawal = view.findViewById(R.id.btn_main_withdrawal_point);
+
     }
 
     private void initListener() {
@@ -79,6 +84,7 @@ public class MainFragment extends Fragment {
         mBtnMakeQrCode.setOnClickListener(view -> moveActivity(PaymentActivity.class));
         btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
         btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
+
     }
 
     private void moveActivity(Class moveClass) {
