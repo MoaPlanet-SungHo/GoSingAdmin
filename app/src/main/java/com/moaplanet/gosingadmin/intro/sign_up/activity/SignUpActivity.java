@@ -105,7 +105,7 @@ public class SignUpActivity extends BaseActivity {
                 .getGoSingApiService()
 //                .ttt()
 //                .equals(new )
-                .signUp(reqModel)
+                .signUp("qqq@qqq.com", "222222", "", "Y", 1, 0)
                 .enqueue(new RetrofitCallBack<>(retrofitListener));
     }
 
