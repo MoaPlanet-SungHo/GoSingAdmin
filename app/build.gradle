@@ -10,7 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
+//        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -37,8 +37,8 @@ dependencies {
     /* Logger */
     implementation 'com.orhanobut:logger:2.2.0'
 
-    /* multi dex */
-    implementation 'com.android.support:multidex:1.0.3'
+//    /* multi dex */
+//    implementation 'com.android.support:multidex:1.0.3'
 
     /* pin view */
     implementation 'com.chaos.view:pinview:1.4.3'

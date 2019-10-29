@@ -75,7 +75,7 @@ public class SignUpActivity extends BaseActivity {
             RetrofitService.getInstance().getSessionChecker()
     ) {
         @Override
-        public void onFinalResponse(Call<ResSignUpDto> call, Response<ResSignUpDto> response) {
+        public void onFinalResponse(Call<ResSignUpDto> call, ResSignUpDto response) {
 
         }
 

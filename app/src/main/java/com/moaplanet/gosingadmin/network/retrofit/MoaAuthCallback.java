@@ -31,7 +31,7 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
         }
         sessionChecker.sessionCheck(isT -> {
             if (isT)
-                onFinalResponse(call, response);
+                onFinalResponse(call, response.body());
             else {
                 onFinalFailure(call, false, new Exception("Moa session not invalid"));
             }
@@ -51,7 +51,7 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
             onFinalFailure(call, true, t);
     }
 
-    abstract public void onFinalResponse(Call<T> call, Response<T> response);
+    abstract public void onFinalResponse(Call<T> call, T response);
 
     abstract public void onFinalFailure(Call<T> call, boolean isSession, Throwable t);
 
