@@ -3,29 +3,19 @@ package com.moaplanet.gosingadmin.intro.sign_up.activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
-import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitListener;
-import com.moaplanet.gosingadmin.network.service.GoSingApiService;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
 
-import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -75,36 +65,8 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void onSignUp() {
-//        Retrofit.Builder baseRestApi = new Retrofit.Builder();
-//        baseRestApi.baseUrl(GoSingConstants.GOSING_ADDIN_BASE_URL);
-//        baseRestApi.client(new OkHttpClient().newBuilder().addInterceptor(getLoggingInterface()).build());
-//        baseRestApi.addConverterFactory(GsonConverterFactory.create());
-//        baseRestApi.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-//        baseRestApi.build().create(GoSingApiService.class);
-
-//        GoSingApiService goSingApiService = new Retrofit.Builder().baseUrl(GoSingConstants.GOSING_ADDIN_BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build().create(GoSingApiService.class);
-//
-//        goSingApiService.ttt().enqueue(new Callback<ResSignUpDto>() {
-//            @Override
-//            public void onResponse(Call<ResSignUpDto> call, Response<ResSignUpDto> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResSignUpDto> call, Throwable t) {
-//
-//            }
-//        });
-
-
-//        GoSingApiService goSingApiService = baseRestApi.
-//        baseRestApi.baseUrl(GoSingConstants.GOSING_ADDIN_BASE_URL);
         new RetrofitService()
                 .getGoSingApiService()
-//                .ttt()
-//                .equals(new )
                 .signUp("qqq@qqq.com", "222222", "", "Y", 1, 0)
                 .enqueue(new RetrofitCallBack<>(retrofitListener));
     }
