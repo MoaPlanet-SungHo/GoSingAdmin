@@ -70,17 +70,15 @@ public class SignUpActivity extends BaseActivity {
                 .enqueue(moaAuthCallback);
     }
 
-    private MoaAuthCallback moaAuthCallback = new MoaAuthCallback(
-            RetrofitService.getInstance().getMoaAuthConfig(),
-            RetrofitService.getInstance().getSessionChecker()) {
+    private MoaAuthCallback<ResSignUpDto> moaAuthCallback = new MoaAuthCallback<ResSignUpDto>() {
         @Override
-        public void onFinalResponse(Call call, Response response) {
-            Logger.d("성공222");
+        public void onFinalResponse(Call<ResSignUpDto> call, Response<ResSignUpDto> response) {
+
         }
 
         @Override
-        public void onFinalFailure(Call call, boolean isSession, Throwable t) {
-            Logger.d("실패222");
+        public void onFinalFailure(Call<ResSignUpDto> call, boolean isSession, Throwable t) {
+
         }
     };
 
