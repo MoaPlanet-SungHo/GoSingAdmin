@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.network.service;
 
+import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 
 import retrofit2.Call;
@@ -14,4 +15,9 @@ public interface GoSingApiService {
                               @Query("is_agree_event_noti") String type,
                               @Query("device_type") int deviceType,
                               @Query("signType") int signType);
+
+    @POST("notLogin/s_login_action.json")
+    Call<ResLoginDto> login(@Query("user_email") String email,
+                            @Query("pwd") String pwd,
+                            @Query("signType") int signType);
 }

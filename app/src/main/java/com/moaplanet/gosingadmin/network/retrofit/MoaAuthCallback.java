@@ -51,7 +51,7 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
             onFinalFailure(call, true, t);
     }
 
-    abstract public void onFinalResponse(Call<T> call, T response);
+    abstract public void onFinalResponse(Call<T> call, T resModel);
 
     abstract public void onFinalFailure(Call<T> call, boolean isSession, Throwable t);
 

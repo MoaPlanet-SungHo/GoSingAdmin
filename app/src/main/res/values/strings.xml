@@ -4,6 +4,7 @@
     <!-- Common -->
     <string name="common_go_sing_admin_logo">고싱 관리자 로고</string>
     <string name="sign_up_title">회원가입</string>
+    <string name="common_date_format">yyyy.mm.dd</string>
 
     <!-- NoTitleDialog -->
     <string name="dialog_no_title_done">확인</string>
@@ -48,6 +49,12 @@
     <string name="fragment_sign_up_terms_of_agreement_event_agreement">
         GOSING 혜택 알림 동의 (선택) </string>
     <string name="fragment_sign_up_terms_of_agreement_next_step">다음</string>
+    <string name="fragment_sign_up_terms_of_agreement_event_check">
+        \nGOSING 혜택 알림 수신에 동의하셨습니다.
+    </string>
+    <string name="fragment_sign_up_terms_of_agreement_event_uncheck">
+        \nGoSing 혜택 알림 수신에 동의하지 않으셨습니다.
+    </string>
 
     <!-- CreateAccountFragment -->
     <string name="fragment_create_account_email">이메일 아이디</string>
@@ -97,6 +104,8 @@
     <string name="activity_login_btn_login">로그인</string>
     <string name="activity_login_find_id">아이디 찾기</string>
     <string name="activity_login_change_pw">비밀번호 변경</string>
+    <string name="activity_login_err">
+        아이디나 비밀번호가 일치하지 않습니다.\n확인 후 다시 입력해 주세요.</string>
 
     <!-- MainFragment -->
     <string name="fragment_main_title">GOSING</string>

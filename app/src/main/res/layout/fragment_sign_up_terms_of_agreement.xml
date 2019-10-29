@@ -183,6 +183,7 @@
         android:layout_width="0dp"
         android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
         android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:enabled="false"
         android:text="@string/fragment_sign_up_terms_of_agreement_next_step"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

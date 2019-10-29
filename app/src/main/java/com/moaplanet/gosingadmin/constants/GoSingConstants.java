@@ -2,10 +2,6 @@ package com.moaplanet.gosingadmin.constants;
 
 public class GoSingConstants {
 
-    // 통신 관련 부분
-    public static String GOSING_ADDIN_BASE_URL = "http://175.198.102.230:8080/MOAGossingShop/";
-//    public static String GOSING_ADDIN_BASE_URL = "https://api.adnxs.com/";
-
     // SharedPreferences 관련
     public static String GOSING_ADMIN_FILE_NAME = "GOSING_ADMIN";
     public static String TYPE_INTRO = "INTRO_TYPE";

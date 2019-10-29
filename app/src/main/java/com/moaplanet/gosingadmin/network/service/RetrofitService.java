@@ -1,6 +1,6 @@
 package com.moaplanet.gosingadmin.network.service;
 
-import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthConfig;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitBuilder;
 import com.moaplanet.gosingadmin.network.retrofit.SessionChecker;
@@ -14,7 +14,7 @@ public class RetrofitService {
     private GoSingApiService getGoSingApiService2() {
         return new RetrofitBuilder()
                 .init(
-                        GoSingConstants.GOSING_ADDIN_BASE_URL,
+                        NetworkConstants.GOSING_ADDIN_BASE_URL,
                         null,
                         GoSingApiService.class);
     }

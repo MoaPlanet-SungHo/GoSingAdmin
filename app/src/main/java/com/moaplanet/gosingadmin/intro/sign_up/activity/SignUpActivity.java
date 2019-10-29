@@ -1,6 +1,7 @@
 package com.moaplanet.gosingadmin.intro.sign_up.activity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -10,6 +11,7 @@ import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
@@ -71,13 +73,28 @@ public class SignUpActivity extends BaseActivity {
             RetrofitService.getInstance().getSessionChecker()
     ) {
         @Override
-        public void onFinalResponse(Call<ResSignUpDto> call, ResSignUpDto response) {
+        public void onFinalResponse(Call<ResSignUpDto> call, ResSignUpDto resSignUpDto) {
+            if (resSignUpDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
 
+                if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
+                } else {
+                    Toast.makeText(SignUpActivity.this,
+                            "이미 존재하는 계정 입니다.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(SignUpActivity.this,
+                        "회원가입을 실패했습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
         public void onFinalFailure(Call<ResSignUpDto> call, boolean isSession, Throwable t) {
-
+            Toast.makeText(SignUpActivity.this,
+                    " 회원가입을 실패했습니다.",
+                    Toast.LENGTH_SHORT).show();
         }
     };
 
