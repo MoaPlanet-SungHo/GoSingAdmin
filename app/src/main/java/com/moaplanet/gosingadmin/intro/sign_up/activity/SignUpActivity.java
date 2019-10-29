@@ -11,13 +11,9 @@ import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
-import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
-import com.moaplanet.gosingadmin.network.retrofit.RetrofitListener;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
-import retrofit2.Response;
 
 public class SignUpActivity extends BaseActivity {
 
