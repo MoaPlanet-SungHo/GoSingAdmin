@@ -10,10 +10,14 @@ import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitListener;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -57,37 +61,26 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void onSignUp() {
-        new RetrofitService()
-                .getGoSingApiService()
-                .signUp(reqModel.getEmail(),
-                        reqModel.getPw(),
-                        reqModel.getSalesCode(),
-                        reqModel.getEventType(),
-                        reqModel.getDeviceType(),
-                        reqModel.getSignType())
-                .enqueue(new RetrofitCallBack<>(retrofitListener));
+        RetrofitService.getInstance().getGoSingApiService().signUp(reqModel.getEmail(),
+                reqModel.getPw(),
+                reqModel.getSalesCode(),
+                reqModel.getEventType(),
+                reqModel.getDeviceType(),
+                reqModel.getSignType())
+                .enqueue(moaAuthCallback);
     }
 
-    private RetrofitListener<ResSignUpDto> retrofitListener = new RetrofitListener<ResSignUpDto>() {
+    private MoaAuthCallback moaAuthCallback = new MoaAuthCallback(
+            RetrofitService.getInstance().getMoaAuthConfig(),
+            RetrofitService.getInstance().getSessionChecker()) {
         @Override
-        public void onSuccess(ResSignUpDto responseData) {
-            Logger.d("성공");
+        public void onFinalResponse(Call call, Response response) {
+            Logger.d("성공222");
         }
 
         @Override
-        public void onReissuedAccessToken() {
-            Logger.d("성공");
-        }
-
-        @Override
-        public void onFail(String msg) {
-            Logger.d("실패 : " + msg);
-
-        }
-
-        @Override
-        public void onNetworkError(Throwable t) {
-            Logger.d("실패");
+        public void onFinalFailure(Call call, boolean isSession, Throwable t) {
+            Logger.d("실패222");
         }
     };
 
