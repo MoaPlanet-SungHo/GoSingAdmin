@@ -3,8 +3,8 @@
     package="com.moaplanet.gosingadmin">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- NETWORK_PROVIDER 접근 권한 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- GPS_PROVIDER 접근 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- NETWORK_PROVIDER ?�근 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- GPS_PROVIDER ?�근 권한 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -43,9 +43,14 @@
         <activity android:name=".main.slide_menu.setting.SettingDetailActivity" />
         <activity android:name=".main.slide_menu.setting.SettingDetailDataActivity" />
         <activity android:name=".main.submenu.non_member.activity.NonMemberSaveActivity" />
+        <activity android:name=".main.submenu.charge.activity.ChargeActivity"/>
+        <activity android:name=".main.submenu.charge.activity.CardRegisterActivity"/>
+        <activity android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity"/>
         <activity android:name=".main.submenu.charge.activity.ChargeActivity" />
         <activity android:name=".main.submenu.charge.activity.CardRegisterActivity" />
         <activity android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity" />
+        <activity android:name=".main.slide_menu.information.InformationActivity"/>
+
     </application>
 
 </manifest>

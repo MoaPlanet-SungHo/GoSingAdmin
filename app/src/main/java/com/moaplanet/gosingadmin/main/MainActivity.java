@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.main;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.main.slide_menu.information.InformationActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +25,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
-
+    private TextView mTvInformation;
     @Override
     public int layoutRes() {
         return R.layout.activity_main;
@@ -55,16 +58,25 @@ public class MainActivity extends BaseActivity {
             sideMenuTitle.setText(slideMenuTitleList.get(i));
         }
 
+        mTvInformation = navHeaderView.findViewById(R.id.tv_header_slide_menu_name);
+
     }
 
     @Override
     public void initListener() {
-
+        mTvInformation.setOnClickListener(view -> moveActivity(InformationActivity.class));
     }
 
 
     public void openNavigation() {
         drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    private void moveActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        drawerLayout.closeDrawers();
     }
 
 }
