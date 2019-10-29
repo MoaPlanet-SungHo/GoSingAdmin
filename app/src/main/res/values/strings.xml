@@ -123,7 +123,7 @@
     <string name="fragment_main_numbers">
         사업자등록번호 : 000&#8211;00&#8211;00000 | 통신판매업신고 : XX00000호</string>
     <string name="fragment_main_address">본사 : 서울시 금천구 가산디지털1로 168</string>
-    <string name="fragment_main_email">고객센터 : surpport@moaplanet.co.kf</string>
+    <string name="fragment_main_email">고객센터 : surpport@moaplanet.co.kr</string>
     <string name="fragment_main_copyright">Copyright MOA. All Rights Resesrved.</string>
     <string name="fragment_main_make_code">결제 코드 생성</string>
     <string name="fragment_main_not_responsible">
