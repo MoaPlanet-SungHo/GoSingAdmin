@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.intro.sign_up;
+package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

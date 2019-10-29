@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_ffffff"
-    tools:context=".intro.sign_up.SignUpActivity">
+    tools:context=".intro.sign_up.activity.SignUpActivity">
 
     <fragment
         android:id="@+id/fm_sign_up_host"

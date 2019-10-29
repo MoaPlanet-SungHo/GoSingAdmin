@@ -66,6 +66,7 @@
         입력한 비밀번호가 서로 일치하지 않습니다.</string>
     <string name="fragment_create_account_exist_email">
         이미 존재하는 이메일 아이디입니다.다른 이메일 주소를 입력해 주세요.</string>
+    <string name="fragment_create_account_next_step">다음</string>
 
     <!-- SignUpInputPasswordFragment -->
     <string name="fragment_password_input_new_password_title">결제 비밀번호 등록</string>

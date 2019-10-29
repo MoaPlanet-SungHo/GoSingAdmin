@@ -12,8 +12,11 @@ import androidx.annotation.Nullable;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
-import com.moaplanet.gosingadmin.intro.sign_up.SignUpActivity;
+import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
+import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 
 public class IntroActivity extends BaseActivity {
 
@@ -44,19 +47,25 @@ public class IntroActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 데모 삭제 예정
-        if (getIntent().getIntExtra("temp", 0) == 0) {
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+        int introType = sharedPreferencesManager.getType();
+        if (introType == GoSingConstants.TYPE_FIRST_START) {
             Handler delayHandler = new Handler();
-            delayHandler.postDelayed(() -> {
-                moveActivity(GoSingAdminConfirmPermissionActivity.class);
-            }, 1800);
-        }else{
-            llLogin.setVisibility(View.VISIBLE);
+            delayHandler.postDelayed(
+                    () -> moveActivity(GoSingAdminConfirmPermissionActivity.class), 1800);
+        } else if (introType == GoSingConstants.TYPE_AUTO_LOGIN) {
+            Handler delayHandler = new Handler();
+            delayHandler.postDelayed(
+                    () -> moveActivity(MainActivity.class), 1800);
+        } else {
+            Handler delayHandler = new Handler();
+            delayHandler.postDelayed(
+                    () -> llLogin.setVisibility(View.VISIBLE), 1800);
         }
     }
 
     private void moveActivity(Class moveActivity) {
         Intent intent = new Intent(this, moveActivity);
         startActivity(intent);
-        finish();
     }
 }
