@@ -10,32 +10,16 @@ public class ReqSignUpDto {
     private String pw;
 
     @SerializedName("is_agree_event_noti")
-    private String eventType;
+    private String agreeEventNoti;
 
     @SerializedName("sales_code")
     private String salesCode;
-
-    @SerializedName("ci")
-    private String ci;
-
-    @SerializedName("public_key")
-    private String publickKey;
 
     @SerializedName("device_type")
     private int deviceType = 1;
 
     @SerializedName("signType")
     private int signType = 0;
-
-    @SerializedName("signHash")
-    private String signHash = null;
-
-    @SerializedName("mobileKey")
-    private String mobileKey = null;
-
-    public void setCi(String ci) {
-        this.ci = ci;
-    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -49,11 +33,31 @@ public class ReqSignUpDto {
         this.salesCode = salesCode;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setAgreeEventNoti(String eventType) {
+        this.agreeEventNoti = eventType;
     }
 
-    public void setPublickKey(String publickKey) {
-        this.publickKey = publickKey;
+    public String getEventType() {
+        return agreeEventNoti;
+    }
+
+    public int getDeviceType() {
+        return deviceType;
+    }
+
+    public int getSignType() {
+        return signType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPw() {
+        return pw;
+    }
+
+    public String getSalesCode() {
+        return salesCode;
     }
 }

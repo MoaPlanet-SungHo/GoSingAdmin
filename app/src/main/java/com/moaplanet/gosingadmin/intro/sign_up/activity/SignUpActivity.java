@@ -15,8 +15,6 @@ import com.moaplanet.gosingadmin.network.retrofit.RetrofitListener;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
 
-import okhttp3.logging.HttpLoggingInterceptor;
-
 public class SignUpActivity extends BaseActivity {
 
     private SignUpViewModel signUpViewModel;
@@ -46,7 +44,7 @@ public class SignUpActivity extends BaseActivity {
 
     private void reqModelInit() {
         reqModel = new ReqSignUpDto();
-        signUpViewModel.getCheckEventPush().observe(this, reqModel::setEventType);
+        signUpViewModel.getCheckEventPush().observe(this, reqModel::setAgreeEventNoti);
 
         signUpViewModel.getEmail().observe(this, reqModel::setEmail);
 
@@ -58,16 +56,15 @@ public class SignUpActivity extends BaseActivity {
         });
     }
 
-    private HttpLoggingInterceptor getLoggingInterface() {
-        return new HttpLoggingInterceptor().setLevel(
-                HttpLoggingInterceptor.Level.BODY
-        );
-    }
-
     private void onSignUp() {
         new RetrofitService()
                 .getGoSingApiService()
-                .signUp("qqq@qqq.com", "222222", "", "Y", 1, 0)
+                .signUp(reqModel.getEmail(),
+                        reqModel.getPw(),
+                        reqModel.getSalesCode(),
+                        reqModel.getEventType(),
+                        reqModel.getDeviceType(),
+                        reqModel.getSignType())
                 .enqueue(new RetrofitCallBack<>(retrofitListener));
     }
 
