@@ -26,4 +26,16 @@ public class StringUtil {
         };
     }
 
+    /**
+     * 핸드폰번호 유효성 체크
+     */
+    public static boolean isPhoneNumber(String phoneNumber) {
+
+        if (phoneNumber.contains("-")) {
+            return Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-(\\d{4})$", phoneNumber);
+        } else {
+            return Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})(\\d{4})$", phoneNumber);
+        }
+    }
+
 }

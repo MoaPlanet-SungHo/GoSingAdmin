@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
@@ -34,6 +35,7 @@ public class CreateAccountFragment extends BaseFragment {
     private Button nextStep;
     private EditText etEmail, etPw, etPwCheck;
     private SignUpViewModel signUpViewModel;
+    private CommonTitleBar commonTitleBar;
 
     private TextView tvEmailErr, tvPwErr, tvPwCheckErr;
 
@@ -54,6 +56,7 @@ public class CreateAccountFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        commonTitleBar = view.findViewById(R.id.common_create_account_title_bar);
         checkEmail = view.findViewById(R.id.btn_create_account_email_check);
         nextStep = view.findViewById(R.id.btn_create_account_done);
         etEmail = view.findViewById(R.id.et_create_account_email);
@@ -83,6 +86,9 @@ public class CreateAccountFragment extends BaseFragment {
 
     @Override
     public void initListener() {
+
+        commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
+
         checkEmail.setOnClickListener(view -> {
             if (getFragmentManager() != null) {
                 noTitleDialog.setContent(R.string.fragment_create_account_exist_email);

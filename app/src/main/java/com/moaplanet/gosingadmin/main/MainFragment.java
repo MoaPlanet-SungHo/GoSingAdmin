@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,8 +23,6 @@ import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivit
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
-
-import org.w3c.dom.Text;
 
 public class MainFragment extends Fragment {
 

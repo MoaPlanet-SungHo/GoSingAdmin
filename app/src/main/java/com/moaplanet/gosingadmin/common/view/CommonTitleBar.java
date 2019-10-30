@@ -5,17 +5,20 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.StringRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
 import com.moaplanet.gosingadmin.R;
 
 public class CommonTitleBar extends ConstraintLayout {
 
     private TextView title;
     private View btnBack;
+    private ImageView ivLeftIc;
 
     public CommonTitleBar(Context context) {
         super(context);
@@ -59,6 +62,7 @@ public class CommonTitleBar extends ConstraintLayout {
 
         title = findViewById(R.id.tv_common_title_bar_title);
         btnBack = findViewById(R.id.cl_common_title_bar_back);
+        ivLeftIc = findViewById(R.id.iv_common_title_bar_left_ic);
     }
 
     public void setBackButtonClickListener(OnClickListener onClickListener) {
@@ -75,5 +79,11 @@ public class CommonTitleBar extends ConstraintLayout {
 
     public void setTitle(@StringRes int resId) {
         setTitle(getContext().getString(resId));
+    }
+
+    public void setChangeLeftIc(int image) {
+        Glide.with(getContext())
+                .load(image)
+                .into(ivLeftIc);
     }
 }

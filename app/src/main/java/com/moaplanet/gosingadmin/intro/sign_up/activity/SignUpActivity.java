@@ -1,21 +1,25 @@
 package com.moaplanet.gosingadmin.intro.sign_up.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
-import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
-import com.moaplanet.gosingadmin.network.retrofit.RetrofitListener;
+import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
+import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.orhanobut.logger.Logger;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 
-import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -46,7 +50,7 @@ public class SignUpActivity extends BaseActivity {
 
     private void reqModelInit() {
         reqModel = new ReqSignUpDto();
-        signUpViewModel.getCheckEventPush().observe(this, reqModel::setEventType);
+        signUpViewModel.getCheckEventPush().observe(this, reqModel::setAgreeEventNoti);
 
         signUpViewModel.getEmail().observe(this, reqModel::setEmail);
 
@@ -58,40 +62,57 @@ public class SignUpActivity extends BaseActivity {
         });
     }
 
-    private HttpLoggingInterceptor getLoggingInterface() {
-        return new HttpLoggingInterceptor().setLevel(
-                HttpLoggingInterceptor.Level.BODY
-        );
-    }
-
     private void onSignUp() {
-        new RetrofitService()
-                .getGoSingApiService()
-                .signUp("qqq@qqq.com", "222222", "", "Y", 1, 0)
-                .enqueue(new RetrofitCallBack<>(retrofitListener));
+        RetrofitService.getInstance().getGoSingApiService().signUp(reqModel.getEmail(),
+                reqModel.getPw(),
+                reqModel.getSalesCode(),
+                reqModel.getEventType(),
+                reqModel.getDeviceType(),
+                reqModel.getSignType())
+                .enqueue(moaAuthCallback);
     }
 
-    private RetrofitListener<ResSignUpDto> retrofitListener = new RetrofitListener<ResSignUpDto>() {
+    private MoaAuthCallback<ResSignUpDto> moaAuthCallback = new MoaAuthCallback<ResSignUpDto>(
+            RetrofitService.getInstance().getMoaAuthConfig(),
+            RetrofitService.getInstance().getSessionChecker()
+    ) {
         @Override
-        public void onSuccess(ResSignUpDto responseData) {
-            Logger.d("성공");
+        public void onFinalResponse(Call<ResSignUpDto> call, ResSignUpDto resSignUpDto) {
+            if (resSignUpDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+
+                if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
+                    successLogin();
+                } else {
+                    Toast.makeText(SignUpActivity.this,
+                            "이미 존재하는 계정 입니다.",
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+            } else {
+                Toast.makeText(SignUpActivity.this,
+                        "회원가입을 실패했습니다.",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
 
         @Override
-        public void onReissuedAccessToken() {
-            Logger.d("성공");
-        }
-
-        @Override
-        public void onFail(String msg) {
-            Logger.d("실패 : " + msg);
-
-        }
-
-        @Override
-        public void onNetworkError(Throwable t) {
-            Logger.d("실패");
+        public void onFinalFailure(Call<ResSignUpDto> call, boolean isSession, Throwable t) {
+            Toast.makeText(SignUpActivity.this,
+                    " 회원가입을 실패했습니다.",
+                    Toast.LENGTH_SHORT).show();
+            finish();
         }
     };
+
+    private void successLogin() {
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+        sharedPreferencesManager.setLoginInfo(reqModel.getEmail(), reqModel.getPw());
+        Intent intent = new Intent(this, StoreActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

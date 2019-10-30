@@ -8,4 +8,40 @@
         <item>설정</item>
     </string-array>
 
+    <string-array name="store_small_room_array">
+        <item>최대 수용 인원 선택</item>
+        <item>1 명</item>
+        <item>2 명</item>
+        <item>3 명</item>
+        <item>5 명</item>
+        <item>7 명</item>
+        <item>10 명</item>
+        <item>13 명</item>
+        <item>16 명</item>
+    </string-array>
+
+    <string-array name="store_middle_room_array">
+        <item>최대 수용 인원 선택</item>
+        <item>5 명</item>
+        <item>7 명</item>
+        <item>10 명</item>
+        <item>13 명</item>
+        <item>16 명</item>
+        <item>19 명</item>
+        <item>22 명</item>
+        <item>25 명</item>
+    </string-array>
+
+    <string-array name="store_large_room_array">
+        <item>최대 수용 인원 선택</item>
+        <item>10 명</item>
+        <item>13 명</item>
+        <item>16 명</item>
+        <item>19 명</item>
+        <item>22 명</item>
+        <item>25 명</item>
+        <item>28 명</item>
+        <item>30 명 이상</item>
+    </string-array>
+
 </resources>

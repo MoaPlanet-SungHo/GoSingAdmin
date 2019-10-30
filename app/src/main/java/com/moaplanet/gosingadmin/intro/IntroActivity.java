@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -14,14 +15,23 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
+import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
+import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
+import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
+import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
+
+import retrofit2.Call;
 
 public class IntroActivity extends BaseActivity {
 
     private Button btnSignUp, btnLogin;
     private LinearLayout llLogin;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     @Override
     public int layoutRes() {
@@ -46,8 +56,16 @@ public class IntroActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 데모 삭제 예정
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+        checkIntroType();
+    }
+
+    private void moveActivity(Class moveActivity) {
+        Intent intent = new Intent(this, moveActivity);
+        startActivity(intent);
+    }
+
+    private void checkIntroType() {
+        sharedPreferencesManager = new SharedPreferencesManager(this);
         int introType = sharedPreferencesManager.getType();
         if (introType == GoSingConstants.TYPE_FIRST_START) {
             Handler delayHandler = new Handler();
@@ -56,7 +74,7 @@ public class IntroActivity extends BaseActivity {
         } else if (introType == GoSingConstants.TYPE_AUTO_LOGIN) {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
-                    () -> moveActivity(MainActivity.class), 1800);
+                    this::onLogin, 1800);
         } else {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
@@ -64,8 +82,50 @@ public class IntroActivity extends BaseActivity {
         }
     }
 
-    private void moveActivity(Class moveActivity) {
-        Intent intent = new Intent(this, moveActivity);
-        startActivity(intent);
+    private void onLogin() {
+        ReqLoginDto reqLoginDto = new ReqLoginDto();
+        reqLoginDto.setEmail(sharedPreferencesManager.getEmail());
+        reqLoginDto.setPw(sharedPreferencesManager.getPw());
+
+        RetrofitService.getInstance().getGoSingApiService()
+                .login(
+                        reqLoginDto.getEmail(),
+                        reqLoginDto.getPw(),
+                        reqLoginDto.getSignType())
+                .enqueue(loginCallback);
     }
+
+    private MoaAuthCallback<ResLoginDto> loginCallback = new MoaAuthCallback<ResLoginDto>(
+            RetrofitService.getInstance().getMoaAuthConfig(),
+            RetrofitService.getInstance().getSessionChecker()
+    ) {
+        @Override
+        public void onFinalResponse(Call<ResLoginDto> call, ResLoginDto resModel) {
+            if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+                if (resModel.getDetailCode() == NetworkConstants.CODE_LOGIN_SUCCESS) {
+                    moveActivity(StoreActivity.class);
+                } else if (resModel.getDetailCode() == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+
+                } else {
+                    Toast.makeText(
+                            IntroActivity.this,
+                            "자동로그인을 실패 헀습니다.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(
+                        IntroActivity.this,
+                        "자동로그인을 실패 헀습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFinalFailure(Call<ResLoginDto> call, boolean isSession, Throwable t) {
+            Toast.makeText(
+                    IntroActivity.this,
+                    "자동로그인을 실패 헀습니다.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
 }

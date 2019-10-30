@@ -29,6 +29,20 @@ public class SharedPreferencesManager {
         return pref.getInt(GoSingConstants.TYPE_INTRO, 0);
     }
 
+    public String getEmail() {
+        SharedPreferences pref = context.getSharedPreferences(
+                GoSingConstants.GOSING_ADMIN_FILE_NAME,
+                Context.MODE_PRIVATE);
+        return pref.getString(GoSingConstants.USER_ID, "");
+    }
+
+    public String getPw() {
+        SharedPreferences pref = context.getSharedPreferences(
+                GoSingConstants.GOSING_ADMIN_FILE_NAME,
+                Context.MODE_PRIVATE);
+        return pref.getString(GoSingConstants.USER_PW, "");
+    }
+
     public void setLoginInfo(String id, String pw) {
         SharedPreferences pref = context.getSharedPreferences(
                 GoSingConstants.GOSING_ADMIN_FILE_NAME,

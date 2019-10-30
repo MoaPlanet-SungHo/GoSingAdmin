@@ -10,7 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
+//        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -37,8 +37,8 @@ dependencies {
     /* Logger */
     implementation 'com.orhanobut:logger:2.2.0'
 
-    /* multi dex */
-    implementation 'com.android.support:multidex:1.0.3'
+//    /* multi dex */
+//    implementation 'com.android.support:multidex:1.0.3'
 
     /* pin view */
     implementation 'com.chaos.view:pinview:1.4.3'
@@ -63,4 +63,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
+    /* glide */
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }

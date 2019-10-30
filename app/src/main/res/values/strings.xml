@@ -4,6 +4,7 @@
     <!-- Common -->
     <string name="common_go_sing_admin_logo">고싱 관리자 로고</string>
     <string name="sign_up_title">회원가입</string>
+    <string name="common_date_format">yyyy.mm.dd</string>
 
     <!-- NoTitleDialog -->
     <string name="dialog_no_title_done">확인</string>
@@ -48,6 +49,12 @@
     <string name="fragment_sign_up_terms_of_agreement_event_agreement">
         GOSING 혜택 알림 동의 (선택) </string>
     <string name="fragment_sign_up_terms_of_agreement_next_step">다음</string>
+    <string name="fragment_sign_up_terms_of_agreement_event_check">
+        \nGOSING 혜택 알림 수신에 동의하셨습니다.
+    </string>
+    <string name="fragment_sign_up_terms_of_agreement_event_uncheck">
+        \nGoSing 혜택 알림 수신에 동의하지 않으셨습니다.
+    </string>
 
     <!-- CreateAccountFragment -->
     <string name="fragment_create_account_email">이메일 아이디</string>
@@ -97,6 +104,8 @@
     <string name="activity_login_btn_login">로그인</string>
     <string name="activity_login_find_id">아이디 찾기</string>
     <string name="activity_login_change_pw">비밀번호 변경</string>
+    <string name="activity_login_err">
+        아이디나 비밀번호가 일치하지 않습니다.\n확인 후 다시 입력해 주세요.</string>
 
     <!-- MainFragment -->
     <string name="fragment_main_title">GOSING</string>
@@ -123,7 +132,7 @@
     <string name="fragment_main_numbers">
         사업자등록번호 : 000&#8211;00&#8211;00000 | 통신판매업신고 : XX00000호</string>
     <string name="fragment_main_address">본사 : 서울시 금천구 가산디지털1로 168</string>
-    <string name="fragment_main_email">고객센터 : surpport@moaplanet.co.kf</string>
+    <string name="fragment_main_email">고객센터 : surpport@moaplanet.co.kr</string>
     <string name="fragment_main_copyright">Copyright MOA. All Rights Resesrved.</string>
     <string name="fragment_main_make_code">결제 코드 생성</string>
     <string name="fragment_main_not_responsible">
@@ -242,6 +251,8 @@
         고객님들께 남기실 안내 사항을 적어 주세요.
         \n욕설, 도배 등의 운영 정책과 맞지 않는 글은 사전 경고 없이 차단 삭제 될 수 있습니다.
     </string>
+    <string name="activity_stroe_ceo_commnet_count">%d / 500자</string>
+    <string name="activity_stroe_register">등록하기</string>
 
     <!-- FoodOrderFragment -->
     <string name="fragment_food_order_food_order">먹거리 주문</string>
@@ -395,5 +406,15 @@
 
     <!-- PaymentFragment-->
     <string name="fragment_payment_title">결제하기</string>
+
+    <!-- WaitingApprovalActivity -->
+    <string name="activity_waiting_approval_title">승인 대기</string>
+    <string name="activity_waiting_approval_app_finish">종료하기</string>
+    <string name="activity_waiting_approval_admin_approval">
+        GOSING 서비스를 이용하기 위해서는\n관리자의 승인이 필요합니다.
+    </string>
+    <string name="activity_waiting_approval_take_two_day">
+        관리자의 승인은 업소등록 후\n영업일 기준 2일이 소요됩니다.
+    </string>
 
 </resources>
