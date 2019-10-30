@@ -104,14 +104,13 @@ public class LoginActivity extends BaseActivity {
 
     private void startLogin() {
         reqLoginDto.setEmail(userEmail);
-        reqLoginDto.setEmail(userPw);
+        reqLoginDto.setPw(userPw);
 
         RetrofitService.getInstance().getGoSingApiService().login(
                 reqLoginDto.getEmail(),
                 reqLoginDto.getPw()
                 , reqLoginDto.getSignType())
                 .enqueue(moaAuthCallback);
-
     }
 
     private void onActivationButton() {

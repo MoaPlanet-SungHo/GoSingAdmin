@@ -102,6 +102,7 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
     private View.OnClickListener onCheckBoxClickListener = view -> {
         if (view.getId() == cbAll.getId()) {
             allCheck(cbAll.isChecked());
+            agreementEventToast();
         } else if (view.getId() == cbEvent.getId()) {
             agreementEventToast();
         }

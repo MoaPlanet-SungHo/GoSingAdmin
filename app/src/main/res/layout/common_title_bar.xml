@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
+            android:id="@+id/iv_common_title_bar_left_ic"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:contentDescription="@string/common_title_bar_back_description"

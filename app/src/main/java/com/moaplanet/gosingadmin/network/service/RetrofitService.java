@@ -10,15 +10,7 @@ public class RetrofitService {
     private MoaAuthConfig moaAuthConfig;
     private SessionChecker sessionChecker;
     private GoSingApiService goSingApiService;
-
-    private GoSingApiService getGoSingApiService2() {
-        return new RetrofitBuilder()
-                .init(
-                        NetworkConstants.GOSING_ADDIN_BASE_URL,
-                        null,
-                        GoSingApiService.class);
-    }
-
+    private AddressApiService addressApiService;
 
     private static class LazyHolder {
         private static final RetrofitService INSTANCE = new RetrofitService();
@@ -30,9 +22,24 @@ public class RetrofitService {
 
     public GoSingApiService getGoSingApiService() {
         if (goSingApiService == null) {
-            goSingApiService = getGoSingApiService2();
+            goSingApiService =
+                    new RetrofitBuilder().init(
+                            NetworkConstants.GOSING_ADMIN_BASE_URL,
+                            null,
+                            GoSingApiService.class);
         }
         return goSingApiService;
+    }
+
+    public AddressApiService getAddressApiService() {
+        if (addressApiService == null) {
+            addressApiService =
+                    new RetrofitBuilder().init(
+                            NetworkConstants.ADDRESS_BASE_URL,
+                            null,
+                            AddressApiService.class);
+        }
+        return addressApiService;
     }
 
     public MoaAuthConfig getMoaAuthConfig() {

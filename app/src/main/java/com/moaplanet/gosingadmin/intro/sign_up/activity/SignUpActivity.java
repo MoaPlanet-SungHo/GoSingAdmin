@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.intro.sign_up.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -8,12 +9,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 
 import retrofit2.Call;
 
@@ -77,16 +81,19 @@ public class SignUpActivity extends BaseActivity {
             if (resSignUpDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
 
                 if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
+                    successLogin();
                 } else {
                     Toast.makeText(SignUpActivity.this,
                             "이미 존재하는 계정 입니다.",
                             Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
             } else {
                 Toast.makeText(SignUpActivity.this,
                         "회원가입을 실패했습니다.",
                         Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
 
@@ -95,7 +102,17 @@ public class SignUpActivity extends BaseActivity {
             Toast.makeText(SignUpActivity.this,
                     " 회원가입을 실패했습니다.",
                     Toast.LENGTH_SHORT).show();
+            finish();
         }
     };
+
+    private void successLogin() {
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+        sharedPreferencesManager.setLoginInfo(reqModel.getEmail(), reqModel.getPw());
+        Intent intent = new Intent(this, StoreActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

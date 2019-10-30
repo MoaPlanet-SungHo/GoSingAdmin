@@ -35,6 +35,7 @@ public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
             SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
             Intent intent = new Intent(this, IntroActivity.class);
             sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_PERMISSION_CHECK_SUCCESS);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         });

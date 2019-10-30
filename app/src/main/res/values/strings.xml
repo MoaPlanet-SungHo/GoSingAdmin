@@ -251,6 +251,8 @@
         고객님들께 남기실 안내 사항을 적어 주세요.
         \n욕설, 도배 등의 운영 정책과 맞지 않는 글은 사전 경고 없이 차단 삭제 될 수 있습니다.
     </string>
+    <string name="activity_stroe_ceo_commnet_count">%d / 500자</string>
+    <string name="activity_stroe_register">등록하기</string>
 
     <!-- FoodOrderFragment -->
     <string name="fragment_food_order_food_order">먹거리 주문</string>
@@ -404,5 +406,15 @@
 
     <!-- PaymentFragment-->
     <string name="fragment_payment_title">결제하기</string>
+
+    <!-- WaitingApprovalActivity -->
+    <string name="activity_waiting_approval_title">승인 대기</string>
+    <string name="activity_waiting_approval_app_finish">종료하기</string>
+    <string name="activity_waiting_approval_admin_approval">
+        GOSING 서비스를 이용하기 위해서는\n관리자의 승인이 필요합니다.
+    </string>
+    <string name="activity_waiting_approval_take_two_day">
+        관리자의 승인은 업소등록 후\n영업일 기준 2일이 소요됩니다.
+    </string>
 
 </resources>
