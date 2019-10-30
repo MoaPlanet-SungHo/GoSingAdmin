@@ -87,7 +87,7 @@ public class IntroActivity extends BaseActivity {
         reqLoginDto.setEmail(sharedPreferencesManager.getEmail());
         reqLoginDto.setPw(sharedPreferencesManager.getPw());
 
-        RetrofitService.getInstance().getGoSingApiService()
+        RetrofitService.getInstance().getGoSingApiService(getApplicationContext())
                 .login(
                         reqLoginDto.getEmail(),
                         reqLoginDto.getPw(),

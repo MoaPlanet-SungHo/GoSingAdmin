@@ -38,4 +38,15 @@ public class StringUtil {
         }
     }
 
+    /**
+     * 특수문자 포함여부 체크
+     */
+    public static boolean isContainSpecialCharacter(String text) {
+        if (text != null && text.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝| ]*")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

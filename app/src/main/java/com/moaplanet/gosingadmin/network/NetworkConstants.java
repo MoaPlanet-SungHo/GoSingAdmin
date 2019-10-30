@@ -12,6 +12,9 @@ public class NetworkConstants {
     public static String GOSING_ADMIN_BASE_URL = "http://175.198.102.230:8080/MOAGossingShop/";
     public static String ADDRESS_BASE_URL = "http://www.juso.go.kr/addrlink/";
 
+    // 주소 페이징 개수
+    public static int ADDRESS_SEACH_PAGING_COUNT = 30;
+
     // common
     public static int STATE_CODE_SUCCESS = 200;
 

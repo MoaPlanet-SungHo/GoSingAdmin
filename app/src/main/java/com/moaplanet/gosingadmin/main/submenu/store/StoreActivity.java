@@ -17,6 +17,7 @@ import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDt
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
@@ -106,7 +107,7 @@ public class StoreActivity extends BaseActivity {
             Map<String, okhttp3.RequestBody> map = new HashMap<>();
 //            map.put("ic_question_mark", requestBody);
 //            reqStoreRegisterDto.getStorePhoto().put("1", "bg_ad_fifteen_day_product");
-            RetrofitService.getInstance().getGoSingApiService().registerStore(
+            RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).registerStore(
                     reqStoreRegisterDto, map)
                     .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
                             RetrofitService.getInstance().getMoaAuthConfig(),
@@ -163,6 +164,8 @@ public class StoreActivity extends BaseActivity {
         reqStoreRegisterDto.setEmdNm("동 정보");
         reqStoreRegisterDto.setPostNumber("우편주소");
         reqStoreRegisterDto.setAdmCd("123");
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+        reqStoreRegisterDto.setEmail(sharedPreferencesManager.getEmail());
         return true;
 
     }

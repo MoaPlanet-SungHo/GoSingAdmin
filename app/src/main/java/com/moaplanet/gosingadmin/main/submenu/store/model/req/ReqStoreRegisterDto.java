@@ -57,6 +57,9 @@ public class ReqStoreRegisterDto {
     // 룸정보
     //
 
+    @SerializedName("user_email")
+    private String email;
+
     // 사장님 안내 멘트
     @SerializedName("ceo_noti")
     private String ceoComment;
@@ -107,5 +110,9 @@ public class ReqStoreRegisterDto {
 
     public Map<String, String> getStorePhoto() {
         return storePhoto;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

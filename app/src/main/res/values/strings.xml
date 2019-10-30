@@ -417,4 +417,8 @@
         관리자의 승인은 업소등록 후\n영업일 기준 2일이 소요됩니다.
     </string>
 
+    <!-- StoreSearchActivity -->
+    <string name="activity_store_search_title_bar">주소 검색</string>
+    <string name="activity_store_search_address_keyword_search">도로명, 건물명, 번지 검색</string>
+
 </resources>

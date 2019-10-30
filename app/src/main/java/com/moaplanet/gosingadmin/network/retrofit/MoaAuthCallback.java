@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.orhanobut.logger.Logger;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +31,7 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
         if (this.call == null) {
             this.call = call;
         }
+        Logger.d("세션 아이디 : " + response.headers().get("Set-Cookie"));
         sessionChecker.sessionCheck(isT -> {
             if (isT)
                 onFinalResponse(call, response.body());

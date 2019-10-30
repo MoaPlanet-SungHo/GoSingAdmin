@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity {
         reqLoginDto.setEmail(userEmail);
         reqLoginDto.setPw(userPw);
 
-        RetrofitService.getInstance().getGoSingApiService().login(
+        RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).login(
                 reqLoginDto.getEmail(),
                 reqLoginDto.getPw()
                 , reqLoginDto.getSignType())
