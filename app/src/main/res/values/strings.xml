@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GoSingAdmin</string>
+    <string name="apps_name">고씽사장님</string>
 
     <!-- Common -->
     <string name="common_go_sing_admin_logo">고싱 관리자 로고</string>

@@ -1,11 +1,16 @@
 package com.moaplanet.gosingadmin.main.submenu.store;
 
+import android.Manifest;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,10 +24,16 @@ import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import gun0912.tedimagepicker.builder.TedImagePicker;
+import gun0912.tedimagepicker.builder.listener.OnMultiSelectedListener;
+import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -33,17 +44,79 @@ public class StoreActivity extends BaseActivity {
     private TextView tvCeoCommentCount;
     private Button btnDone;
     private EditText etStoreName, etStoreTel, etSimpleAddress, etDetailAddress, etCeoComment;
+    public CompositeDisposable compositeDisposable;
+    public RxPermissions rxPermissions;
+    private List<? extends Uri> selectedUriList;
+    private List<ImageView> pictureImageViewList;           //이미지 리스트
+    private List<ImageView> pictureImageInnerIconList;      //이미지 추가하기 아이콘 리스트
+    private List<Button> deletePictureButtonList;           //삭제 버튼 리스트
+    private final int PICTURE_COUNT = 8;
+
+    private ImageView[] ivStoreImage = new ImageView[8];
 //    private Spinner spLargeRoom, spMiddleRoom, spSmallRoom;
 
     private ReqStoreRegisterDto reqStoreRegisterDto;
+
 
     @Override
     public int layoutRes() {
         return R.layout.activity_store;
     }
 
+    /**
+     * 갤러리
+     */
+    private void selectPicture() {
+        compositeDisposable.add(rxPermissions.request(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+        )
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+                        Logger.d("permission granted");
+//                        if (getActivity() instanceof ReviewWriteActivity) {
+                            TedImagePicker.with(this)
+                                    .selectedUri(selectedUriList)
+                                    .max(8, "최대 8개 선택가능합니다.")
+                                    .start((OnMultiSelectedListener) list -> {
+                                        Logger.d("Selected list >>> " + list.toString());
+                                        selectedUriList = list;
+                                        setImageAddComponentGroupUi(list);
+                                        detaultAddPictureUi();
+
+                                        for (int position = 0; position < list.size(); position++) {
+                                            pictureImageViewList.get(position).setImageURI(list.get(position));
+//                                            pictureImageInnerIconList.get(position).setVisibility(View.GONE);
+//                                            deletePictureButtonList.get(position).setVisibility(View.VISIBLE);
+                                        }
+
+                                    });
+//                        }
+                    } else {
+                        // Oups permission denied
+                        Logger.d("permission denied");
+                    }
+                }));
+    }
+
+    /**
+     * 이미지 선택하기 UI Default
+     */
+    private void detaultAddPictureUi() {
+        for (int i = 0; i < PICTURE_COUNT; i++) {
+            pictureImageViewList.get(i).setImageURI(null);
+            pictureImageViewList.get(i).setBackgroundResource(R.drawable.border_rect_0_0_0_0_1dp_e9e9e9_f8f8f8);
+//            pictureImageInnerIconList.get(i).setVisibility(View.VISIBLE);
+//            deletePictureButtonList.get(i).setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void initView() {
+
+        compositeDisposable = new CompositeDisposable();
+        rxPermissions = new RxPermissions(this);
+
         etCeoComment = findViewById(R.id.et_store_ceo_comment);
         commonTitleBar = findViewById(R.id.common_store_title_bar);
         tvCeoCommentCount = findViewById(R.id.tv_store_ceo_comment_count);
@@ -53,9 +126,48 @@ public class StoreActivity extends BaseActivity {
         etStoreTel = findViewById(R.id.et_store_call_number);
         etSimpleAddress = findViewById(R.id.et_store_short_address);
         etDetailAddress = findViewById(R.id.et_store_detail_address);
+        ivStoreImage[0] = findViewById(R.id.store_image_1);
+        ivStoreImage[1] = findViewById(R.id.store_image_2);
+        ivStoreImage[2] = findViewById(R.id.store_image_3);
+        ivStoreImage[3] = findViewById(R.id.store_image_4);
+        ivStoreImage[4] = findViewById(R.id.store_image_5);
+        ivStoreImage[5]= findViewById(R.id.store_image_6);
+        ivStoreImage[6] = findViewById(R.id.store_image_7);
+        ivStoreImage[7] = findViewById(R.id.store_image_8);
+
+        selectedUriList = new ArrayList<>();
+        pictureImageViewList = new ArrayList<>();
+        pictureImageInnerIconList = new ArrayList<>();
+        deletePictureButtonList = new ArrayList<>();
+
+        for (int i = 0; i < 8; i++) {
+            pictureImageViewList.add(ivStoreImage[i]);
+        }
+
+        setImageAddComponentGroupUi(selectedUriList);
+        detaultAddPictureUi();
+
 //        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
 //        spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
 //        spSmallRoom = findViewById(R.id.sp_store_small_room_personnel);
+    }
+
+    /**
+     * 이미지 선택하기 UI 상태를 구성
+     * 그 내용은 아래와 같다.
+     * 최초 이미지 선택 가이드 화면
+     * 이미지 3장 선택 가이드 화면
+     */
+    private void setImageAddComponentGroupUi(List<? extends Uri> uriList) {
+        if (uriList != null && uriList.size() > 0) {
+            Log.e("a","a");
+//            clAddPictureAddToolTipGroup.setVisibility(View.GONE);
+//            clAddPictureGroup.setVisibility(View.VISIBLE);
+        } else {
+            Log.e("b","b");
+//            clAddPictureAddToolTipGroup.setVisibility(View.VISIBLE);
+//            clAddPictureGroup.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -83,6 +195,14 @@ public class StoreActivity extends BaseActivity {
             registerStore();
         });
         etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+
+
+        for (int i = 0; i < 8; i++) {
+            ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
+        }
+
+
     }
 
     private void initDefault() {
