@@ -7,13 +7,10 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
@@ -30,11 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import gun0912.tedimagepicker.builder.listener.OnMultiSelectedListener;
 import io.reactivex.disposables.CompositeDisposable;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 
 public class StoreActivity extends BaseActivity {
@@ -66,13 +62,14 @@ public class StoreActivity extends BaseActivity {
      * 갤러리
      */
     private void selectPicture() {
-        compositeDisposable.add(rxPermissions.request(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
-        )
-                .subscribe(granted -> {
-                    if (granted) { // Always true pre-M
-                        Logger.d("permission granted");
+        try {
+            compositeDisposable.add(rxPermissions.request(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
+            )
+                    .subscribe(granted -> {
+                        if (granted) { // Always true pre-M
+                            Logger.d("permission granted");
 //                        if (getActivity() instanceof ReviewWriteActivity) {
                             TedImagePicker.with(this)
                                     .selectedUri(selectedUriList)
@@ -80,22 +77,21 @@ public class StoreActivity extends BaseActivity {
                                     .start((OnMultiSelectedListener) list -> {
                                         Logger.d("Selected list >>> " + list.toString());
                                         selectedUriList = list;
-                                        setImageAddComponentGroupUi(list);
+//                                        setImageAddComponentGroupUi(list);
                                         detaultAddPictureUi();
 
                                         for (int position = 0; position < list.size(); position++) {
                                             pictureImageViewList.get(position).setImageURI(list.get(position));
-//                                            pictureImageInnerIconList.get(position).setVisibility(View.GONE);
-//                                            deletePictureButtonList.get(position).setVisibility(View.VISIBLE);
                                         }
-
                                     });
-//                        }
-                    } else {
-                        // Oups permission denied
-                        Logger.d("permission denied");
-                    }
-                }));
+                        } else {
+                            // Oups permission denied
+                            Logger.d("permission denied");
+                        }
+                    }));
+        } catch (Exception e) {
+            Log.e("Excetpein", e + " : out of memory?");
+        }
     }
 
     /**
@@ -130,7 +126,7 @@ public class StoreActivity extends BaseActivity {
         ivStoreImage[2] = findViewById(R.id.store_image_3);
         ivStoreImage[3] = findViewById(R.id.store_image_4);
         ivStoreImage[4] = findViewById(R.id.store_image_5);
-        ivStoreImage[5]= findViewById(R.id.store_image_6);
+        ivStoreImage[5] = findViewById(R.id.store_image_6);
         ivStoreImage[6] = findViewById(R.id.store_image_7);
         ivStoreImage[7] = findViewById(R.id.store_image_8);
 
@@ -143,7 +139,7 @@ public class StoreActivity extends BaseActivity {
             pictureImageViewList.add(ivStoreImage[i]);
         }
 
-        setImageAddComponentGroupUi(selectedUriList);
+//        setImageAddComponentGroupUi(selectedUriList);
         detaultAddPictureUi();
 
 //        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
@@ -151,23 +147,17 @@ public class StoreActivity extends BaseActivity {
 //        spSmallRoom = findViewById(R.id.sp_store_small_room_personnel);
     }
 
-    /**
-     * 이미지 선택하기 UI 상태를 구성
-     * 그 내용은 아래와 같다.
-     * 최초 이미지 선택 가이드 화면
-     * 이미지 3장 선택 가이드 화면
-     */
-    private void setImageAddComponentGroupUi(List<? extends Uri> uriList) {
-        if (uriList != null && uriList.size() > 0) {
-            Log.e("a","a");
-//            clAddPictureAddToolTipGroup.setVisibility(View.GONE);
-//            clAddPictureGroup.setVisibility(View.VISIBLE);
-        } else {
-            Log.e("b","b");
-//            clAddPictureAddToolTipGroup.setVisibility(View.VISIBLE);
-//            clAddPictureGroup.setVisibility(View.GONE);
-        }
-    }
+//    /**
+//     * 이미지 선택하기 UI 상태를 구성
+//     * 그 내용은 아래와 같다.
+//     * 최초 이미지 선택 가이드 화면
+//     * 이미지 3장 선택 가이드 화면
+//     */
+//    private void setImageAddComponentGroupUi(List<? extends Uri> uriList) {
+//        if (uriList != null && uriList.size() > 0) {
+//        } else {
+//        }
+//    }
 
     @Override
     public void initListener() {
@@ -194,7 +184,6 @@ public class StoreActivity extends BaseActivity {
             registerStore();
         });
         etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
 
 
         for (int i = 0; i < 8; i++) {
