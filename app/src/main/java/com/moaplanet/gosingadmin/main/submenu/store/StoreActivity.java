@@ -38,7 +38,7 @@ public class StoreActivity extends BaseActivity {
     private CommonTitleBar commonTitleBar;
     private TextView tvCeoCommentCount;
     private Button btnDone;
-    private EditText etStoreName, etStoreTel, etSimpleAddress, etDetailAddress, etCeoComment;
+    private EditText etStoreName, etStoreTel, etBossTel, etSimpleAddress, etDetailAddress, etCeoComment;
     public CompositeDisposable compositeDisposable;
     public RxPermissions rxPermissions;
     private List<? extends Uri> selectedUriList;
@@ -119,6 +119,7 @@ public class StoreActivity extends BaseActivity {
         btnDone = findViewById(R.id.btn_store_register);
         etStoreName = findViewById(R.id.et_store_input_name);
         etStoreTel = findViewById(R.id.et_store_call_number);
+        etBossTel = findViewById(R.id.et_boss_call_number);
         etSimpleAddress = findViewById(R.id.et_store_short_address);
         etDetailAddress = findViewById(R.id.et_store_detail_address);
         ivStoreImage[0] = findViewById(R.id.store_image_1);
@@ -184,7 +185,7 @@ public class StoreActivity extends BaseActivity {
             registerStore();
         });
         etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
+        etBossTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         for (int i = 0; i < 8; i++) {
             ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
@@ -260,8 +261,15 @@ public class StoreActivity extends BaseActivity {
         }
 
         String storeTel = etStoreTel.getText().toString().trim();
+        String bossTel = etBossTel.getText().toString().trim();
         if (storeTel.length() > 0) {
             reqStoreRegisterDto.setStoreTel(storeTel);
+        } else {
+            return false;
+        }
+
+        if (bossTel.length() > 0) {
+            reqStoreRegisterDto.setStoreTel(bossTel);
         } else {
             return false;
         }
