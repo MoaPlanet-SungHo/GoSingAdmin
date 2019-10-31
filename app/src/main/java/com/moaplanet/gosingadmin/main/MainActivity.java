@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private TextView mTvInformation;
+
     @Override
     public int layoutRes() {
         return R.layout.activity_main;

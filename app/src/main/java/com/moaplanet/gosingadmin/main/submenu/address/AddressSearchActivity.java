@@ -1,25 +1,27 @@
 package com.moaplanet.gosingadmin.main.submenu.address;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.main.submenu.address.model.AddressViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
 public class AddressSearchActivity extends BaseActivity {
 
-    private AddressPaingAdapter addressPaingAdapter;
+    private AddressPagingAdapter addressPagingAdapter;
     private RecyclerView rvAddressSearch;
     private Button btnSearch;
     private EditText etAddressKeyword;
+    private AddressViewModel addressViewModel;
 
     @Override
     public int layoutRes() {
@@ -48,13 +50,18 @@ public class AddressSearchActivity extends BaseActivity {
     }
 
     private void initDefault() {
-        addressPaingAdapter = new AddressPaingAdapter();
-        rvAddressSearch.setAdapter(addressPaingAdapter);
+        addressViewModel = ViewModelProviders.of(this).get(AddressViewModel.class);
+        addressPagingAdapter = new AddressPagingAdapter();
+        rvAddressSearch.setAdapter(addressPagingAdapter);
     }
 
     private void onAddressSearch() {
         if (checkData()) {
+            addressViewModel.addressSearchInit(etAddressKeyword.getText().toString());
 
+            addressViewModel.addressSearchList.observe(this, addressInfoDtoList -> {
+                addressPagingAdapter.submitList(addressInfoDtoList);
+            });
         }
     }
 

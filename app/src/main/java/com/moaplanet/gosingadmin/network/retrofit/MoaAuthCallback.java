@@ -4,7 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.orhanobut.logger.Logger;
+
+import java.util.HashSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +34,7 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
         if (this.call == null) {
             this.call = call;
         }
+//        GoSingConstants.Test = response.headers().get("Set-Cookie");
         Logger.d("세션 아이디 : " + response.headers().get("Set-Cookie"));
         sessionChecker.sessionCheck(isT -> {
             if (isT)

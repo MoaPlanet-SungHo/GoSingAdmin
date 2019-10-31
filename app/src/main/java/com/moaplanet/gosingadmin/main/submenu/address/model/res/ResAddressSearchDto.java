@@ -6,11 +6,8 @@ import java.util.List;
 
 public class ResAddressSearchDto {
 
-    @SerializedName("common")
-    private AddressCommonDto addressCommonDto;
-
-    @SerializedName("juso")
-    private List<AddressInfoDto> addressDto;
+    @SerializedName("results")
+    private AddressDto addressDto;
 
     public class AddressCommonDto {
         // 페이지 번호
@@ -50,6 +47,25 @@ public class ResAddressSearchDto {
         public String getZipNo() {
             return zipNo;
         }
+
+        public String getRoadAddress() {
+            return roadAddress;
+        }
+
+        public String getJibunAddress() {
+            return jibunAddress;
+        }
     }
 
+    public List<AddressInfoDto> getAddressInfoDtoList() {
+        return addressDto.addressInfoDtoList;
+    }
+
+    public class AddressDto {
+        @SerializedName("common")
+        private AddressCommonDto addressCommonDto;
+
+        @SerializedName("juso")
+        private List<AddressInfoDto> addressInfoDtoList;
+    }
 }

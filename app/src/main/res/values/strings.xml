@@ -420,5 +420,6 @@
     <!-- StoreSearchActivity -->
     <string name="activity_store_search_title_bar">주소 검색</string>
     <string name="activity_store_search_address_keyword_search">도로명, 건물명, 번지 검색</string>
-
+    <string name="item_address_road_address">[도로명] %s</string>
+    <string name="item_address_jibun_address">[지번] %s</string>
 </resources>

@@ -55,10 +55,6 @@ public class ReqStoreRegisterDto {
     @SerializedName("delete_photo")
     private List<String> removePhoto;
     // 룸정보
-    //
-
-    @SerializedName("user_email")
-    private String email;
 
     // 사장님 안내 멘트
     @SerializedName("ceo_noti")
@@ -110,9 +106,5 @@ public class ReqStoreRegisterDto {
 
     public Map<String, String> getStorePhoto() {
         return storePhoto;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

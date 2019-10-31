@@ -1,5 +1,7 @@
 package com.moaplanet.gosingadmin.constants;
 
+import java.util.HashSet;
+
 public class GoSingConstants {
 
     // SharedPreferences 관련
@@ -20,6 +22,8 @@ public class GoSingConstants {
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
     public static final String BUNDLE_KEY_TYPE_PASSWORD = "PASSWORD_TYPE";
     public static final String BUNDLE_KEY_BEFORE_INPUT_PASSWORD = "BEFORE_INPUT_PASSWORD";
+
+    public static HashSet<String> TestSet;
 
     // bundle value 관련
     public static final String BUNDLE_VALUE_CHECK_PASSWORD = "CHECK_PASSWORD";

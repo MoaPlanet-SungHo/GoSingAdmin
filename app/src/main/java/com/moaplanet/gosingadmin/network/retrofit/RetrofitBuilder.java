@@ -5,6 +5,7 @@ import android.content.Context;
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.network.AddCookiesInterceptor;
 import com.moaplanet.gosingadmin.network.PersistentCookieStore;
+import com.moaplanet.gosingadmin.network.ReceivedCookiesInterceptor;
 import com.moaplanet.gosingadmin.utils.ObjectUtil;
 
 import java.net.CookieHandler;
@@ -68,7 +69,8 @@ public class RetrofitBuilder {
 //                .writeTimeout(10000, TimeUnit.SECONDS)
 //                .readTimeout(10000, TimeUnit.SECONDS);
 //        okHttpClient.cookieJar(new JavaNetCookieJar(cookieManager));
-        okHttpClient.interceptors().add(new AddCookiesInterceptor());
+        okHttpClient.addNetworkInterceptor(new AddCookiesInterceptor());
+        okHttpClient.addInterceptor(new ReceivedCookiesInterceptor());
         return okHttpClient.build();
     }
 

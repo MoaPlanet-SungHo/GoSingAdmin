@@ -1,6 +1,7 @@
 package com.moaplanet.gosingadmin.main.submenu.store;
 
 import android.Manifest;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.main.submenu.address.AddressSearchActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
@@ -43,6 +45,7 @@ public class StoreActivity extends BaseActivity {
     private CommonTitleBar commonTitleBar;
     private TextView tvCeoCommentCount;
     private Button btnDone;
+    private TextView tvAddressSearch;
     private EditText etStoreName, etStoreTel, etSimpleAddress, etDetailAddress, etCeoComment;
     public CompositeDisposable compositeDisposable;
     public RxPermissions rxPermissions;
@@ -75,22 +78,22 @@ public class StoreActivity extends BaseActivity {
                     if (granted) { // Always true pre-M
                         Logger.d("permission granted");
 //                        if (getActivity() instanceof ReviewWriteActivity) {
-                            TedImagePicker.with(this)
-                                    .selectedUri(selectedUriList)
-                                    .max(8, "최대 8개 선택가능합니다.")
-                                    .start((OnMultiSelectedListener) list -> {
-                                        Logger.d("Selected list >>> " + list.toString());
-                                        selectedUriList = list;
-                                        setImageAddComponentGroupUi(list);
-                                        detaultAddPictureUi();
+                        TedImagePicker.with(this)
+                                .selectedUri(selectedUriList)
+                                .max(8, "최대 8개 선택가능합니다.")
+                                .start((OnMultiSelectedListener) list -> {
+                                    Logger.d("Selected list >>> " + list.toString());
+                                    selectedUriList = list;
+                                    setImageAddComponentGroupUi(list);
+                                    detaultAddPictureUi();
 
-                                        for (int position = 0; position < list.size(); position++) {
-                                            pictureImageViewList.get(position).setImageURI(list.get(position));
+                                    for (int position = 0; position < list.size(); position++) {
+                                        pictureImageViewList.get(position).setImageURI(list.get(position));
 //                                            pictureImageInnerIconList.get(position).setVisibility(View.GONE);
 //                                            deletePictureButtonList.get(position).setVisibility(View.VISIBLE);
-                                        }
+                                    }
 
-                                    });
+                                });
 //                        }
                     } else {
                         // Oups permission denied
@@ -117,6 +120,7 @@ public class StoreActivity extends BaseActivity {
         compositeDisposable = new CompositeDisposable();
         rxPermissions = new RxPermissions(this);
 
+        tvAddressSearch = findViewById(R.id.tv_store_search_address);
         etCeoComment = findViewById(R.id.et_store_ceo_comment);
         commonTitleBar = findViewById(R.id.common_store_title_bar);
         tvCeoCommentCount = findViewById(R.id.tv_store_ceo_comment_count);
@@ -131,7 +135,7 @@ public class StoreActivity extends BaseActivity {
         ivStoreImage[2] = findViewById(R.id.store_image_3);
         ivStoreImage[3] = findViewById(R.id.store_image_4);
         ivStoreImage[4] = findViewById(R.id.store_image_5);
-        ivStoreImage[5]= findViewById(R.id.store_image_6);
+        ivStoreImage[5] = findViewById(R.id.store_image_6);
         ivStoreImage[6] = findViewById(R.id.store_image_7);
         ivStoreImage[7] = findViewById(R.id.store_image_8);
 
@@ -160,11 +164,11 @@ public class StoreActivity extends BaseActivity {
      */
     private void setImageAddComponentGroupUi(List<? extends Uri> uriList) {
         if (uriList != null && uriList.size() > 0) {
-            Log.e("a","a");
+            Log.e("a", "a");
 //            clAddPictureAddToolTipGroup.setVisibility(View.GONE);
 //            clAddPictureGroup.setVisibility(View.VISIBLE);
         } else {
-            Log.e("b","b");
+            Log.e("b", "b");
 //            clAddPictureAddToolTipGroup.setVisibility(View.VISIBLE);
 //            clAddPictureGroup.setVisibility(View.GONE);
         }
@@ -197,10 +201,14 @@ public class StoreActivity extends BaseActivity {
         etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
 
-
         for (int i = 0; i < 8; i++) {
             ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
         }
+
+        tvAddressSearch.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AddressSearchActivity.class);
+            startActivity(intent);
+        });
 
 
     }
@@ -285,7 +293,6 @@ public class StoreActivity extends BaseActivity {
         reqStoreRegisterDto.setPostNumber("우편주소");
         reqStoreRegisterDto.setAdmCd("123");
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-        reqStoreRegisterDto.setEmail(sharedPreferencesManager.getEmail());
         return true;
 
     }

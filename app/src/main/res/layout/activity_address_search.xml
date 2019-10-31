@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_ffffff">
@@ -23,8 +24,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/activity_store_search_address_keyword_search"
+        android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="text"
+        android:maxLines="1"
         app:layout_constraintEnd_toStartOf="@id/btn_address_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/common_address_search_title_bar" />
@@ -33,7 +36,7 @@
         android:id="@+id/btn_address_search"
         android:layout_width="74dp"
         android:layout_height="38dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/border_rect_4_4_4_4_1dp_4300ff_ffffff"
         android:text="검색"
         android:textColor="@color/color_4300ff"
@@ -49,6 +52,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_address_search" />
+        app:layout_constraintTop_toBottomOf="@id/btn_address_search"
+        tools:listitem="@layout/item_address" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

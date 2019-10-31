@@ -33,13 +33,13 @@ public class RetrofitService {
         return goSingApiService;
     }
 
-    public AddressApiService getAddressApiService(Context context) {
+    public AddressApiService getAddressApiService() {
         if (addressApiService == null) {
             addressApiService =
                     new RetrofitBuilder().init(
                             NetworkConstants.ADDRESS_BASE_URL,
                             null,
-                            AddressApiService.class, context);
+                            AddressApiService.class, null);
         }
         return addressApiService;
     }
