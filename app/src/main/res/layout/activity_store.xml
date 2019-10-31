@@ -212,6 +212,35 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_store_call_number" />
 
             <TextView
+                android:id="@+id/tv_boss_call_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/font_gd_14"
+                android:text="@string/activity_boss_call_number"
+                android:textColor="@color/color_000000"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@id/et_store_input_name"
+                app:layout_constraintTop_toBottomOf="@id/et_store_call_number"
+                tools:ignore="SpUsage" />
+
+            <EditText
+                android:id="@+id/et_boss_call_number"
+                style="@style/DefaultEditText"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="7dp"
+                android:hint="@string/activity_boss_input_call_number"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                android:maxLength="13"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="@id/et_store_input_name"
+                app:layout_constraintStart_toStartOf="@id/et_store_input_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_boss_call_number" />
+
+            <TextView
                 android:id="@+id/tv_store_thumbnail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -221,7 +250,7 @@
                 android:textColor="@color/color_000000"
                 android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="@id/et_store_input_name"
-                app:layout_constraintTop_toBottomOf="@id/et_store_call_number"
+                app:layout_constraintTop_toBottomOf="@id/et_boss_call_number"
                 tools:ignore="SpUsage" />
 
             <TextView

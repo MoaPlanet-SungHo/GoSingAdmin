@@ -239,6 +239,8 @@
     <string name="activity_store_input_short_address">간략 주소를 입력해 주세요.(20자 이내)</string>
     <string name="activity_store_call_number">업소 전화번호 *</string>
     <string name="activity_store_input_call_number">업소 전화번호를 입력해 주세요.</string>
+    <string name="activity_boss_call_number">휴대폰 번호 *</string>
+    <string name="activity_boss_input_call_number">사장님 전화번호를 입력해 주세요.</string>
     <string name="activity_store_thumbnail">대표사진</string>
     <string name="activity_store_thumbnail_select">(선택)</string>
     <string name="activity_store_thumbnail_info_one">- 매장을 대표할 수 있는 사진을 등록해 주세요.</string>

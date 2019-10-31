@@ -7,14 +7,10 @@ import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
@@ -22,21 +18,25 @@ import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.address.AddressSearchActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
+import com.moaplanet.gosingadmin.network.PersistentCookieStore;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
+
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import gun0912.tedimagepicker.builder.listener.OnMultiSelectedListener;
 import io.reactivex.disposables.CompositeDisposable;
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -46,7 +46,7 @@ public class StoreActivity extends BaseActivity {
     private TextView tvCeoCommentCount;
     private Button btnDone;
     private TextView tvAddressSearch;
-    private EditText etStoreName, etStoreTel, etSimpleAddress, etDetailAddress, etCeoComment;
+    private EditText etStoreName, etStoreTel, etBossTel, etSimpleAddress, etDetailAddress, etCeoComment;
     public CompositeDisposable compositeDisposable;
     public RxPermissions rxPermissions;
     private List<? extends Uri> selectedUriList;
@@ -70,37 +70,36 @@ public class StoreActivity extends BaseActivity {
      * 갤러리
      */
     private void selectPicture() {
-        compositeDisposable.add(rxPermissions.request(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
-        )
-                .subscribe(granted -> {
-                    if (granted) { // Always true pre-M
-                        Logger.d("permission granted");
-//                        if (getActivity() instanceof ReviewWriteActivity) {
-                        TedImagePicker.with(this)
-                                .selectedUri(selectedUriList)
-                                .max(8, "최대 8개 선택가능합니다.")
-                                .start((OnMultiSelectedListener) list -> {
-                                    Logger.d("Selected list >>> " + list.toString());
-                                    selectedUriList = list;
-                                    setImageAddComponentGroupUi(list);
-                                    detaultAddPictureUi();
-
-                                    for (int position = 0; position < list.size(); position++) {
-                                        pictureImageViewList.get(position).setImageURI(list.get(position));
-//                                            pictureImageInnerIconList.get(position).setVisibility(View.GONE);
-//                                            deletePictureButtonList.get(position).setVisibility(View.VISIBLE);
-                                    }
-
-                                });
-//                        }
-                    } else {
-                        // Oups permission denied
-                        Logger.d("permission denied");
-                    }
-                }));
+        try {
+            compositeDisposable.add(rxPermissions.request(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
+            )
+                    .subscribe(granted -> {
+                        if (granted) { // Always true pre-M
+                            Logger.d("permission granted");
+                            // if (getActivity() instanceof ReviewWriteActivity) {
+                            TedImagePicker.with(this)
+                                    .selectedUri(selectedUriList)
+                                    .max(8, "최대 8개 선택가능합니다.")
+                                    .startMultiImage(list -> {
+                                        Logger.d("Selected list >>> " + list.toString());
+                                        selectedUriList = list;
+                                        // setImageAddComponentGroupUi(list);
+                                        detaultAddPictureUi();
+                                        for (int position = 0; position < list.size(); position++) {
+                                            pictureImageViewList.get(position).setImageURI(list.get(position));
+                                        }
+                                    });
+                        } else {
+                            // Oups permission denied
+                            Logger.d("permission denied");
+                        }
+                    }));
+        } catch (Exception e) {
+        }
     }
+
 
     /**
      * 이미지 선택하기 UI Default
@@ -128,6 +127,7 @@ public class StoreActivity extends BaseActivity {
         btnDone = findViewById(R.id.btn_store_register);
         etStoreName = findViewById(R.id.et_store_input_name);
         etStoreTel = findViewById(R.id.et_store_call_number);
+        etBossTel = findViewById(R.id.et_boss_call_number);
         etSimpleAddress = findViewById(R.id.et_store_short_address);
         etDetailAddress = findViewById(R.id.et_store_detail_address);
         ivStoreImage[0] = findViewById(R.id.store_image_1);
@@ -148,7 +148,7 @@ public class StoreActivity extends BaseActivity {
             pictureImageViewList.add(ivStoreImage[i]);
         }
 
-        setImageAddComponentGroupUi(selectedUriList);
+//        setImageAddComponentGroupUi(selectedUriList);
         detaultAddPictureUi();
 
 //        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
@@ -156,25 +156,8 @@ public class StoreActivity extends BaseActivity {
 //        spSmallRoom = findViewById(R.id.sp_store_small_room_personnel);
     }
 
-    /**
-     * 이미지 선택하기 UI 상태를 구성
-     * 그 내용은 아래와 같다.
-     * 최초 이미지 선택 가이드 화면
-     * 이미지 3장 선택 가이드 화면
-     */
-    private void setImageAddComponentGroupUi(List<? extends Uri> uriList) {
-        if (uriList != null && uriList.size() > 0) {
-            Log.e("a", "a");
-//            clAddPictureAddToolTipGroup.setVisibility(View.GONE);
-//            clAddPictureGroup.setVisibility(View.VISIBLE);
-        } else {
-            Log.e("b", "b");
-//            clAddPictureAddToolTipGroup.setVisibility(View.VISIBLE);
-//            clAddPictureGroup.setVisibility(View.GONE);
-        }
-    }
-
     @Override
+
     public void initListener() {
         commonTitleBar.setBackButtonClickListener(view -> finish());
 
@@ -200,6 +183,7 @@ public class StoreActivity extends BaseActivity {
         });
         etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
+        etBossTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         for (int i = 0; i < 8; i++) {
             ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
@@ -231,8 +215,11 @@ public class StoreActivity extends BaseActivity {
         if (checkData()) {
 //            String filePath = R.class.getPackage().getName() + "/" + R.drawable.bg_ad_fifteen_day_product;
 //            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), filePath);
+            PersistentCookieStore cookieStore = new PersistentCookieStore(this);
+            CookieManager cookieManager = new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL);
 
-            Map<String, okhttp3.RequestBody> map = new HashMap<>();
+
+            Map<String, RequestBody> map = new HashMap<>();
 //            map.put("ic_question_mark", requestBody);
 //            reqStoreRegisterDto.getStorePhoto().put("1", "bg_ad_fifteen_day_product");
             RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).registerStore(
@@ -280,8 +267,15 @@ public class StoreActivity extends BaseActivity {
         }
 
         String storeTel = etStoreTel.getText().toString().trim();
+        String bossTel = etBossTel.getText().toString().trim();
         if (storeTel.length() > 0) {
             reqStoreRegisterDto.setStoreTel(storeTel);
+        } else {
+            return false;
+        }
+
+        if (bossTel.length() > 0) {
+            reqStoreRegisterDto.setStoreTel(bossTel);
         } else {
             return false;
         }

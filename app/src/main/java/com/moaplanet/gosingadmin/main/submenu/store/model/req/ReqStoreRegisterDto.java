@@ -43,6 +43,10 @@ public class ReqStoreRegisterDto {
     @SerializedName("ent_y")
     private String entY;
 
+    // 사장님 전화번호
+    @SerializedName("phone_number")
+    private String bossTel;
+
     // 업소 전화번호
     @SerializedName("tel")
     private String storeTel;
@@ -98,6 +102,10 @@ public class ReqStoreRegisterDto {
 
     public void setStoreTel(String storeTel) {
         this.storeTel = storeTel;
+    }
+
+    public void setBossTel(String storeTel) {
+        this.bossTel = bossTel;
     }
 
     public void setCeoComment(String ceoComment) {
