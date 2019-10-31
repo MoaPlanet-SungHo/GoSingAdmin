@@ -93,6 +93,7 @@ public class IntroActivity extends BaseActivity {
                         reqLoginDto.getPw(),
                         reqLoginDto.getSignType())
                 .enqueue(loginCallback);
+//        moveActivity(StoreActivity.class);
     }
 
     private MoaAuthCallback<ResLoginDto> loginCallback = new MoaAuthCallback<ResLoginDto>(
@@ -103,7 +104,7 @@ public class IntroActivity extends BaseActivity {
         public void onFinalResponse(Call<ResLoginDto> call, ResLoginDto resModel) {
             if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
                 if (resModel.getDetailCode() == NetworkConstants.CODE_LOGIN_SUCCESS) {
-                    moveActivity(StoreActivity.class);
+                    moveActivity(MainActivity.class);
                 } else if (resModel.getDetailCode() == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
                     moveActivity(StoreActivity.class);
                 } else {

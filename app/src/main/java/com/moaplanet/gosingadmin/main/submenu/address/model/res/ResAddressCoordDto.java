@@ -3,6 +3,8 @@ package com.moaplanet.gosingadmin.main.submenu.address.model.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ResAddressCoordDto {
 
     @SerializedName("results")
@@ -13,7 +15,7 @@ public class ResAddressCoordDto {
         private CommonAddressCoordDto commonAddressCoordDto;
 
         @SerializedName("juso")
-        private AddressCoordInfoDto addressCoordInfoDto;
+        private List<AddressCoordInfoDto> addressCoordInfoDto;
     }
 
     public class CommonAddressCoordDto {
@@ -26,9 +28,17 @@ public class ResAddressCoordDto {
         private String entX;
         @SerializedName("entY")
         private String entY;
+
+        public String getEntX() {
+            return entX;
+        }
+
+        public String getEntY() {
+            return entY;
+        }
     }
 
-    public AddressCoordInfoDto getAddressCoordInfoDto() {
+    public List<AddressCoordInfoDto> getAddressCoordInfoDto() {
         return resultCoordDto.addressCoordInfoDto;
     }
 

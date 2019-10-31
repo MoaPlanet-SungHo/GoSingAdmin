@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.address;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -141,16 +143,34 @@ public class AddressSearchActivity extends BaseActivity {
                 if (response.body() != null) {
 
                     if (response.body().getAddressCoordInfoDto() != null) {
-
+                        Intent intent = new Intent();
+                        intent.putExtra("juso", new Gson().toJson(addressInfoDto));
+                        intent.putExtra("coord",
+                                new Gson().toJson(
+                                        response.body()
+                                                .getAddressCoordInfoDto()
+                                                .get(0)));
+                        setResult(4000, intent);
+                        finish();
+                    } else {
+                        Toast.makeText(AddressSearchActivity.this,
+                                "서버 통신 오류입니다.",
+                                Toast.LENGTH_SHORT).show();
                     }
 
+                } else {
+                    Toast.makeText(AddressSearchActivity.this,
+                            "서버 통신 오류입니다.",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ResAddressCoordDto> call,
                                   @NonNull Throwable t) {
-
+                Toast.makeText(AddressSearchActivity.this,
+                        "서버 통신 오류입니다.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 

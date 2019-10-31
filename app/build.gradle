@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -13,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        multiDexEnabled = true
+// multiDexEnabled = true
     }
     dataBinding {
         enabled = true
@@ -29,7 +27,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -39,12 +36,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-
     /* Logger */
     implementation 'com.orhanobut:logger:2.2.0'
 
-//    /* multi dex */
-//    implementation 'com.android.support:multidex:1.0.3'
+     /* multi dex */
+    // implementation 'com.android.support:multidex:1.0.3'
 
     /* pin view */
     implementation 'com.chaos.view:pinview:1.4.3'
@@ -64,10 +60,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.13'
 
-    /* retrofit2  */
+    /* retrofit2 */
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.1'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.0.1'
 
@@ -76,13 +72,13 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
-    /* paging */
-    implementation "androidx.paging:paging-runtime:2.1.0"
-
     /* gallery */
     implementation 'gun0912.ted:tedimagepicker:1.0.4'
-
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    /* paging */
+    def paging_version = "2.1.0"
+    implementation "androidx.paging:paging-runtime:2.1.0"
 }

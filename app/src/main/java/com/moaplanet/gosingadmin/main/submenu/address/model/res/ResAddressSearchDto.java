@@ -76,6 +76,10 @@ public class ResAddressSearchDto {
             return buldMnnm;
         }
 
+        public String getEmdNm() {
+            return emdNm;
+        }
+
         public String getZipNo() {
             return zipNo;
         }

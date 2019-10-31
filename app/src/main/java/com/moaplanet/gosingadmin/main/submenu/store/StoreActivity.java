@@ -8,25 +8,26 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.address.AddressSearchActivity;
+import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
+import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
-import com.moaplanet.gosingadmin.network.PersistentCookieStore;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,6 @@ import java.util.Map;
 import androidx.annotation.Nullable;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
-import gun0912.tedimagepicker.builder.listener.OnMultiSelectedListener;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -54,12 +54,16 @@ public class StoreActivity extends BaseActivity {
     private List<ImageView> pictureImageInnerIconList;      //이미지 추가하기 아이콘 리스트
     private List<Button> deletePictureButtonList;           //삭제 버튼 리스트
     private final int PICTURE_COUNT = 8;
+    private TextView tvRoadAddress;
+    private CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
+    private TextView tvLargeRoomPrice, tvMiddleRoomPrice, tvSmallRoomPrice;
+    private Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
 
     private ImageView[] ivStoreImage = new ImageView[8];
-//    private Spinner spLargeRoom, spMiddleRoom, spSmallRoom;
 
     private ReqStoreRegisterDto reqStoreRegisterDto;
-
+    private ResAddressCoordDto.AddressCoordInfoDto addressCoordInfoDto;
+    private ResAddressSearchDto.AddressInfoDto addressInfoDto;
 
     @Override
     public int layoutRes() {
@@ -119,6 +123,16 @@ public class StoreActivity extends BaseActivity {
         compositeDisposable = new CompositeDisposable();
         rxPermissions = new RxPermissions(this);
 
+        cbMiddleRoom = findViewById(R.id.cb_store_middle_room);
+        cbSmallRoom = findViewById(R.id.cb_store_small_room);
+        tvSmallRoomPrice = findViewById(R.id.tv_store_small_room_price);
+        tvMiddleRoomPrice = findViewById(R.id.tv_store_middle_room_price);
+        spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
+        spSmallRooom = findViewById(R.id.sp_store_small_room_personnel);
+        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
+        tvLargeRoomPrice = findViewById(R.id.et_store_large_room_price);
+        cbLargeRoom = findViewById(R.id.cb_store_large_room);
+        tvRoadAddress = findViewById(R.id.tv_store_default_address);
         tvAddressSearch = findViewById(R.id.tv_store_search_address);
         etCeoComment = findViewById(R.id.et_store_ceo_comment);
         commonTitleBar = findViewById(R.id.common_store_title_bar);
@@ -191,7 +205,8 @@ public class StoreActivity extends BaseActivity {
 
         tvAddressSearch.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddressSearchActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 3000);
+//            startActivity(intent);
         });
 
 
@@ -213,6 +228,8 @@ public class StoreActivity extends BaseActivity {
 
     private void registerStore() {
         if (checkData()) {
+
+
 //            String filePath = R.class.getPackage().getName() + "/" + R.drawable.bg_ad_fifteen_day_product;
 //            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), filePath);
 
@@ -238,7 +255,7 @@ public class StoreActivity extends BaseActivity {
                         }
                     });
         } else {
-            Logger.d("필수 데이터 부족");
+            Logger.d("데이터 부족");
         }
     }
 
@@ -277,16 +294,94 @@ public class StoreActivity extends BaseActivity {
         } else {
             return false;
         }
+
+        String roadAddress = tvRoadAddress.getText().toString();
+        if (roadAddress.length() > 0) {
+            reqStoreRegisterDto.setRoadAddress(roadAddress);
+        } else {
+            return false;
+        }
+
         reqStoreRegisterDto.setCeoComment(etCeoComment.getText().toString());
-        reqStoreRegisterDto.setRoadAddress("로로명주소");
-        reqStoreRegisterDto.setEntX("123");
-        reqStoreRegisterDto.setEntY("123");
-        reqStoreRegisterDto.setEmdNm("동 정보");
-        reqStoreRegisterDto.setPostNumber("우편주소");
-        reqStoreRegisterDto.setAdmCd("123");
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+        reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
+        reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
+        reqStoreRegisterDto.setPostNumber(addressInfoDto.getZipNo());
+        reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
+        reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
+
+        List<ReqStoreRegisterDto.RoomInfoDto> roomInfoDtoList = new ArrayList<>();
+        // 룸체크
+        if (cbLargeRoom.isChecked()) {
+            ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
+            String larginRoomPrice = tvLargeRoomPrice.getText().toString().trim();
+            if (larginRoomPrice.length() == 0) {
+                return false;
+            }
+
+            if (spLargeRoom.getSelectedItemPosition() == 0) {
+                return false;
+            }
+
+            roomInfoDto.setPrice(larginRoomPrice);
+            roomInfoDto.setRoomType(1);
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItemPosition());
+            roomInfoDto.setSentType("insert");
+            roomInfoDtoList.add(roomInfoDto);
+        }
+
+        if (cbMiddleRoom.isChecked()) {
+            ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
+            String middleRoomPrice = tvMiddleRoomPrice.getText().toString().trim();
+            if (middleRoomPrice.length() == 0) {
+                return false;
+            }
+
+            if (spMiddleRoom.getSelectedItemPosition() == 0) {
+                return false;
+            }
+
+            roomInfoDto.setPrice(middleRoomPrice);
+            roomInfoDto.setRoomType(2);
+            roomInfoDto.setPeoplePerRoom(spMiddleRoom.getSelectedItemPosition());
+            roomInfoDto.setSentType("insert");
+            roomInfoDtoList.add(roomInfoDto);
+        }
+
+        if (cbSmallRoom.isChecked()) {
+            ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
+            String smallRoomPrice = tvSmallRoomPrice.getText().toString().trim();
+            if (smallRoomPrice.length() == 0) {
+                return false;
+            }
+
+            if (spLargeRoom.getSelectedItemPosition() == 0) {
+                return false;
+            }
+
+            roomInfoDto.setPrice(smallRoomPrice);
+            roomInfoDto.setRoomType(3);
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItemPosition());
+            roomInfoDto.setSentType("insert");
+            roomInfoDtoList.add(roomInfoDto);
+        }
+
+        reqStoreRegisterDto.setRoomInfoDtoList(roomInfoDtoList);
+
         return true;
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        addressCoordInfoDto =
+                new Gson().fromJson(data.getStringExtra("coord"), ResAddressCoordDto.AddressCoordInfoDto.class);
+
+        addressInfoDto =
+                new Gson().fromJson(data.getStringExtra("juso"), ResAddressSearchDto.AddressInfoDto.class);
+
+        tvRoadAddress.setText(addressInfoDto.getRoadAddress());
+
+    }
 }
