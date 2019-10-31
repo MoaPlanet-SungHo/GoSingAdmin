@@ -26,7 +26,6 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
                                     ResAddressSearchDto.AddressInfoDto> callback) {
 
         reqAddressSearchDto.setCurrentPage(1);
-//        reqAddressSearchDto.setKeyword("가산");
         reqAddressSearchDto.setKeyword(keyword);
         RetrofitService.getInstance().getAddressApiService()
                 .searchAddress(reqAddressSearchDto.getConfmKey(),
@@ -75,6 +74,11 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
                     @Override
                     public void onResponse(@NonNull Call<ResAddressSearchDto> call,
                                            @NonNull Response<ResAddressSearchDto> response) {
+
+                        if (response.body() != null) {
+                            int key = params.key + 1;
+                            callback.onResult(response.body().getAddressInfoDtoList(), key);
+                        }
 
                     }
 
