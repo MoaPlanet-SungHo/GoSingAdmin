@@ -105,8 +105,9 @@ public class IntroActivity extends BaseActivity {
                 if (resModel.getDetailCode() == NetworkConstants.CODE_LOGIN_SUCCESS) {
                     moveActivity(StoreActivity.class);
                 } else if (resModel.getDetailCode() == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
-
+                    moveActivity(StoreActivity.class);
                 } else {
+                    moveActivity(StoreActivity.class);
                     Toast.makeText(
                             IntroActivity.this,
                             "자동로그인을 실패 헀습니다.",

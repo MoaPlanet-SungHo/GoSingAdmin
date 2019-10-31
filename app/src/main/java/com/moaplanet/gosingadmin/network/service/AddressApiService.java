@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.network.service;
 
+import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
 
 import retrofit2.Call;
@@ -17,6 +18,17 @@ public interface AddressApiService {
             @Query("currentPage") int currentPage,
             @Query("countPerPage") int countPerPage,
             @Query("keyword") String keyword,
+            @Query("resultType") String resultType
+    );
+
+    @POST("addrCoordApi.do")
+    Call<ResAddressCoordDto> searchCoord(
+            @Query("confmKey") String key,
+            @Query("admCd") String admCd,
+            @Query("rnMgtSn") String rnMgtSn,
+            @Query("udrtYn") String udrtYn,
+            @Query("buldMnnm") String buldMnnm,
+            @Query("buldSlno") String buldSlno,
             @Query("resultType") String resultType
     );
 

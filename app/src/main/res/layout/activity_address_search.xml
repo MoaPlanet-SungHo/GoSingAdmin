@@ -55,4 +55,90 @@
         app:layout_constraintTop_toBottomOf="@id/btn_address_search"
         tools:listitem="@layout/item_address" />
 
+    <LinearLayout
+        android:id="@+id/ll_address_search_tip_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_address_search_keyword">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_13"
+            android:text="@string/activity_store_search_tip_title"
+            android:textColor="@color/color_000000"
+            android:textSize="12dp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14.7dp"
+            android:fontFamily="@font/font_gd_13"
+            android:text="@string/activity_store_search_tip_one"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="11dp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_gd_13"
+            android:text="@string/activity_store_search_tip_two"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="11dp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_gd_13"
+            android:text="@string/activity_store_search_tip_three"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="11dp"
+            tools:ignore="SpUsage" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_address_search_empty_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_gd_15"
+            android:text="@string/activity_store_search_empty_title"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="15dp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_gd_15"
+            android:lineSpacingExtra="4.7dp"
+            android:text="@string/activity_store_search_empty_content"
+            android:textAlignment="center"
+            android:textColor="@color/color_c7c7c7"
+            android:textSize="13dp"
+            tools:ignore="SpUsage" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

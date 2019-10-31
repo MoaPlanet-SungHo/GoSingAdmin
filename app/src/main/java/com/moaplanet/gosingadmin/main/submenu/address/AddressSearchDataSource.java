@@ -1,6 +1,8 @@
 package com.moaplanet.gosingadmin.main.submenu.address;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.paging.PageKeyedDataSource;
 
 import com.moaplanet.gosingadmin.main.submenu.address.model.req.ReqAddressSearchDto;
@@ -15,15 +17,27 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
 
     private ReqAddressSearchDto reqAddressSearchDto = new ReqAddressSearchDto();
     private String keyword;
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEmptyData = new MutableLiveData<>();
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public LiveData<Boolean> getIsEmptyData() {
+        return isEmptyData;
+    }
+
+    public LiveData<Boolean> getIsLoading() {
+        return isLoading;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params,
                             @NonNull LoadInitialCallback<Integer,
                                     ResAddressSearchDto.AddressInfoDto> callback) {
+
+        isLoading.postValue(true);
 
         reqAddressSearchDto.setCurrentPage(1);
         reqAddressSearchDto.setKeyword(keyword);
@@ -39,17 +53,30 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
                                            @NonNull Response<ResAddressSearchDto> response) {
 
                         if (response.body() != null) {
-                            callback.onResult(response.body().getAddressInfoDtoList(),
-                                    null,
-                                    reqAddressSearchDto.getCurrentPage() + 1);
+                            if (response.body().getAddressInfoDtoList() != null
+                                    && response.body().getAddressInfoDtoList().size() != 0) {
 
+                                callback.onResult(response.body().getAddressInfoDtoList(),
+                                        null,
+                                        reqAddressSearchDto.getCurrentPage() + 1);
+                                isEmptyData.postValue(false);
+
+                            } else {
+                                isEmptyData.postValue(true);
+                            }
+
+                        } else {
+                            isEmptyData.postValue(true);
                         }
+
+                        isLoading.postValue(false);
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<ResAddressSearchDto> call,
                                           @NonNull Throwable t) {
-
+                        isEmptyData.postValue(true);
+                        isLoading.postValue(false);
                     }
                 });
     }

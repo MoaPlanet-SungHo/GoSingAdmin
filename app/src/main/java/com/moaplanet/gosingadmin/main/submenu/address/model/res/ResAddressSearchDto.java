@@ -44,6 +44,38 @@ public class ResAddressSearchDto {
         @SerializedName("emdNm")
         private String emdNm;
 
+        // 건물본번
+        @SerializedName("buldMnnm")
+        private String buldMnnm;
+
+        // 건물 부번
+        @SerializedName("buldSlno")
+        private String buldSlno;
+
+        // 도로명 코드
+        @SerializedName("rnMgtSn")
+        private String rnMgtSn;
+
+        // 지하 여부
+        @SerializedName("udrtYn")
+        private String udrtYn;
+
+        public String getUdrtYn() {
+            return udrtYn;
+        }
+
+        public String getRnMgtSn() {
+            return rnMgtSn;
+        }
+
+        public String getBuldSlno() {
+            return buldSlno;
+        }
+
+        public String getBuldMnnm() {
+            return buldMnnm;
+        }
+
         public String getZipNo() {
             return zipNo;
         }
@@ -54,6 +86,10 @@ public class ResAddressSearchDto {
 
         public String getJibunAddress() {
             return jibunAddress;
+        }
+
+        public String getAdmCd() {
+            return admCd;
         }
     }
 

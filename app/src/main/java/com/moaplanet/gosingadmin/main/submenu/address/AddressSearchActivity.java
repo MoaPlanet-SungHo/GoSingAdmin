@@ -1,10 +1,13 @@
 package com.moaplanet.gosingadmin.main.submenu.address;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,8 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.address.model.AddressViewModel;
+import com.moaplanet.gosingadmin.main.submenu.address.model.req.ReqAddressCoordDto;
+import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
+import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
+import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddressSearchActivity extends BaseActivity {
 
@@ -22,6 +34,9 @@ public class AddressSearchActivity extends BaseActivity {
     private Button btnSearch;
     private EditText etAddressKeyword;
     private AddressViewModel addressViewModel;
+    private LinearLayout llEmptyView;
+    private LinearLayout llTipView;
+    private CommonTitleBar commonTitleBar;
 
     @Override
     public int layoutRes() {
@@ -34,13 +49,16 @@ public class AddressSearchActivity extends BaseActivity {
         rvAddressSearch.setLayoutManager(new LinearLayoutManager(this));
         btnSearch = findViewById(R.id.btn_address_search);
         etAddressKeyword = findViewById(R.id.et_address_search_keyword);
+        llEmptyView = findViewById(R.id.ll_address_search_empty_group);
+        llEmptyView.setVisibility(View.GONE);
+        llTipView = findViewById(R.id.ll_address_search_tip_group);
+        commonTitleBar = findViewById(R.id.common_address_search_title_bar);
     }
 
     @Override
     public void initListener() {
-        btnSearch.setOnClickListener(view -> {
-            onAddressSearch();
-        });
+        btnSearch.setOnClickListener(view -> onAddressSearch());
+        commonTitleBar.setBackButtonClickListener(view -> finish());
     }
 
     @Override
@@ -53,6 +71,8 @@ public class AddressSearchActivity extends BaseActivity {
         addressViewModel = ViewModelProviders.of(this).get(AddressViewModel.class);
         addressPagingAdapter = new AddressPagingAdapter();
         rvAddressSearch.setAdapter(addressPagingAdapter);
+
+        addressPagingAdapter.setOnItemClick(this::searchAddressCoordinates);
     }
 
     private void onAddressSearch() {
@@ -62,6 +82,20 @@ public class AddressSearchActivity extends BaseActivity {
             addressViewModel.addressSearchList.observe(this, addressInfoDtoList -> {
                 addressPagingAdapter.submitList(addressInfoDtoList);
             });
+
+            addressViewModel.getIsEmptyData().observe(this, isEmptyData -> {
+                if (isEmptyData) {
+                    llEmptyView.setVisibility(View.VISIBLE);
+                } else {
+                    llEmptyView.setVisibility(View.GONE);
+                }
+            });
+
+            addressViewModel.getIsLoading().observe(this, isLoading -> {
+
+            });
+
+            llTipView.setVisibility(View.GONE);
         }
     }
 
@@ -78,6 +112,48 @@ public class AddressSearchActivity extends BaseActivity {
         }
 
         return true;
+    }
+
+    /**
+     * 좌표 조회
+     */
+    private void searchAddressCoordinates(ResAddressSearchDto.AddressInfoDto addressInfoDto) {
+
+        ReqAddressCoordDto reqAddressCoordDto = new ReqAddressCoordDto();
+        reqAddressCoordDto.setAdmCd(addressInfoDto.getAdmCd());
+        reqAddressCoordDto.setBuldMnnm(addressInfoDto.getBuldMnnm());
+        reqAddressCoordDto.setBuldSlno(addressInfoDto.getBuldSlno());
+        reqAddressCoordDto.setRnMgtSn(addressInfoDto.getRnMgtSn());
+        reqAddressCoordDto.setUdrtYn(addressInfoDto.getUdrtYn());
+
+        RetrofitService.getInstance().getAddressApiService().searchCoord(
+                reqAddressCoordDto.getConfmKey(),
+                reqAddressCoordDto.getAdmCd(),
+                reqAddressCoordDto.getRnMgtSn(),
+                reqAddressCoordDto.getUdrtYn(),
+                reqAddressCoordDto.getBuldMnnm(),
+                reqAddressCoordDto.getBuldSlno(),
+                reqAddressCoordDto.getResultType()
+        ).enqueue(new Callback<ResAddressCoordDto>() {
+            @Override
+            public void onResponse(@NonNull Call<ResAddressCoordDto> call,
+                                   @NonNull Response<ResAddressCoordDto> response) {
+                if (response.body() != null) {
+
+                    if (response.body().getAddressCoordInfoDto() != null) {
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResAddressCoordDto> call,
+                                  @NonNull Throwable t) {
+
+            }
+        });
+
     }
 
 }

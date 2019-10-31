@@ -18,8 +18,14 @@ import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearch
 public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.AddressInfoDto, AddressPagingAdapter.AddressHolder> {
 
 
-    protected AddressPagingAdapter() {
+    AddressPagingAdapter() {
         super(DIFF_CALLBACK);
+    }
+
+    private onItemClick onItemClick;
+
+    public void setOnItemClick(AddressPagingAdapter.onItemClick onItemClick) {
+        this.onItemClick = onItemClick;
     }
 
     @NonNull
@@ -33,6 +39,11 @@ public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.A
     @Override
     public void onBindViewHolder(@NonNull AddressHolder holder, int position) {
         holder.init(position);
+        holder.itemView.setOnClickListener(view -> {
+            if (onItemClick != null) {
+                onItemClick.onClick(getItem(position));
+            }
+        });
     }
 
     public class AddressHolder extends RecyclerView.ViewHolder {
@@ -96,4 +107,8 @@ public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.A
             return oldItem.equals(newItem);
         }
     };
+
+    public interface onItemClick {
+        void onClick(ResAddressSearchDto.AddressInfoDto addressInfoDto);
+    }
 }
