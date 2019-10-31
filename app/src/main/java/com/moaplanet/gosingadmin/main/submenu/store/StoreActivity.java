@@ -22,6 +22,8 @@ import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +76,7 @@ public class StoreActivity extends BaseActivity {
                             TedImagePicker.with(this)
                                     .selectedUri(selectedUriList)
                                     .max(8, "최대 8개 선택가능합니다.")
-                                    .start((OnMultiSelectedListener) list -> {
+                                    .startMultiImage(list -> {
                                         Logger.d("Selected list >>> " + list.toString());
                                         selectedUriList = list;
 //                                        setImageAddComponentGroupUi(list);
@@ -90,7 +92,6 @@ public class StoreActivity extends BaseActivity {
                         }
                     }));
         } catch (Exception e) {
-            Log.e("Excetpein", e + " : out of memory?");
         }
     }
 
@@ -212,6 +213,9 @@ public class StoreActivity extends BaseActivity {
         if (checkData()) {
 //            String filePath = R.class.getPackage().getName() + "/" + R.drawable.bg_ad_fifteen_day_product;
 //            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), filePath);
+            PersistentCookieStore cookieStore = new PersistentCookieStore(this);
+            CookieManager cookieManager = new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL);
+
 
             Map<String, okhttp3.RequestBody> map = new HashMap<>();
 //            map.put("ic_question_mark", requestBody);
