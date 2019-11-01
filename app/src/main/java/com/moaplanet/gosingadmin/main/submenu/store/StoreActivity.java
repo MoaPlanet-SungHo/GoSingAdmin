@@ -60,7 +60,7 @@ public class StoreActivity extends BaseActivity {
     private final int PICTURE_COUNT = 8;
     private TextView tvRoadAddress;
     private CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
-    private TextView tvLargeRoomPrice, tvMiddleRoomPrice, tvSmallRoomPrice;
+    private EditText etLargeRoomPrice, etMiddleRoomPrice, etSmallRoomPrice;
     private Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
 
     private ImageView[] ivStoreImage = new ImageView[8];
@@ -127,12 +127,12 @@ public class StoreActivity extends BaseActivity {
 
         cbMiddleRoom = findViewById(R.id.cb_store_middle_room);
         cbSmallRoom = findViewById(R.id.cb_store_small_room);
-        tvSmallRoomPrice = findViewById(R.id.tv_store_small_room_price);
-        tvMiddleRoomPrice = findViewById(R.id.tv_store_middle_room_price);
+        etSmallRoomPrice = findViewById(R.id.et_store_small_room_price);
+        etMiddleRoomPrice = findViewById(R.id.et_store_middle_room_price);
         spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
         spSmallRooom = findViewById(R.id.sp_store_small_room_personnel);
         spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
-        tvLargeRoomPrice = findViewById(R.id.et_store_large_room_price);
+        etLargeRoomPrice = findViewById(R.id.et_store_large_room_price);
         cbLargeRoom = findViewById(R.id.cb_store_large_room);
         tvRoadAddress = findViewById(R.id.tv_store_default_address);
         tvAddressSearch = findViewById(R.id.tv_store_search_address);
@@ -339,7 +339,7 @@ public class StoreActivity extends BaseActivity {
         // 룸체크
         if (cbLargeRoom.isChecked()) {
             ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String larginRoomPrice = tvLargeRoomPrice.getText().toString().trim();
+            String larginRoomPrice = etLargeRoomPrice.getText().toString().trim();
             if (larginRoomPrice.length() == 0) {
                 return false;
             }
@@ -357,7 +357,7 @@ public class StoreActivity extends BaseActivity {
 
         if (cbMiddleRoom.isChecked()) {
             ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String middleRoomPrice = tvMiddleRoomPrice.getText().toString().trim();
+            String middleRoomPrice = etMiddleRoomPrice.getText().toString().trim();
             if (middleRoomPrice.length() == 0) {
                 return false;
             }
@@ -375,7 +375,7 @@ public class StoreActivity extends BaseActivity {
 
         if (cbSmallRoom.isChecked()) {
             ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String smallRoomPrice = tvSmallRoomPrice.getText().toString().trim();
+            String smallRoomPrice = etSmallRoomPrice.getText().toString().trim();
             if (smallRoomPrice.length() == 0) {
                 return false;
             }
