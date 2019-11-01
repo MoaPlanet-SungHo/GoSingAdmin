@@ -24,6 +24,7 @@ import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordD
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
@@ -241,7 +242,6 @@ public class StoreActivity extends BaseActivity {
             }
             reqStoreRegisterDto.setStorePhoto(storeImgMap);
 
-
             RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).registerStore(
                     reqStoreRegisterDto, fileMap)
                     .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
@@ -250,11 +250,25 @@ public class StoreActivity extends BaseActivity {
                     ) {
                         @Override
                         public void onFinalResponse(Call<ResStoreRegisterDto> call, ResStoreRegisterDto resModel) {
-                            Logger.d("업소 등록 성공");
-                            Intent intent = new Intent(StoreActivity.this,
-                                    WaitingApprovalActivity.class);
-                            startActivity(intent);
-//                            finish();
+                            if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+                                if (resModel.getDetailCode() == 200) {
+                                    Logger.d("업소 등록 성공");
+                                    Intent intent = new Intent(StoreActivity.this,
+                                            WaitingApprovalActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(
+                                            StoreActivity.this,
+                                            "업소 등록을 실패했습니다.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(
+                                        StoreActivity.this,
+                                        "업소 등록을 실패했습니다.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override

@@ -1,4 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.store.model.res;
 
-public class ResStoreRegisterDto {
+import com.moaplanet.gosingadmin.network.model.CommonResDto;
+
+public class ResStoreRegisterDto extends CommonResDto {
 }
