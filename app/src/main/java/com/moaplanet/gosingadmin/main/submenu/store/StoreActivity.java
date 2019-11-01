@@ -350,7 +350,7 @@ public class StoreActivity extends BaseActivity {
 
             roomInfoDto.setPrice(larginRoomPrice);
             roomInfoDto.setRoomType(1);
-            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItemPosition());
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }
@@ -368,7 +368,7 @@ public class StoreActivity extends BaseActivity {
 
             roomInfoDto.setPrice(middleRoomPrice);
             roomInfoDto.setRoomType(2);
-            roomInfoDto.setPeoplePerRoom(spMiddleRoom.getSelectedItemPosition());
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }
@@ -386,7 +386,7 @@ public class StoreActivity extends BaseActivity {
 
             roomInfoDto.setPrice(smallRoomPrice);
             roomInfoDto.setRoomType(3);
-            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItemPosition());
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }

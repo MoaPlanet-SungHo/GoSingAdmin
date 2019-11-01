@@ -48,7 +48,7 @@ import retrofit2.Call;
 public abstract class BaseStoreActivity extends BaseActivity {
 
     private CommonTitleBar commonTitleBar;
-    private EditText etStoreName, etStoreTel, etBossTel,
+    public EditText etStoreName, etStoreTel, etBossTel,
             etSimpleAddress, etDetailAddress, etCeoComment;
 
     // 권한 관련
@@ -68,12 +68,12 @@ public abstract class BaseStoreActivity extends BaseActivity {
     private Button btnDone;
     private TextView tvAddressSearch;
 
-    private TextView tvRoadAddress;
-    private CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
-    private TextView tvLargeRoomPrice, tvMiddleRoomPrice, tvSmallRoomPrice;
-    private Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
+    public TextView tvRoadAddress;
+    public CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
+    public TextView tvLargeRoomPrice, tvMiddleRoomPrice, tvSmallRoomPrice;
+    public Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
 
-    private ReqStoreRegisterDto reqStoreRegisterDto;
+    public ReqStoreRegisterDto reqStoreRegisterDto;
     private ResAddressCoordDto.AddressCoordInfoDto addressCoordInfoDto;
     private ResAddressSearchDto.AddressInfoDto addressInfoDto;
 
@@ -339,11 +339,16 @@ public abstract class BaseStoreActivity extends BaseActivity {
         }
 
         reqStoreRegisterDto.setCeoComment(etCeoComment.getText().toString());
-        reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
-        reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
-        reqStoreRegisterDto.setPostNumber(addressInfoDto.getZipNo());
-        reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
-        reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
+        if (addressCoordInfoDto != null) {
+            reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
+            reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
+        }
+
+        if (addressInfoDto != null) {
+            reqStoreRegisterDto.setPostNumber(addressInfoDto.getZipNo());
+            reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
+            reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
+        }
 
         List<ReqStoreRegisterDto.RoomInfoDto> roomInfoDtoList = new ArrayList<>();
         // 룸체크
@@ -360,7 +365,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
             roomInfoDto.setPrice(larginRoomPrice);
             roomInfoDto.setRoomType(1);
-            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItemPosition());
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }
@@ -378,7 +383,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
             roomInfoDto.setPrice(middleRoomPrice);
             roomInfoDto.setRoomType(2);
-            roomInfoDto.setPeoplePerRoom(spMiddleRoom.getSelectedItemPosition());
+            roomInfoDto.setPeoplePerRoom(spMiddleRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }
@@ -396,7 +401,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
             roomInfoDto.setPrice(smallRoomPrice);
             roomInfoDto.setRoomType(3);
-            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItemPosition());
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }

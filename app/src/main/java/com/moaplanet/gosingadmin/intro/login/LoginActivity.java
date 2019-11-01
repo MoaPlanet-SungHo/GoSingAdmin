@@ -194,10 +194,13 @@ public class LoginActivity extends BaseActivity {
 
             if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
                 moveActivity(MainActivity.class);
+                finishAffinity();
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
                 moveActivity(WaitingApprovalActivity.class);
+                finishAffinity();
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
                 moveActivity(StoreActivity.class);
+                finishAffinity();
             }
 
         }

@@ -17,15 +17,54 @@ public class ResStoreSearchDto extends CommonResDto {
     private List<ShopRoomInfoDto> shopRoomInfoDtoList;
 
     private class ShopPhotoDto {
-//        @SerializedName("shop_info_img_seq")
+        // shop_info_img_seq
+        @SerializedName("shop_info_img_seq")
+        private String imgPk;
+
+        @SerializedName("img_src")
+        private String imgSrc;
+
+        public String getImgPk() {
+            return imgPk;
+        }
+
+        public String getImgSrc() {
+            return imgSrc;
+        }
 
     }
 
-    private class ShopRoomInfoDto {
+    public class ShopRoomInfoDto {
+        @SerializedName("room_info_seq")
+        private String seq;
 
+        @SerializedName("room_type")
+        private int roomType;
+
+        @SerializedName("price")
+        private String price;
+
+        @SerializedName("people_per_room")
+        private String perRoom;
+
+        public String getPrice() {
+            return price;
+        }
+
+        public String getPerRoom() {
+            return perRoom;
+        }
+
+        public int getRoomType() {
+            return roomType;
+        }
+
+        public String getSeq() {
+            return seq;
+        }
     }
 
-    private class ShopInfoDto {
+    public class ShopInfoDto {
         // 업소명
         @SerializedName("shop_nm")
         private String storeName;
@@ -69,6 +108,65 @@ public class ResStoreSearchDto extends CommonResDto {
         // y좌표
         @SerializedName("ent_y")
         private String entY;
+
+        // 사장님 전화번호
+        @SerializedName("phone_number")
+        private String phoneNumber;
+
+        public String getEmdNm() {
+            return emdNm;
+        }
+
+        public String getEntY() {
+            return entY;
+        }
+
+        public String getEntX() {
+            return entX;
+        }
+
+        public String getAdmCd() {
+            return admCd;
+        }
+
+        public String getRoadAddress() {
+            return roadAddress;
+        }
+
+        public String getCeoComment() {
+            return ceoComment;
+        }
+
+        public String getDetailAddress() {
+            return detailAddress;
+        }
+
+        public String getPostNumber() {
+            return postNumber;
+        }
+
+        public String getSimpleAddress() {
+            return simpleAddress;
+        }
+
+        public String getStoreName() {
+            return storeName;
+        }
+
+        public String getStoreTel() {
+            return storeTel;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
     }
 
+    public ShopInfoDto getShopInfoDto() {
+        return shopInfoDto;
+    }
+
+    public List<ShopRoomInfoDto> getShopRoomInfoDtoList() {
+        return shopRoomInfoDtoList;
+    }
 }

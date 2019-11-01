@@ -142,10 +142,13 @@ public class IntroActivity extends BaseActivity {
         public void onLoginSuccess(int stateCode, int detailCode) {
             if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
                 moveActivity(MainActivity.class);
+                finish();
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
                 moveActivity(WaitingApprovalActivity.class);
+                finish();
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
                 moveActivity(StoreActivity.class);
+                finish();
             }
         }
 
