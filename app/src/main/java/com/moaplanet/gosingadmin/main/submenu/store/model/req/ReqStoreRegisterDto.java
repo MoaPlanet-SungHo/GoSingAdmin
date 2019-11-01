@@ -134,7 +134,7 @@ public class ReqStoreRegisterDto {
 
         // 룸 최대 인원
         @SerializedName("people_per_room")
-        private int peoplePerRoom;
+        private String peoplePerRoom;
 
         // 룸 타입
         @SerializedName("room_type")
@@ -152,7 +152,7 @@ public class ReqStoreRegisterDto {
             this.price = price;
         }
 
-        public void setPeoplePerRoom(int peoplePerRoom) {
+        public void setPeoplePerRoom(String peoplePerRoom) {
             this.peoplePerRoom = peoplePerRoom;
         }
 

@@ -8,7 +8,8 @@ import com.moaplanet.gosingadmin.common.model.dto.req.ReqStoreSearchDto;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.orhanobut.logger.Logger;
+
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -48,7 +49,39 @@ public class ModifyStoreActivity extends BaseStoreActivity {
     }
 
     private void initData(ResStoreSearchDto storeSearchDto) {
+        ResStoreSearchDto.ShopInfoDto shopInfoDto = storeSearchDto.getShopInfoDto();
 
+        etStoreName.setText(shopInfoDto.getStoreName());
+        tvRoadAddress.setText(shopInfoDto.getRoadAddress());
+        etDetailAddress.setText(shopInfoDto.getDetailAddress());
+        etSimpleAddress.setText(shopInfoDto.getSimpleAddress());
+        etStoreTel.setText(shopInfoDto.getStoreTel());
+        etBossTel.setText(shopInfoDto.getPhoneNumber());
+        etCeoComment.setText(shopInfoDto.getCeoComment());
+
+        List<ResStoreSearchDto.ShopRoomInfoDto> shopRoomInfoDtoList =
+                storeSearchDto.getShopRoomInfoDtoList();
+
+        if (shopRoomInfoDtoList != null && shopRoomInfoDtoList.size() > 0) {
+            for (ResStoreSearchDto.ShopRoomInfoDto shopRoomInfoDto : shopRoomInfoDtoList) {
+                if (shopRoomInfoDto.getRoomType() == 1) {
+                    cbLargeRoom.setChecked(true);
+                    tvLargeRoomPrice.setText(shopRoomInfoDto.getPrice());
+                } else if (shopRoomInfoDto.getRoomType() == 2) {
+                    cbMiddleRoom.setChecked(true);
+                    tvMiddleRoomPrice.setText(shopRoomInfoDto.getPrice());
+                } else {
+                    cbSmallRoom.setChecked(true);
+                    tvSmallRoomPrice.setText(shopRoomInfoDto.getPrice());
+                }
+            }
+        }
+
+        reqStoreRegisterDto.setEntX(shopInfoDto.getEntX());
+        reqStoreRegisterDto.setEntY(shopInfoDto.getEntY());
+        reqStoreRegisterDto.setPostNumber(shopInfoDto.getPostNumber());
+        reqStoreRegisterDto.setAdmCd(shopInfoDto.getAdmCd());
+        reqStoreRegisterDto.setEmdNm(shopInfoDto.getEmdNm());
     }
 
 }

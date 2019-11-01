@@ -26,7 +26,7 @@ public class WaitingApprovalActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        commonTitleBar.setBackButtonClickListener(view -> finish());
-        btnFinish.setOnClickListener(view -> finish());
+        commonTitleBar.setBackButtonClickListener(view -> finishAffinity());
+        btnFinish.setOnClickListener(view -> finishAffinity());
     }
 }

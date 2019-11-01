@@ -75,7 +75,8 @@ public class MainFragment extends Fragment {
         btnNotification.setOnClickListener(view -> onServiceReady());
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
         btnAd.setOnClickListener(view -> onServiceReady());
-        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
+//        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
+        btnStore.setOnClickListener(view -> onServiceReady());
 //        btnReview.setOnClickListener(view -> moveActivity(ReviewActivity.class));
         btnReview.setOnClickListener(view -> onServiceReady());
 //        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));

@@ -128,7 +128,7 @@ public class SignUpActivity extends BaseActivity {
         public void onLoginSuccess(int stateCode, int detailCode) {
             Intent intent = new Intent(SignUpActivity.this, StoreActivity.class);
             startActivity(intent);
-            finish();
+            finishAffinity();
         }
 
         @Override
