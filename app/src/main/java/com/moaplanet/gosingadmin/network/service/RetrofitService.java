@@ -22,7 +22,7 @@ public class RetrofitService {
         return LazyHolder.INSTANCE;
     }
 
-    public GoSingApiService getGoSingApiService(Context context) {
+     synchronized public GoSingApiService getGoSingApiService(Context context) {
         if (goSingApiService == null) {
             goSingApiService =
                     new RetrofitBuilder().init(
@@ -30,6 +30,8 @@ public class RetrofitService {
                             null,
                             GoSingApiService.class, context);
         }
+        getMoaAuthConfig();
+        getSessionChecker();
         return goSingApiService;
     }
 
@@ -44,16 +46,16 @@ public class RetrofitService {
         return addressApiService;
     }
 
-    public MoaAuthConfig getMoaAuthConfig() {
+    synchronized public MoaAuthConfig getMoaAuthConfig() {
         if (moaAuthConfig == null) {
-            MoaAuthConfig moaAuthConfig = new MoaAuthConfig();
+            moaAuthConfig = new MoaAuthConfig();
             moaAuthConfig.setLogTagName("moaAuthConfig");
             moaAuthConfig.setTotalRetryCnt(3);
         }
         return moaAuthConfig;
     }
 
-    public SessionChecker getSessionChecker() {
+    synchronized public SessionChecker getSessionChecker() {
         if (sessionChecker == null) {
             sessionChecker = new SessionChecker();
             sessionChecker.setMoaAuthConfig(moaAuthConfig);

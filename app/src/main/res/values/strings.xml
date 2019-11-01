@@ -4,7 +4,7 @@
     <!-- Common -->
     <string name="common_go_sing_admin_logo">고씽 관리자 로고</string>
     <string name="sign_up_title">회원가입</string>
-    <string name="common_date_format">yyyy.mm.dd</string>
+    <string name="common_date_format">Y.M.D</string>
 
     <!-- NoTitleDialog -->
     <string name="dialog_no_title_done">확인</string>
