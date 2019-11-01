@@ -12,7 +12,7 @@ public class StringUtil {
     }
 
     public static boolean isPw(String pw) {
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`]*$");
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,!.<>\\/?~`]*$");
         return pattern.matcher(pw).matches();
     }
 
