@@ -119,6 +119,10 @@ public class ReqStoreRegisterDto {
         return storePhoto;
     }
 
+    public void setStorePhoto(Map<String, String> storePhoto) {
+        this.storePhoto = storePhoto;
+    }
+
     public void setRoomInfoDtoList(List<RoomInfoDto> roomInfoDtoList) {
         this.roomInfoDtoList = roomInfoDtoList;
     }

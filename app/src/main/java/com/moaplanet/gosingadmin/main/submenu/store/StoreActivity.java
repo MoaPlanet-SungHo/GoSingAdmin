@@ -28,6 +28,7 @@ import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ import androidx.annotation.Nullable;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import io.reactivex.disposables.CompositeDisposable;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -112,8 +114,6 @@ public class StoreActivity extends BaseActivity {
         for (int i = 0; i < PICTURE_COUNT; i++) {
             pictureImageViewList.get(i).setImageURI(null);
             pictureImageViewList.get(i).setBackgroundResource(R.drawable.border_rect_0_0_0_0_1dp_e9e9e9_f8f8f8);
-//            pictureImageInnerIconList.get(i).setVisibility(View.VISIBLE);
-//            deletePictureButtonList.get(i).setVisibility(View.GONE);
         }
     }
 
@@ -162,12 +162,7 @@ public class StoreActivity extends BaseActivity {
             pictureImageViewList.add(ivStoreImage[i]);
         }
 
-//        setImageAddComponentGroupUi(selectedUriList);
         detaultAddPictureUi();
-
-//        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
-//        spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
-//        spSmallRoom = findViewById(R.id.sp_store_small_room_personnel);
     }
 
     @Override
@@ -228,17 +223,22 @@ public class StoreActivity extends BaseActivity {
 
     private void registerStore() {
         if (checkData()) {
+            Map<String, String> storeImgMap = new HashMap<>();
+            Map<String, RequestBody> fileMap = new HashMap<>();
+            for (int i = 0; i < selectedUriList.size(); i++) {
+//                File file = new File(selectedUriList.get(i).toString());
+                storeImgMap.put(String.valueOf(i), selectedUriList.get(i).getPath());
+                RequestBody requestBody = RequestBody.create(
+                        MediaType.parse("application/octet-stream"),
+                        new File(selectedUriList.get(i).getPath()));
+
+                fileMap.put(selectedUriList.get(i).getPath(), requestBody);
+            }
+            reqStoreRegisterDto.setStorePhoto(storeImgMap);
 
 
-//            String filePath = R.class.getPackage().getName() + "/" + R.drawable.bg_ad_fifteen_day_product;
-//            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), filePath);
-
-
-            Map<String, RequestBody> map = new HashMap<>();
-//            map.put("ic_question_mark", requestBody);
-//            reqStoreRegisterDto.getStorePhoto().put("1", "bg_ad_fifteen_day_product");
             RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).registerStore(
-                    reqStoreRegisterDto, map)
+                    reqStoreRegisterDto, fileMap)
                     .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
                             RetrofitService.getInstance().getMoaAuthConfig(),
                             RetrofitService.getInstance().getSessionChecker()
