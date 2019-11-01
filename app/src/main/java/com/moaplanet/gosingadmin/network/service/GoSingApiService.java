@@ -42,6 +42,6 @@ public interface GoSingApiService {
             @PartMap Map<String, RequestBody> files);
 
     // 업소 정보 조회
-    @POST
+    @POST("notLogin/s_shop_join_serch.json")
     Call<ResStoreSearchDto> onStoreSearch(@Query("signType") int signType);
 }

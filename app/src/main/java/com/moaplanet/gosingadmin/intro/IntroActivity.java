@@ -86,12 +86,12 @@ public class IntroActivity extends BaseActivity {
 
     private void onLogin() {
         ReqLoginDto reqLoginDto = new ReqLoginDto();
-        reqLoginDto.setEmail(sharedPreferencesManager.getEmail());
-        reqLoginDto.setPw(sharedPreferencesManager.getPw());
+//        reqLoginDto.setEmail(sharedPreferencesManager.getEmail());
+//        reqLoginDto.setPw(sharedPreferencesManager.getPw());
 
         LoginManager loginManager = new LoginManager();
         loginManager.setOnLoginListener(onLoginListener);
-        loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
+        loginManager.onLogin(this, LoginManager.LoginType.AUTO_LOGIN);
 
 //        RetrofitService.getInstance().getGoSingApiService(getApplicationContext())
 //                .login(
@@ -151,6 +151,7 @@ public class IntroActivity extends BaseActivity {
 
         @Override
         public void onLoginFail(int stateCode, int detailCode) {
+            llLogin.setVisibility(View.VISIBLE);
             Toast.makeText(
                     IntroActivity.this,
                     "자동로그인을 실패 헀습니다.",

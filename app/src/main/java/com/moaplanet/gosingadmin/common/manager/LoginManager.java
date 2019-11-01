@@ -66,6 +66,8 @@ public class LoginManager {
     public void onLogin(ReqLoginDto reqLoginDto, LoginType loginType, Context context) {
         this.context = context;
         this.loginType = loginType;
+        id = reqLoginDto.getEmail();
+        pw = reqLoginDto.getPw();
         RetrofitService.getInstance()
                 .getGoSingApiService(null)
                 .login(reqLoginDto.getEmail(),

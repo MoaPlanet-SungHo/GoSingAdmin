@@ -2,7 +2,7 @@
     <string name="apps_name">고씽사장님</string>
 
     <!-- Common -->
-    <string name="common_go_sing_admin_logo">고싱 관리자 로고</string>
+    <string name="common_go_sing_admin_logo">고씽 관리자 로고</string>
     <string name="sign_up_title">회원가입</string>
     <string name="common_date_format">yyyy.mm.dd</string>
 
@@ -60,7 +60,7 @@
     <string name="fragment_create_account_email">이메일 아이디</string>
     <string name="fragment_create_account_input_email_hint">이메일을 입력하세요.</string>
     <string name="fragment_create_account_input_email_check">중복확인</string>
-    <string name="fragment_create_account_input_email_err">이메일 혁식을 다시 확인해 주세요</string>
+    <string name="fragment_create_account_input_email_err">이메일 형식을 다시 확인해 주세요</string>
     <string name="fragment_create_account_pw">로그인 비밀번호</string>
     <string name="fragment_create_account_input_pw_hint">
         영문/숫자/특수문자 8~20자로 입력해 주세요.</string>
@@ -97,7 +97,7 @@
     <string name="fragment_sign_up_completed_title">회원가입 완료</string>
 
     <!-- LoginActivity -->
-    <string name="activity_login_gosing_text_description">고싱 텍스트</string>
+    <string name="activity_login_gosing_text_description">고씽 텍스트</string>
     <string name="activity_login_input_email">이메일 아이디 입력</string>
     <string name="activity_login_input_pw">로그인 비밀번호 입력</string>
     <string name="activity_login_forget_login_info">로그인 정보를 잊으셨나요?</string>
