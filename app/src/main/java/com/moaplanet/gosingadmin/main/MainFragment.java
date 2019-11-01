@@ -23,6 +23,7 @@ import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
 
 public class MainFragment extends Fragment {
@@ -74,7 +75,7 @@ public class MainFragment extends Fragment {
         btnNotification.setOnClickListener(view -> onServiceReady());
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
         btnAd.setOnClickListener(view -> onServiceReady());
-        btnStore.setOnClickListener(view -> moveActivity(StoreActivity.class));
+        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
 //        btnReview.setOnClickListener(view -> moveActivity(ReviewActivity.class));
         btnReview.setOnClickListener(view -> onServiceReady());
 //        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
