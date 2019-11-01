@@ -1,7 +1,6 @@
 package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -60,7 +59,6 @@ public class SignUpCompleteFragment extends BaseFragment {
             }
         });
         btnCodeCheck.setOnClickListener(view -> code = btnCodeCheck.getText().toString());
-        etCode.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         etCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -74,12 +72,12 @@ public class SignUpCompleteFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() >= 6) {
+                if (editable.length() == 6) {
                     etCode.setCompoundDrawablesWithIntrinsicBounds(
                             0, 0, R.drawable.ic_checkbox_press, 0);
-//                    btnCodeCheck.setEnabled(true);
+                    btnCodeCheck.setEnabled(true);
                 } else {
-//                    btnCodeCheck.setEnabled(false);
+                    btnCodeCheck.setEnabled(false);
                     etCode.setCompoundDrawablesWithIntrinsicBounds(
                             0, 0, R.drawable.ic_checkbox_nor, 0);
                 }
