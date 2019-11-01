@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +65,8 @@ public class StoreActivity extends BaseActivity {
     private CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
     private EditText etLargeRoomPrice, etMiddleRoomPrice, etSmallRoomPrice;
     private Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
+    private ProgressBar loading;
+    private boolean flagLoading = false;
 
     private ImageView[] ivStoreImage = new ImageView[8];
 
@@ -124,7 +129,8 @@ public class StoreActivity extends BaseActivity {
 
         compositeDisposable = new CompositeDisposable();
         rxPermissions = new RxPermissions(this);
-
+        loading = findViewById(R.id.pb_activity_store_loading);
+        loading.setVisibility(View.GONE);
         cbMiddleRoom = findViewById(R.id.cb_store_middle_room);
         cbSmallRoom = findViewById(R.id.cb_store_small_room);
         etSmallRoomPrice = findViewById(R.id.et_store_small_room_price);
@@ -224,6 +230,7 @@ public class StoreActivity extends BaseActivity {
     }
 
     private void registerStore() {
+        startLoading();
         if (checkData()) {
             Map<String, String> storeImgMap = new HashMap<>();
             Map<String, RequestBody> fileMap = new HashMap<>();
@@ -269,6 +276,7 @@ public class StoreActivity extends BaseActivity {
                                         "업소 등록을 실패했습니다.",
                                         Toast.LENGTH_SHORT).show();
                             }
+                            stopLoading();
                         }
 
                         @Override
@@ -278,10 +286,12 @@ public class StoreActivity extends BaseActivity {
                                     StoreActivity.this,
                                     "업소 등록을 실패했습니다.",
                                     Toast.LENGTH_SHORT).show();
+                            stopLoading();
                         }
                     });
         } else {
             Logger.d("데이터 부족");
+            stopLoading();
         }
     }
 
@@ -409,5 +419,24 @@ public class StoreActivity extends BaseActivity {
 
         tvRoadAddress.setText(addressInfoDto.getRoadAddress());
 
+    }
+
+    private void startLoading() {
+        flagLoading = true;
+        loading.setVisibility(View.VISIBLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    private void stopLoading() {
+        flagLoading = false;
+        loading.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!flagLoading) {
+            super.onBackPressed();
+        }
     }
 }
