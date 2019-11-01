@@ -20,6 +20,8 @@ import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
@@ -184,11 +186,20 @@ public class LoginActivity extends BaseActivity {
     LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
+//            if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
+//                successLogin();
+//            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+//                accountInactive();
+//            }
+
             if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
-                successLogin();
+                moveActivity(MainActivity.class);
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
-                accountInactive();
+                moveActivity(WaitingApprovalActivity.class);
+            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
+                moveActivity(StoreActivity.class);
             }
+
         }
 
         @Override
@@ -196,4 +207,9 @@ public class LoginActivity extends BaseActivity {
             tvErrMsg.setVisibility(View.VISIBLE);
         }
     };
+
+    private void moveActivity(Class moveActivity) {
+        Intent intent = new Intent(this, moveActivity);
+        startActivity(intent);
+    }
 }

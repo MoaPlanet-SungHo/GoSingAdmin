@@ -90,6 +90,7 @@ public class LoginManager {
                                 new SharedPreferencesManager(context);
                         sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
                         sharedPreferencesManager.setLoginInfo(id, pw);
+
                         onLoginListener.onLoginSuccess(
                                 resModel.getStateCode(),
                                 resModel.getDetailCode());
