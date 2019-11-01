@@ -22,6 +22,8 @@ public class LoginManager {
         LOGIN
     }
 
+    LoginType loginType;
+
     private Context context;
     private String id, pw;
 
@@ -35,12 +37,14 @@ public class LoginManager {
         this.context = context;
         SharedPreferencesManager pref = new SharedPreferencesManager(context);
         onLogin(pref.getEmail(), pref.getPw(), LoginType.AUTO_LOGIN, context);
+        this.loginType = loginType;
     }
 
     public void onLogin(String id, String pw, LoginType loginType, Context context) {
         this.context = context;
         this.id = id;
         this.pw = pw;
+        this.loginType = loginType;
         ReqLoginDto reqLoginDto = new ReqLoginDto();
         reqLoginDto.setPw(pw);
         reqLoginDto.setEmail(id);
@@ -54,15 +58,14 @@ public class LoginManager {
 
     /**
      * 로그인
-     * @param reqLoginDto
-     * 로그인 dto 모델
-     * @param loginType
-     * 로그인 타입
-     * @param context
-     * context
+     *
+     * @param reqLoginDto 로그인 dto 모델
+     * @param loginType   로그인 타입
+     * @param context     context
      */
     public void onLogin(ReqLoginDto reqLoginDto, LoginType loginType, Context context) {
         this.context = context;
+        this.loginType = loginType;
         RetrofitService.getInstance()
                 .getGoSingApiService(null)
                 .login(reqLoginDto.getEmail(),
@@ -86,11 +89,12 @@ public class LoginManager {
                                 resModel.getStateCode(),
                                 resModel.getDetailCode());
                     } else {
-                        SharedPreferencesManager sharedPreferencesManager =
-                                new SharedPreferencesManager(context);
-                        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-                        sharedPreferencesManager.setLoginInfo(id, pw);
-
+                        if (loginType == LoginType.LOGIN) {
+                            SharedPreferencesManager sharedPreferencesManager =
+                                    new SharedPreferencesManager(context);
+                            sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+                            sharedPreferencesManager.setLoginInfo(id, pw);
+                        }
                         onLoginListener.onLoginSuccess(
                                 resModel.getStateCode(),
                                 resModel.getDetailCode());

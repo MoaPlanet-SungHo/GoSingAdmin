@@ -43,5 +43,5 @@ public interface GoSingApiService {
 
     // 업소 정보 조회
     @POST
-    Call<ResStoreSearchDto> onStoreSearch(@Query("signType")int signType);
+    Call<ResStoreSearchDto> onStoreSearch(@Query("signType") int signType);
 }

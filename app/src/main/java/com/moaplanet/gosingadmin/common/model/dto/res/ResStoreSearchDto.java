@@ -18,6 +18,15 @@ public class ResStoreSearchDto extends CommonResDto {
 
         @SerializedName("address")
         private String address;
+
+        @SerializedName("address_simple")
+        private String addressSimple;
+
+        @SerializedName("tel")
+        private String tel;
+
+        @SerializedName("ceo_noti")
+        private String ceo_noti;
     }
 
 }
