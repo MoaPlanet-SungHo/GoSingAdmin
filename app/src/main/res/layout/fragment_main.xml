@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/font_gd_17"
-            android:text="58,000원"
+            android:text="0원"
             android:textColor="@color/color_000000"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"

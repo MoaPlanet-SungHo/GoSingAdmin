@@ -15,8 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
@@ -39,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.MediaType;
@@ -230,7 +229,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
     }
 
     private void setTvCeoCommentCount(int count) {
-        tvCeoCommentCount.setText(getString(R.string.activity_stroe_ceo_commnet_count, count));
+        tvCeoCommentCount.setText(getString(R.string.activity_store_ceo_comment_count, count));
     }
 
     private void registerStore() {
