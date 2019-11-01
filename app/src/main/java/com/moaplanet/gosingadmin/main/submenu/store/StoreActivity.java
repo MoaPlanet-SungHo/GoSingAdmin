@@ -49,7 +49,6 @@ import retrofit2.Call;
 
 /**
  * // TODO extends BaseActivity 대신 BaseStoreActivity 로 받도록 적용 필수
- * // 2019.11.01 이후 적용
  */
 public class StoreActivity extends BaseActivity {
 
