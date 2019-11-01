@@ -18,6 +18,7 @@ public class AddressViewModel extends ViewModel {
     public LiveData<PagedList<ResAddressSearchDto.AddressInfoDto>> addressSearchList;
     private LiveData<Boolean> isLoading;
     private LiveData<Boolean> isEmptyData;
+    private LiveData<String> allAddress;
 
     @SuppressWarnings("unchecked")
     public void addressSearchInit(String keyword) {
@@ -28,6 +29,9 @@ public class AddressViewModel extends ViewModel {
                 AddressSearchDataSource::getIsLoading);
         isEmptyData = Transformations.switchMap(dataSourceFactory.getDataSource(),
                 AddressSearchDataSource::getIsEmptyData);
+
+        allAddress = Transformations.switchMap(dataSourceFactory.getDataSource(),
+                AddressSearchDataSource::getAllAddress);
 
         dataSourceFactory.setKeyword(keyword);
         PagedList.Config config = (new PagedList.Config.Builder())
@@ -46,5 +50,9 @@ public class AddressViewModel extends ViewModel {
 
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
+    }
+
+    public LiveData<String> getAllAddress() {
+        return allAddress;
     }
 }

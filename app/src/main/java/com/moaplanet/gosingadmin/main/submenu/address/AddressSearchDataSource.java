@@ -19,6 +19,7 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
     private String keyword;
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> isEmptyData = new MutableLiveData<>();
+    private MutableLiveData<String> allAddress = new MutableLiveData<>();
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
@@ -30,6 +31,10 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
 
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
+    }
+
+    public MutableLiveData<String> getAllAddress() {
+        return allAddress;
     }
 
     @Override
@@ -61,6 +66,10 @@ public class AddressSearchDataSource extends PageKeyedDataSource<Integer, ResAdd
                                         reqAddressSearchDto.getCurrentPage() + 1);
                                 isEmptyData.postValue(false);
 
+                                if (response.body().getAddressCommonDto() != null &&
+                                        response.body().getAddressCommonDto().getTotalCount() != null) {
+                                    allAddress.postValue(response.body().getAddressCommonDto().getTotalCount());
+                                }
                             } else {
                                 isEmptyData.postValue(true);
                             }

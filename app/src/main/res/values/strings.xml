@@ -424,6 +424,7 @@
     <string name="activity_store_search_address_keyword_search">도로명, 건물명, 번지 검색</string>
     <string name="item_address_road_address">[도로명] %s</string>
     <string name="item_address_jibun_address">[지번] %s</string>
+    <string name="item_address_total_count">검색 결과 총 %s건</string>
     <string name="activity_store_search_button">검색</string>
     <string name="activity_store_search_empty_title">주소 검색 결과가 없습니다.</string>
     <string name="activity_store_search_empty_content">찾으시려는 주소의 건물번호 또는 건물명을\n

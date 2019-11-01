@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,6 +85,10 @@ public class AddressSearchActivity extends BaseActivity {
             addressViewModel.addressSearchList.observe(this, addressInfoDtoList -> {
                 addressPagingAdapter.submitList(addressInfoDtoList);
             });
+
+            addressViewModel.getAllAddress().observe(this, totalCount ->
+                    addressPagingAdapter.setTotalAddressCount(totalCount,
+                            AddressSearchActivity.this));
 
             addressViewModel.getIsEmptyData().observe(this, isEmptyData -> {
                 if (isEmptyData) {

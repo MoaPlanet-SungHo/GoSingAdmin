@@ -17,12 +17,21 @@ import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearch
 
 public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.AddressInfoDto, AddressPagingAdapter.AddressHolder> {
 
+    private TextView tvTotlaCount;
+    private String totalCount;
 
     AddressPagingAdapter() {
         super(DIFF_CALLBACK);
     }
 
     private onItemClick onItemClick;
+
+    public void setTotalAddressCount(String totalCount, Context context) {
+        this.totalCount = totalCount;
+        if (tvTotlaCount != null) {
+            tvTotlaCount.setText(context.getString(R.string.item_address_total_count, totalCount));
+        }
+    }
 
     public void setOnItemClick(AddressPagingAdapter.onItemClick onItemClick) {
         this.onItemClick = onItemClick;
@@ -78,6 +87,12 @@ public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.A
 
         private void initShowHeader() {
             tvHeader.setVisibility(View.VISIBLE);
+            tvTotlaCount = tvHeader;
+            if (!totalCount.equals("")) {
+                tvTotlaCount.setText(
+                        itemView.getContext().getString(
+                                R.string.item_address_total_count, totalCount));
+            }
         }
 
         private void initAddress(ResAddressSearchDto.AddressInfoDto addressInfoDto) {

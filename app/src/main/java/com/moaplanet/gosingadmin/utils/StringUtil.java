@@ -26,6 +26,18 @@ public class StringUtil {
         };
     }
 
+    public static InputFilter notKoreanFilter() {
+        return (charSequence, i, i1, spanned, i2, i3) -> {
+
+            Pattern pattern = Pattern.compile("^[ㄱ-ㅎ가-힣]*$");
+            if (pattern.matcher(charSequence).matches()) {
+                return "";
+            } else {
+                return charSequence;
+            }
+        };
+    }
+
     /**
      * 핸드폰번호 유효성 체크
      */

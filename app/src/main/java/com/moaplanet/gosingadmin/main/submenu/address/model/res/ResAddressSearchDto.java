@@ -21,6 +21,10 @@ public class ResAddressSearchDto {
         // 총 검색수
         @SerializedName("totalCount")
         private String totalCount;
+
+        public String getTotalCount() {
+            return totalCount;
+        }
     }
 
     public class AddressInfoDto {
@@ -99,6 +103,10 @@ public class ResAddressSearchDto {
 
     public List<AddressInfoDto> getAddressInfoDtoList() {
         return addressDto.addressInfoDtoList;
+    }
+
+    public AddressCommonDto getAddressCommonDto() {
+        return addressDto.addressCommonDto;
     }
 
     public class AddressDto {
