@@ -10,6 +10,8 @@ public class NetworkConstants {
 
     // 통신 관련 부분
     public static String GOSING_ADMIN_BASE_URL = "http://175.198.102.230:8080/MOAGossingShop/";
+    //    public static String GOSING_ADMIN_BASE_URL = "http://192.168.0.11:8080/MOAGossingShop/";
+    //    public static String GOSING_ADMIN_BASE_URL = "http://172.30.1.160:8080/";
     public static String ADDRESS_BASE_URL = "http://www.juso.go.kr/addrlink/";
 
     // 주소 페이징 개수
@@ -26,4 +28,5 @@ public class NetworkConstants {
     public static int CODE_LOGIN_SUCCESS = 200;
     public static int CODE_NOT_MEMBER = 4000;
     public static int CODE_ACCOUNT_INACTIVE = 2012;
+    public static int CODE_ACCOUNT_DISINACTIVE = 2013;
 }

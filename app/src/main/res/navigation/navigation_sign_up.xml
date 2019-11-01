@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_fragment_sign_up_input_password"
             app:destination="@id/fragment_sign_up_input_password" />
+        <action
+            android:id="@+id/action_fragment_sign_up_complete"
+            app:destination="@id/fragment_sign_up_complete" />
     </fragment>
 
     <fragment

@@ -14,10 +14,14 @@ import androidx.annotation.Nullable;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.manager.LoginManager;
+import com.moaplanet.gosingadmin.common.manager.StoreManager;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
@@ -103,14 +107,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void startLogin() {
+
         reqLoginDto.setEmail(userEmail);
         reqLoginDto.setPw(userPw);
 
-        RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).login(
-                reqLoginDto.getEmail(),
-                reqLoginDto.getPw()
-                , reqLoginDto.getSignType())
-                .enqueue(moaAuthCallback);
+        LoginManager loginManager = new LoginManager();
+        loginManager.setOnLoginListener(onLoginListener);
+        loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
+
+//        RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).login(
+//                reqLoginDto.getEmail(),
+//                reqLoginDto.getPw()
+//                , reqLoginDto.getSignType())
+//                .enqueue(moaAuthCallback);
     }
 
     private void onActivationButton() {
@@ -124,40 +133,40 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private MoaAuthCallback<ResLoginDto> moaAuthCallback = new MoaAuthCallback<ResLoginDto>(
-            RetrofitService.getInstance().getMoaAuthConfig(),
-            RetrofitService.getInstance().getSessionChecker()
-    ) {
-        @Override
-        public void onFinalResponse(Call<ResLoginDto> call, ResLoginDto resLoginDto) {
-            if (resLoginDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-
-                if (resLoginDto.getDetailCode() == NetworkConstants.CODE_LOGIN_SUCCESS) {
-                    successLogin();
-                } else if (resLoginDto.getDetailCode() == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
-                    accountInactive();
-                } else {
-                    tvErrMsg.setVisibility(View.VISIBLE);
-                }
-
-            } else {
-                tvErrMsg.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onFinalFailure(Call<ResLoginDto> call, boolean isSession, Throwable t) {
-            tvErrMsg.setVisibility(View.VISIBLE);
-        }
-    };
+//    private MoaAuthCallback<ResLoginDto> moaAuthCallback = new MoaAuthCallback<ResLoginDto>(
+//            RetrofitService.getInstance().getMoaAuthConfig(),
+//            RetrofitService.getInstance().getSessionChecker()
+//    ) {
+//        @Override
+//        public void onFinalResponse(Call<ResLoginDto> call, ResLoginDto resLoginDto) {
+//            if (resLoginDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+//
+//                if (resLoginDto.getDetailCode() == NetworkConstants.CODE_LOGIN_SUCCESS) {
+//                    successLogin();
+//                } else if (resLoginDto.getDetailCode() == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+//                    accountInactive();
+//                } else {
+//                    tvErrMsg.setVisibility(View.VISIBLE);
+//                }
+//
+//            } else {
+//                tvErrMsg.setVisibility(View.VISIBLE);
+//            }
+//        }
+//
+//        @Override
+//        public void onFinalFailure(Call<ResLoginDto> call, boolean isSession, Throwable t) {
+//            tvErrMsg.setVisibility(View.VISIBLE);
+//        }
+//    };
 
     /**
      * 로그인 성공
      */
     private void successLogin() {
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-        sharedPreferencesManager.setLoginInfo(userEmail, userPw);
+//        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+//        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+//        sharedPreferencesManager.setLoginInfo(userEmail, userPw);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -167,8 +176,40 @@ public class LoginActivity extends BaseActivity {
      * 계정 비활성화
      */
     private void accountInactive() {
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-        sharedPreferencesManager.setLoginInfo(userEmail, userPw);
+        StoreManager storeManager = new StoreManager();
+        storeManager.onStoreSearch();
+//        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+//        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+//        sharedPreferencesManager.setLoginInfo(userEmail, userPw);
+    }
+
+    LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
+        @Override
+        public void onLoginSuccess(int stateCode, int detailCode) {
+//            if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
+//                successLogin();
+//            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+//                accountInactive();
+//            }
+
+            if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
+                moveActivity(MainActivity.class);
+            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+                moveActivity(WaitingApprovalActivity.class);
+            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
+                moveActivity(StoreActivity.class);
+            }
+
+        }
+
+        @Override
+        public void onLoginFail(int stateCode, int detailCode) {
+            tvErrMsg.setVisibility(View.VISIBLE);
+        }
+    };
+
+    private void moveActivity(Class moveActivity) {
+        Intent intent = new Intent(this, moveActivity);
+        startActivity(intent);
     }
 }

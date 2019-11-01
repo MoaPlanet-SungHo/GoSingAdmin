@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
@@ -23,6 +24,7 @@ import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordD
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
@@ -227,15 +229,18 @@ public class StoreActivity extends BaseActivity {
             Map<String, RequestBody> fileMap = new HashMap<>();
             for (int i = 0; i < selectedUriList.size(); i++) {
 //                File file = new File(selectedUriList.get(i).toString());
-                storeImgMap.put(String.valueOf(i), selectedUriList.get(i).getPath());
+
+
+                File file = new File(selectedUriList.get(i).getPath());
+                storeImgMap.put(String.valueOf(i), file.getName());
+
                 RequestBody requestBody = RequestBody.create(
                         MediaType.parse("application/octet-stream"),
-                        new File(selectedUriList.get(i).getPath()));
+                        file);
 
-                fileMap.put(selectedUriList.get(i).getPath(), requestBody);
+                fileMap.put(file.getName() + "\"; filename=\"" + file.getName(), requestBody);
             }
             reqStoreRegisterDto.setStorePhoto(storeImgMap);
-
 
             RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).registerStore(
                     reqStoreRegisterDto, fileMap)
@@ -245,13 +250,34 @@ public class StoreActivity extends BaseActivity {
                     ) {
                         @Override
                         public void onFinalResponse(Call<ResStoreRegisterDto> call, ResStoreRegisterDto resModel) {
-                            Logger.d("업소 등록 성공");
+                            if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+                                if (resModel.getDetailCode() == 200) {
+                                    Logger.d("업소 등록 성공");
+                                    Intent intent = new Intent(StoreActivity.this,
+                                            WaitingApprovalActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(
+                                            StoreActivity.this,
+                                            "업소 등록을 실패했습니다.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(
+                                        StoreActivity.this,
+                                        "업소 등록을 실패했습니다.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
                         public void onFinalFailure(Call<ResStoreRegisterDto> call, boolean isSession, Throwable t) {
-                            Logger.d("업소 등록 실패");
-
+//                            Logger.d("업소 등록 실패");
+                            Toast.makeText(
+                                    StoreActivity.this,
+                                    "업소 등록을 실패했습니다.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
