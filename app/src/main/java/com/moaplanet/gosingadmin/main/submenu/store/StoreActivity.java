@@ -48,7 +48,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 
 /**
- * // TODO extends BaseActivity 대신 BaseStoreActivity 로 받도록 적용 필수
+ * TODO extends BaseActivity 대신 BaseStoreActivity 로 받도록 적용 필수
  */
 public class StoreActivity extends BaseActivity {
 
