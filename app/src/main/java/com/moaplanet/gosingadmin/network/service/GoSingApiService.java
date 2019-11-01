@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.network.service;
 
+import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
@@ -39,4 +40,8 @@ public interface GoSingApiService {
     Call<ResStoreRegisterDto> registerStore(
             @Part("shop_info") ReqStoreRegisterDto reqStoreRegisterDto,
             @PartMap Map<String, RequestBody> files);
+
+    // 업소 정보 조회
+    @POST
+    Call<ResStoreSearchDto> onStoreSearch(@Query("signType")int signType);
 }

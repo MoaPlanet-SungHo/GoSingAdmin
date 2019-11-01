@@ -109,8 +109,13 @@ public class CreateAccountFragment extends BaseFragment {
                         GoSingConstants.BUNDLE_VALUE_NEW_PASSWORD
                 );
 
+//                Navigation.findNavController(this.view).navigate(
+//                        R.id.action_fragment_sign_up_input_password,
+//                        bundle
+//                );
+
                 Navigation.findNavController(this.view).navigate(
-                        R.id.action_fragment_sign_up_input_password,
+                        R.id.action_fragment_sign_up_complete,
                         bundle
                 );
             }

@@ -52,6 +52,25 @@ public class LoginManager {
                 .enqueue(loginCallback);
     }
 
+    /**
+     * 로그인
+     * @param reqLoginDto
+     * 로그인 dto 모델
+     * @param loginType
+     * 로그인 타입
+     * @param context
+     * context
+     */
+    public void onLogin(ReqLoginDto reqLoginDto, LoginType loginType, Context context) {
+        this.context = context;
+        RetrofitService.getInstance()
+                .getGoSingApiService(null)
+                .login(reqLoginDto.getEmail(),
+                        reqLoginDto.getPw(),
+                        reqLoginDto.getSignType())
+                .enqueue(loginCallback);
+    }
+
     private MoaAuthCallback<ResLoginDto> loginCallback = new MoaAuthCallback<ResLoginDto>(
             RetrofitService.getInstance().getMoaAuthConfig(),
             RetrofitService.getInstance().getSessionChecker()
