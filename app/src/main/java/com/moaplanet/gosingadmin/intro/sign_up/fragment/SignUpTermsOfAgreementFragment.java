@@ -42,8 +42,8 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
         if (getActivity() != null) {
             signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
         }
-        simpleDateFormat = new SimpleDateFormat(getString(R.string.common_date_format),
-                Locale.getDefault());
+        simpleDateFormat = new SimpleDateFormat("y.M.d",
+                Locale.KOREA);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class SignUpCompleteFragment extends BaseFragment {
         etCode = view.findViewById(R.id.et_sign_up_completed_input_code);
 
         etCode.setFilters(new InputFilter[]{
-                new InputFilter.LengthFilter(6),
+                new InputFilter.LengthFilter(13),
                 StringUtil.notEmptyFilter()
         });
     }
