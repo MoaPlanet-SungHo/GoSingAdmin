@@ -1,5 +1,7 @@
 package com.moaplanet.gosingadmin.network.service;
 
+import android.content.Context;
+
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthConfig;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitBuilder;
@@ -20,13 +22,13 @@ public class RetrofitService {
         return LazyHolder.INSTANCE;
     }
 
-    public GoSingApiService getGoSingApiService() {
+    public GoSingApiService getGoSingApiService(Context context) {
         if (goSingApiService == null) {
             goSingApiService =
                     new RetrofitBuilder().init(
                             NetworkConstants.GOSING_ADMIN_BASE_URL,
                             null,
-                            GoSingApiService.class);
+                            GoSingApiService.class, context);
         }
         return goSingApiService;
     }
@@ -37,7 +39,7 @@ public class RetrofitService {
                     new RetrofitBuilder().init(
                             NetworkConstants.ADDRESS_BASE_URL,
                             null,
-                            AddressApiService.class);
+                            AddressApiService.class, null);
         }
         return addressApiService;
     }

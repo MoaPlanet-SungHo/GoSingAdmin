@@ -2,6 +2,7 @@ package com.moaplanet.gosingadmin.intro.sign_up.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
@@ -63,7 +65,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void onSignUp() {
-        RetrofitService.getInstance().getGoSingApiService().signUp(reqModel.getEmail(),
+        RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).signUp(reqModel.getEmail(),
                 reqModel.getPw(),
                 reqModel.getSalesCode(),
                 reqModel.getEventType(),
@@ -81,7 +83,7 @@ public class SignUpActivity extends BaseActivity {
             if (resSignUpDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
 
                 if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
-                    successLogin();
+                    successSignUp();
                 } else {
                     Toast.makeText(SignUpActivity.this,
                             "이미 존재하는 계정 입니다.",
@@ -106,13 +108,38 @@ public class SignUpActivity extends BaseActivity {
         }
     };
 
-    private void successLogin() {
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-        sharedPreferencesManager.setLoginInfo(reqModel.getEmail(), reqModel.getPw());
-        Intent intent = new Intent(this, StoreActivity.class);
-        startActivity(intent);
-        finish();
+    private void successSignUp() {
+        LoginManager loginManager = new LoginManager();
+        loginManager.setOnLoginListener(onLoginListener);
+        loginManager.onLogin(
+                reqModel.getEmail(),
+                reqModel.getPw(),
+                LoginManager.LoginType.LOGIN,
+                this);
+
+//        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+//        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+//        sharedPreferencesManager.setLoginInfo(reqModel.getEmail(), reqModel.getPw());
+//        Intent intent = new Intent(this, StoreActivity.class);
+//        startActivity(intent);
+//        finish();
     }
+
+    private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
+        @Override
+        public void onLoginSuccess(int stateCode, int detailCode) {
+            Intent intent = new Intent(SignUpActivity.this, StoreActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        public void onLoginFail(int stateCode, int detailCode) {
+            Toast.makeText(
+                    SignUpActivity.this,
+                    "회원가입을 실패했습니다.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +51,7 @@ public class MainFragment extends Fragment {
             View noticeContent = inflater.inflate(R.layout.item_main_notice_top_three, container, false);
             noticeView.addView(noticeContent);
         }
+        noticeView.setOnClickListener(view -> onServiceReady());
 
         btnPointHistory = view.findViewById(R.id.cl_main_point_history);
         btnNotification = view.findViewById(R.id.cl_main_notification);
@@ -66,26 +68,40 @@ public class MainFragment extends Fragment {
     }
 
     private void initListener() {
-        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
-        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
-        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
+//        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
+        btnPointHistory.setOnClickListener(view -> onServiceReady());
+//        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
+        btnNotification.setOnClickListener(view -> onServiceReady());
+//        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
+        btnAd.setOnClickListener(view -> onServiceReady());
         btnStore.setOnClickListener(view -> moveActivity(StoreActivity.class));
-        btnReview.setOnClickListener(view -> moveActivity(ReviewActivity.class));
-        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
-        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
+//        btnReview.setOnClickListener(view -> moveActivity(ReviewActivity.class));
+        btnReview.setOnClickListener(view -> onServiceReady());
+//        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
+        btnFoodOrder.setOnClickListener(view -> onServiceReady());
+//        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
+        btnNonmemberSave.setOnClickListener(view -> onServiceReady());
         slideMenu.setOnClickListener(view -> {
-            if (getActivity() != null && getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).openNavigation();
-            }
+            onServiceReady();
+//            if (getActivity() != null && getActivity() instanceof MainActivity) {
+//                ((MainActivity) getActivity()).openNavigation();
+//            }
         });
-        mBtnMakeQrCode.setOnClickListener(view -> moveActivity(PaymentActivity.class));
-        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
-        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
+//        mBtnMakeQrCode.setOnClickListener(view -> moveActivity(PaymentActivity.class));
+        mBtnMakeQrCode.setOnClickListener(view -> onServiceReady());
+//        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
+        btnCargePoint.setOnClickListener(view -> onServiceReady());
+//        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
+        btnWithdrawal.setOnClickListener(view -> onServiceReady());
 
     }
 
     private void moveActivity(Class moveClass) {
         Intent intent = new Intent(view.getContext(), moveClass);
         startActivity(intent);
+    }
+
+    private void onServiceReady() {
+        Toast.makeText(getContext(), "서비스 준비중 입니다.", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,10 +1,19 @@
 package com.moaplanet.gosingadmin.network.retrofit;
 
+import android.content.Context;
+
 import com.moaplanet.gosingadmin.BuildConfig;
+import com.moaplanet.gosingadmin.network.AddCookiesInterceptor;
+import com.moaplanet.gosingadmin.network.PersistentCookieStore;
+import com.moaplanet.gosingadmin.network.ReceivedCookiesInterceptor;
 import com.moaplanet.gosingadmin.utils.ObjectUtil;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.Map;
 
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -15,8 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitBuilder {
 
 
-    public <T> T init(String baseUrl, Map<String, String> headerMap, Class<T> cls){
-        return getRetrofitBuilder(baseUrl, getOkHttpClient(headerMap), false).create(cls);
+    public <T> T init(String baseUrl, Map<String, String> headerMap, Class<T> cls, Context context) {
+        return getRetrofitBuilder(baseUrl, getOkHttpClient(headerMap, context), false).create(cls);
     }
 
     private Retrofit getRetrofitBuilder(String baseUrl, OkHttpClient okHttpClient, boolean useRxJava) {
@@ -25,7 +34,7 @@ public class RetrofitBuilder {
             retrofitBuilder.baseUrl(baseUrl);
             retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
             retrofitBuilder.client(okHttpClient);
-            if(useRxJava){
+            if (useRxJava) {
                 retrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
             }
             return retrofitBuilder.build();
@@ -34,7 +43,13 @@ public class RetrofitBuilder {
         }
     }
 
-    private OkHttpClient getOkHttpClient(Map<String, String> headerMap) {
+    private OkHttpClient getOkHttpClient(Map<String, String> headerMap, Context context) {
+
+//        CookieHandler cookieHandler = new CookieManager();
+//        PersistentCookieStore persistentCookieStore = new PersistentCookieStore(context);
+//        CookieManager cookieManager = new CookieManager(persistentCookieStore, CookiePolicy.ACCEPT_ORIGINAL_SERVER);
+//        CookieHandler.setDefault(cookieManager);
+
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         okHttpClient.addInterceptor(chain -> {
             Request.Builder requestBuilder = chain.request().newBuilder();
@@ -49,6 +64,13 @@ public class RetrofitBuilder {
             return chain.proceed(requestBuilder.build());
         });
         okHttpClient.addInterceptor(getLoggingInterface());
+//        okHttpClient.cookieJar(new JavaNetCookieJar(cookieHandler))
+//                .connectTimeout(10000, TimeUnit.SECONDS)
+//                .writeTimeout(10000, TimeUnit.SECONDS)
+//                .readTimeout(10000, TimeUnit.SECONDS);
+//        okHttpClient.cookieJar(new JavaNetCookieJar(cookieManager));
+        okHttpClient.addNetworkInterceptor(new AddCookiesInterceptor());
+        okHttpClient.addInterceptor(new ReceivedCookiesInterceptor());
         return okHttpClient.build();
     }
 

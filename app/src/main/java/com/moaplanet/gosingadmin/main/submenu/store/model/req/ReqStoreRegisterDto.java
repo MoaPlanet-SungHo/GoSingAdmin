@@ -31,7 +31,7 @@ public class ReqStoreRegisterDto {
     @SerializedName("adm_cd")
     private String admCd;
 
-    //동 주소
+    // 동 주소
     @SerializedName("dong")
     private String emdNm;
 
@@ -53,13 +53,15 @@ public class ReqStoreRegisterDto {
 
     // 대표 사진
     @SerializedName("shop_photo")
-    private Map<String,String> storePhoto = new HashMap<>();
+    private Map<String, String> storePhoto = new HashMap<>();
 
     // 대표 삭제 사진
     @SerializedName("delete_photo")
     private List<String> removePhoto;
+
     // 룸정보
-    //
+    @SerializedName("room_info")
+    private List<RoomInfoDto> roomInfoDtoList;
 
     // 사장님 안내 멘트
     @SerializedName("ceo_noti")
@@ -115,5 +117,55 @@ public class ReqStoreRegisterDto {
 
     public Map<String, String> getStorePhoto() {
         return storePhoto;
+    }
+
+    public void setStorePhoto(Map<String, String> storePhoto) {
+        this.storePhoto = storePhoto;
+    }
+
+    public void setRoomInfoDtoList(List<RoomInfoDto> roomInfoDtoList) {
+        this.roomInfoDtoList = roomInfoDtoList;
+    }
+
+    public class RoomInfoDto {
+        // 가격
+        @SerializedName("price")
+        private String price;
+
+        // 룸 최대 인원
+        @SerializedName("people_per_room")
+        private int peoplePerRoom;
+
+        // 룸 타입
+        @SerializedName("room_type")
+        private int roomType;
+
+        // 룸 이름
+        @SerializedName("room_name")
+        private String roomName;
+
+        // 전송 타입
+        @SerializedName("t_type")
+        private String sentType;
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public void setPeoplePerRoom(int peoplePerRoom) {
+            this.peoplePerRoom = peoplePerRoom;
+        }
+
+        public void setRoomName(String roomName) {
+            this.roomName = roomName;
+        }
+
+        public void setRoomType(int roomType) {
+            this.roomType = roomType;
+        }
+
+        public void setSentType(String sentType) {
+            this.sentType = sentType;
+        }
     }
 }
