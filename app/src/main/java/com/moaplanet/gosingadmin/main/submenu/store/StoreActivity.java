@@ -213,10 +213,6 @@ public class StoreActivity extends BaseActivity {
         if (checkData()) {
 //            String filePath = R.class.getPackage().getName() + "/" + R.drawable.bg_ad_fifteen_day_product;
 //            RequestBody requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), filePath);
-            PersistentCookieStore cookieStore = new PersistentCookieStore(this);
-            CookieManager cookieManager = new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL);
-
-
             Map<String, okhttp3.RequestBody> map = new HashMap<>();
 //            map.put("ic_question_mark", requestBody);
 //            reqStoreRegisterDto.getStorePhoto().put("1", "bg_ad_fifteen_day_product");
