@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.store;
+package com.moaplanet.gosingadmin.main.submenu.store.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,51 +32,156 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
-
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
-/**
- * TODO extends BaseActivity 대신 BaseStoreActivity 로 받도록 적용 필수
- */
-public class StoreActivity extends BaseActivity {
+public abstract class BaseStoreActivity extends BaseActivity {
 
     private CommonTitleBar commonTitleBar;
-    private TextView tvCeoCommentCount;
-    private Button btnDone;
-    private TextView tvAddressSearch;
-    private EditText etStoreName, etStoreTel, etBossTel, etSimpleAddress, etDetailAddress, etCeoComment;
+    public EditText etStoreName, etStoreTel, etBossTel,
+            etSimpleAddress, etDetailAddress, etCeoComment;
+
+    // 권한 관련
     public CompositeDisposable compositeDisposable;
     public RxPermissions rxPermissions;
-    private List<? extends Uri> selectedUriList;
+
+    // 이미지 관련
     private List<ImageView> pictureImageViewList;           //이미지 리스트
     private List<ImageView> pictureImageInnerIconList;      //이미지 추가하기 아이콘 리스트
     private List<Button> deletePictureButtonList;           //삭제 버튼 리스트
-    private final int PICTURE_COUNT = 8;
-    private TextView tvRoadAddress;
-    private CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
-    private EditText etLargeRoomPrice, etMiddleRoomPrice, etSmallRoomPrice;
-    private Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
-    private ProgressBar loading;
-    private boolean flagLoading = false;
-
     private ImageView[] ivStoreImage = new ImageView[8];
+    private final int PICTURE_COUNT = 8;
+    private List<? extends Uri> selectedUriList;
 
-    private ReqStoreRegisterDto reqStoreRegisterDto;
+    private TextView tvCeoCommentCount;
+
+    private Button btnDone;
+    private TextView tvAddressSearch;
+
+    public TextView tvRoadAddress;
+    public CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
+    public TextView tvLargeRoomPrice, tvMiddleRoomPrice, tvSmallRoomPrice;
+    public Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
+
+    public ReqStoreRegisterDto reqStoreRegisterDto;
     private ResAddressCoordDto.AddressCoordInfoDto addressCoordInfoDto;
     private ResAddressSearchDto.AddressInfoDto addressInfoDto;
 
     @Override
     public int layoutRes() {
         return R.layout.activity_store;
+    }
+
+    @Override
+    public void initView() {
+
+        compositeDisposable = new CompositeDisposable();
+        rxPermissions = new RxPermissions(this);
+
+        commonTitleBar = findViewById(R.id.common_store_title_bar);
+
+        tvCeoCommentCount = findViewById(R.id.tv_store_ceo_comment_count);
+        setTvCeoCommentCount(0);
+
+        ivStoreImage[0] = findViewById(R.id.store_image_1);
+        ivStoreImage[1] = findViewById(R.id.store_image_2);
+        ivStoreImage[2] = findViewById(R.id.store_image_3);
+        ivStoreImage[3] = findViewById(R.id.store_image_4);
+        ivStoreImage[4] = findViewById(R.id.store_image_5);
+        ivStoreImage[5] = findViewById(R.id.store_image_6);
+        ivStoreImage[6] = findViewById(R.id.store_image_7);
+        ivStoreImage[7] = findViewById(R.id.store_image_8);
+
+        selectedUriList = new ArrayList<>();
+        pictureImageViewList = new ArrayList<>();
+        pictureImageInnerIconList = new ArrayList<>();
+        deletePictureButtonList = new ArrayList<>();
+
+        pictureImageViewList.addAll(Arrays.asList(ivStoreImage).subList(0, 8));
+
+        cbMiddleRoom = findViewById(R.id.cb_store_middle_room);
+        cbSmallRoom = findViewById(R.id.cb_store_small_room);
+        tvSmallRoomPrice = findViewById(R.id.tv_store_small_room_price);
+        tvMiddleRoomPrice = findViewById(R.id.tv_store_middle_room_price);
+        spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
+        spSmallRooom = findViewById(R.id.sp_store_small_room_personnel);
+        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
+        tvLargeRoomPrice = findViewById(R.id.et_store_large_room_price);
+        cbLargeRoom = findViewById(R.id.cb_store_large_room);
+        tvRoadAddress = findViewById(R.id.tv_store_default_address);
+        tvAddressSearch = findViewById(R.id.tv_store_search_address);
+        etCeoComment = findViewById(R.id.et_store_ceo_comment);
+
+        btnDone = findViewById(R.id.btn_store_register);
+        etStoreName = findViewById(R.id.et_store_input_name);
+        etStoreTel = findViewById(R.id.et_store_call_number);
+        etBossTel = findViewById(R.id.et_boss_call_number);
+        etSimpleAddress = findViewById(R.id.et_store_short_address);
+        etDetailAddress = findViewById(R.id.et_store_detail_address);
+
+        detaultAddPictureUi();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initDefault();
+    }
+
+
+    private void initDefault() {
+        Logger.d("베이스 스토어 엑티");
+        reqStoreRegisterDto = new ReqStoreRegisterDto();
+    }
+
+    @Override
+    public void initListener() {
+        for (int i = 0; i < 8; i++) {
+            ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
+        }
+
+        commonTitleBar.setBackButtonClickListener(view -> finish());
+
+        etCeoComment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setTvCeoCommentCount(editable.length());
+            }
+        });
+
+        btnDone.setOnClickListener(view -> {
+            registerStore();
+        });
+        etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+        etBossTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+
+        tvAddressSearch.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AddressSearchActivity.class);
+            startActivityForResult(intent, 3000);
+//            startActivity(intent);
+        });
+
     }
 
     /**
@@ -116,7 +218,6 @@ public class StoreActivity extends BaseActivity {
         }
     }
 
-
     /**
      * 이미지 선택하기 UI Default
      */
@@ -127,113 +228,11 @@ public class StoreActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void initView() {
-
-        compositeDisposable = new CompositeDisposable();
-        rxPermissions = new RxPermissions(this);
-        loading = findViewById(R.id.pb_activity_store_loading);
-        loading.setVisibility(View.GONE);
-        cbMiddleRoom = findViewById(R.id.cb_store_middle_room);
-        cbSmallRoom = findViewById(R.id.cb_store_small_room);
-        etSmallRoomPrice = findViewById(R.id.et_store_small_room_price);
-        etMiddleRoomPrice = findViewById(R.id.et_store_middle_room_price);
-        spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
-        spSmallRooom = findViewById(R.id.sp_store_small_room_personnel);
-        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
-        etLargeRoomPrice = findViewById(R.id.et_store_large_room_price);
-        cbLargeRoom = findViewById(R.id.cb_store_large_room);
-        tvRoadAddress = findViewById(R.id.tv_store_default_address);
-        tvAddressSearch = findViewById(R.id.tv_store_search_address);
-        etCeoComment = findViewById(R.id.et_store_ceo_comment);
-        commonTitleBar = findViewById(R.id.common_store_title_bar);
-        tvCeoCommentCount = findViewById(R.id.tv_store_ceo_comment_count);
-        setTvCeoCommentCount(0);
-        btnDone = findViewById(R.id.btn_store_register);
-        etStoreName = findViewById(R.id.et_store_input_name);
-        etStoreTel = findViewById(R.id.et_store_call_number);
-        etBossTel = findViewById(R.id.et_boss_call_number);
-        etSimpleAddress = findViewById(R.id.et_store_short_address);
-        etDetailAddress = findViewById(R.id.et_store_detail_address);
-        ivStoreImage[0] = findViewById(R.id.store_image_1);
-        ivStoreImage[1] = findViewById(R.id.store_image_2);
-        ivStoreImage[2] = findViewById(R.id.store_image_3);
-        ivStoreImage[3] = findViewById(R.id.store_image_4);
-        ivStoreImage[4] = findViewById(R.id.store_image_5);
-        ivStoreImage[5] = findViewById(R.id.store_image_6);
-        ivStoreImage[6] = findViewById(R.id.store_image_7);
-        ivStoreImage[7] = findViewById(R.id.store_image_8);
-
-        selectedUriList = new ArrayList<>();
-        pictureImageViewList = new ArrayList<>();
-        pictureImageInnerIconList = new ArrayList<>();
-        deletePictureButtonList = new ArrayList<>();
-
-        for (int i = 0; i < 8; i++) {
-            pictureImageViewList.add(ivStoreImage[i]);
-        }
-
-        detaultAddPictureUi();
-    }
-
-    @Override
-
-    public void initListener() {
-        commonTitleBar.setBackButtonClickListener(view -> finish());
-
-        etCeoComment.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                setTvCeoCommentCount(editable.length());
-            }
-        });
-
-        btnDone.setOnClickListener(view -> {
-            registerStore();
-        });
-        etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
-        etBossTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
-        for (int i = 0; i < 8; i++) {
-            ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
-        }
-
-        tvAddressSearch.setOnClickListener(view -> {
-            Intent intent = new Intent(this, AddressSearchActivity.class);
-            startActivityForResult(intent, 3000);
-//            startActivity(intent);
-        });
-
-
-    }
-
-    private void initDefault() {
-        reqStoreRegisterDto = new ReqStoreRegisterDto();
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDefault();
-    }
-
     private void setTvCeoCommentCount(int count) {
         tvCeoCommentCount.setText(getString(R.string.activity_store_ceo_comment_count, count));
     }
 
     private void registerStore() {
-        startLoading();
         if (checkData()) {
             Map<String, String> storeImgMap = new HashMap<>();
             Map<String, RequestBody> fileMap = new HashMap<>();
@@ -263,38 +262,35 @@ public class StoreActivity extends BaseActivity {
                             if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
                                 if (resModel.getDetailCode() == 200) {
                                     Logger.d("업소 등록 성공");
-                                    Intent intent = new Intent(StoreActivity.this,
+                                    Intent intent = new Intent(BaseStoreActivity.this,
                                             WaitingApprovalActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     Toast.makeText(
-                                            StoreActivity.this,
+                                            BaseStoreActivity.this,
                                             "업소 등록을 실패했습니다.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(
-                                        StoreActivity.this,
+                                        BaseStoreActivity.this,
                                         "업소 등록을 실패했습니다.",
                                         Toast.LENGTH_SHORT).show();
                             }
-                            stopLoading();
                         }
 
                         @Override
                         public void onFinalFailure(Call<ResStoreRegisterDto> call, boolean isSession, Throwable t) {
 //                            Logger.d("업소 등록 실패");
                             Toast.makeText(
-                                    StoreActivity.this,
+                                    BaseStoreActivity.this,
                                     "업소 등록을 실패했습니다.",
                                     Toast.LENGTH_SHORT).show();
-                            stopLoading();
                         }
                     });
         } else {
             Logger.d("데이터 부족");
-            stopLoading();
         }
     }
 
@@ -342,17 +338,22 @@ public class StoreActivity extends BaseActivity {
         }
 
         reqStoreRegisterDto.setCeoComment(etCeoComment.getText().toString());
-        reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
-        reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
-        reqStoreRegisterDto.setPostNumber(addressInfoDto.getZipNo());
-        reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
-        reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
+        if (addressCoordInfoDto != null) {
+            reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
+            reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
+        }
+
+        if (addressInfoDto != null) {
+            reqStoreRegisterDto.setPostNumber(addressInfoDto.getZipNo());
+            reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
+            reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
+        }
 
         List<ReqStoreRegisterDto.RoomInfoDto> roomInfoDtoList = new ArrayList<>();
         // 룸체크
         if (cbLargeRoom.isChecked()) {
             ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String larginRoomPrice = etLargeRoomPrice.getText().toString().trim();
+            String larginRoomPrice = tvLargeRoomPrice.getText().toString().trim();
             if (larginRoomPrice.length() == 0) {
                 return false;
             }
@@ -370,7 +371,7 @@ public class StoreActivity extends BaseActivity {
 
         if (cbMiddleRoom.isChecked()) {
             ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String middleRoomPrice = etMiddleRoomPrice.getText().toString().trim();
+            String middleRoomPrice = tvMiddleRoomPrice.getText().toString().trim();
             if (middleRoomPrice.length() == 0) {
                 return false;
             }
@@ -388,18 +389,18 @@ public class StoreActivity extends BaseActivity {
 
         if (cbSmallRoom.isChecked()) {
             ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String smallRoomPrice = etSmallRoomPrice.getText().toString().trim();
+            String smallRoomPrice = tvSmallRoomPrice.getText().toString().trim();
             if (smallRoomPrice.length() == 0) {
                 return false;
             }
 
-            if (spSmallRooom.getSelectedItemPosition() == 0) {
+            if (spLargeRoom.getSelectedItemPosition() == 0) {
                 return false;
             }
 
             roomInfoDto.setPrice(smallRoomPrice);
             roomInfoDto.setRoomType(3);
-            roomInfoDto.setPeoplePerRoom(spSmallRooom.getSelectedItem().toString());
+            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
             roomInfoDto.setSentType("insert");
             roomInfoDtoList.add(roomInfoDto);
         }
@@ -422,24 +423,5 @@ public class StoreActivity extends BaseActivity {
 
         tvRoadAddress.setText(addressInfoDto.getRoadAddress());
 
-    }
-
-    private void startLoading() {
-        flagLoading = true;
-        loading.setVisibility(View.VISIBLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    private void stopLoading() {
-        flagLoading = false;
-        loading.setVisibility(View.GONE);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!flagLoading) {
-            super.onBackPressed();
-        }
     }
 }

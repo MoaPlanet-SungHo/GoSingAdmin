@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.store;
+package com.moaplanet.gosingadmin.main.submenu.store.activity;
 
 import android.widget.Button;
 

@@ -18,8 +18,8 @@ import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.common.manager.StoreManager;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.WaitingApprovalActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
