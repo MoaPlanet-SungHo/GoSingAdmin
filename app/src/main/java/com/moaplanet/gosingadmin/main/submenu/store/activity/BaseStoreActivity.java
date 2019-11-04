@@ -6,11 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.address.AddressSearchActivity;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
@@ -27,129 +30,156 @@ import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDt
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import java.io.File;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.Nullable;
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import io.reactivex.disposables.CompositeDisposable;
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
 public abstract class BaseStoreActivity extends BaseActivity {
 
-    private CommonTitleBar commonTitleBar;
-    public EditText etStoreName, etStoreTel, etBossTel,
-            etSimpleAddress, etDetailAddress, etCeoComment;
+    // 로딩
+    protected ProgressBar loadingBar;
+    // 업소명 입력
+    protected EditText etStoreName;
+    // 타이틀
+    private CommonTitleBar titleBar;
+    // 주소 검색
+    private TextView tvAddressSearch;
+    // 기본 주소
+    protected TextView tvRoadAddress;
+    // 간편 주소
+    protected EditText etShortAddress;
+    // 상세 주소
+    protected EditText etDetailAddress;
+    // 가맹점, 사장님 전화번호
+    protected EditText etStoreCallNumber, etCeoCallNumber;
 
     // 권한 관련
     public CompositeDisposable compositeDisposable;
     public RxPermissions rxPermissions;
 
     // 이미지 관련
-    private List<ImageView> pictureImageViewList;           //이미지 리스트
-    private List<ImageView> pictureImageInnerIconList;      //이미지 추가하기 아이콘 리스트
-    private List<Button> deletePictureButtonList;           //삭제 버튼 리스트
-    private ImageView[] ivStoreImage = new ImageView[8];
+    protected List<ImageView> pictureImageViewList;           //이미지 리스트
     private final int PICTURE_COUNT = 8;
-    private List<? extends Uri> selectedUriList;
+    protected List<? extends Uri> selectedUriList;
 
+    // 사장님 코멘트 관련
     private TextView tvCeoCommentCount;
+    protected EditText etCeoComment;
 
     private Button btnDone;
-    private TextView tvAddressSearch;
 
-    public TextView tvRoadAddress;
-    public CheckBox cbLargeRoom, cbMiddleRoom, cbSmallRoom;
-    public TextView tvLargeRoomPrice, tvMiddleRoomPrice, tvSmallRoomPrice;
-    public Spinner spLargeRoom, spMiddleRoom, spSmallRooom;
+    protected List<Spinner> roomPersonnelList;
+    protected List<EditText> roomPriceList;
+    protected List<CheckBox> roomTypeList;
 
-    public ReqStoreRegisterDto reqStoreRegisterDto;
-    private ResAddressCoordDto.AddressCoordInfoDto addressCoordInfoDto;
-    private ResAddressSearchDto.AddressInfoDto addressInfoDto;
+    // 서버에 전송할 reqDto
+    protected ReqStoreRegisterDto reqStoreRegisterDto;
+
+    // 좌표 데이터 들어있는 dto
+    protected ResAddressCoordDto.AddressCoordInfoDto addressCoordInfoDto;
+    // 주소 정보가 들어있는 dto
+    protected ResAddressSearchDto.AddressInfoDto addressInfoDto;
+
+    public abstract void registerStore();
 
     @Override
     public int layoutRes() {
-        return R.layout.activity_store;
+        return R.layout.activity_base_store;
     }
 
     @Override
     public void initView() {
 
+        loadingBar = findViewById(R.id.progress_activity_base_store_loading);
+
+        titleBar = findViewById(R.id.title_base_store_title_bar);
+
+        TextView tvStoreTitle = findViewById(R.id.tv_activity_base_store_name);
+        tvStoreTitle.setText(getMakeEndStar(R.string.activity_base_store_name));
+
+        etStoreName = findViewById(R.id.et_activity_base_store_input_name);
+
+        TextView tvStoreAddressTitle = findViewById(R.id.tv_activity_base_store_address);
+        tvStoreAddressTitle.setText(getMakeEndStar(R.string.activity_base_store_address));
+
+        tvAddressSearch = findViewById(R.id.tv_activity_base_store_search_address);
+
+        TextView tvShortAddressTitle = findViewById(R.id.tv_activity_base_store_short_address);
+        tvShortAddressTitle.setText(getMakeEndStar(R.string.activity_base_store_short_address));
+
+        TextView tvStoreCallNumber = findViewById(R.id.tv_activity_base_store_call_number);
+        tvStoreCallNumber.setText(getMakeEndStar(R.string.activity_base_store_call_number));
+
+        TextView tvCeoCallNumber = findViewById(R.id.tv_activity_base_ceo_call_number);
+        tvCeoCallNumber.setText(getMakeEndStar(R.string.activity_base_ceo_call_number));
+
+        tvRoadAddress = findViewById(R.id.tv_activity_base_store_default_address);
+
+        etStoreCallNumber = findViewById(R.id.et_activity_base_store_call_number);
+        etCeoCallNumber = findViewById(R.id.et_activity_base_ceo_call_number);
+
         compositeDisposable = new CompositeDisposable();
         rxPermissions = new RxPermissions(this);
 
-        commonTitleBar = findViewById(R.id.common_store_title_bar);
-
-        tvCeoCommentCount = findViewById(R.id.tv_store_ceo_comment_count);
+        etCeoComment = findViewById(R.id.et_activity_base_store_ceo_comment);
+        tvCeoCommentCount = findViewById(R.id.tv_activity_base_store_ceo_comment_count);
         setTvCeoCommentCount(0);
 
-        ivStoreImage[0] = findViewById(R.id.store_image_1);
-        ivStoreImage[1] = findViewById(R.id.store_image_2);
-        ivStoreImage[2] = findViewById(R.id.store_image_3);
-        ivStoreImage[3] = findViewById(R.id.store_image_4);
-        ivStoreImage[4] = findViewById(R.id.store_image_5);
-        ivStoreImage[5] = findViewById(R.id.store_image_6);
-        ivStoreImage[6] = findViewById(R.id.store_image_7);
-        ivStoreImage[7] = findViewById(R.id.store_image_8);
+        pictureImageViewList = new ArrayList<>();
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_one));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_two));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_three));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_four));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_five));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_six));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_seven));
+        pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_eight));
 
         selectedUriList = new ArrayList<>();
-        pictureImageViewList = new ArrayList<>();
-        pictureImageInnerIconList = new ArrayList<>();
-        deletePictureButtonList = new ArrayList<>();
 
-        pictureImageViewList.addAll(Arrays.asList(ivStoreImage).subList(0, 8));
+        btnDone = findViewById(R.id.btn_activity_base_store_register);
 
-        cbMiddleRoom = findViewById(R.id.cb_store_middle_room);
-        cbSmallRoom = findViewById(R.id.cb_store_small_room);
-        tvSmallRoomPrice = findViewById(R.id.tv_store_small_room_price);
-        tvMiddleRoomPrice = findViewById(R.id.tv_store_middle_room_price);
-        spMiddleRoom = findViewById(R.id.sp_store_middle_room_personnel);
-        spSmallRooom = findViewById(R.id.sp_store_small_room_personnel);
-        spLargeRoom = findViewById(R.id.sp_store_large_room_personnel);
-        tvLargeRoomPrice = findViewById(R.id.et_store_large_room_price);
-        cbLargeRoom = findViewById(R.id.cb_store_large_room);
-        tvRoadAddress = findViewById(R.id.tv_store_default_address);
-        tvAddressSearch = findViewById(R.id.tv_store_search_address);
-        etCeoComment = findViewById(R.id.et_store_ceo_comment);
+        etShortAddress = findViewById(R.id.et_activity_base_store_short_address);
+        etDetailAddress = findViewById(R.id.et_activity_base_store_detail_address);
 
-        btnDone = findViewById(R.id.btn_store_register);
-        etStoreName = findViewById(R.id.et_store_input_name);
-        etStoreTel = findViewById(R.id.et_store_call_number);
-        etBossTel = findViewById(R.id.et_boss_call_number);
-        etSimpleAddress = findViewById(R.id.et_store_short_address);
-        etDetailAddress = findViewById(R.id.et_store_detail_address);
+        roomPersonnelList = new ArrayList<>();
+        roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_large_room_personnel));
+        roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_middle_room_personnel));
+        roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_small_room_personnel));
 
-        detaultAddPictureUi();
-    }
+        roomPriceList = new ArrayList<>();
+        roomPriceList.add(findViewById(R.id.et_activity_base_store_large_room_price));
+        roomPriceList.add(findViewById(R.id.et_activity_base_store_middle_room_price));
+        roomPriceList.add(findViewById(R.id.et_activity_base_store_small_room_price));
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDefault();
-    }
+        roomTypeList = new ArrayList<>();
+        roomTypeList.add(findViewById(R.id.cb_activity_base_store_large_room));
+        roomTypeList.add(findViewById(R.id.cb_activity_base_store_middle_room));
+        roomTypeList.add(findViewById(R.id.cb_activity_base_store_small_room));
 
-
-    private void initDefault() {
-        Logger.d("베이스 스토어 엑티");
-        reqStoreRegisterDto = new ReqStoreRegisterDto();
+        defaultAddPictureUi();
     }
 
     @Override
     public void initListener() {
-        for (int i = 0; i < 8; i++) {
-            ivStoreImage[i].setOnClickListener(view1 -> selectPicture());
+        for (int i = 0; i < PICTURE_COUNT; i++) {
+            pictureImageViewList.get(i).setOnClickListener(view1 -> selectPicture());
         }
 
-        commonTitleBar.setBackButtonClickListener(view -> finish());
+        titleBar.setBackButtonClickListener(view -> finish());
 
         etCeoComment.addTextChangedListener(new TextWatcher() {
             @Override
@@ -169,17 +199,17 @@ public abstract class BaseStoreActivity extends BaseActivity {
         });
 
         btnDone.setOnClickListener(view -> {
-            registerStore();
+            if (checkData()) {
+                registerStore();
+            }
         });
-        etStoreTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
-        etBossTel.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
+        etStoreCallNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        etCeoCallNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         tvAddressSearch.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddressSearchActivity.class);
-            startActivityForResult(intent, 3000);
-//            startActivity(intent);
+            startActivityForResult(intent, GoSingConstants.REQ_CODE_ADDRESS_SEARCH);
         });
 
     }
@@ -204,7 +234,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
                                         Logger.d("Selected list >>> " + list.toString());
                                         selectedUriList = list;
                                         // setImageAddComponentGroupUi(list);
-                                        detaultAddPictureUi();
+                                        defaultAddPictureUi();
                                         for (int position = 0; position < list.size(); position++) {
                                             pictureImageViewList.get(position).setImageURI(list.get(position));
                                         }
@@ -215,13 +245,14 @@ public abstract class BaseStoreActivity extends BaseActivity {
                         }
                     }));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * 이미지 선택하기 UI Default
      */
-    private void detaultAddPictureUi() {
+    private void defaultAddPictureUi() {
         for (int i = 0; i < PICTURE_COUNT; i++) {
             pictureImageViewList.get(i).setImageURI(null);
             pictureImageViewList.get(i).setBackgroundResource(R.drawable.border_rect_0_0_0_0_1dp_e9e9e9_f8f8f8);
@@ -229,199 +260,149 @@ public abstract class BaseStoreActivity extends BaseActivity {
     }
 
     private void setTvCeoCommentCount(int count) {
-        tvCeoCommentCount.setText(getString(R.string.activity_store_ceo_comment_count, count));
+        tvCeoCommentCount.setText(getString(R.string.activity_base_store_ceo_comment_count, count));
     }
 
-    private void registerStore() {
-        if (checkData()) {
-            Map<String, String> storeImgMap = new HashMap<>();
-            Map<String, RequestBody> fileMap = new HashMap<>();
-            for (int i = 0; i < selectedUriList.size(); i++) {
-//                File file = new File(selectedUriList.get(i).toString());
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        reqStoreRegisterDto = new ReqStoreRegisterDto();
+    }
 
+    public void connectServer(Map<String, RequestBody> fileMap) {
 
-                File file = new File(selectedUriList.get(i).getPath());
-                storeImgMap.put(String.valueOf(i), file.getName());
-
-                RequestBody requestBody = RequestBody.create(
-                        MediaType.parse("application/octet-stream"),
-                        file);
-
-                fileMap.put(file.getName() + "\"; filename=\"" + file.getName(), requestBody);
-            }
-            reqStoreRegisterDto.setStorePhoto(storeImgMap);
-
-            RetrofitService.getInstance().getGoSingApiService().registerStore(
-                    reqStoreRegisterDto, fileMap)
-                    .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
-                            RetrofitService.getInstance().getMoaAuthConfig(),
-                            RetrofitService.getInstance().getSessionChecker()
-                    ) {
-                        @Override
-                        public void onFinalResponse(Call<ResStoreRegisterDto> call, ResStoreRegisterDto resModel) {
-                            if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-                                if (resModel.getDetailCode() == 200) {
-                                    Logger.d("업소 등록 성공");
-                                    Intent intent = new Intent(BaseStoreActivity.this,
-                                            WaitingApprovalActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(
-                                            BaseStoreActivity.this,
-                                            "업소 등록을 실패했습니다.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+        RetrofitService.getInstance().getGoSingApiService().registerStore(
+                reqStoreRegisterDto, fileMap)
+                .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
+                        RetrofitService.getInstance().getMoaAuthConfig(),
+                        RetrofitService.getInstance().getSessionChecker()
+                ) {
+                    @Override
+                    public void onFinalResponse(Call<ResStoreRegisterDto> call, ResStoreRegisterDto resModel) {
+                        if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+                            if (resModel.getDetailCode() == 200) {
+                                Logger.d("업소 등록 성공");
+                                Intent intent = new Intent(BaseStoreActivity.this,
+                                        WaitingApprovalActivity.class);
+                                startActivity(intent);
+                                finish();
                             } else {
                                 Toast.makeText(
                                         BaseStoreActivity.this,
                                         "업소 등록을 실패했습니다.",
                                         Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        @Override
-                        public void onFinalFailure(Call<ResStoreRegisterDto> call, boolean isSession, Throwable t) {
-//                            Logger.d("업소 등록 실패");
+                        } else {
                             Toast.makeText(
                                     BaseStoreActivity.this,
                                     "업소 등록을 실패했습니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                    });
-        } else {
-            Logger.d("데이터 부족");
-        }
+                    }
+
+                    @Override
+                    public void onFinalFailure(Call<ResStoreRegisterDto> call, boolean isSession, Throwable t) {
+                        Toast.makeText(
+                                BaseStoreActivity.this,
+                                "업소 등록을 실패했습니다.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private boolean checkData() {
-        String storeName = etStoreName.getText().toString().trim();
-        if (storeName.length() > 0) {
-            reqStoreRegisterDto.setStoreName(storeName);
+
+        if (checkEmpty(etStoreName)) {
+            reqStoreRegisterDto.setStoreName(etStoreName.getText().toString());
         } else {
             return false;
         }
 
-        String simpleAddress = etSimpleAddress.getText().toString().trim();
-        if (simpleAddress.length() > 0) {
-            reqStoreRegisterDto.setSimpleAddress(simpleAddress);
+        if (checkEmpty(etShortAddress)) {
+            reqStoreRegisterDto.setSimpleAddress(etShortAddress.getText().toString());
         } else {
             return false;
         }
 
-        String detailAddress = etDetailAddress.getText().toString().trim();
-        if (detailAddress.length() > 0) {
-            reqStoreRegisterDto.setDetailAddress(detailAddress);
+        if (checkEmpty(tvRoadAddress)) {
+            reqStoreRegisterDto.setRoadAddress(tvRoadAddress.getText().toString());
         } else {
             return false;
         }
 
-        String storeTel = etStoreTel.getText().toString().trim();
-        String bossTel = etBossTel.getText().toString().trim();
-        if (storeTel.length() > 0) {
-            reqStoreRegisterDto.setStoreTel(storeTel);
+        if (checkEmpty(etDetailAddress)) {
+            reqStoreRegisterDto.setRoadAddress(etDetailAddress.getText().toString());
         } else {
             return false;
         }
 
-        if (bossTel.length() > 0) {
-            reqStoreRegisterDto.setStoreTel(bossTel);
+        if (checkEmpty(etStoreCallNumber)) {
+            reqStoreRegisterDto.setStoreTel(etStoreCallNumber.getText().toString());
         } else {
             return false;
         }
 
-        String roadAddress = tvRoadAddress.getText().toString();
-        if (roadAddress.length() > 0) {
-            reqStoreRegisterDto.setRoadAddress(roadAddress);
+        if (checkEmpty(etCeoCallNumber)) {
+            reqStoreRegisterDto.setStoreTel(etCeoCallNumber.getText().toString());
         } else {
             return false;
         }
 
         reqStoreRegisterDto.setCeoComment(etCeoComment.getText().toString());
+
         if (addressCoordInfoDto != null) {
             reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
             reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
+        } else {
+            return false;
         }
 
         if (addressInfoDto != null) {
             reqStoreRegisterDto.setPostNumber(addressInfoDto.getZipNo());
             reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
             reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
+        } else {
+            return false;
         }
-
-        List<ReqStoreRegisterDto.RoomInfoDto> roomInfoDtoList = new ArrayList<>();
-        // 룸체크
-        if (cbLargeRoom.isChecked()) {
-            ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String larginRoomPrice = tvLargeRoomPrice.getText().toString().trim();
-            if (larginRoomPrice.length() == 0) {
-                return false;
-            }
-
-            if (spLargeRoom.getSelectedItemPosition() == 0) {
-                return false;
-            }
-
-            roomInfoDto.setPrice(larginRoomPrice);
-            roomInfoDto.setRoomType(1);
-            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
-            roomInfoDto.setSentType("insert");
-            roomInfoDtoList.add(roomInfoDto);
-        }
-
-        if (cbMiddleRoom.isChecked()) {
-            ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String middleRoomPrice = tvMiddleRoomPrice.getText().toString().trim();
-            if (middleRoomPrice.length() == 0) {
-                return false;
-            }
-
-            if (spMiddleRoom.getSelectedItemPosition() == 0) {
-                return false;
-            }
-
-            roomInfoDto.setPrice(middleRoomPrice);
-            roomInfoDto.setRoomType(2);
-            roomInfoDto.setPeoplePerRoom(spMiddleRoom.getSelectedItem().toString());
-            roomInfoDto.setSentType("insert");
-            roomInfoDtoList.add(roomInfoDto);
-        }
-
-        if (cbSmallRoom.isChecked()) {
-            ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-            String smallRoomPrice = tvSmallRoomPrice.getText().toString().trim();
-            if (smallRoomPrice.length() == 0) {
-                return false;
-            }
-
-            if (spLargeRoom.getSelectedItemPosition() == 0) {
-                return false;
-            }
-
-            roomInfoDto.setPrice(smallRoomPrice);
-            roomInfoDto.setRoomType(3);
-            roomInfoDto.setPeoplePerRoom(spLargeRoom.getSelectedItem().toString());
-            roomInfoDto.setSentType("insert");
-            roomInfoDtoList.add(roomInfoDto);
-        }
-
-        reqStoreRegisterDto.setRoomInfoDtoList(roomInfoDtoList);
 
         return true;
+    }
 
+    protected boolean checkEmpty(TextView textView) {
+        return textView.getText().toString().trim().length() != 0;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        addressCoordInfoDto =
-                new Gson().fromJson(data.getStringExtra("coord"), ResAddressCoordDto.AddressCoordInfoDto.class);
+        if (requestCode == GoSingConstants.REQ_CODE_ADDRESS_SEARCH
+                && resultCode == GoSingConstants.RESULT_CODE_ADDRESS_SEARCH) {
 
-        addressInfoDto =
-                new Gson().fromJson(data.getStringExtra("juso"), ResAddressSearchDto.AddressInfoDto.class);
+            if (data != null) {
+                addressCoordInfoDto =
+                        new Gson().fromJson(
+                                data.getStringExtra(GoSingConstants.INTENT_KEY_ADDRESS_COORDINATES),
+                                ResAddressCoordDto.AddressCoordInfoDto.class);
 
-        tvRoadAddress.setText(addressInfoDto.getRoadAddress());
+                addressInfoDto =
+                        new Gson().fromJson(
+                                data.getStringExtra(GoSingConstants.INTENT_KEY_ADDRESS_INFO),
+                                ResAddressSearchDto.AddressInfoDto.class);
+
+                tvRoadAddress.setText(addressInfoDto.getRoadAddress());
+            }
+        }
 
     }
+
+    private SpannableStringBuilder getMakeEndStar(@StringRes int stringRes) {
+        SpannableStringBuilder storeNameBuilder = new SpannableStringBuilder();
+        storeNameBuilder.append(getString(stringRes));
+        storeNameBuilder.append(StringUtil.convertFontColor(
+                " *",
+                ContextCompat.getColor(this, R.color.color_4300ff)));
+        return storeNameBuilder;
+    }
+
 }

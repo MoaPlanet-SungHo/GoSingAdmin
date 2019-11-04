@@ -28,4 +28,15 @@ public class GoSingConstants {
     // bundle value 관련
     public static final String BUNDLE_VALUE_CHECK_PASSWORD = "CHECK_PASSWORD";
     public static final String BUNDLE_VALUE_NEW_PASSWORD = "NEW_PASSWORD";
+
+    // 주소 검색 관련
+    public static final int REQ_CODE_ADDRESS_SEARCH = 3000;
+    public static final int RESULT_CODE_ADDRESS_SEARCH = 30001;
+
+    // Intent 관련
+    // 선택한 주소
+    public static final String INTENT_KEY_ADDRESS_INFO = "INTENT_KEY_ADDRESS_INFO";
+    // 주소 좌표
+    public static final String INTENT_KEY_ADDRESS_COORDINATES = "INTENT_KEY_ADDRESS_COORDINATES";
+
 }

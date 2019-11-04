@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.address.model.AddressViewModel;
 import com.moaplanet.gosingadmin.main.submenu.address.model.req.ReqAddressCoordDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
@@ -149,13 +150,14 @@ public class AddressSearchActivity extends BaseActivity {
 
                     if (response.body().getAddressCoordInfoDto() != null) {
                         Intent intent = new Intent();
-                        intent.putExtra("juso", new Gson().toJson(addressInfoDto));
-                        intent.putExtra("coord",
+                        intent.putExtra(GoSingConstants.INTENT_KEY_ADDRESS_INFO,
+                                new Gson().toJson(addressInfoDto));
+                        intent.putExtra(GoSingConstants.INTENT_KEY_ADDRESS_COORDINATES,
                                 new Gson().toJson(
                                         response.body()
                                                 .getAddressCoordInfoDto()
                                                 .get(0)));
-                        setResult(4000, intent);
+                        setResult(GoSingConstants.RESULT_CODE_ADDRESS_SEARCH, intent);
                         finish();
                     } else {
                         Toast.makeText(AddressSearchActivity.this,

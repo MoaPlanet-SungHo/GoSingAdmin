@@ -36,6 +36,14 @@ public class ResAddressCoordDto {
         public String getEntY() {
             return entY;
         }
+
+        public void setEntY(String entY) {
+            this.entY = entY;
+        }
+
+        public void setEntX(String entX) {
+            this.entX = entX;
+        }
     }
 
     public List<AddressCoordInfoDto> getAddressCoordInfoDto() {

@@ -225,35 +225,41 @@
     <string name="karaoke_name">신풍 노래방 가산점</string>
     <string name="total_payment_amount">총 결제 금액</string>
 
-    <!-- StoreActivity -->
-    <string name="activity_store_title_bar">업소 정보 등록</string>
-    <string name="activity_store_add_info">업소 정보를 등록하세요</string>
-    <string name="activity_store_name">업소명 *</string>
-    <string name="activity_store_input_name">업소명을 입력해 주세요.</string>
-    <string name="activity_store_search_address">주소 검색</string>
-    <string name="activity_store_now_location">현 위치</string>
-    <string name="activity_store_address">업소 주소 *</string>
-    <string name="activity_store_input_detail_address">나머지 상세 주소를 입력해 주세요.</string>
-    <string name="activity_store_short_address">간략 주소 *</string>
-    <string name="activity_store_input_short_address">간략 주소를 입력해 주세요.(20자 이내)</string>
-    <string name="activity_store_call_number">업소 전화번호 *</string>
-    <string name="activity_store_input_call_number">업소 전화번호를 입력해 주세요.</string>
-    <string name="activity_boss_call_number">휴대폰 번호 *</string>
-    <string name="activity_boss_input_call_number">사장님 전화번호를 입력해 주세요.</string>
-    <string name="activity_store_thumbnail">대표사진</string>
-    <string name="activity_store_thumbnail_select">(선택)</string>
-    <string name="activity_store_thumbnail_info_one">- 매장을 대표할 수 있는 사진을 등록해 주세요.</string>
-    <string name="activity_store_thumbnail_info_two">- 사진은 최소 3장 ~ 최대 8장까지 추가 가능합니다.</string>
-    <string name="activity_store_thumbnail_info_three">- 사진은 장당 5MB까지 PNG, JPG 파일만 추가 가능합니다.</string>
-    <string name="activity_store_room_info">룸 정보</string>
-    <string name="activity_store_room_info_select">(선택)</string>
-    <string name="activity_store_large_room_input_price">시간당 가격을 입력해 주세요.</string>
-    <string name="activity_store_input_ceo_comment">
+    <!-- BaseStoreActivity -->
+    <string name="activity_base_store_title_bar">업소 정보 등록</string>
+    <string name="activity_base_store_register_info">업소 정보를 등록하세요</string>
+    <string name="activity_base_store_name">업소명 </string>
+    <string name="activity_base_store_input_name">업소명을 입력해 주세요.</string>
+    <string name="activity_base_store_search_address">주소 검색</string>
+    <string name="activity_base_store_now_location">현 위치</string>
+    <string name="activity_base_store_address">업소 주소</string>
+    <string name="activity_base_store_input_detail_address">나머지 상세 주소를 입력해 주세요.</string>
+    <string name="activity_base_store_short_address">간략 주소</string>
+    <string name="activity_base_store_input_short_address">간략 주소를 입력해 주세요.(20자 이내)</string>
+    <string name="activity_base_store_call_number">업소 전화번호</string>
+    <string name="activity_base_store_input_call_number">업소 전화번호를 입력해 주세요.</string>
+    <string name="activity_base_ceo_call_number">휴대폰 번호</string>
+    <string name="activity_base_ceo_input_call_number">사장님 전화번호를 입력해 주세요.</string>
+    <string name="activity_base_store_thumbnail">대표사진</string>
+    <string name="activity_base_store_select">(선택)</string>
+    <string name="activity_base_store_thumbnail_info_one">- 매장을 대표할 수 있는 사진을 등록해 주세요.</string>
+    <string name="activity_base_store_thumbnail_info_two">- 사진은 최소 3장 ~ 최대 8장까지 추가 가능합니다.</string>
+    <string name="activity_base_store_thumbnail_info_three">- 사진은 장당 5MB까지 PNG, JPG 파일만 추가 가능합니다.</string>
+    <string name="activity_base_store_room_info">룸 정보</string>
+    <string name="activity_base_store_room_info_select">(선택)</string>
+    <string name="activity_base_store_input_price">시간당 가격을 입력해 주세요.</string>
+    <string name="activity_base_store_input_ceo_comment">
         고객님들께 남기실 안내 사항을 적어 주세요.
         \n욕설, 도배 등의 운영 정책과 맞지 않는 글은 사전 경고 없이 차단 삭제 될 수 있습니다.
     </string>
-    <string name="activity_store_ceo_comment_count">%d / 500자</string>
-    <string name="activity_store_register">등록하기</string>
+    <string name="activity_base_store_ceo_comment_count">%d / 500자</string>
+    <string name="activity__base_store_register">등록하기</string>
+    <string name="activity_base_large_room">대형룸</string>
+    <string name="activity_base_middle_room">중형룸</string>
+    <string name="activity_base_small_room">소형룸</string>
+    <string name="activity_base_room_price">가격</string>
+    <string name="activity_base_room_personnel">인원</string>
+    <string name="activity_base_ceo_comment_title">사장님 안내 멘트 추가</string>
 
     <!-- FoodOrderFragment -->
     <string name="fragment_food_order_food_order">먹거리 주문</string>
@@ -445,7 +451,7 @@
     <string name="activity_review_manager_total_rating">(%s)</string>
     <string name="activity_review_manager_all_review">전체 리뷰</string>
     <string name="activity_review_manager_empty_comment_review">댓글 없는 리뷰</string>
-    
+
     <!-- item_review -->
     <string name="item_review_reply_comment">댓글 달기</string>
     <string name="item_review_img_description">리뷰 이미지</string>

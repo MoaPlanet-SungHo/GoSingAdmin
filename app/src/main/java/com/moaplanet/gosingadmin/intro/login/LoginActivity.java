@@ -18,6 +18,7 @@ import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.common.manager.StoreManager;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
@@ -192,7 +193,7 @@ public class LoginActivity extends BaseActivity {
                 moveActivity(WaitingApprovalActivity.class);
                 finishAffinity();
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
-                moveActivity(StoreActivity.class);
+                moveActivity(RegisterStoreActivity.class);
                 finishAffinity();
             }
 

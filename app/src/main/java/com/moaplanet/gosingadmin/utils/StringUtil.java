@@ -1,10 +1,19 @@
 package com.moaplanet.gosingadmin.utils;
 
 import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 
 import java.util.regex.Pattern;
 
 public class StringUtil {
+
+    public static SpannableStringBuilder convertFontColor(String str, int color) {
+        SpannableStringBuilder sp = new SpannableStringBuilder(str);
+        sp.setSpan(new ForegroundColorSpan(color), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return sp;
+    }
 
     public static boolean isEmail(String email) {
         Pattern pattern = android.util.Patterns.EMAIL_ADDRESS;
@@ -59,6 +68,10 @@ public class StringUtil {
         } else {
             return true;
         }
+    }
+
+    public static String replaceText(String text, String regex, String replace) {
+        return text.replaceAll(regex, replace);
     }
 
 }

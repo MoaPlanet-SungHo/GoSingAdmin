@@ -16,7 +16,7 @@ public class ResStoreSearchDto extends CommonResDto {
     @SerializedName("room_info_list")
     private List<ShopRoomInfoDto> shopRoomInfoDtoList;
 
-    private class ShopPhotoDto {
+    public class ShopPhotoDto {
         // shop_info_img_seq
         @SerializedName("shop_info_img_seq")
         private String imgPk;
@@ -168,5 +168,9 @@ public class ResStoreSearchDto extends CommonResDto {
 
     public List<ShopRoomInfoDto> getShopRoomInfoDtoList() {
         return shopRoomInfoDtoList;
+    }
+
+    public List<ShopPhotoDto> getShopPhotoDtoList() {
+        return shopPhotoDtoList;
     }
 }

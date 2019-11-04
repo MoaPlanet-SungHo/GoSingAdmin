@@ -13,6 +13,7 @@ import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
@@ -125,7 +126,7 @@ public class SignUpActivity extends BaseActivity {
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
-            Intent intent = new Intent(SignUpActivity.this, StoreActivity.class);
+            Intent intent = new Intent(SignUpActivity.this, RegisterStoreActivity.class);
             startActivity(intent);
             finishAffinity();
         }

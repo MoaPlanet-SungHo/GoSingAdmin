@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 
 public class MainFragment extends Fragment {
 
@@ -65,8 +66,7 @@ public class MainFragment extends Fragment {
         btnNotification.setOnClickListener(view -> onServiceReady());
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
         btnAd.setOnClickListener(view -> onServiceReady());
-//        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
-        btnStore.setOnClickListener(view -> onServiceReady());
+        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
         btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
 //        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
         btnFoodOrder.setOnClickListener(view -> onServiceReady());

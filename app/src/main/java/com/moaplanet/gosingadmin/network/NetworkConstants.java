@@ -13,6 +13,7 @@ public class NetworkConstants {
     //    public static String GOSING_ADMIN_BASE_URL = "http://192.168.0.11:8080/MOAGossingShop/";
     //    public static String GOSING_ADMIN_BASE_URL = "http://172.30.1.160:8080/";
     public static String ADDRESS_BASE_URL = "http://www.juso.go.kr/addrlink/";
+    public static String IMAGE_BASE_URL = "https://image.goeat.co.kr/";
 
     // 주소 페이징 개수
     public static int ADDRESS_SEACH_PAGING_COUNT = 30;

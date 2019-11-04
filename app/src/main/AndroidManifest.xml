@@ -49,6 +49,7 @@
         <activity android:name=".main.submenu.store.activity.WaitingApprovalActivity" />
         <activity android:name=".main.submenu.address.AddressSearchActivity" />
         <activity android:name=".main.submenu.store.activity.ModifyStoreActivity" />
+        <activity android:name=".main.submenu.store.activity.RegisterStoreActivity" />
     </application>
 
 </manifest>

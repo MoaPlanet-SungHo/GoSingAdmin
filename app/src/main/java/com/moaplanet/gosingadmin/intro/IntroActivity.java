@@ -19,6 +19,7 @@ import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
@@ -142,7 +143,7 @@ public class IntroActivity extends BaseActivity {
                 moveActivity(WaitingApprovalActivity.class);
                 finish();
             } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
-                moveActivity(StoreActivity.class);
+                moveActivity(RegisterStoreActivity.class);
                 finish();
             }
         }

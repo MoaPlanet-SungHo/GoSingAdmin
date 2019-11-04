@@ -99,6 +99,18 @@ public class ResAddressSearchDto {
         public String getAdmCd() {
             return admCd;
         }
+
+        public void setAdmCd(String admCd) {
+            this.admCd = admCd;
+        }
+
+        public void setZipNo(String zipNo) {
+            this.zipNo = zipNo;
+        }
+
+        public void setEmdNm(String emdNm) {
+            this.emdNm = emdNm;
+        }
     }
 
     public List<AddressInfoDto> getAddressInfoDtoList() {
