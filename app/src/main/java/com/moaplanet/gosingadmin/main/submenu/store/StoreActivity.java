@@ -229,7 +229,7 @@ public class StoreActivity extends BaseActivity {
     }
 
     private void setTvCeoCommentCount(int count) {
-        tvCeoCommentCount.setText(getString(R.string.activity_stroe_ceo_commnet_count, count));
+        tvCeoCommentCount.setText(getString(R.string.activity_store_ceo_comment_count, count));
     }
 
     private void registerStore() {

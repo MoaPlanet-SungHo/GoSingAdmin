@@ -55,10 +55,11 @@ public class SignUpCompleteFragment extends BaseFragment {
     public void initListener() {
         btnDone.setOnClickListener(v -> {
             if (getActivity() != null) {
+                code = etCode.getText().toString();//존재 확인시 삭제 가능
                 signUpViewModel.setSalesCode(code);
             }
         });
-        btnCodeCheck.setOnClickListener(view -> code = btnCodeCheck.getText().toString());
+        btnCodeCheck.setOnClickListener(view -> code = btnCodeCheck.getText().toString());//btnCodeCheck 이 값을 왜 가져와!!
         etCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,15 +73,16 @@ public class SignUpCompleteFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() == 6) {
-                    etCode.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, R.drawable.ic_checkbox_press, 0);
-                    btnCodeCheck.setEnabled(true);
-                } else {
-                    btnCodeCheck.setEnabled(false);
-                    etCode.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, R.drawable.ic_checkbox_nor, 0);
-                }
+                //todo 영업자 방침 정해짐에 따라 조건 결정
+//                if (editable.length() == 6) {
+//                    etCode.setCompoundDrawablesWithIntrinsicBounds(
+//                            0, 0, R.drawable.ic_checkbox_press, 0);
+//                    btnCodeCheck.setEnabled(true);
+//                } else {
+//                    btnCodeCheck.setEnabled(false);
+//                    etCode.setCompoundDrawablesWithIntrinsicBounds(
+//                            0, 0, R.drawable.ic_checkbox_nor, 0);
+//                }
             }
         });
     }
