@@ -11,16 +11,19 @@ import com.moaplanet.gosingadmin.common.model.dto.req.ReqStoreSearchDto;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
+import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -28,8 +31,9 @@ public class ModifyStoreActivity extends BaseStoreActivity {
 
     @Override
     public void registerStore() {
-        Map<String, RequestBody> fileMap = new HashMap<>();
-        connectServer(fileMap);
+        roomCheck();
+//        Map<String, RequestBody> fileMap = new HashMap<>();
+//        connectServer(fileMap);
     }
 
     @Override
@@ -121,6 +125,53 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         addressInfoDto.setZipNo(shopInfoDto.getPostNumber());
 
         loadingBar.setVisibility(View.GONE);
+    }
+
+    private void roomCheck() {
+        List<ReqStoreRegisterDto.RoomInfoDto> roomList = new ArrayList<>();
+        int ROOM_COUNT = 3;
+        ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
+        for (int i = 0; i < ROOM_COUNT; i++) {
+            if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
+                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
+                roomInfoDto.setRoomType(i + 1);
+                roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
+                roomInfoDto.setSentType("insert");
+                roomList.add(roomInfoDto);
+            }
+        }
+
+        reqStoreRegisterDto.setRoomInfoDtoList(roomList);
+
+        Map<String, String> storeImgMap = new HashMap<>();
+        Map<String, RequestBody> fileMap = new HashMap<>();
+//        for (int i = 0; i < selectedUriList.size(); i++) {
+//
+//            File file = new File(selectedUriList.get(i).getPath());
+//            storeImgMap.put(String.valueOf(i), file.getName());
+//
+//            RequestBody requestBody = RequestBody.create(
+//                    MediaType.parse("application/octet-stream"),
+//                    file);
+//
+//            fileMap.put(file.getName() + "\"; filename=\"" + file.getName(), requestBody);
+//        }
+        reqStoreRegisterDto.setStorePhoto(storeImgMap);
+
+        connectServer(fileMap);
+
+    }
+
+    private boolean checkRoomType(int position) {
+        return roomTypeList.get(position).isChecked();
+    }
+
+    private boolean checkRoomPrice(int position) {
+        return checkEmpty(roomPriceList.get(position));
+    }
+
+    private boolean checkRoomPersonnel(int position) {
+        return roomPersonnelList.get(position).getSelectedItemPosition() != 0;
     }
 
 }
