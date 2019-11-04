@@ -16,19 +16,12 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.common.manager.StoreManager;
-import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
-import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
-import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
-import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
 import com.moaplanet.gosingadmin.utils.StringUtil;
-
-import retrofit2.Call;
 
 public class LoginActivity extends BaseActivity {
 

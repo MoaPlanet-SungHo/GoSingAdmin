@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
-import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -32,7 +32,7 @@ public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
     public void initListener() {
 
         btnDone.setOnClickListener(view -> {
-            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
+            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager();
             Intent intent = new Intent(this, IntroActivity.class);
             sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_PERMISSION_CHECK_SUCCESS);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

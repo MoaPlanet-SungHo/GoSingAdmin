@@ -8,7 +8,7 @@ import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
@@ -35,7 +35,7 @@ public class LoginManager {
 
     public void onLogin(Context context, LoginType loginType) {
         this.context = context;
-        SharedPreferencesManager pref = new SharedPreferencesManager(context);
+        SharedPreferencesManager pref = new SharedPreferencesManager();
         onLogin(pref.getEmail(), pref.getPw(), LoginType.AUTO_LOGIN, context);
         this.loginType = loginType;
     }
@@ -49,7 +49,7 @@ public class LoginManager {
         reqLoginDto.setPw(pw);
         reqLoginDto.setEmail(id);
         RetrofitService.getInstance()
-                .getGoSingApiService(null)
+                .getGoSingApiService()
                 .login(reqLoginDto.getEmail(),
                         reqLoginDto.getPw(),
                         reqLoginDto.getSignType())
@@ -69,7 +69,7 @@ public class LoginManager {
         id = reqLoginDto.getEmail();
         pw = reqLoginDto.getPw();
         RetrofitService.getInstance()
-                .getGoSingApiService(null)
+                .getGoSingApiService()
                 .login(reqLoginDto.getEmail(),
                         reqLoginDto.getPw(),
                         reqLoginDto.getSignType())
@@ -93,7 +93,7 @@ public class LoginManager {
                     } else {
                         if (loginType == LoginType.LOGIN) {
                             SharedPreferencesManager sharedPreferencesManager =
-                                    new SharedPreferencesManager(context);
+                                    new SharedPreferencesManager();
                             sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
                             sharedPreferencesManager.setLoginInfo(id, pw);
                         }

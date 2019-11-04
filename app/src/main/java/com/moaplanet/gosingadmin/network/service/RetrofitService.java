@@ -1,7 +1,5 @@
 package com.moaplanet.gosingadmin.network.service;
 
-import android.content.Context;
-
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthConfig;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitBuilder;
@@ -14,6 +12,13 @@ public class RetrofitService {
     private GoSingApiService goSingApiService;
     private AddressApiService addressApiService;
 
+    private RetrofitService() {
+        getSessionChecker();
+        getMoaAuthConfig();
+        getAddressApiService();
+        getGoSingApiService();
+    }
+
     private static class LazyHolder {
         private static final RetrofitService INSTANCE = new RetrofitService();
     }
@@ -22,16 +27,14 @@ public class RetrofitService {
         return LazyHolder.INSTANCE;
     }
 
-     synchronized public GoSingApiService getGoSingApiService(Context context) {
+    public GoSingApiService getGoSingApiService() {
         if (goSingApiService == null) {
             goSingApiService =
                     new RetrofitBuilder().init(
                             NetworkConstants.GOSING_ADMIN_BASE_URL,
                             null,
-                            GoSingApiService.class, context);
+                            GoSingApiService.class);
         }
-        getMoaAuthConfig();
-        getSessionChecker();
         return goSingApiService;
     }
 
@@ -41,12 +44,12 @@ public class RetrofitService {
                     new RetrofitBuilder().init(
                             NetworkConstants.ADDRESS_BASE_URL,
                             null,
-                            AddressApiService.class, null);
+                            AddressApiService.class);
         }
         return addressApiService;
     }
 
-    synchronized public MoaAuthConfig getMoaAuthConfig() {
+    public MoaAuthConfig getMoaAuthConfig() {
         if (moaAuthConfig == null) {
             moaAuthConfig = new MoaAuthConfig();
             moaAuthConfig.setLogTagName("moaAuthConfig");
@@ -55,7 +58,7 @@ public class RetrofitService {
         return moaAuthConfig;
     }
 
-    synchronized public SessionChecker getSessionChecker() {
+    public SessionChecker getSessionChecker() {
         if (sessionChecker == null) {
             sessionChecker = new SessionChecker();
             sessionChecker.setMoaAuthConfig(moaAuthConfig);

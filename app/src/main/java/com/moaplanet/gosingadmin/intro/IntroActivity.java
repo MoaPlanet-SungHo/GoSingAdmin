@@ -17,17 +17,12 @@ import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
-import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
-import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
-import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.utils.SharedPreferencesManager;
-
-import retrofit2.Call;
+import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 
 public class IntroActivity extends BaseActivity {
 
@@ -67,7 +62,7 @@ public class IntroActivity extends BaseActivity {
     }
 
     private void checkIntroType() {
-        sharedPreferencesManager = new SharedPreferencesManager(this);
+        sharedPreferencesManager = new SharedPreferencesManager();
         int introType = sharedPreferencesManager.getType();
         if (introType == GoSingConstants.TYPE_FIRST_START) {
             Handler delayHandler = new Handler();

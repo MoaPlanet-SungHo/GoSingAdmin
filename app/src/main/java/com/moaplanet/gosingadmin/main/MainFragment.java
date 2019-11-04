@@ -14,17 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.moaplanet.gosingadmin.R;
-import com.moaplanet.gosingadmin.main.qrpayment.PaymentActivity;
-import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
-import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
-import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
-import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
-import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
-import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
-import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
-import com.moaplanet.gosingadmin.main.submenu.review.ReviewActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.ModifyStoreActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.StoreActivity;
+import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
 
 public class MainFragment extends Fragment {
 
@@ -77,8 +67,7 @@ public class MainFragment extends Fragment {
         btnAd.setOnClickListener(view -> onServiceReady());
 //        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
         btnStore.setOnClickListener(view -> onServiceReady());
-//        btnReview.setOnClickListener(view -> moveActivity(ReviewActivity.class));
-        btnReview.setOnClickListener(view -> onServiceReady());
+        btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
 //        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
         btnFoodOrder.setOnClickListener(view -> onServiceReady());
 //        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));

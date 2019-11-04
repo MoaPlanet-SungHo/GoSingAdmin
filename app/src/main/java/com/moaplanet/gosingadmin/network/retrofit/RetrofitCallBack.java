@@ -61,7 +61,7 @@ public class RetrofitCallBack<T> implements Callback<T> {
     /**
      * 토큰 만료체크 로직 구현 필요
      */
-    private boolean hasReissuedAccessToken(){
+    private boolean hasReissuedAccessToken() {
         return false;
     }
 }

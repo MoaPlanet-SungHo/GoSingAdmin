@@ -35,7 +35,7 @@
         <activity android:name=".main.submenu.notification.NotificationActivity" />
         <activity android:name=".main.submenu.ad.activity.GoSingAdActivity" />
         <activity android:name=".main.submenu.store.StoreActivity" />
-        <activity android:name=".main.submenu.review.ReviewActivity" />
+        <activity android:name=".main.submenu.review.activity.ReviewManagerActivity" />
         <activity android:name=".main.qrpayment.PaymentActivity" />
         <activity android:name=".main.qrpayment.PaymentQrActivity" />
         <activity android:name=".main.submenu.food.activity.FoodOrderActivity" />

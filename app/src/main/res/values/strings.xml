@@ -438,4 +438,20 @@
     <string name="activity_store_search_tip_three">
         - 건물명, 아파트명 (예 : 가산우림라이온스밸리)
     </string>
+
+    <!-- ReviewManagerActivity -->
+    <string name="activity_review_manager_title_bar">리뷰 관리</string>
+    <string name="activity_review_manager_total_rating_title">전체 평점</string>
+    <string name="activity_review_manager_total_rating">(%s)</string>
+    <string name="activity_review_manager_all_review">전체 리뷰</string>
+    <string name="activity_review_manager_empty_comment_review">댓글 없는 리뷰</string>
+    
+    <!-- item_review -->
+    <string name="item_review_reply_comment">댓글 달기</string>
+    <string name="item_review_img_description">리뷰 이미지</string>
+    <string name="item_review_reply_comment_hint">
+        사장님 댓글을 등록해 주세요.
+        \n고객님의 신고 혹은 작성 댓글에 부적절한 단어가 포함될 경우,
+        \n관리자에 의해 사전 경고 없이 차단 삭제 될 수 있습니다.
+    </string>
 </resources>

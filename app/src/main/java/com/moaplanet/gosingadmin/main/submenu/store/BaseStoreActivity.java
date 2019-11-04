@@ -251,7 +251,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
             }
             reqStoreRegisterDto.setStorePhoto(storeImgMap);
 
-            RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).registerStore(
+            RetrofitService.getInstance().getGoSingApiService().registerStore(
                     reqStoreRegisterDto, fileMap)
                     .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
                             RetrofitService.getInstance().getMoaAuthConfig(),
