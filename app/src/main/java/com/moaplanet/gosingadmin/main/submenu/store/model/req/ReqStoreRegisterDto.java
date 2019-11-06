@@ -45,7 +45,7 @@ public class ReqStoreRegisterDto {
 
     // 사장님 전화번호
     @SerializedName("phone_number")
-    private String bossTel;
+    private String ceoTel;
 
     // 업소 전화번호
     @SerializedName("tel")
@@ -107,8 +107,8 @@ public class ReqStoreRegisterDto {
         this.storeTel = storeTel;
     }
 
-    public void setBossTel(String storeTel) {
-        this.bossTel = bossTel;
+    public void setCeoTel(String ceoTel) {
+        this.ceoTel = ceoTel;
     }
 
     public void setCeoComment(String ceoComment) {

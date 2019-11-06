@@ -72,7 +72,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
     // 이미지 관련
     protected List<ImageView> pictureImageViewList;           //이미지 리스트
-    private final int PICTURE_COUNT = 8;
+    protected final int PICTURE_COUNT = 8;
     protected List<? extends Uri> selectedUriList;
 
     // 사장님 코멘트 관련
@@ -175,9 +175,9 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        for (int i = 0; i < PICTURE_COUNT; i++) {
-            pictureImageViewList.get(i).setOnClickListener(view1 -> selectPicture());
-        }
+//        for (int i = 0; i < PICTURE_COUNT; i++) {
+//            pictureImageViewList.get(i).setOnClickListener(view1 -> selectPicture());
+//        }
 
         titleBar.setBackButtonClickListener(view -> finish());
 
@@ -215,44 +215,9 @@ public abstract class BaseStoreActivity extends BaseActivity {
     }
 
     /**
-     * 갤러리
-     */
-    private void selectPicture() {
-        try {
-            compositeDisposable.add(rxPermissions.request(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.CAMERA
-            )
-                    .subscribe(granted -> {
-                        if (granted) { // Always true pre-M
-                            Logger.d("permission granted");
-                            // if (getActivity() instanceof ReviewWriteActivity) {
-                            TedImagePicker.with(this)
-                                    .selectedUri(selectedUriList)
-                                    .max(8, "최대 8개 선택가능합니다.")
-                                    .startMultiImage(list -> {
-                                        Logger.d("Selected list >>> " + list.toString());
-                                        selectedUriList = list;
-                                        // setImageAddComponentGroupUi(list);
-                                        defaultAddPictureUi();
-                                        for (int position = 0; position < list.size(); position++) {
-                                            pictureImageViewList.get(position).setImageURI(list.get(position));
-                                        }
-                                    });
-                        } else {
-                            // Oups permission denied
-                            Logger.d("permission denied");
-                        }
-                    }));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 이미지 선택하기 UI Default
      */
-    private void defaultAddPictureUi() {
+    public void defaultAddPictureUi() {
         for (int i = 0; i < PICTURE_COUNT; i++) {
             pictureImageViewList.get(i).setImageURI(null);
             pictureImageViewList.get(i).setBackgroundResource(R.drawable.border_rect_0_0_0_0_1dp_e9e9e9_f8f8f8);
@@ -331,7 +296,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
         }
 
         if (checkEmpty(etDetailAddress)) {
-            reqStoreRegisterDto.setRoadAddress(etDetailAddress.getText().toString());
+            reqStoreRegisterDto.setDetailAddress(etDetailAddress.getText().toString());
         } else {
             return false;
         }
@@ -343,7 +308,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
         }
 
         if (checkEmpty(etCeoCallNumber)) {
-            reqStoreRegisterDto.setStoreTel(etCeoCallNumber.getText().toString());
+            reqStoreRegisterDto.setCeoTel(etCeoCallNumber.getText().toString());
         } else {
             return false;
         }

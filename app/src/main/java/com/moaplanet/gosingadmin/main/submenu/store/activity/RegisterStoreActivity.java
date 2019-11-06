@@ -1,8 +1,10 @@
 package com.moaplanet.gosingadmin.main.submenu.store.activity;
 
+import android.Manifest;
 import android.view.View;
 
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import gun0912.tedimagepicker.builder.TedImagePicker;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -19,6 +22,46 @@ public class RegisterStoreActivity extends BaseStoreActivity {
     public void initView() {
         super.initView();
         loadingBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void initListener() {
+        super.initListener();
+        for (int i = 0; i < PICTURE_COUNT; i++) {
+            pictureImageViewList.get(i).setOnClickListener(view1 -> selectPicture());
+        }
+    }
+
+    public void selectPicture() {
+        try {
+            compositeDisposable.add(rxPermissions.request(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
+            )
+                    .subscribe(granted -> {
+                        if (granted) { // Always true pre-M
+                            Logger.d("permission granted");
+                            // if (getActivity() instanceof ReviewWriteActivity) {
+                            TedImagePicker.with(this)
+                                    .selectedUri(selectedUriList)
+                                    .max(8, "최대 8개 선택가능합니다.")
+                                    .startMultiImage(list -> {
+                                        Logger.d("Selected list >>> " + list.toString());
+                                        selectedUriList = list;
+                                        // setImageAddComponentGroupUi(list);
+                                        defaultAddPictureUi();
+                                        for (int position = 0; position < list.size(); position++) {
+                                            pictureImageViewList.get(position).setImageURI(list.get(position));
+                                        }
+                                    });
+                        } else {
+                            // Oups permission denied
+                            Logger.d("permission denied");
+                        }
+                    }));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
