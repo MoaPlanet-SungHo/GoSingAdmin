@@ -3,6 +3,7 @@ package com.moaplanet.gosingadmin.main.submenu.store.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,17 +18,23 @@ import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordDto;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.orhanobut.logger.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
@@ -67,8 +74,8 @@ public class ModifyStoreActivity extends BaseStoreActivity {
                                         Uri imgUri = list.get(0);
                                         selectImgMap.put(pos, imgUri);
                                         int ivPos = pos;
-                                        if (ivPos > selectImgMap.size()-1) {
-                                            ivPos = selectImgMap.size()-1;
+                                        if (ivPos > selectImgMap.size() - 1) {
+                                            ivPos = selectImgMap.size() - 1;
                                         }
                                         pictureImageViewList.get(ivPos).setImageURI(imgUri);
                                     });
@@ -135,17 +142,27 @@ public class ModifyStoreActivity extends BaseStoreActivity {
 
         storeImageList = new ArrayList<>();
         for (ResStoreSearchDto.ShopPhotoDto shopPhotoDto : photoDtoList) {
-            storeImageList.add(
-                    StringUtil.replaceText(
-                            shopPhotoDto.getImgSrc(),
-                            "_",
-                            "/"));
+            String imgSrc = shopPhotoDto.getImgSrc();
+
+            String[] middlePathArray = imgSrc.split("_");
+            StringBuilder middlePath = new StringBuilder();
+
+            final int SRC_MIDDLE_PATH_COUNT = middlePathArray.length - 1;
+            for (int i = 0; i < SRC_MIDDLE_PATH_COUNT; i++) {
+                middlePath.append(middlePathArray[i]).append("/");
+            }
+
+            String srcFullPath = NetworkConstants.IMAGE_BASE_URL +
+                    middlePath +
+                    imgSrc;
+
+            storeImageList.add(srcFullPath);
+
         }
 
         for (int i = 0; i < storeImageList.size(); i++) {
             Glide.with(this)
-//                    .load(NetworkConstants.IMAGE_BASE_URL + storeImageList.get(i))
-                    .load("https://image.goeat.co.kr/orgin/gosImgTuto/201911/orgin_gosImgTuto_201911_010640513756.png")
+                    .load(storeImageList.get(i))
                     .into(pictureImageViewList.get(i));
         }
 
@@ -190,31 +207,39 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         List<ReqStoreRegisterDto.RoomInfoDto> roomList = new ArrayList<>();
         int ROOM_COUNT = 3;
         ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-        for (int i = 0; i < ROOM_COUNT; i++) {
-            if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
-                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
-                roomInfoDto.setRoomType(i + 1);
-                roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
-                roomInfoDto.setSentType("insert");
-                roomList.add(roomInfoDto);
-            }
-        }
+//        for (int i = 0; i < ROOM_COUNT; i++) {
+//            if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
+//                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
+//                roomInfoDto.setRoomType(i + 1);
+//                roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
+//                roomInfoDto.setSentType("48");
+//                roomList.add(roomInfoDto);
+//            }
+//        }
 
         reqStoreRegisterDto.setRoomInfoDtoList(roomList);
 
         Map<String, String> storeImgMap = new HashMap<>();
         Map<String, RequestBody> fileMap = new HashMap<>();
-//        for (int i = 0; i < selectedUriList.size(); i++) {
-//
-//            File file = new File(selectedUriList.get(i).getPath());
-//            storeImgMap.put(String.valueOf(i), file.getName());
-//
-//            RequestBody requestBody = RequestBody.create(
-//                    MediaType.parse("application/octet-stream"),
-//                    file);
-//
-//            fileMap.put(file.getName() + "\"; filename=\"" + file.getName(), requestBody);
-//        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            selectImgMap.values().removeIf(Objects::isNull);
+        } else {
+            selectImgMap.values().removeAll(Collections.singleton(null));
+        }
+
+        selectedUriList = new ArrayList<>(selectImgMap.values());
+        for (int i = 0; i < selectedUriList.size(); i++) {
+
+            File file = new File(selectedUriList.get(i).getPath());
+            storeImgMap.put(String.valueOf(i), file.getName());
+
+            RequestBody requestBody = RequestBody.create(
+                    MediaType.parse("application/octet-stream"),
+                    file);
+
+            fileMap.put(file.getName() + "\"; filename=\"" + file.getName(), requestBody);
+        }
         reqStoreRegisterDto.setStorePhoto(storeImgMap);
 
         connectServer(fileMap);
