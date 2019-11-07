@@ -21,12 +21,10 @@ import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDt
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +40,9 @@ public class ModifyStoreActivity extends BaseStoreActivity {
 
     private List<String> storeImageList;
     private Map<Integer, Uri> selectImgMap;
+    private Map<Integer, ResStoreSearchDto.ShopRoomInfoDto> shopRoomInfoDtoMap;
+    private Map<Integer, String> removePhotoMap;
+    private List<ResStoreSearchDto.ShopPhotoDto> photoDtoList;
 
     @Override
     public void registerStore() {
@@ -73,11 +74,22 @@ public class ModifyStoreActivity extends BaseStoreActivity {
                                     .startMultiImage(list -> {
                                         Uri imgUri = list.get(0);
                                         selectImgMap.put(pos, imgUri);
+
+                                        if (removePhotoMap.get(pos) != null) {
+                                            removePhotoMap.put(pos, photoDtoList.get(pos).getImgPk());
+                                        }
+
                                         int ivPos = pos;
                                         if (ivPos > selectImgMap.size() - 1) {
                                             ivPos = selectImgMap.size() - 1;
                                         }
-                                        pictureImageViewList.get(ivPos).setImageURI(imgUri);
+                                        Glide.with(this)
+                                                .load(imgUri)
+                                                .thumbnail(0.1f)
+                                                .placeholder(R.drawable.bg_store_thumbnail_loading)
+                                                .error(R.drawable.bg_store_thumbnail_loading)
+                                                .into(pictureImageViewList.get(ivPos));
+//                                        pictureImageViewList.get(ivPos).setImageURI(imgUri);
                                     });
 
                         } else {
@@ -125,6 +137,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
     @SuppressLint("UseSparseArrays")
     private void initData(ResStoreSearchDto storeSearchDto) {
         selectImgMap = new HashMap<>();
+        removePhotoMap = new HashMap<>();
         ResStoreSearchDto.ShopInfoDto shopInfoDto = storeSearchDto.getShopInfoDto();
 
         etStoreName.setText(shopInfoDto.getStoreName());
@@ -135,9 +148,10 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         etCeoCallNumber.setText(shopInfoDto.getPhoneNumber());
         etCeoComment.setText(shopInfoDto.getCeoComment());
 
-        List<ResStoreSearchDto.ShopPhotoDto> photoDtoList = storeSearchDto.getShopPhotoDtoList();
+        photoDtoList = storeSearchDto.getShopPhotoDtoList();
         for (int i = 0; i < photoDtoList.size(); i++) {
             selectImgMap.put(i, null);
+            removePhotoMap.put(i, "-1");
         }
 
         storeImageList = new ArrayList<>();
@@ -163,26 +177,32 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         for (int i = 0; i < storeImageList.size(); i++) {
             Glide.with(this)
                     .load(storeImageList.get(i))
+                    .thumbnail(0.1f)
+                    .placeholder(R.drawable.bg_store_thumbnail_loading)
+                    .error(R.drawable.bg_store_thumbnail_loading)
                     .into(pictureImageViewList.get(i));
         }
 
         List<ResStoreSearchDto.ShopRoomInfoDto> shopRoomInfoDtoList =
                 storeSearchDto.getShopRoomInfoDtoList();
 
+        shopRoomInfoDtoMap = new HashMap<>();
         for (int i = 0; i < shopRoomInfoDtoList.size(); i++) {
             ResStoreSearchDto.ShopRoomInfoDto shopRoomInfoDto = shopRoomInfoDtoList.get(i);
 
             int roomPos = shopRoomInfoDto.getRoomType() - 1;
             roomTypeList.get(roomPos).setChecked(true);
             roomPriceList.get(roomPos).setText(shopRoomInfoDto.getPrice());
-
             int arrayRes;
             if (shopRoomInfoDto.getRoomType() == 1) {
                 arrayRes = R.array.store_large_room_array;
+                shopRoomInfoDtoMap.put(0, shopRoomInfoDto);
             } else if (shopRoomInfoDto.getRoomType() == 2) {
                 arrayRes = R.array.store_middle_room_array;
+                shopRoomInfoDtoMap.put(1, shopRoomInfoDto);
             } else {
                 arrayRes = R.array.store_small_room_array;
+                shopRoomInfoDtoMap.put(2, shopRoomInfoDto);
             }
             int pos = getPersonnelPosition(arrayRes,
                     shopRoomInfoDto.getPerRoom());
@@ -206,16 +226,30 @@ public class ModifyStoreActivity extends BaseStoreActivity {
     private void roomCheck() {
         List<ReqStoreRegisterDto.RoomInfoDto> roomList = new ArrayList<>();
         int ROOM_COUNT = 3;
-        ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
-//        for (int i = 0; i < ROOM_COUNT; i++) {
-//            if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
-//                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
-//                roomInfoDto.setRoomType(i + 1);
-//                roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
-//                roomInfoDto.setSentType("48");
-//                roomList.add(roomInfoDto);
-//            }
-//        }
+        ReqStoreRegisterDto.RoomInfoDto roomInfoDto;
+        ResStoreSearchDto.ShopRoomInfoDto shopRoomInfoDto;
+        for (int i = 0; i < ROOM_COUNT; i++) {
+            roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
+            shopRoomInfoDto = shopRoomInfoDtoMap.get(i);
+            if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
+                // 신규 등록 or 수정
+                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
+                roomInfoDto.setRoomType(String.valueOf(i + 1));
+                roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
+                if (shopRoomInfoDto == null) {
+                    roomInfoDto.setSentType("insert");
+                } else {
+                    roomInfoDto.setSentType(shopRoomInfoDto.getSeq());
+                }
+                roomList.add(roomInfoDto);
+            } else {
+                // 삭제 or 처음부터 사용자가 입력 안함
+                if (shopRoomInfoDto != null) {
+                    roomInfoDto.setSentType(shopRoomInfoDto.getSeq());
+                    roomList.add(roomInfoDto);
+                }
+            }
+        }
 
         reqStoreRegisterDto.setRoomInfoDtoList(roomList);
 
@@ -224,8 +258,10 @@ public class ModifyStoreActivity extends BaseStoreActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             selectImgMap.values().removeIf(Objects::isNull);
+            removePhotoMap.values().removeIf(v -> v.equals("-1"));
         } else {
             selectImgMap.values().removeAll(Collections.singleton(null));
+            removePhotoMap.values().removeAll(Collections.singleton("-1"));
         }
 
         selectedUriList = new ArrayList<>(selectImgMap.values());
@@ -241,6 +277,11 @@ public class ModifyStoreActivity extends BaseStoreActivity {
             fileMap.put(file.getName() + "\"; filename=\"" + file.getName(), requestBody);
         }
         reqStoreRegisterDto.setStorePhoto(storeImgMap);
+        List<String> removePhotoList = new ArrayList<>(removePhotoMap.values());
+//        if (removePhotoList.size() > 0) {
+            reqStoreRegisterDto.setRemovePhoto(removePhotoList);
+//        }
+
 
         connectServer(fileMap);
 
