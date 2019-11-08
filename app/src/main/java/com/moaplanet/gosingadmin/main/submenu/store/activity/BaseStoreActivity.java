@@ -8,6 +8,8 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -236,6 +238,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
     public void connectServer(Map<String, RequestBody> fileMap) {
 
+        startLoading();
         RetrofitService.getInstance().getGoSingApiService().registerStore(
                 reqStoreRegisterDto, fileMap)
                 .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
@@ -263,6 +266,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
                                     "업소 등록을 실패했습니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
+                        endLoading();
                     }
 
                     @Override
@@ -271,8 +275,19 @@ public abstract class BaseStoreActivity extends BaseActivity {
                                 BaseStoreActivity.this,
                                 "업소 등록을 실패했습니다.",
                                 Toast.LENGTH_SHORT).show();
+                        endLoading();
                     }
                 });
+    }
+
+    private void startLoading() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        loadingBar.setVisibility(View.VISIBLE);
+    }
+
+    private void endLoading() {
+        loadingBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     private boolean checkData() {
