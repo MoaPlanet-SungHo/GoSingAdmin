@@ -77,6 +77,7 @@ public class IntroActivity extends BaseActivity {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     () -> llLogin.setVisibility(View.VISIBLE), 1800);
+//            moveActivity(MainActivity.class);
         }
     }
 
