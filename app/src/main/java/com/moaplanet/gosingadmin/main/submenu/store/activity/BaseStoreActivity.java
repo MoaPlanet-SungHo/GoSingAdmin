@@ -385,4 +385,10 @@ public abstract class BaseStoreActivity extends BaseActivity {
         return storeNameBuilder;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (loadingBar.getVisibility() == View.GONE) {
+            super.onBackPressed();
+        }
+    }
 }
