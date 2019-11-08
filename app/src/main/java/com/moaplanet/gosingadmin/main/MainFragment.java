@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 
@@ -62,16 +63,25 @@ public class MainFragment extends Fragment {
     private void initListener() {
 //        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
         btnPointHistory.setOnClickListener(view -> onServiceReady());
+
 //        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
         btnNotification.setOnClickListener(view -> onServiceReady());
+
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
         btnAd.setOnClickListener(view -> onServiceReady());
-        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
-        btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
+
+//        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
+        btnStore.setOnClickListener(view -> onServiceReady());
+
+//        btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
+        btnReview.setOnClickListener(view -> onServiceReady());
+
 //        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
         btnFoodOrder.setOnClickListener(view -> onServiceReady());
+
 //        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
         btnNonmemberSave.setOnClickListener(view -> onServiceReady());
+
         slideMenu.setOnClickListener(view -> {
             onServiceReady();
 //            if (getActivity() != null && getActivity() instanceof MainActivity) {
@@ -80,8 +90,10 @@ public class MainFragment extends Fragment {
         });
 //        mBtnMakeQrCode.setOnClickListener(view -> moveActivity(PaymentActivity.class));
         mBtnMakeQrCode.setOnClickListener(view -> onServiceReady());
+
 //        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
         btnCargePoint.setOnClickListener(view -> onServiceReady());
+
 //        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
         btnWithdrawal.setOnClickListener(view -> onServiceReady());
 

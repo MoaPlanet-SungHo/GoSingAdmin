@@ -6,8 +6,10 @@ import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
-public class GoSingAdminApplication extends Application {
-//public class GoSingAdminApplication extends MultiDexApplication {
+import androidx.multidex.MultiDexApplication;
+
+//public class GoSingAdminApplication extends Application {
+public class GoSingAdminApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {
