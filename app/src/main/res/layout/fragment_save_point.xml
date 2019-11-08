@@ -186,6 +186,7 @@
         android:id="@+id/btn_save_point_saving"
         style="@style/CommonGradientButton"
         android:layout_width="0dp"
+        android:layout_height="71dp"
         android:text="@string/fragment_save_point_saving"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
