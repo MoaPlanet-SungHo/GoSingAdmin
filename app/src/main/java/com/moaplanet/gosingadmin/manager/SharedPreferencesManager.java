@@ -27,12 +27,12 @@ public class SharedPreferencesManager {
 
     public void setIntroType(int type) {
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(GoSingConstants.TYPE_INTRO, type);
+        editor.putInt(GoSingConstants.INTRO_TYPE, type);
         editor.apply();
     }
 
     public int getType() {
-        return pref.getInt(GoSingConstants.TYPE_INTRO, 0);
+        return pref.getInt(GoSingConstants.INTRO_TYPE, GoSingConstants.INTRO_TYPE_ERROR);
     }
 
     public String getEmail() {

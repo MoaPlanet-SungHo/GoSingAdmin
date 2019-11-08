@@ -35,7 +35,11 @@ public class IntroActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // StatusBar 삭제
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         btnSignUp = findViewById(R.id.btn_activity_intro_sign_up);
         btnLogin = findViewById(R.id.btn_activity_intro_login);
         viewLoginOrSignUp = findViewById(R.id.ll_activity_intro_user_group);
@@ -60,17 +64,17 @@ public class IntroActivity extends BaseActivity {
     }
 
     private void checkIntroType() {
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager();
-        int introType = sharedPreferencesManager.getType();
-        if (introType == GoSingConstants.TYPE_FIRST_START) {
+        int introType = SharedPreferencesManager.getInstance().getType();
+        if (introType == GoSingConstants.INTRO_TYPE_FIRST_START
+                || introType == GoSingConstants.INTRO_TYPE_ERROR ) {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     () -> moveActivity(GoSingAdminConfirmPermissionActivity.class), 1800);
-        } else if (introType == GoSingConstants.TYPE_AUTO_LOGIN) {
+        } else if (introType == GoSingConstants.INTRO_TYPE_AUTO_LOGIN) {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     this::onLogin, 1800);
-        } else {
+        } else if (introType == GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS) {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     () -> viewLoginOrSignUp.setVisibility(View.VISIBLE), 1800);
@@ -86,16 +90,14 @@ public class IntroActivity extends BaseActivity {
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
-            if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
+            if (detailCode == NetworkConstants.LOGIN_CODE_SUCCESS) {
                 moveActivity(MainActivity.class);
-                finish();
-            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+            } else if (detailCode == NetworkConstants.LOGIN_CODE_ACCOUNT_INACTIVE) {
                 moveActivity(WaitingApprovalActivity.class);
-                finish();
-            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
+            } else if (detailCode == NetworkConstants.LOGIN_CODE_EMPTY_STORE) {
                 moveActivity(RegisterStoreActivity.class);
-                finish();
             }
+            finish();
         }
 
         @Override
@@ -103,7 +105,7 @@ public class IntroActivity extends BaseActivity {
             viewLoginOrSignUp.setVisibility(View.VISIBLE);
             Toast.makeText(
                     IntroActivity.this,
-                    "자동로그인을 실패 헀습니다.",
+                    getString(R.string.activity_intro_auto_login_fail),
                     Toast.LENGTH_SHORT).show();
         }
     };
