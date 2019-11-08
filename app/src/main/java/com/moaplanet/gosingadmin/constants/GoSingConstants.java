@@ -6,13 +6,15 @@ public class GoSingConstants {
 
     // SharedPreferences 관련
     public static String GOSING_ADMIN_FILE_NAME = "GOSING_ADMIN";
-    public static String TYPE_INTRO = "INTRO_TYPE";
+    public static String INTRO_TYPE = "INTRO_TYPE";
     // 최초 실행
-    public static int TYPE_FIRST_START = 0;
+    public static int INTRO_TYPE_FIRST_START = 0;
     // 권한 허용
-    public static int TYPE_PERMISSION_CHECK_SUCCESS = 1;
+    public static int INTRO_TYPE_PERMISSION_CHECK_SUCCESS = 1;
     // 로그인 완료
-    public static int TYPE_AUTO_LOGIN = 2;
+    public static int INTRO_TYPE_AUTO_LOGIN = 2;
+    // 에러 타입 일경울
+    public static int INTRO_TYPE_ERROR = -999;
     // 아이디
     public static String USER_ID = "userId";
     // 패스워드

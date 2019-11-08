@@ -86,7 +86,7 @@ public class LoginManager {
             if (onLoginListener != null) {
                 if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
 
-                    if (resModel.getDetailCode() == NetworkConstants.CODE_NOT_MEMBER) {
+                    if (resModel.getDetailCode() == NetworkConstants.LOGIN_CODE_NOT_MEMBER) {
                         onLoginListener.onLoginFail(
                                 resModel.getStateCode(),
                                 resModel.getDetailCode());
@@ -94,7 +94,7 @@ public class LoginManager {
                         if (loginType == LoginType.LOGIN) {
                             SharedPreferencesManager sharedPreferencesManager =
                                     new SharedPreferencesManager();
-                            sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
+                            sharedPreferencesManager.setIntroType(GoSingConstants.INTRO_TYPE_AUTO_LOGIN);
                             sharedPreferencesManager.setLoginInfo(id, pw);
                         }
                         onLoginListener.onLoginSuccess(

@@ -8,14 +8,14 @@
     tools:context=".intro.IntroActivity">
 
     <LinearLayout
-        android:id="@+id/ll_intro_user_group"
+        android:id="@+id/ll_activity_intro_user_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/btn_intro_login"
+            android:id="@+id/btn_activity_intro_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
@@ -29,7 +29,7 @@
             tools:ignore="SpUsage" />
 
         <Button
-            android:id="@+id/btn_intro_sign_up"
+            android:id="@+id/btn_activity_intro_sign_up"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"

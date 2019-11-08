@@ -27,8 +27,8 @@ public class NetworkConstants {
     public static int CODE_SIGN_UP_EXIST_ACCOUNT = 201;
 
     // 로그인
-    public static int CODE_LOGIN_SUCCESS = 200;
-    public static int CODE_NOT_MEMBER = 4000;
-    public static int CODE_ACCOUNT_INACTIVE = 2012;
-    public static int CODE_ACCOUNT_DISINACTIVE = 2013;
+    public static int LOGIN_CODE_SUCCESS = 200;
+    public static int LOGIN_CODE_NOT_MEMBER = 4000;
+    public static int LOGIN_CODE_ACCOUNT_INACTIVE = 2012;
+    public static int LOGIN_CODE_EMPTY_STORE = 2013;
 }

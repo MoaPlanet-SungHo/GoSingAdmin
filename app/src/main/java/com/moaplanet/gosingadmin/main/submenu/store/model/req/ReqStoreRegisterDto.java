@@ -123,6 +123,10 @@ public class ReqStoreRegisterDto {
         this.storePhoto = storePhoto;
     }
 
+    public void setRemovePhoto(List<String> removePhoto) {
+        this.removePhoto = removePhoto;
+    }
+
     public void setRoomInfoDtoList(List<RoomInfoDto> roomInfoDtoList) {
         this.roomInfoDtoList = roomInfoDtoList;
     }
@@ -138,7 +142,7 @@ public class ReqStoreRegisterDto {
 
         // 룸 타입
         @SerializedName("room_type")
-        private int roomType;
+        private String roomType;
 
         // 룸 이름
         @SerializedName("room_name")
@@ -160,7 +164,7 @@ public class ReqStoreRegisterDto {
             this.roomName = roomName;
         }
 
-        public void setRoomType(int roomType) {
+        public void setRoomType(String roomType) {
             this.roomType = roomType;
         }
 

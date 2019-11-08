@@ -180,23 +180,16 @@ public class LoginActivity extends BaseActivity {
     LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
-//            if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
-//                successLogin();
-//            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
-//                accountInactive();
-//            }
-
-            if (detailCode == NetworkConstants.CODE_LOGIN_SUCCESS) {
+            if (detailCode == NetworkConstants.LOGIN_CODE_SUCCESS) {
                 moveActivity(MainActivity.class);
                 finishAffinity();
-            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
+            } else if (detailCode == NetworkConstants.LOGIN_CODE_ACCOUNT_INACTIVE) {
                 moveActivity(WaitingApprovalActivity.class);
                 finishAffinity();
-            } else if (detailCode == NetworkConstants.CODE_ACCOUNT_DISINACTIVE) {
+            } else if (detailCode == NetworkConstants.LOGIN_CODE_EMPTY_STORE) {
                 moveActivity(RegisterStoreActivity.class);
                 finishAffinity();
             }
-
         }
 
         @Override

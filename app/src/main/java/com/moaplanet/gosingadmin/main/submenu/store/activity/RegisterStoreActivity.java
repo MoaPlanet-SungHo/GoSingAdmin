@@ -3,6 +3,8 @@ package com.moaplanet.gosingadmin.main.submenu.store.activity;
 import android.Manifest;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.orhanobut.logger.Logger;
 
@@ -51,7 +53,12 @@ public class RegisterStoreActivity extends BaseStoreActivity {
                                         // setImageAddComponentGroupUi(list);
                                         defaultAddPictureUi();
                                         for (int position = 0; position < list.size(); position++) {
-                                            pictureImageViewList.get(position).setImageURI(list.get(position));
+                                            Glide.with(this)
+                                                    .load(list.get(position))
+                                                    .thumbnail(0.1f)
+                                                    .placeholder(R.drawable.bg_store_thumbnail_loading)
+                                                    .error(R.drawable.bg_store_thumbnail_loading)
+                                                    .into(pictureImageViewList.get(position));
                                         }
                                     });
                         } else {
@@ -77,7 +84,7 @@ public class RegisterStoreActivity extends BaseStoreActivity {
         for (int i = 0; i < ROOM_COUNT; i++) {
             if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
                 roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
-                roomInfoDto.setRoomType(i + 1);
+                roomInfoDto.setRoomType(String.valueOf(i + 1));
                 roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
                 roomInfoDto.setSentType("insert");
                 roomList.add(roomInfoDto);
