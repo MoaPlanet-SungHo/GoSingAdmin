@@ -239,6 +239,7 @@
         android:id="@+id/btn_fragment_point_withdrawal"
         style="@style/CommonGradientButton"
         android:layout_width="0dp"
+        android:layout_height="71dp"
         android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
         android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
         android:gravity="center"

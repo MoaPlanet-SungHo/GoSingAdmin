@@ -14,9 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.moaplanet.gosingadmin.R;
-import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
-import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 
 public class MainFragment extends Fragment {
 

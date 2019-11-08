@@ -754,6 +754,7 @@
                 android:id="@+id/btn_activity_base_store_register"
                 style="@style/CommonGradientButton"
                 android:layout_width="0dp"
+                android:layout_height="71dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/activity__base_store_register"
                 app:layout_constraintEnd_toEndOf="parent"
