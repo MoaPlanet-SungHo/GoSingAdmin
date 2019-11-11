@@ -3,6 +3,8 @@ package com.moaplanet.gosingadmin.network.service;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
+import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
@@ -11,8 +13,6 @@ import java.util.Map;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -50,4 +50,12 @@ public interface GoSingApiService {
     @POST("session/MemberManageCtr/alert_list_serach.json")
     Call<ResNotificationDto> onNotificationList(@Query("alam_type") String alarmType,
                                                 @Query("check_point") String checkPoint);
+
+    // 고씽 포인트 조회
+    @POST("session/MemberManageCtr/gossingPointSearch_Init.json")
+    Call<ResGoSingPointSearchDto> onGoSingPoint();
+
+    // 고씽 내정보 조회
+    @POST("session/MemberManageCtr/my_info_search_f.json")
+    Call<ResInformationDto> onMyInfo();
 }

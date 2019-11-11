@@ -5,6 +5,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class StringUtil {
@@ -72,6 +73,14 @@ public class StringUtil {
 
     public static String replaceText(String text, String regex, String replace) {
         return text.replaceAll(regex, replace);
+    }
+
+    /**
+     * @param convertPrice 단위 표시 해줄 가격
+     * @return 가격을 단위를 표시해서 반환
+     */
+    public static String convertCommaPrice(int convertPrice) {
+        return String.format(Locale.getDefault(), "%,d", convertPrice);
     }
 
 }

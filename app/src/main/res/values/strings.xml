@@ -138,6 +138,8 @@
     <string name="fragment_main_not_responsible">
         (주)모아플래닛은 통신판매중개자로서 거래 당사자가 아니며 상품 거래 정보 및
         거래에 대하여 책임을 지지 않습니다.</string>
+    <string name="fragment_main_default_point">%s원</string>
+    <string name="fragment_main_expected_active_point">활성 예정 포인트 : %s원</string>
 
     <!-- PointHistoryActivity-->
     <string name="activity_point_history_point_balance">GOSING포인트 잔액</string>

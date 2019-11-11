@@ -211,6 +211,7 @@
         tools:ignore="SpUsage" />
 
     <TextView
+        android:id="@+id/tv_activity_my_info_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_gd_15"
@@ -281,6 +282,7 @@
         tools:ignore="SpUsage" />
 
     <TextView
+        android:id="@+id/tv_activity_my_info_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_gd_15"
