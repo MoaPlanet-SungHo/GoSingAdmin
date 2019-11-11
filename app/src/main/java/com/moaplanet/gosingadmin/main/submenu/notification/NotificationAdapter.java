@@ -3,13 +3,19 @@ package com.moaplanet.gosingadmin.main.submenu.notification;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
+
+import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationHolder> {
+
+    List<ResNotificationDto.NotificationDto> notificationDtoList;
 
     @NonNull
     @Override
@@ -21,17 +27,36 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationHolder holder, int position) {
+        holder.init(notificationDtoList.get(position));
+    }
 
+    public void setList(List<ResNotificationDto.NotificationDto> notificationDtoList) {
+        this.notificationDtoList = notificationDtoList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        if (notificationDtoList == null) {
+            return 0;
+        } else {
+            return notificationDtoList.size();
+        }
     }
 
     public class NotificationHolder extends RecyclerView.ViewHolder {
+
+        private TextView tvType;
+        private TextView tvContent;
         public NotificationHolder(@NonNull View itemView) {
             super(itemView);
+            tvType = itemView.findViewById(R.id.tv_item_notification_title);
+            tvContent = itemView.findViewById(R.id.tv_item_notification_content);
         }
+
+        private void init(ResNotificationDto.NotificationDto notificationDto) {
+            tvContent.setText(notificationDto.getNotiContent());
+        }
+
     }
 }

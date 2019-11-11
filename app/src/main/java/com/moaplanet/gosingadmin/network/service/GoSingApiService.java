@@ -3,6 +3,7 @@ package com.moaplanet.gosingadmin.network.service;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 
@@ -20,7 +21,7 @@ import retrofit2.http.Query;
 
 public interface GoSingApiService {
     // 회원가입
-    @POST("notLogin/s_join.json")
+    @POST("MemberManageCtr/s_join.json")
     Call<ResSignUpDto> signUp(@Query("user_email") String email,
                               @Query("pwd") String pwd,
                               @Query("sales_code") String code,
@@ -29,19 +30,24 @@ public interface GoSingApiService {
                               @Query("signType") int signType);
 
     // 로그인
-    @POST("notLogin/s_login_action.json")
+    @POST("MemberManageCtr/s_login_action.json")
     Call<ResLoginDto> login(@Query("user_email") String email,
                             @Query("pwd") String pwd,
                             @Query("signType") int signType);
 
     // 업소 등록
     @Multipart
-    @POST("notLogin/s_shop_join_action.json")
+    @POST("session/MemberManageCtr/s_shop_join_action.json")
     Call<ResStoreRegisterDto> registerStore(
             @Part("shop_info") ReqStoreRegisterDto reqStoreRegisterDto,
             @PartMap Map<String, RequestBody> files);
 
     // 업소 정보 조회
-    @POST("notLogin/s_shop_join_serch.json")
+    @POST("session/MemberManageCtr/s_shop_join_serch.json")
     Call<ResStoreSearchDto> onStoreSearch(@Query("signType") int signType);
+
+    // 알림 리스트
+    @POST("session/MemberManageCtr/alert_list_serach.json")
+    Call<ResNotificationDto> onNotificationList(@Query("alam_type") String alarmType,
+                                                @Query("check_point") String checkPoint);
 }

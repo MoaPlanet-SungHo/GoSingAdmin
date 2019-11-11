@@ -16,7 +16,7 @@
         android:drawableStart="@drawable/ic_notification_4300ff_arrow"
         android:drawablePadding="7dp"
         android:fontFamily="@font/font_gd_15"
-        android:text="강남 노래타운"
+        android:text="고객 적립"
         android:textColor="@color/color_000000"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"

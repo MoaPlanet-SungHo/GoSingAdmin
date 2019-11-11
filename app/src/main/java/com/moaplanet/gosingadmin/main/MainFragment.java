@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 
 public class MainFragment extends Fragment {
 
@@ -61,8 +63,11 @@ public class MainFragment extends Fragment {
 //        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
         btnPointHistory.setOnClickListener(view -> onServiceReady());
 
-//        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
-        btnNotification.setOnClickListener(view -> onServiceReady());
+        if (BuildConfig.BUILD_TYPE.equals("debug")) {
+            btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
+        } else {
+            btnNotification.setOnClickListener(view -> onServiceReady());
+        }
 
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
         btnAd.setOnClickListener(view -> onServiceReady());
