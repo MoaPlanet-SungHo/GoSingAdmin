@@ -58,9 +58,8 @@ public class InformationActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initListener() {
 
-        informationViewModel.getPhoneNumber().observe(this, phoneNumber -> {
-            tvPhoneNumber.setText(phoneNumber);
-        });
+        informationViewModel.getPhoneNumber().observe(this,
+                phoneNumber -> tvPhoneNumber.setText(phoneNumber));
 
         informationViewModel.getPwd().observe(this,
                 pw -> tvPw.setText(pw));
