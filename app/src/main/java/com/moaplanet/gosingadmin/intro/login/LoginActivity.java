@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ public class LoginActivity extends BaseActivity {
     private ReqLoginDto reqLoginDto;
     private TextView tvErrMsg;
     private String userEmail, userPw;
+    private TextView testMove;
 
     @Override
     public int layoutRes() {
@@ -52,6 +54,14 @@ public class LoginActivity extends BaseActivity {
 
         etPw.setFilters(new InputFilter[]{
                 StringUtil.notEmptyFilter()
+        });
+//Todo testMove 삭제
+        testMove = findViewById(R.id.tv_login_change_pw);
+        testMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveActivity(MainActivity.class);
+            }
         });
     }
 
