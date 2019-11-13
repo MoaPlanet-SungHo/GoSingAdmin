@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
@@ -21,6 +22,8 @@ public class NotificationActivity extends BaseActivity {
 
     private RecyclerView rvNotification;
     private NotificationAdapter notificationAdapter;
+    // 타이틀
+    private CommonTitleBar titleBar;
 
     @Override
     public int layoutRes() {
@@ -34,11 +37,13 @@ public class NotificationActivity extends BaseActivity {
         notificationAdapter = new NotificationAdapter();
         rvNotification.setAdapter(notificationAdapter);
 
+        titleBar = findViewById(R.id.common_notification_title_bar);
+
     }
 
     @Override
     public void initListener() {
-
+        titleBar.setBackButtonClickListener(view -> finish());
     }
 
     @Override

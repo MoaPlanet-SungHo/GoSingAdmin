@@ -137,9 +137,9 @@ public class MainFragment extends Fragment {
 
         //공지사항 (상단 우측)
 //        if (BuildConfig.BUILD_TYPE.equals("debug")) {
-//        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
+        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
 //        } else {
-            btnNotification.setOnClickListener(view -> onServiceReady());
+//            btnNotification.setOnClickListener(view -> onServiceReady());
 //        }
 
         //충전하기
@@ -159,8 +159,8 @@ public class MainFragment extends Fragment {
         btnReview.setOnClickListener(view -> onServiceReady());
 
         //포인트내역
-//        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
-        btnPointHistory.setOnClickListener(view -> onServiceReady());
+        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
+//        btnPointHistory.setOnClickListener(view -> onServiceReady());
 
         //광고관리
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
