@@ -113,7 +113,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         RetrofitService
                 .getInstance()
                 .getGoSingApiService()
-                .onStoreSearch(reqStoreSearchDto.getSignType())
+                .onServerStoreSearch(reqStoreSearchDto.getSignType())
                 .enqueue(new MoaAuthCallback<ResStoreSearchDto>(
                         RetrofitService.getInstance().getMoaAuthConfig(),
                         RetrofitService.getInstance().getSessionChecker()

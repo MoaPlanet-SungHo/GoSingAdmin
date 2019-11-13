@@ -7,6 +7,7 @@ import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
@@ -24,7 +25,7 @@ import retrofit2.http.Query;
 public interface GoSingApiService {
     // 회원가입
     @POST("MemberManageCtr/s_join.json")
-    Call<ResSignUpDto> signUp(@Query("user_email") String email,
+    Call<ResSignUpDto> onServerSignUp(@Query("user_email") String email,
                               @Query("pwd") String pwd,
                               @Query("sales_code") String code,
                               @Query("is_agree_event_noti") String type,
@@ -33,33 +34,33 @@ public interface GoSingApiService {
 
     // 로그인
     @POST("MemberManageCtr/s_login_action.json")
-    Call<ResLoginDto> login(@Query("user_email") String email,
-                            @Query("pwd") String pwd,
-                            @Query("signType") int signType);
+    Call<ResLoginDto> onServerLogin(@Query("user_email") String email,
+                                    @Query("pwd") String pwd,
+                                    @Query("signType") int signType);
 
     // 업소 등록
     @Multipart
     @POST("session/MemberManageCtr/s_shop_join_action.json")
-    Call<ResStoreRegisterDto> registerStore(
+    Call<ResStoreRegisterDto> onServerRegisterStore(
             @Part("shop_info") ReqStoreRegisterDto reqStoreRegisterDto,
             @PartMap Map<String, RequestBody> files);
 
     // 업소 정보 조회
     @POST("session/MemberManageCtr/s_shop_join_serch.json")
-    Call<ResStoreSearchDto> onStoreSearch(@Query("signType") int signType);
+    Call<ResStoreSearchDto> onServerStoreSearch(@Query("signType") int signType);
 
     // 알림 리스트
     @POST("session/MemberManageCtr/alert_list_serach.json")
-    Call<ResNotificationDto> onNotificationList(@Query("alam_type") String alarmType,
+    Call<ResNotificationDto> onServerNotificationList(@Query("alam_type") String alarmType,
                                                 @Query("check_point") String checkPoint);
 
     // 고씽 포인트 조회
     @POST("session/MemberManageCtr/gossingPointSearch_Init.json")
-    Call<ResGoSingPointSearchDto> onGoSingPoint();
+    Call<ResGoSingPointSearchDto> onServerGoSingPoint();
 
     // 고씽 내정보 조회
     @POST("session/MemberManageCtr/my_info_search_f.json")
-    Call<ResInformationDto> onMyInfo();
+    Call<ResInformationDto> onServerMyInformation();
 
     // QR코드 초기화 관련
     @POST("session/PaymenyManageCtr/qr_code_page_init.json")
@@ -73,8 +74,12 @@ public interface GoSingApiService {
      * @param noReservePrice 비적립 가격
      */
     @POST("session/PaymenyManageCtr/qrCodeWrite.json")
-    Call<ResCreateQrCodeDto> onCreateQrCode(
+    Call<ResCreateQrCodeDto> onServerCreateQrCode(
             @Query("shop_qr_save_history_seq") String qrCodePk,
             @Query("price") String reservePrice,
             @Query("non_ernng_price") String noReservePrice);
+
+    // 카드 리스트 불러오기
+    @POST("session/PaymenyManageCtr/card_list_Return.json")
+    Call<ResCardListDto> onServerCardList();
 }

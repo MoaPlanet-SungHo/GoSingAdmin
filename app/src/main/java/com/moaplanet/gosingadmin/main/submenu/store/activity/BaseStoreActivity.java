@@ -239,7 +239,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
     public void connectServer(Map<String, RequestBody> fileMap) {
 
         startLoading();
-        RetrofitService.getInstance().getGoSingApiService().registerStore(
+        RetrofitService.getInstance().getGoSingApiService().onServerRegisterStore(
                 reqStoreRegisterDto, fileMap)
                 .enqueue(new MoaAuthCallback<ResStoreRegisterDto>(
                         RetrofitService.getInstance().getMoaAuthConfig(),

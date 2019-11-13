@@ -17,9 +17,8 @@ import java.util.List;
 
 public class ChargeFragment extends BaseFragment {
 
+    // 타이틀 바
     private CommonTitleBar titleBar;
-    private TabLayout tabCharge;
-    private ViewPager vpCharge;
 
     @Override
     public int layoutRes() {
@@ -28,22 +27,22 @@ public class ChargeFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        titleBar = view.findViewById(R.id.title_charge);
+        titleBar = view.findViewById(R.id.common_fragment_charge_title_bar);
         initTab();
     }
 
     @Override
     public void initListener() {
-//        titleBar.setBackButtonClickListener(view -> {
-//            if (getActivity() != null) {
-//                getActivity().finish();
-//            }
-//        });
+        titleBar.setBackButtonClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
+        });
     }
 
     private void initTab() {
-        tabCharge = view.findViewById(R.id.tab_charge);
-        vpCharge = view.findViewById(R.id.vp_charge);
+        TabLayout tabCharge = view.findViewById(R.id.tab_charge);
+        ViewPager vpCharge = view.findViewById(R.id.vp_charge);
         CommonViewPagerAdapter viewPagerAdapter = new CommonViewPagerAdapter(
                 getChildFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT

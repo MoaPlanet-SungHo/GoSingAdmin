@@ -50,7 +50,7 @@ public class LoginManager {
         reqLoginDto.setEmail(id);
         RetrofitService.getInstance()
                 .getGoSingApiService()
-                .login(reqLoginDto.getEmail(),
+                .onServerLogin(reqLoginDto.getEmail(),
                         reqLoginDto.getPw(),
                         reqLoginDto.getSignType())
                 .enqueue(loginCallback);
@@ -70,7 +70,7 @@ public class LoginManager {
         pw = reqLoginDto.getPw();
         RetrofitService.getInstance()
                 .getGoSingApiService()
-                .login(reqLoginDto.getEmail(),
+                .onServerLogin(reqLoginDto.getEmail(),
                         reqLoginDto.getPw(),
                         reqLoginDto.getSignType())
                 .enqueue(loginCallback);

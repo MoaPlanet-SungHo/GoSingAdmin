@@ -6,7 +6,7 @@
     android:background="@color/color_ffffff">
 
     <com.moaplanet.gosingadmin.common.view.CommonTitleBar
-        android:id="@+id/title_charge"
+        android:id="@+id/common_fragment_charge_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
         style="@style/TabLayoutText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title_charge"
+        app:layout_constraintTop_toBottomOf="@id/common_fragment_charge_title_bar"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/color_4300ff"
         app:tabIndicatorHeight="2dp"

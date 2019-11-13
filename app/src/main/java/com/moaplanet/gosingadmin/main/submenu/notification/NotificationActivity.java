@@ -48,7 +48,7 @@ public class NotificationActivity extends BaseActivity {
     }
 
     private void onNotificationList() {
-        RetrofitService.getInstance().getGoSingApiService().onNotificationList(null, null)
+        RetrofitService.getInstance().getGoSingApiService().onServerNotificationList(null, null)
                 .enqueue(new MoaAuthCallback<ResNotificationDto>(
                         RetrofitService.getInstance().getMoaAuthConfig(),
                         RetrofitService.getInstance().getSessionChecker()

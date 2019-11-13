@@ -63,7 +63,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void onSignUp() {
-        RetrofitService.getInstance().getGoSingApiService().signUp(reqModel.getEmail(),
+        RetrofitService.getInstance().getGoSingApiService().onServerSignUp(reqModel.getEmail(),
                 reqModel.getPw(),
                 reqModel.getSalesCode(),
                 reqModel.getEventType(),

@@ -85,7 +85,7 @@ public class InformationActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void getMyInfoServer() {
-        RetrofitService.getInstance().getGoSingApiService().onMyInfo()
+        RetrofitService.getInstance().getGoSingApiService().onServerMyInformation()
                 .enqueue(new MoaAuthCallback<ResInformationDto>(
                         RetrofitService.getInstance().getMoaAuthConfig(),
                         RetrofitService.getInstance().getSessionChecker()

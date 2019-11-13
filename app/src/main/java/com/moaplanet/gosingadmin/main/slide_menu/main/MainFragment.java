@@ -60,7 +60,7 @@ public class MainFragment extends Fragment {
     }
 
     private void getPointInfo() {
-        RetrofitService.getInstance().getGoSingApiService().onGoSingPoint()
+        RetrofitService.getInstance().getGoSingApiService().onServerGoSingPoint()
                 .enqueue(new MoaAuthCallback<ResGoSingPointSearchDto>(
                         RetrofitService.getInstance().getMoaAuthConfig(),
                         RetrofitService.getInstance().getSessionChecker()
@@ -135,7 +135,6 @@ public class MainFragment extends Fragment {
 
         //충전하기
         btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
-//        btnCargePoint.setOnClickListener(view -> onServiceReady());
 
         //출금하기
         btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));

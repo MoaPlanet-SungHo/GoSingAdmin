@@ -35,7 +35,7 @@ public class QrPaymentViewModel extends ViewModel {
 
     public void onCreateQrCode(ReqCreateQrCodeDto reqCreateQrCodeDto) {
 
-        RetrofitService.getInstance().getGoSingApiService().onCreateQrCode(
+        RetrofitService.getInstance().getGoSingApiService().onServerCreateQrCode(
                 reqCreateQrCodeDto.getQrCodePk(),
                 reqCreateQrCodeDto.getReservePrice(),
                 reqCreateQrCodeDto.getNoReservePrice()
