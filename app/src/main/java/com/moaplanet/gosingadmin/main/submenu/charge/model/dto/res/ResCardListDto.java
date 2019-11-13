@@ -12,12 +12,21 @@ public class ResCardListDto extends CommonResDto {
 
     // 카드 리스트
     @SerializedName("card_list")
-    private List<CardInformationDto> cardInformationDtoList;
+    private List<CardInformationDto> mCardInformationDtoList;
+
+    // --- getter start --- //
+
+    public List<CardInformationDto> getCardInformationDtoList() {
+        return mCardInformationDtoList;
+    }
+
+
+    // --- getter end --- //
 
     /**
      * 카드 정보를 담는 Dto
      */
-    private class CardInformationDto {
+    public class CardInformationDto {
 
         // 카드 헤쉬
         @SerializedName("card_hash")
