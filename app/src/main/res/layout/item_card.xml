@@ -15,13 +15,13 @@
         android:drawablePadding="8dp"
         android:fontFamily="@font/font_gd_13"
         android:gravity="start|center_vertical"
-        android:text="나의 하나카드"
         android:textColor="@color/color_000000"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:text="나의 하나카드" />
 
     <View
         android:layout_width="match_parent"

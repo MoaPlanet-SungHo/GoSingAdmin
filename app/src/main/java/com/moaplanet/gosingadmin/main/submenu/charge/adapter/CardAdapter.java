@@ -3,6 +3,8 @@ package com.moaplanet.gosingadmin.main.submenu.charge.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +19,11 @@ import java.util.List;
  */
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
 
-    private List<ResCardListDto.CardInformationDto> cardList;
+    // 카드 리스트
+    private List<ResCardListDto.CardInformationDto> mCardList;
+
+    // 선택한 카드
+    private Button mBtnSelectCard;
 
     @NonNull
     @Override
@@ -29,16 +35,26 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CardHolder holder, int position) {
+        holder.init(mCardList.get(position));
 
+        holder.mCardName.setOnClickListener(view -> {
+            if (mBtnSelectCard != null) {
+                mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_checkbox_nor, 0, 0, 0);
+            }
+            mBtnSelectCard = holder.mCardName;
+            mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_all_check_press, 0, 0, 0);
+        });
     }
 
     @Override
     public int getItemCount() {
 
-        if (cardList == null) {
+        if (mCardList == null) {
             return 0;
         } else {
-            return cardList.size();
+            return mCardList.size();
         }
 
     }
@@ -49,14 +65,25 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
      * @param cardList 카드 리스트
      */
     public void setCardList(List<ResCardListDto.CardInformationDto> cardList) {
-        this.cardList = cardList;
+        this.mCardList = cardList;
         notifyDataSetChanged();
     }
 
-    public class CardHolder extends RecyclerView.ViewHolder {
+    class CardHolder extends RecyclerView.ViewHolder {
 
-        public CardHolder(@NonNull View itemView) {
+        // 카드 이름
+        private Button mCardName;
+
+        CardHolder(@NonNull View itemView) {
             super(itemView);
+            mCardName = itemView.findViewById(R.id.btn_item_card_added_icon);
+        }
+
+        /**
+         * 초기화
+         */
+        private void init(ResCardListDto.CardInformationDto cardInfo) {
+            mCardName.setText(cardInfo.getmCardName());
         }
     }
 
