@@ -17,9 +17,6 @@ import java.util.List;
 
 public class ChargeFragment extends BaseFragment {
 
-    // 타이틀 바
-    private CommonTitleBar titleBar;
-
     @Override
     public int layoutRes() {
         return R.layout.fragment_charge;
@@ -27,12 +24,13 @@ public class ChargeFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        titleBar = view.findViewById(R.id.common_fragment_charge_title_bar);
         initTab();
     }
 
     @Override
     public void initListener() {
+        // 타이틀 바
+        CommonTitleBar titleBar = view.findViewById(R.id.common_fragment_charge_title_bar);
         titleBar.setBackButtonClickListener(view -> {
             if (getActivity() != null) {
                 getActivity().finish();

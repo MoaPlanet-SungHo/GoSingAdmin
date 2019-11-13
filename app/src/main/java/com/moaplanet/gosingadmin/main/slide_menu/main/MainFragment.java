@@ -23,6 +23,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPoi
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
+import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
@@ -116,8 +117,6 @@ public class MainFragment extends Fragment {
 
     private void initListener() {
 
-        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
-
         //잔액 포인트
         mainViewModel.getPointGoSing().observe(this, point ->
                 tvPoint.setText(getString(
@@ -131,7 +130,7 @@ public class MainFragment extends Fragment {
                         point)));
 
         //공지사항 (상단 우측)
-        btnNotification.setOnClickListener(view -> onServiceReady());
+        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
 
         //충전하기
         btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
@@ -149,8 +148,8 @@ public class MainFragment extends Fragment {
         btnReview.setOnClickListener(view -> onServiceReady());
 
         //포인트내역
-//        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
-        btnPointHistory.setOnClickListener(view -> onServiceReady());
+        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
+//        btnPointHistory.setOnClickListener(view -> onServiceReady());
 
         //광고관리
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
