@@ -116,8 +116,6 @@ public class MainFragment extends Fragment {
 
     private void initListener() {
 
-        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
-
         //잔액 포인트
         mainViewModel.getPointGoSing().observe(this, point ->
                 tvPoint.setText(getString(
@@ -131,7 +129,7 @@ public class MainFragment extends Fragment {
                         point)));
 
         //공지사항 (상단 우측)
-        btnNotification.setOnClickListener(view -> onServiceReady());
+        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
 
         //충전하기
         btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
