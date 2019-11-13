@@ -37,9 +37,13 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
 //        GoSingConstants.Test = response.headers().get("Set-Cookie");
         Logger.d("세션 아이디 : " + response.headers().get("Set-Cookie"));
         sessionChecker.sessionCheck(isT -> {
-            if (isT)
-                onFinalResponse(call, response.body());
-            else {
+            if (isT) {
+                if (response.body() != null) {
+                    onFinalResponse(call, response.body());
+                } else {
+                    onFinalFailure(call, true, new Exception("Data null"));
+                }
+            } else {
                 onFinalFailure(call, false, new Exception("Moa session not invalid"));
             }
         });

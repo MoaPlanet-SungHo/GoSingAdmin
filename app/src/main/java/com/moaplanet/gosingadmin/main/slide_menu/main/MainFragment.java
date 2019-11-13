@@ -20,7 +20,15 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
+import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
+import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
+import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
+import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
+import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
+import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
+import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
@@ -111,54 +119,63 @@ public class MainFragment extends Fragment {
     }
 
     private void initListener() {
-//        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
-        btnPointHistory.setOnClickListener(view -> onServiceReady());
 
-//        if (BuildConfig.BUILD_TYPE.equals("debug")) {
         btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
-//        } else {
-//            btnNotification.setOnClickListener(view -> onServiceReady());
-//        }
 
-//        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
-        btnAd.setOnClickListener(view -> onServiceReady());
+        //잔액 포인트
+        mainViewModel.getPointGoSing().observe(this, point ->
+                tvPoint.setText(getString(
+                        R.string.fragment_main_default_point,
+                        point)));
 
-//        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
-        btnStore.setOnClickListener(view -> onServiceReady());
-
-//        btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
-        btnReview.setOnClickListener(view -> onServiceReady());
-
-//        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
-        btnFoodOrder.setOnClickListener(view -> onServiceReady());
-
-//        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
-        btnNonmemberSave.setOnClickListener(view -> onServiceReady());
-
-        slideMenu.setOnClickListener(view -> {
-            onServiceReady();
-//            if (getActivity() != null && getActivity() instanceof MainActivity) {
-//                ((MainActivity) getActivity()).openNavigation();
-//            }
-        });
-        btnQrCode.setOnClickListener(view -> moveActivity(QrCodeActivity.class));
-
-//        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
-        btnCargePoint.setOnClickListener(view -> onServiceReady());
-
-//        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
-        btnWithdrawal.setOnClickListener(view -> onServiceReady());
-
-
+        //활성 예정 포인트
         mainViewModel.getPointExpectedActive().observe(this, point ->
                 tvExpectedActivePoint.setText(getString(
                         R.string.fragment_main_expected_active_point,
                         point)));
 
-        mainViewModel.getPointGoSing().observe(this, point ->
-                tvPoint.setText(getString(
-                        R.string.fragment_main_default_point,
-                        point)));
+        //공지사항 (상단 우측)
+        btnNotification.setOnClickListener(view -> onServiceReady());
+
+        //충전하기
+        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
+//        btnCargePoint.setOnClickListener(view -> onServiceReady());
+
+        //출금하기
+        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
+//        btnWithdrawal.setOnClickListener(view -> onServiceReady());
+
+        //업소관리
+        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
+//        btnStore.setOnClickListener(view -> onServiceReady());
+
+        //리뷰관리
+//        btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
+        btnReview.setOnClickListener(view -> onServiceReady());
+
+        //포인트내역
+//        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
+        btnPointHistory.setOnClickListener(view -> onServiceReady());
+
+        //광고관리
+//        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
+        btnAd.setOnClickListener(view -> onServiceReady());
+
+        //먹거리주문
+//        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
+        btnFoodOrder.setOnClickListener(view -> onServiceReady());
+
+        //비회원적립
+        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
+//        btnNonmemberSave.setOnClickListener(view -> onServiceReady());
+
+        //슬라이드 메뉴
+        slideMenu.setOnClickListener(view -> {
+            onServiceReady();
+        });
+
+        btnQrCode.setOnClickListener(view -> moveActivity(QrCodeActivity.class));
+
 
     }
 
