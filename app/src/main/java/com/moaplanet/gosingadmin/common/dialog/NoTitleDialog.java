@@ -16,9 +16,14 @@ import com.moaplanet.gosingadmin.R;
 public class NoTitleDialog extends DialogFragment {
 
     private View view;
+    // 아니요, 예 표시 유무
+    private boolean typeYesOrNo = false;
     @StringRes
     private int content;
-    private View.OnClickListener onClickListener;
+    // 확인 클릭 리스너
+    private View.OnClickListener onDonClickListener;
+    // 아니요 클릭 리스너
+    private View.OnClickListener onNoOnClickListener;
 
     @Nullable
     @Override
@@ -33,16 +38,41 @@ public class NoTitleDialog extends DialogFragment {
         TextView tvContent = view.findViewById(R.id.tv_no_title_content);
         tvContent.setText(getString(content));
         TextView tvDone = view.findViewById(R.id.tv_no_title_ok);
-        tvDone.setOnClickListener(onClickListener);
+        tvDone.setOnClickListener(onDonClickListener);
         setCancelable(false);
+
+        TextView tvNo = view.findViewById(R.id.tv_dialog_no_title_no);
+        if (!typeYesOrNo) {
+            tvNo.setVisibility(View.GONE);
+        } else {
+            tvDone.setText(R.string.dialog_no_title_yes);
+            tvNo.setOnClickListener(onNoOnClickListener);
+        }
+
     }
 
     public void setContent(@StringRes int resId) {
         this.content = resId;
     }
 
-    public void onDoneOnCliListener(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+    /**
+     * 확인 버튼 클릭
+     */
+    public void onDoneOnCliListener(View.OnClickListener onDonClickListener) {
+        this.onDonClickListener = onDonClickListener;
+    }
+
+    public void onNoOnClickListener(View.OnClickListener onNoOnClickListener) {
+        this.onNoOnClickListener = onNoOnClickListener;
+    }
+
+    /**
+     * 예, 아니요 버튼을 확성화 할지 유무
+     * true : 활성화
+     * false : 비활성화
+     */
+    public void setUseYesOrNo(boolean typeYesOrNo) {
+        this.typeYesOrNo = typeYesOrNo;
     }
 
 }

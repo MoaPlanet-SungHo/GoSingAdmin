@@ -8,6 +8,8 @@
 
     <!-- NoTitleDialog -->
     <string name="dialog_no_title_done">확인</string>
+    <string name="dialog_no_title_no">아니요</string>
+    <string name="dialog_no_title_yes">예</string>
 
     <!-- CommonTitleBar -->
     <string name="common_title_bar_back_description">뒤로가기 버튼</string>
@@ -190,6 +192,17 @@
 
     <!-- NonMemberSaveFragment -->
     <string name="fragment_non_member_save_title_bar">비회원 적립</string>
+
+    <!-- PaymentMoneyFragment -->
+    <string name="fragment_payment_money_title">결제금액</string>
+    <string name="fragment_payment_money_won">%s원</string>
+
+    <!-- QrPaymentFragment -->
+    <string name="fragment_qr_payment_title">결제 QR 코드</string>
+    <string name="fragment_qr_payment_qr_code_dialog">
+        결제QR코드가 만료되었습니다.
+        \n결제QR코드를 재생성 하시겠습니까?
+    </string>
 
     <!-- MakingQRcodeActivity -->
     <string name="common_hint_text">0원</string>

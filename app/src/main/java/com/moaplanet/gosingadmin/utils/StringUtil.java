@@ -83,4 +83,8 @@ public class StringUtil {
         return String.format(Locale.getDefault(), "%,d", convertPrice);
     }
 
+    public static String convertCommaPrice(String convertPrice) {
+        return convertCommaPrice(Integer.valueOf(convertPrice));
+    }
+
 }

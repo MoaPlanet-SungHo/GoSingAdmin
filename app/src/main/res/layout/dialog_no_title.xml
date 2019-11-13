@@ -40,4 +40,19 @@
         app:layout_constraintTop_toBottomOf="@id/tv_no_title_content"
         tools:ignore="SpUsage" />
 
+    <TextView
+        android:id="@+id/tv_dialog_no_title_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/font_gd_15"
+        android:paddingStart="0dp"
+        android:paddingEnd="40.7dp"
+        android:text="@string/dialog_no_title_no"
+        android:textColor="@color/color_4300ff"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toStartOf="@id/tv_no_title_ok"
+        app:layout_constraintTop_toBottomOf="@id/tv_no_title_content"
+        tools:ignore="SpUsage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,12 +7,13 @@
     android:background="@color/color_ffffff">
 
     <com.moaplanet.gosingadmin.common.view.CommonTitleBar
-        android:id="@+id/common_inputmoney_title_bar"
+        android:id="@+id/title_fragment_payment_money_title_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/fragment_payment_money_title" />
 
     <TextView
         android:id="@+id/tv_main_payment_amount_qr1"
@@ -26,7 +27,7 @@
         android:textColor="@color/color_000000"
         android:textSize="13dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_inputmoney_title_bar"
+        app:layout_constraintTop_toBottomOf="@id/title_fragment_payment_money_title_bar"
         tools:ignore="SpUsage" />
 
     <TextView
@@ -102,7 +103,7 @@
         android:hint="@string/common_hint_text"
         android:importantForAutofill="no"
         android:inputType="number"
-        android:text="@string/save_money_content"
+        android:maxLength="12"
         android:textColor="@color/color_000000"
         android:textColorHint="@color/color_c7c7c7"
         android:textSize="27dp"
@@ -209,7 +210,7 @@
         android:hint="@string/common_hint_text"
         android:importantForAutofill="no"
         android:inputType="number"
-        android:text="@string/no_save_money_content"
+        android:maxLength="12"
         android:textColor="@color/color_000000"
         android:textColorHint="@color/color_c7c7c7"
         android:textSize="27dp"
@@ -259,24 +260,24 @@
         android:layout_marginEnd="9dp"
         android:contentDescription="@string/common_total_money"
         android:src="@drawable/ic_common_money"
-        app:layout_constraintBottom_toBottomOf="@id/tv_main_total_payment_amount_qr_content"
-        app:layout_constraintEnd_toStartOf="@id/tv_main_total_payment_amount_qr_content"
-        app:layout_constraintTop_toTopOf="@id/tv_main_total_payment_amount_qr_content" />
+        app:layout_constraintBottom_toBottomOf="@id/tv_fragment_payment_main_total_price"
+        app:layout_constraintEnd_toStartOf="@id/tv_fragment_payment_main_total_price"
+        app:layout_constraintTop_toTopOf="@id/tv_fragment_payment_main_total_price" />
 
     <TextView
-        android:id="@+id/tv_main_total_payment_amount_qr_content"
+        android:id="@+id/tv_fragment_payment_main_total_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_gd_17"
         android:gravity="end"
         android:lineSpacingExtra="10.7dp"
-        android:text="@string/total_payment_amount_qr_content"
         android:textColor="@color/color_4300ff"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_main_total_payment_amount_qr"
         app:layout_constraintEnd_toEndOf="@id/et_main_input_save_money"
         app:layout_constraintTop_toTopOf="@id/tv_main_total_payment_amount_qr"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:text="0원" />
 
     <TextView
         android:id="@+id/tv_main_customer_reserve_fund"
@@ -302,7 +303,7 @@
         android:textColor="@color/color_000000"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_main_customer_reserve_fund"
-        app:layout_constraintEnd_toEndOf="@id/tv_main_total_payment_amount_qr_content"
+        app:layout_constraintEnd_toEndOf="@id/tv_fragment_payment_main_total_price"
         app:layout_constraintTop_toTopOf="@id/tv_main_customer_reserve_fund"
         tools:ignore="SpUsage" />
 
@@ -337,18 +338,24 @@
 
     <Button
         android:id="@+id/make_qr_code"
+        style="@style/CommonGradientButton"
         android:layout_width="0dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/font_gd_15"
-        android:gravity="center"
-        android:lineSpacingExtra="6dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
         android:text="@string/common_next_btn"
-        android:textColor="@color/color_ffffff"
-        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/tv_main_balance_gosing_point_content"
-        app:layout_constraintStart_toStartOf="@id/tv_main_balance_gosing_point"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpUsage" />
+
+    <ProgressBar
+        android:id="@+id/pr_fragment_payment_money_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

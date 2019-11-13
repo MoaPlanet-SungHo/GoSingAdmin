@@ -24,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(layoutRes(), container, false);
+        initFragment();
         initView(view);
         initListener();
         return view;
@@ -36,5 +37,7 @@ public abstract class BaseFragment extends Fragment {
     protected void onMoveNavigation(@IdRes int actionId) {
         Navigation.findNavController(view).navigate(actionId);
     }
+
+    protected void initFragment() {}
 
 }

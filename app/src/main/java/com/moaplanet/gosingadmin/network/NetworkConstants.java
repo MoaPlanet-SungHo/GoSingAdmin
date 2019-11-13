@@ -21,6 +21,7 @@ public class NetworkConstants {
 
     // common
     public static int STATE_CODE_SUCCESS = 200;
+    public static int DETAIL_CODE_SUCCESS = 200;
 
     // 회원가입
     public static int CODE_SIGN_UP_SUCCESS = 200;

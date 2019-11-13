@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_qr_code"
+    app:startDestination="@id/fragment_payment_money">
+
+    <fragment
+        android:id="@+id/fragment_payment_money"
+        android:name="com.moaplanet.gosingadmin.main.qrpayment.fragment.PaymentMoneyFragment"
+        tools:layout="@layout/fragment_payment_money" >
+        <action
+            android:id="@+id/action_fragment_qr_payment"
+            app:destination="@id/fragment_qr_payment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_qr_payment"
+        android:name="com.moaplanet.gosingadmin.main.qrpayment.fragment.QrPaymentFragment"
+        tools:layout="@layout/activity_input_qr" />
+
+</navigation>

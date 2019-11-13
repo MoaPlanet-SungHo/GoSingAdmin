@@ -3,6 +3,8 @@ package com.moaplanet.gosingadmin.network.service;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
+import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
@@ -58,4 +60,21 @@ public interface GoSingApiService {
     // 고씽 내정보 조회
     @POST("session/MemberManageCtr/my_info_search_f.json")
     Call<ResInformationDto> onMyInfo();
+
+    // QR코드 초기화 관련
+    @POST("session/PaymenyManageCtr/qr_code_page_init.json")
+    Call<ResPaymentInitDto> onServerPaymentInit();
+
+    /**
+     * QRCode 생성
+     *
+     * @param qrCodePk       qrCode pk 값
+     * @param reservePrice   적립 가격
+     * @param noReservePrice 비적립 가격
+     */
+    @POST("session/PaymenyManageCtr/qrCodeWrite.json")
+    Call<ResCreateQrCodeDto> onCreateQrCode(
+            @Query("shop_qr_save_history_seq") String qrCodePk,
+            @Query("price") String reservePrice,
+            @Query("non_ernng_price") String noReservePrice);
 }

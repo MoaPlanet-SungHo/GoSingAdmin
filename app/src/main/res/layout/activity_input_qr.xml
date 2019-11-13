@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/fragment_qr_payment_title" />
 
     <RelativeLayout
         android:id="@+id/common_main_qr_code_box"
@@ -57,11 +58,13 @@
             android:src="@drawable/ic_common_qr_right_under" />
 
         <ImageView
+            android:id="@+id/iv_fragment_qr_payment_qr_code"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_centerInParent="true"
             android:background="@color/color_000000"
-            android:contentDescription="@string/common_qr_code" />
+            android:contentDescription="@string/common_qr_code"
+            android:scaleType="fitXY" />
     </RelativeLayout>
 
     <TextView
@@ -196,11 +199,18 @@
         android:text="@string/delivery_amount_content"
         android:textColor="@color/color_000000"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="@id/tv_main_total_payment_amount_price"
         app:layout_constraintBottom_toBottomOf="@id/tv_main_customer_reserve_fund"
+        app:layout_constraintEnd_toEndOf="@id/tv_main_total_payment_amount_price"
         app:layout_constraintTop_toTopOf="@id/tv_main_customer_reserve_fund"
         tools:ignore="SpUsage" />
 
-
+    <ProgressBar
+        android:id="@+id/pr_fragment_qr_payment_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

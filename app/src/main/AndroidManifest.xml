@@ -38,8 +38,6 @@
         <activity android:name=".main.submenu.ad.activity.GoSingAdActivity" />
         <activity android:name=".main.submenu.store.activity.StoreActivity" />
         <activity android:name=".main.submenu.review.activity.ReviewManagerActivity" />
-        <activity android:name=".main.qrpayment.PaymentActivity" />
-        <activity android:name=".main.qrpayment.PaymentQrActivity" />
         <activity android:name=".main.submenu.food.activity.FoodOrderActivity" />
         <activity android:name=".main.slide_menu.setting.SettingDetailActivity" />
         <activity android:name=".main.slide_menu.setting.SettingDetailDataActivity" />
@@ -52,6 +50,9 @@
         <activity android:name=".main.submenu.address.AddressSearchActivity" />
         <activity android:name=".main.submenu.store.activity.ModifyStoreActivity" />
         <activity android:name=".main.submenu.store.activity.RegisterStoreActivity" />
+        <activity
+            android:name=".main.qrpayment.activity.QrCodeActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
