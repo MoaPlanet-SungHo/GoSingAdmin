@@ -1,10 +1,16 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +20,7 @@ import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 
 public class CardFragment extends BaseFragment {
 
@@ -28,6 +35,11 @@ public class CardFragment extends BaseFragment {
 
     // 카드 리스트 어뎁터
     private CardAdapter mCardAdapter;
+
+    // 충전 금액 입력 뷰
+    private EditText etPriceCharge;
+    // 충전 금액 지우기
+    private LinearLayout llPriceChargeClear;
 
     @Override
     protected void initFragment() {
@@ -53,6 +65,8 @@ public class CardFragment extends BaseFragment {
 
         btnCardCharge = view.findViewById(R.id.btn_fragment_card_charge);
 
+        etPriceCharge = view.findViewById(R.id.et_fragment_card_input_won);
+        llPriceChargeClear = view.findViewById(R.id.ll_fragment_card_clear_input_price_group);
         initAdapter();
 
     }
@@ -79,6 +93,22 @@ public class CardFragment extends BaseFragment {
                 Navigation.findNavController(view)
                         .navigate(R.id.action_fragment_charge_complete, null));
 
+        llPriceChargeClear.setOnClickListener(view -> etPriceCharge.setText("0"));
+
+        // cardAdapter 에서 사용자가 선택한 카드에 대한 정보를 받은후 뷰 모델로 넘김
+        mCardAdapter.setmSelectCard(cardInformation ->
+                mChargeViewModel.setSelectCardInfo(cardInformation));
+
+        etPriceCharge.addTextChangedListener(mWatcherPriceCharge);
+
+        // -- 뷰 모델 관련 -- //
+
+        // 선택된 카드에 대한 정보를 받음
+        mChargeViewModel.getSelectCardInfo().observe(this, cardInformationDto -> {
+            TextView tvSelectCard = view.findViewById(R.id.tv_fragment_card_selected_card);
+            tvSelectCard.setText(cardInformationDto.getmCardName());
+        });
+
         // 로딩 유무
         mChargeViewModel.getIsLoading().observe(this, isLoading -> {
 
@@ -93,6 +123,23 @@ public class CardFragment extends BaseFragment {
                 initCarView(false);
             }
         });
+
+        mChargeViewModel.getPriceCharge().observe(this, price -> {
+            //todo 수정 필요
+            int cp = etPriceCharge.getSelectionStart();
+            int startLen = etPriceCharge.getText().length();
+            int wonLen;
+            if (etPriceCharge.getText().length() == 1) {
+                wonLen = -1;
+            } else {
+                wonLen = 0;
+            }
+            etPriceCharge.setText(getString(R.string.fragment_payment_money_won, price));
+            int endLen = etPriceCharge.getText().length();
+
+            etPriceCharge.setSelection((cp + (endLen - startLen)) + wonLen);
+        });
+
     }
 
     /**
@@ -121,5 +168,22 @@ public class CardFragment extends BaseFragment {
             clAddCardGroup.setVisibility(View.VISIBLE);
         }
     }
+
+    private TextWatcher mWatcherPriceCharge = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            mChargeViewModel.setPriceCharge(editable.toString());
+        }
+    };
 
 }

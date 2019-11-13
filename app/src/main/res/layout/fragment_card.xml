@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_gd_15"
             android:lineSpacingExtra="4.3dp"
-            android:text="나의 하나카드"
             android:textColor="@color/color_777777"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_fragment_card_selected_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="나의 하나카드" />
 
         <ImageView
             android:id="@+id/iv_fragment_card_selected_arrow"
@@ -125,11 +125,12 @@
             android:importantForAutofill="no"
             android:inputType="number"
             android:lineSpacingExtra="9.7dp"
+            android:maxLength="12"
             android:singleLine="true"
             android:textSize="27dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/iv_fragment_card_input_won_icon"
-            app:layout_constraintRight_toLeftOf="@id/iv_fragment_card_delete_input_won"
+            app:layout_constraintRight_toLeftOf="@id/ll_fragment_card_clear_input_price_group"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpUsage" />
 
@@ -143,15 +144,24 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_fragment_card_input_won" />
 
-        <ImageView
-            android:id="@+id/iv_fragment_card_delete_input_won"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:background="@drawable/ic_e9e9e9_close"
+        <LinearLayout
+            android:id="@+id/ll_fragment_card_clear_input_price_group"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/color_ffffff"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_fragment_card_delete_input_won"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/ic_e9e9e9_close"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
 
         <!-- 중간 협의로 인한 미사용 처리 -->
         <TextView
@@ -204,6 +214,7 @@
         android:layout_height="71dp"
         android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
         android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+        android:enabled="false"
         android:gravity="center"
         android:text="@string/fragment_card_add_card_btn_charge"
         android:textColor="@color/color_ffffff"

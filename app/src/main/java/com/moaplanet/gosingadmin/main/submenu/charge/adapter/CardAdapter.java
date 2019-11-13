@@ -25,6 +25,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     // 선택한 카드
     private Button mBtnSelectCard;
 
+    private onSelectCard mSelectCard;
+
+    public void setmSelectCard(onSelectCard selectCard) {
+        this.mSelectCard = selectCard;
+    }
+
     @NonNull
     @Override
     public CardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,13 +44,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
         holder.init(mCardList.get(position));
 
         holder.mCardName.setOnClickListener(view -> {
-            if (mBtnSelectCard != null) {
-                mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_checkbox_nor, 0, 0, 0);
-            }
+            mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_checkbox_nor, 0, 0, 0);
             mBtnSelectCard = holder.mCardName;
             mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_all_check_press, 0, 0, 0);
+            if (mSelectCard != null) {
+                mSelectCard.onCardInformation(mCardList.get(position));
+            }
         });
     }
 
@@ -84,7 +91,21 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
          */
         private void init(ResCardListDto.CardInformationDto cardInfo) {
             mCardName.setText(cardInfo.getmCardName());
+
+            if (mBtnSelectCard == null) {
+                mCardName.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_all_check_press, 0, 0, 0);
+                mBtnSelectCard = mCardName;
+            }
+
         }
+    }
+
+    /**
+     * 카드 선택시 선택된 카드 데이터를 전달할 인터페이스
+     */
+    public interface onSelectCard {
+        void onCardInformation(ResCardListDto.CardInformationDto cardInformation);
     }
 
 }

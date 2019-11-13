@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.List;
 
@@ -27,6 +28,13 @@ public class ChargeViewModel extends ViewModel {
     private MutableLiveData<List<ResCardListDto.CardInformationDto>> mCardInfoList =
             new MutableLiveData<>();
 
+    // 선택된 카드
+    private MutableLiveData<ResCardListDto.CardInformationDto> mSelectCardInfo =
+            new MutableLiveData<>();
+
+    // 사용자가 충전할 금액
+    private MutableLiveData<String> mPriceCharge = new MutableLiveData<>();
+
     // --- getter start --- //
 
     public MutableLiveData<Boolean> getConnectServerCheck() {
@@ -41,6 +49,14 @@ public class ChargeViewModel extends ViewModel {
         return mCardInfoList;
     }
 
+    public LiveData<ResCardListDto.CardInformationDto> getSelectCardInfo() {
+        return mSelectCardInfo;
+    }
+
+    public LiveData<String> getPriceCharge() {
+        return mPriceCharge;
+    }
+
     // --- getter end --- //
 
     // --- setter start--- //
@@ -48,6 +64,25 @@ public class ChargeViewModel extends ViewModel {
     public void setIsLoading(boolean isLoading) {
         this.mIsLoading.setValue(isLoading);
     }
+
+    public void setSelectCardInfo(ResCardListDto.CardInformationDto selectCardInfo) {
+        this.mSelectCardInfo.setValue(selectCardInfo);
+    }
+
+    public void setPriceCharge(String priceCharge) {
+
+        if (!priceCharge.replaceAll("원", "").equals(mPriceCharge.getValue())) {
+            String price = priceCharge.replaceAll("[,원]", "");
+            if (price.equals("")) {
+                price = "0";
+            } else {
+                price = StringUtil.convertCommaPrice(price);
+            }
+            mPriceCharge.setValue(price);
+        }
+
+    }
+
     // --- setter end--- //
 
     // --- init start --- //
@@ -67,6 +102,10 @@ public class ChargeViewModel extends ViewModel {
                     @Override
                     public void onFinalResponse(Call<ResCardListDto> call, ResCardListDto resModel) {
                         mCardInfoList.setValue(resModel.getCardInformationDtoList());
+                        if (resModel.getCardInformationDtoList() != null &&
+                                resModel.getCardInformationDtoList().size() > 0) {
+                            mSelectCardInfo.setValue(resModel.getCardInformationDtoList().get(0));
+                        }
                         mIsLoading.setValue(false);
                     }
 
