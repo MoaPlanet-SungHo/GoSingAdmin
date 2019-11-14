@@ -11,10 +11,16 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
 
 public class ChargeActivity extends BaseActivity {
 
+    // 충전 뷰 모델
+    private ChargeViewModel mChargeViewModel;
+    // 로딩 유무
+    private boolean mIsLoading = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChargeViewModel mChargeViewModel = ViewModelProviders.of(this).get(ChargeViewModel.class);
+        mChargeViewModel = ViewModelProviders.of(this).get(ChargeViewModel.class);
+        mChargeViewModel.getIsLoading().observe(this, isLoading -> mIsLoading = isLoading);
     }
 
     @Override
@@ -30,5 +36,12 @@ public class ChargeActivity extends BaseActivity {
     @Override
     public void initListener() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mIsLoading) {
+            super.onBackPressed();
+        }
     }
 }

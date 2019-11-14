@@ -20,8 +20,12 @@ public class NetworkConstants {
     public static int ADDRESS_SEACH_PAGING_COUNT = 30;
 
     // common
+    // 성공
     public static int STATE_CODE_SUCCESS = 200;
+    // 성공
     public static int DETAIL_CODE_SUCCESS = 200;
+    // 로그인 필요 ( 세션이 없음 )
+    public static int DETAIL_CODE_NOT_EXIST_SESSION = 500500;
 
     // 회원가입
     public static int CODE_SIGN_UP_SUCCESS = 200;

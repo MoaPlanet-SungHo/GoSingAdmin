@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 /**
  * 베이스 뷰 모델
  */
-public class BaseViewModel extends ViewModel {
+public abstract class BaseViewModel extends ViewModel {
 
     // -- Field Start -- //
     // 로딩 유무 --> true : 로딩중 | false : 로딩중 아님
