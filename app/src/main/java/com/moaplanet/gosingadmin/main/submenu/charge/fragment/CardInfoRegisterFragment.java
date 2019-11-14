@@ -1,18 +1,13 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.navigation.Navigation;
-
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
-import com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
