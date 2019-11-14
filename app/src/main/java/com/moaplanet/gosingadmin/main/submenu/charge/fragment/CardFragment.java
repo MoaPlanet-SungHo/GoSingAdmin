@@ -1,6 +1,7 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -17,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeCardViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
+import com.orhanobut.logger.Logger;
 
 public class CardFragment extends BaseFragment {
 
@@ -95,7 +99,7 @@ public class CardFragment extends BaseFragment {
         clAddCardGroup.setOnClickListener(view1 -> {
             Intent intent = new Intent(getContext(), CardRegisterActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
         });
 
         btnCardCharge.setOnClickListener(view1 ->
@@ -175,6 +179,19 @@ public class CardFragment extends BaseFragment {
                 getActivity().finishAffinity();
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 카드 리스트 재호출
+        if (requestCode == GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD &&
+                resultCode == GoSingConstants.ACTION_RESULT_CODE_REGISTER_CARD) {
+            mChargeCardViewModel.setIsLoading(true);
+            mChargeCardViewModel.onCardListInit();
+        }
 
     }
 

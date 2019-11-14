@@ -9,6 +9,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResIn
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
@@ -93,4 +94,28 @@ public interface GoSingApiService {
     @POST("session/PaymenyManageCtr/card_pymnt_action.json")
     Call<ResCardChargeDto> onServerCardCharge(@Query("card_hash") String CardHash,
                                               @Query("EP_product_amt") String EpProductAmt);
+
+    /**
+     * 카드 등록
+     *
+     * @param cardNumberOne   카드번호 1
+     * @param cardNumberTwo   카드번호 2
+     * @param cardNumberThree 카드번호 3
+     * @param cardNumberFour  카드번호 4
+     * @param year            카드 년도
+     * @param month           카드 월
+     * @param pw              비밀번호 2자리
+     * @param birthday        생일 혹은 사업자 등록번호
+     * @param cardName        카드 이름
+     */
+    @POST("session/PaymenyManageCtr/card_join.json")
+    Call<ResRegisterCardDto> onServerRegisterCard(@Query("EP_card_no1") String cardNumberOne,
+                                                  @Query("EP_card_no2") String cardNumberTwo,
+                                                  @Query("EP_card_no3") String cardNumberThree,
+                                                  @Query("EP_card_no4") String cardNumberFour,
+                                                  @Query("EP_expire_date_yy") String year,
+                                                  @Query("EP_expire_date_mm") String month,
+                                                  @Query("EP_password") String pw,
+                                                  @Query("EP_auth_value") String birthday,
+                                                  @Query("card_name") String cardName);
 }
