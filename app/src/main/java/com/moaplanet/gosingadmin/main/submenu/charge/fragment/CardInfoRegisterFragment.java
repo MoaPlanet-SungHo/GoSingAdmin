@@ -43,7 +43,12 @@ public class CardInfoRegisterFragment extends BaseFragment {
     public void initListener() {
 
         CommonTitleBar commonTitle = view.findViewById(R.id.title_fragment_card_info_register);
-        commonTitle.setBackButtonClickListener(view1 -> Navigation.findNavController(view).popBackStack());
+        commonTitle.setBackButtonClickListener(view1 -> {
+//            Navigation.findNavController(view).popBackStack()
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
+        });
 
         Button button = view.findViewById(R.id.btn_fragment_card_info_register);
         button.setOnClickListener(view1 -> {

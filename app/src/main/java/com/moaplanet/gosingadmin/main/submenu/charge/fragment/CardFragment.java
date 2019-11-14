@@ -25,7 +25,6 @@ import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivi
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeCardViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
-import com.orhanobut.logger.Logger;
 
 public class CardFragment extends BaseFragment {
 
@@ -49,6 +48,8 @@ public class CardFragment extends BaseFragment {
     private LinearLayout llPriceChargeClear;
     // 로딩뷰
     private ProgressBar mPrLoading;
+    // 카드 추가 뷰
+    private ConstraintLayout mClCardItemAdd;
 
     @Override
     protected void initFragment() {
@@ -80,6 +81,8 @@ public class CardFragment extends BaseFragment {
 
         etPriceCharge = view.findViewById(R.id.et_fragment_card_input_won);
         llPriceChargeClear = view.findViewById(R.id.ll_fragment_card_clear_input_price_group);
+
+        mClCardItemAdd = view.findViewById(R.id.cl_fragment_card_add_group);
         initAdapter();
 
     }
@@ -100,6 +103,14 @@ public class CardFragment extends BaseFragment {
             Intent intent = new Intent(getContext(), CardRegisterActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
+        });
+
+        // 카드 항목 추가 뷰 -- 카드 리스트에서 카드 추가
+        mClCardItemAdd.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getContext(), CardRegisterActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
+            clCardListGroup.setVisibility(View.GONE);
         });
 
         btnCardCharge.setOnClickListener(view1 ->
