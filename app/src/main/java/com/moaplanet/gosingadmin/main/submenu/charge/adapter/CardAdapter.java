@@ -21,15 +21,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
 
     // 카드 리스트
     private List<ResCardListDto.CardInformationDto> mCardList;
-
     // 선택한 카드
     private Button mBtnSelectCard;
-
+    // 콜랙 리스터
     private onSelectCard mSelectCard;
-
-    public void setmSelectCard(onSelectCard selectCard) {
-        this.mSelectCard = selectCard;
-    }
 
     @NonNull
     @Override
@@ -66,6 +61,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
 
     }
 
+    public void setmSelectCard(onSelectCard selectCard) {
+        this.mSelectCard = selectCard;
+    }
+
     /**
      * 카드 리스트 초기화
      *
@@ -90,7 +89,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
          * 초기화
          */
         private void init(ResCardListDto.CardInformationDto cardInfo) {
-            mCardName.setText(cardInfo.getmCardName());
+            mCardName.setText(cardInfo.getCardName());
 
             if (mBtnSelectCard == null) {
                 mCardName.setCompoundDrawablesWithIntrinsicBounds(

@@ -41,15 +41,15 @@ public class ResCardListDto extends CommonResDto {
         private String mBatchKey;
 
         // ---- getter start ----- //
-        public String getmCardHash() {
+        public String getCardHash() {
             return mCardHash;
         }
 
-        public String getmCardName() {
+        public String getCardName() {
             return mCardName;
         }
 
-        public String getmBatchKey() {
+        public String getBatchKey() {
             return mBatchKey;
         }
         // ---- getter end ----- //

@@ -106,7 +106,7 @@ public class CardFragment extends BaseFragment {
         // 선택된 카드에 대한 정보를 받음
         mChargeViewModel.getSelectCardInfo().observe(this, cardInformationDto -> {
             TextView tvSelectCard = view.findViewById(R.id.tv_fragment_card_selected_card);
-            tvSelectCard.setText(cardInformationDto.getmCardName());
+            tvSelectCard.setText(cardInformationDto.getCardName());
         });
 
         // 로딩 유무
