@@ -41,6 +41,7 @@ public class ChargeFragment extends BaseFragment {
     private void initTab() {
         TabLayout tabCharge = view.findViewById(R.id.tab_charge);
         ViewPager vpCharge = view.findViewById(R.id.vp_charge);
+        vpCharge.setOffscreenPageLimit(0);
         CommonViewPagerAdapter viewPagerAdapter = new CommonViewPagerAdapter(
                 getChildFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT

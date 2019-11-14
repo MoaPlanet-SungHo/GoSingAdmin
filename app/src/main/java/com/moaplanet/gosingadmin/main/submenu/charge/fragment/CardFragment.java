@@ -1,7 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
