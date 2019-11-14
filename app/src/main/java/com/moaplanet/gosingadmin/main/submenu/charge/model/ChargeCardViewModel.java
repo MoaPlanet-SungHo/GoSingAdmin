@@ -2,14 +2,12 @@ package com.moaplanet.gosingadmin.main.submenu.charge.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.moaplanet.gosingadmin.common.model.BaseViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.List;
 
@@ -25,13 +23,6 @@ public class ChargeCardViewModel extends BaseViewModel {
     private MutableLiveData<List<ResCardListDto.CardInformationDto>> mCardInfoList =
             new MutableLiveData<>();
 
-    // 선택된 카드
-    private MutableLiveData<ResCardListDto.CardInformationDto> mSelectCardInfo =
-            new MutableLiveData<>();
-
-    // 사용자가 충전할 금액
-    private MutableLiveData<String> mPriceCharge = new MutableLiveData<>();
-
     // 충전 버튼 활성화 유무 -- > true : 활성화 | false : 비활성화
     private MutableLiveData<Boolean> mChargeButtonActive = new MutableLiveData<>();
     // -- Field End -- //
@@ -41,41 +32,14 @@ public class ChargeCardViewModel extends BaseViewModel {
         return mCardInfoList;
     }
 
-    public LiveData<ResCardListDto.CardInformationDto> getSelectCardInfo() {
-        return mSelectCardInfo;
-    }
-
-    public LiveData<String> getPriceCharge() {
-        return mPriceCharge;
-    }
-
     public LiveData<Boolean> getChargeButtonActive() {
         return mChargeButtonActive;
     }
     // --- Getter End --- //
 
     // --- Setter Start--- //
-    public void setSelectCardInfo(ResCardListDto.CardInformationDto selectCardInfo) {
-        this.mSelectCardInfo.setValue(selectCardInfo);
-    }
-
-    public void setPriceCharge(String priceCharge) {
-
-        boolean activeValue = false;
-        if (!priceCharge.replaceAll("원", "").equals(mPriceCharge.getValue())) {
-            String price = priceCharge.replaceAll("[,원]", "");
-            if (price.equals("")) {
-                price = "0";
-            } else {
-                if (Integer.valueOf(price) >= 1000) {
-                    activeValue = true;
-                }
-                price = StringUtil.convertCommaPrice(price);
-            }
-            mPriceCharge.setValue(price);
-        }
-        mChargeButtonActive.setValue(activeValue);
-
+    public void setChargeButtonActive(boolean chargeButtonActive) {
+        mChargeButtonActive.setValue(chargeButtonActive);
     }
     // --- Setter End--- //
 
@@ -100,7 +64,7 @@ public class ChargeCardViewModel extends BaseViewModel {
                             setIsApiSuccess(true);
                             mCardInfoList.setValue(resModel.getCardInformationDtoList());
                         } else {
-                            setExistSession(false);
+                            setSession(false);
                         }
                         setIsLoading(false);
                     }
@@ -118,7 +82,7 @@ public class ChargeCardViewModel extends BaseViewModel {
                         super.onFinalNotSession();
                         setIsLoading(false);
                         setIsApiSuccess(false);
-                        setExistSession(false);
+                        setSession(false);
                     }
                 });
     }

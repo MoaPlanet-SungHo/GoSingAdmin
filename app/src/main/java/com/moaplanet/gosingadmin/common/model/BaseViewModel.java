@@ -14,7 +14,7 @@ public abstract class BaseViewModel extends ViewModel {
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
 
     // 세션 유무 --> true : 세션 존재 | false : 세션이 없음
-    private MutableLiveData<Boolean> mExistSession = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mSession = new MutableLiveData<>();
 
     // API 통신 성공 유무 --> true : 성공 | false : 실패
     private MutableLiveData<Boolean> mIsApiSuccess = new MutableLiveData<>();
@@ -25,8 +25,8 @@ public abstract class BaseViewModel extends ViewModel {
         this.mIsLoading.setValue(isLoading);
     }
 
-    public void setExistSession(Boolean existSession) {
-        this.mExistSession.setValue(existSession);
+    public void setSession(Boolean session) {
+        this.mSession.setValue(session);
     }
 
     public void setIsApiSuccess(Boolean isApiSuccess) {
@@ -39,8 +39,8 @@ public abstract class BaseViewModel extends ViewModel {
         return mIsLoading;
     }
 
-    public LiveData<Boolean> getExistSession() {
-        return mExistSession;
+    public LiveData<Boolean> getSession() {
+        return mSession;
     }
 
     public LiveData<Boolean> getIsApiSuccess() {

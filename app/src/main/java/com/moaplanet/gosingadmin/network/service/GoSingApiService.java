@@ -7,6 +7,7 @@ import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
@@ -26,11 +27,11 @@ public interface GoSingApiService {
     // 회원가입
     @POST("MemberManageCtr/s_join.json")
     Call<ResSignUpDto> onServerSignUp(@Query("user_email") String email,
-                              @Query("pwd") String pwd,
-                              @Query("sales_code") String code,
-                              @Query("is_agree_event_noti") String type,
-                              @Query("device_type") int deviceType,
-                              @Query("signType") int signType);
+                                      @Query("pwd") String pwd,
+                                      @Query("sales_code") String code,
+                                      @Query("is_agree_event_noti") String type,
+                                      @Query("device_type") int deviceType,
+                                      @Query("signType") int signType);
 
     // 로그인
     @POST("MemberManageCtr/s_login_action.json")
@@ -52,7 +53,7 @@ public interface GoSingApiService {
     // 알림 리스트
     @POST("session/MemberManageCtr/alert_list_serach.json")
     Call<ResNotificationDto> onServerNotificationList(@Query("alam_type") String alarmType,
-                                                @Query("check_point") String checkPoint);
+                                                      @Query("check_point") String checkPoint);
 
     // 고씽 포인트 조회
     @POST("session/MemberManageCtr/gossingPointSearch_Init.json")
@@ -82,4 +83,14 @@ public interface GoSingApiService {
     // 카드 리스트 불러오기
     @POST("session/PaymenyManageCtr/card_list_Return.json")
     Call<ResCardListDto> onServerCardList();
+
+    /**
+     * 카드로 포인트 충전
+     *
+     * @param CardHash     카드 해쉬 pk
+     * @param EpProductAmt 충전할 금액
+     */
+    @POST("session/PaymenyManageCtr/card_pymnt_action.json")
+    Call<ResCardChargeDto> onServerCardCharge(@Query("card_hash") String CardHash,
+                                              @Query("EP_product_amt") String EpProductAmt);
 }

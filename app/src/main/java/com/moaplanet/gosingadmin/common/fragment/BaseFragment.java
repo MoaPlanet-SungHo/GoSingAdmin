@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -39,5 +40,25 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void initFragment() {}
+
+    /**
+     * 로딩 시작
+     */
+    protected void onStartLoading(View viewLoading) {
+        if (getActivity() != null) {
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        viewLoading.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 로딩 종료
+     */
+    protected void onStopLoading(View viewLoading) {
+        if (getActivity() != null) {
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        viewLoading.setVisibility(View.GONE);
+    }
 
 }

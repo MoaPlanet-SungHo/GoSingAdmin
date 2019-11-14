@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -24,6 +25,7 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
 
 public class CardFragment extends BaseFragment {
 
+    // 뷰모델 관련
     private ChargeCardViewModel mChargeCardViewModel;
     private ChargeViewModel mChargeViewModel;
 
@@ -41,6 +43,8 @@ public class CardFragment extends BaseFragment {
     private EditText etPriceCharge;
     // 충전 금액 지우기
     private LinearLayout llPriceChargeClear;
+    // 로딩뷰
+    private ProgressBar mPrLoading;
 
     @Override
     protected void initFragment() {
@@ -59,8 +63,8 @@ public class CardFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
-        mChargeViewModel.setIsLoading(true);
+        mPrLoading = view.findViewById(R.id.pr_fragment_card_loading);
+        mChargeCardViewModel.setIsLoading(true);
 
         clSelectCardTitle = view.findViewById(R.id.cl_fragment_card_select_card_title);
 
@@ -102,13 +106,13 @@ public class CardFragment extends BaseFragment {
 
         // cardAdapter 에서 사용자가 선택한 카드에 대한 정보를 받은후 뷰 모델로 넘김
         mCardAdapter.setmSelectCard(cardInformation ->
-                mChargeCardViewModel.setSelectCardInfo(cardInformation));
+                mChargeViewModel.setSelectCardInfo(cardInformation));
 
         etPriceCharge.addTextChangedListener(mWatcherPriceCharge);
 
         // -- 뷰 모델 관련 -- //
         // 선택된 카드에 대한 정보를 받음
-        mChargeCardViewModel.getSelectCardInfo().observe(this, cardInformationDto -> {
+        mChargeViewModel.getSelectCardInfo().observe(this, cardInformationDto -> {
             TextView tvSelectCard = view.findViewById(R.id.tv_fragment_card_selected_card);
             tvSelectCard.setText(cardInformationDto.getCardName());
         });
@@ -118,7 +122,7 @@ public class CardFragment extends BaseFragment {
             if (cardInfoDtoList != null && cardInfoDtoList.size() > 0) {
                 // 카드 리스트가 존재할경우 카드 추가 뷰를 숨김
                 mCardAdapter.setCardList(cardInfoDtoList);
-                mChargeCardViewModel.setSelectCardInfo(cardInfoDtoList.get(0));
+                mChargeViewModel.setSelectCardInfo(cardInfoDtoList.get(0));
                 initCarView(true);
             } else {
                 // 카드가 리스트가 없을경우 카드 추가 뷰를 표시
@@ -127,7 +131,7 @@ public class CardFragment extends BaseFragment {
         });
 
         // 사용자가 입력한 충전금액 세팅
-        mChargeCardViewModel.getPriceCharge().observe(this, price -> {
+        mChargeViewModel.getPriceCharge().observe(this, price -> {
             //todo 수정 필요
             int cp = etPriceCharge.getSelectionStart();
             int startLen = etPriceCharge.getText().length();
@@ -139,8 +143,15 @@ public class CardFragment extends BaseFragment {
             }
             etPriceCharge.setText(getString(R.string.fragment_payment_money_won, price));
             int endLen = etPriceCharge.getText().length();
-
             etPriceCharge.setSelection((cp + (endLen - startLen)) + wonLen);
+
+            int tempPrice = Integer.valueOf(price.replace(",", ""));
+            if (tempPrice >= 1000) {
+                mChargeCardViewModel.setChargeButtonActive(true);
+            } else {
+                mChargeCardViewModel.setChargeButtonActive(false);
+            }
+
         });
 
         // 버튼 활성화 및 비활성화
@@ -148,11 +159,17 @@ public class CardFragment extends BaseFragment {
                 active -> btnCardCharge.setEnabled(active));
 
         // 로딩 데이터를 Activity 와 연결된 뷰 모델에 넘김
-        mChargeCardViewModel.getIsLoading().observe(this, isLoading ->
-                mChargeViewModel.setIsLoading(isLoading));
+        mChargeCardViewModel.getIsLoading().observe(this, isLoading -> {
+            mChargeViewModel.setIsLoading(isLoading);
+            if (isLoading) {
+                onStartLoading(mPrLoading);
+            } else {
+                onStopLoading(mPrLoading);
+            }
+        });
 
-        mChargeCardViewModel.getExistSession().observe(this, existSession -> {
-            if (!existSession && getActivity() != null) {
+        mChargeCardViewModel.getSession().observe(this, session -> {
+            if (!session && getActivity() != null) {
                 Intent intent = new Intent(view.getContext(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finishAffinity();
@@ -201,7 +218,7 @@ public class CardFragment extends BaseFragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            mChargeCardViewModel.setPriceCharge(editable.toString());
+            mChargeViewModel.setPriceCharge(editable.toString());
         }
     };
 
