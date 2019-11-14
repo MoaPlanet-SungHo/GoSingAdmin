@@ -35,6 +35,9 @@ public class ChargeViewModel extends ViewModel {
     // 사용자가 충전할 금액
     private MutableLiveData<String> mPriceCharge = new MutableLiveData<>();
 
+    // 충전 버튼 활성화 유무 -- > true : 활성화 | false : 비활성화
+    private MutableLiveData<Boolean> mChargeButtonActive = new MutableLiveData<>();
+
     // --- getter start --- //
 
     public MutableLiveData<Boolean> getConnectServerCheck() {
@@ -57,6 +60,10 @@ public class ChargeViewModel extends ViewModel {
         return mPriceCharge;
     }
 
+    public LiveData<Boolean> getChargeButtonActive() {
+        return mChargeButtonActive;
+    }
+
     // --- getter end --- //
 
     // --- setter start--- //
@@ -71,15 +78,20 @@ public class ChargeViewModel extends ViewModel {
 
     public void setPriceCharge(String priceCharge) {
 
+        boolean activeValue = false;
         if (!priceCharge.replaceAll("원", "").equals(mPriceCharge.getValue())) {
             String price = priceCharge.replaceAll("[,원]", "");
             if (price.equals("")) {
                 price = "0";
             } else {
+                if (Integer.valueOf(price) >= 1000) {
+                    activeValue = true;
+                }
                 price = StringUtil.convertCommaPrice(price);
             }
             mPriceCharge.setValue(price);
         }
+        mChargeButtonActive.setValue(activeValue);
 
     }
 

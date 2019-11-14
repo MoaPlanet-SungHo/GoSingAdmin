@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 
 public class CardFragment extends BaseFragment {
 
@@ -44,7 +42,9 @@ public class CardFragment extends BaseFragment {
     @Override
     protected void initFragment() {
         super.initFragment();
-        mChargeViewModel = ViewModelProviders.of(this).get(ChargeViewModel.class);
+        if (getActivity() != null) {
+            mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
+        }
     }
 
     @Override
@@ -124,6 +124,7 @@ public class CardFragment extends BaseFragment {
             }
         });
 
+        // 사용자가 입력한 충전금액 세팅
         mChargeViewModel.getPriceCharge().observe(this, price -> {
             //todo 수정 필요
             int cp = etPriceCharge.getSelectionStart();
@@ -139,6 +140,10 @@ public class CardFragment extends BaseFragment {
 
             etPriceCharge.setSelection((cp + (endLen - startLen)) + wonLen);
         });
+
+        // 버튼 활성화 및 비활성화
+        mChargeViewModel.getChargeButtonActive().observe(this,
+                active -> btnCardCharge.setEnabled(active));
 
     }
 
