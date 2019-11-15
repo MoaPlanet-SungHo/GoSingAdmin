@@ -161,7 +161,6 @@ public class MainFragment extends Fragment {
 
         //비회원적립
         btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
-//        btnNonmemberSave.setOnClickListener(view -> onServiceReady());
 
         //슬라이드 메뉴
         slideMenu.setOnClickListener(view -> {
