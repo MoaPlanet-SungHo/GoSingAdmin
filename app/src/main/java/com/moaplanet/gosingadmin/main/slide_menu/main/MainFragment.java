@@ -23,6 +23,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPoi
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
+import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
@@ -147,8 +148,8 @@ public class MainFragment extends Fragment {
         btnReview.setOnClickListener(view -> onServiceReady());
 
         //포인트내역
-//        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
-        btnPointHistory.setOnClickListener(view -> onServiceReady());
+        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
+//        btnPointHistory.setOnClickListener(view -> onServiceReady());
 
         //광고관리
 //        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));

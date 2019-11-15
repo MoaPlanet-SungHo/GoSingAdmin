@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
 import com.moaplanet.gosingadmin.main.submenu.point.fragment.PointHistoryFragment;
 
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ public class PointHistoryPagerAdapter extends FragmentPagerAdapter {
         titleList.add("입금");
         titleList.add("출금");
     }
+
 
     @NonNull
     @Override
@@ -56,4 +56,6 @@ public class PointHistoryPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return titleList.get(position);
     }
+
+
 }

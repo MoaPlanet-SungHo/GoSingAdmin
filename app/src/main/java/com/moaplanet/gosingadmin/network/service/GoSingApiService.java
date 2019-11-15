@@ -9,6 +9,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResIn
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
+import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 
@@ -52,7 +53,14 @@ public interface GoSingApiService {
     // 알림 리스트
     @POST("session/MemberManageCtr/alert_list_serach.json")
     Call<ResNotificationDto> onServerNotificationList(@Query("alam_type") String alarmType,
-                                                @Query("check_point") String checkPoint);
+                                                      @Query("check_point") String checkPoint);
+
+    // 포인트 내역
+    @POST("session/MemberManageCtr/point_page_info_list.json")
+    Call<ResPointHistoryDto> onServerPointHistoryList(@Query("start_date") String startDate,
+                                                      @Query("end_date") String endDate,
+                                                      @Query("search_count")String searchCount);
+
 
     // 고씽 포인트 조회
     @POST("session/MemberManageCtr/gossingPointSearch_Init.json")

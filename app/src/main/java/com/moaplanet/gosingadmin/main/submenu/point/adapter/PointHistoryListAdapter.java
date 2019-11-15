@@ -12,12 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.point.dialog.PointHistoryDialog;
+import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
+
+import java.util.List;
 
 public class PointHistoryListAdapter extends
         RecyclerView.Adapter<PointHistoryListAdapter.PointHistoryHolder> {
 
     private String viewType = "all";
     private FragmentManager fragmentManager;
+
+    private List<ResPointHistoryDto.PointHistoryDto> pointHistoryDtoList;
 
     @NonNull
     @Override
@@ -45,6 +50,11 @@ public class PointHistoryListAdapter extends
         });
 
         dialog.setDialogDoneClickListener(view -> dialog.dismiss());
+    }
+
+    public void setList(List<ResPointHistoryDto.PointHistoryDto> pointHistoryDtoList) {
+        this.pointHistoryDtoList = pointHistoryDtoList;
+        notifyDataSetChanged();
     }
 
     @Override
