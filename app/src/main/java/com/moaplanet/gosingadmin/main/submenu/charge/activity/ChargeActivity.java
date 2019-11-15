@@ -20,7 +20,9 @@ public class ChargeActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mChargeViewModel = ViewModelProviders.of(this).get(ChargeViewModel.class);
-        mChargeViewModel.getIsLoading().observe(this, isLoading -> mIsLoading = isLoading);
+        mChargeViewModel.getIsLoading().observe(this, isLoading -> {
+            mIsLoading = isLoading;
+        });
     }
 
     @Override

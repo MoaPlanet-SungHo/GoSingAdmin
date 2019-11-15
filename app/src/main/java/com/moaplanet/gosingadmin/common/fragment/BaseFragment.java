@@ -39,7 +39,8 @@ public abstract class BaseFragment extends Fragment {
         Navigation.findNavController(view).navigate(actionId);
     }
 
-    protected void initFragment() {}
+    protected void initFragment() {
+    }
 
     /**
      * 로딩 시작
@@ -59,6 +60,20 @@ public abstract class BaseFragment extends Fragment {
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
         viewLoading.setVisibility(View.GONE);
+    }
+
+    /**
+     * 로딩 초기화
+     *
+     * @param loadingBar 로딩 바
+     * @param type       로딩 타입 --> true : 로딩중 | false : 로딩중지
+     */
+    protected void onInitLoading(View loadingBar, boolean type) {
+        if (type) {
+            onStartLoading(loadingBar);
+        } else {
+            onStopLoading(loadingBar);
+        }
     }
 
 }

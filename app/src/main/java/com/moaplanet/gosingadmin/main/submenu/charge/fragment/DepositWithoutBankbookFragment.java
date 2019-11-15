@@ -7,12 +7,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWithoutBankbookViewModel;
 
 public class DepositWithoutBankbookFragment extends BaseFragment {
 
     // 뷰모델
+    // 무통장 입금 화면의 뷰모델
     private DepositWithoutBankbookViewModel mViewModel;
+    // 충전 화면 activity 와 연결된 뷰 모델
+    private ChargeViewModel mChargeViewModel;
 
     // 로딩바
     private ProgressBar mLoadingBar;
@@ -23,6 +27,9 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
     @Override
     protected void initFragment() {
         super.initFragment();
+        if (getActivity() != null) {
+            mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
+        }
         mViewModel = ViewModelProviders.of(this).get(DepositWithoutBankbookViewModel.class);
     }
 
@@ -63,11 +70,8 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
         // 로딩 유무
         mViewModel.getIsLoading().observe(this, isLoading -> {
-            if (isLoading) {
-
-            } else {
-
-            }
+            onInitLoading(mLoadingBar, isLoading);
+            mChargeViewModel.setIsLoading(isLoading);
         });
     }
 

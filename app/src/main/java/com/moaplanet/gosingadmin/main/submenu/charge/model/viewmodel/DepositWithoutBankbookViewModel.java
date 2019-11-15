@@ -58,12 +58,15 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                     public void onFinalResponse(Call<ResSearchVirtualAccountDto> call,
                                                 ResSearchVirtualAccountDto resModel) {
 
+                        setIsLoading(false);
 
                     }
 
                     @Override
                     public void onFinalFailure(Call<ResSearchVirtualAccountDto> call,
                                                boolean isSession, Throwable t) {
+
+                        setIsLoading(false);
 
                     }
                 });
