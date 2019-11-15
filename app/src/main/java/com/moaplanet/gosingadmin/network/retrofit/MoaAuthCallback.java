@@ -54,6 +54,17 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
                 }
 
                 CommonResDto commonResDto = (CommonResDto) response.body();
+
+                if (commonResDto.getStateCode() == null) {
+                    onFinalFailure(call, true, new Exception("State Code null"));
+                    return;
+                }
+
+                if (commonResDto.getDetailCode() == null) {
+                    onFinalFailure(call, true, new Exception("Detail Code null"));
+                    return;
+                }
+
                 // 서버 통신 성공 유무
                 if (commonResDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
 

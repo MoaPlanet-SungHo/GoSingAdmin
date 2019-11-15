@@ -65,6 +65,8 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
         mViewModel.getVirtualAccountDto().observe(this, dto -> {
             if (dto == null) {
                 mSearchVirtualAccount = false;
+            } else {
+                
             }
         });
 

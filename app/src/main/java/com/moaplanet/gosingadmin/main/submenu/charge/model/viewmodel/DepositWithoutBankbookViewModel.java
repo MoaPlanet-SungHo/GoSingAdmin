@@ -60,7 +60,7 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                                                 ResSearchVirtualAccountDto resModel) {
 
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
-
+                            setVirtualAccountDto(resModel.getVirtualAccountDto());
                         } else {
                             setIsApiSuccess(false);
                         }
