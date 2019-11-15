@@ -7,6 +7,7 @@ import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
+import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
@@ -64,7 +65,7 @@ public interface GoSingApiService {
     @POST("session/MemberManageCtr/point_page_info_list.json")
     Call<ResPointHistoryDto> onServerPointHistoryList(@Query("start_date") String startDate,
                                                       @Query("end_date") String endDate,
-                                                      @Query("search_count")String searchCount);
+                                                      @Query("search_count") String searchCount);
 
     // 고씽 포인트 조회
     @POST("session/MemberManageCtr/gossingPointSearch_Init.json")
@@ -146,5 +147,11 @@ public interface GoSingApiService {
      */
     @POST("session/PaymenyManageCtr/withdraw_write_page_init.json")
     Call<ResBankInfoDto> onServerBankList();
+
+    /**
+     * 출금 계좌 조회
+     */
+    @POST("session/PaymenyManageCtr/withdraw_list.json")
+    Call<ResSearchDepositAccount> onServerSearchDepositAccount();
 }
 

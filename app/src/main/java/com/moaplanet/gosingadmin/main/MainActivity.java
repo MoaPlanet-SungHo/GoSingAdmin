@@ -79,4 +79,8 @@ public class MainActivity extends BaseActivity {
         drawerLayout.closeDrawers();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

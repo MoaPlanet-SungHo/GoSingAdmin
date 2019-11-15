@@ -6,10 +6,14 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.adapter.BankListAdapter;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
@@ -23,6 +27,8 @@ public class BankSelectActivity extends BaseActivity {
 
     // 로딩 유무
     private boolean mIsLoading = true;
+    // 은행 리스트 어뎁터
+    private BankListAdapter mBankListAdapter;
 
     // 로딩 브로그레스바
     private ProgressBar mPbLoading;
@@ -34,14 +40,24 @@ public class BankSelectActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        onStartLoading();
         mPbLoading = findViewById(R.id.pr_activity_bank_select_loading);
+        onStartLoading();
     }
 
     @Override
     public void initListener() {
         CommonTitleBar commonTitleBar = findViewById(R.id.common_activity_bank_select_title_bar);
         commonTitleBar.setBackButtonClickListener(view -> finish());
+
+        RecyclerView recyclerView = findViewById(R.id.rv_activity_bank_select);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mBankListAdapter = new BankListAdapter();
+        recyclerView.setAdapter(mBankListAdapter);
+
+        mBankListAdapter.setSelectBank(bankInformationDto -> {
+
+        });
+
         getBankList();
     }
 
@@ -86,6 +102,7 @@ public class BankSelectActivity extends BaseActivity {
                     @Override
                     public void onFinalResponse(Call<ResBankInfoDto> call, ResBankInfoDto resModel) {
                         onStopLoading();
+                        mBankListAdapter.setBankList(resModel.getBankList());
                     }
 
                     @Override

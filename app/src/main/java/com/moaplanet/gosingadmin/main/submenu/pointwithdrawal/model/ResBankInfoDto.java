@@ -21,7 +21,7 @@ public class ResBankInfoDto extends CommonResDto {
     /**
      * 은행 정보 받을 Dto
      */
-    private class BankInformationDto {
+    public class BankInformationDto {
 
         // 은행 코드
         @SerializedName("back_cd")

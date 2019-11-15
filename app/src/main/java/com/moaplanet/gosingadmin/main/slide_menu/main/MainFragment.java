@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
+import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
@@ -136,7 +138,8 @@ public class MainFragment extends Fragment {
         btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
 
         //출금하기
-        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
+//        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
+        btnWithdrawal.setOnClickListener(view -> mainViewModel.onSearchDepositAccount());
 //        btnWithdrawal.setOnClickListener(view -> onServiceReady());
 
         //업소관리
@@ -169,6 +172,51 @@ public class MainFragment extends Fragment {
 
         btnQrCode.setOnClickListener(view -> moveActivityWidthDebug(QrCodeActivity.class));
 
+        // 세션 없을경우
+        mainViewModel.getSession().observe(this, isSession -> {
+            if (!isSession) {
+                Toast.makeText(view.getContext(),
+                        R.string.common_not_exist_session,
+                        Toast.LENGTH_SHORT)
+                        .show();
+
+                if (getActivity() != null) {
+                    Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finishAffinity();
+                }
+            }
+        });
+
+        // 통신 실패
+        mainViewModel.getSession().observe(this, isFail -> {
+            if (!isFail) {
+                Toast.makeText(view.getContext(),
+                        "다시 시도해 주세요",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        mainViewModel.getDepositAccount().observe(this, dto -> {
+
+            if (dto == null) {
+
+                NoTitleDialog noTitleDialog = new NoTitleDialog();
+                noTitleDialog.setContent(R.string.fragment_main_no_deposit_account);
+                noTitleDialog.setUseYesOrNo(true);
+                noTitleDialog.show(getFragmentManager(), "출금 계좌 다이얼로그");
+                noTitleDialog.onDoneOnCliListener(view -> {
+                    noTitleDialog.dismiss();
+                    moveActivity(PointWithDrawalActivity.class);
+                });
+
+                noTitleDialog.onNoOnClickListener(view -> noTitleDialog.dismiss());
+
+            } else {
+
+            }
+        });
 
     }
 
