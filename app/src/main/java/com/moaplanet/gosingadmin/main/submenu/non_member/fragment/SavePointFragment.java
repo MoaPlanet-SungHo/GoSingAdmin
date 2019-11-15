@@ -35,9 +35,6 @@ public class SavePointFragment extends BaseFragment {
     public void initView(View view) {
         etInputPoint = view.findViewById(R.id.et_save_point_input_point);
         btnSaving = view.findViewById(R.id.btn_save_point_saving);
-//        String s = decimalFormat.format(3000);
-//        etInputPoint.setText(s+"원");
-//        Logger.d("데이터 입력");
     }
 
     @Override

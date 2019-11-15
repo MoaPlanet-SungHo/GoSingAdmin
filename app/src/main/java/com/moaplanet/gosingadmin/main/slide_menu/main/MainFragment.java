@@ -70,7 +70,7 @@ public class MainFragment extends Fragment {
                     public void onFinalResponse(Call<ResGoSingPointSearchDto> call, ResGoSingPointSearchDto resModel) {
                         if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
                             if (resModel.getDetailCode() == 200) {
-                                mainViewModel.setPointMap(resModel.getPointMap());
+                                mainViewModel.setPoint(resModel.getPointDto());
                                 return;
                             }
                         }

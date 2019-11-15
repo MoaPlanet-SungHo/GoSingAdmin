@@ -4,24 +4,19 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.moaplanet.gosingadmin.common.model.dto.res.ResPointDto;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
-import java.util.Map;
-
 public class MainViewModel extends ViewModel {
-
-    private final String POINT_TYPE_DEFAULT = "goeat_point";
-    private final String POINT_TYPE_EXPECTED_ACTIVE = "actv_schdl_point";
 
     private MutableLiveData<String> pointGoSing = new MutableLiveData<>();
     private MutableLiveData<String> pointExpectedActive = new MutableLiveData<>();
 
-
-    public void setPointMap(Map<String, Integer> pointMap) {
+    public void setPoint(ResPointDto pointDto) {
         pointGoSing.setValue(
-                StringUtil.convertCommaPrice(pointMap.get(POINT_TYPE_DEFAULT)));
+                StringUtil.convertCommaPrice(pointDto.getPoint()));
         pointExpectedActive.setValue(
-                StringUtil.convertCommaPrice(pointMap.get(POINT_TYPE_EXPECTED_ACTIVE)));
+                StringUtil.convertCommaPrice(pointDto.getPointExpectedActive()));
     }
 
     public LiveData<String> getPointExpectedActive() {

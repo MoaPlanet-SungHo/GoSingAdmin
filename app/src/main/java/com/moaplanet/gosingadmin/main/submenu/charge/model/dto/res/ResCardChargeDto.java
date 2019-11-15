@@ -21,7 +21,7 @@ public class ResCardChargeDto extends CommonResDto {
     public class PointDto {
 
         // 고씽 포인트
-        @SerializedName("goeat_point")
+        @SerializedName("gossing_point")
         private int mPointGoSing;
 
         // 활성 예정 포인트
