@@ -14,6 +14,7 @@ import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
@@ -79,11 +80,31 @@ public class PointwithdrawalFragment extends BaseFragment {
                     @Override
                     public void onFinalResponse(Call<ResSearchDepositAccount> call, ResSearchDepositAccount resModel) {
 
+                        if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                            TextView bankName = view.findViewById(R.id.tv_fragment_point_withdrawal_account_info_bank_name);
+                            bankName.setText(resModel.getDepositAccount().getBankName());
+
+                            TextView bankNumber = view.findViewById(R.id.tv_fragment_point_withdrawal_account_number);
+                            bankName.setText(resModel.getDepositAccount().getAccountNumber());
+
+
+                        } else {
+                            onNetworkConnectFail();
+                        }
+
                     }
 
                     @Override
                     public void onFinalFailure(Call<ResSearchDepositAccount> call, boolean isSession, Throwable t) {
-                        
+                        onNetworkConnectFail();
+                    }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+
+                        onNotSession();
+
                     }
                 });
 

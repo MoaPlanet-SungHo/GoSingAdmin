@@ -34,6 +34,21 @@ public class ResSearchDepositAccount extends CommonResDto {
         @SerializedName("user_name")
         private String name;
 
+        public String getAccountNumber() {
+            return accountNumber;
+        }
+
+        public String getBankCd() {
+            return bankCd;
+        }
+
+        public String getBankName() {
+            return bankName;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
 }
