@@ -70,7 +70,7 @@ public class MainFragment extends Fragment {
                     public void onFinalResponse(Call<ResGoSingPointSearchDto> call, ResGoSingPointSearchDto resModel) {
                         if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
                             if (resModel.getDetailCode() == 200) {
-                                mainViewModel.setPointMap(resModel.getPointMap());
+                                mainViewModel.setPoint(resModel.getPointDto());
                                 return;
                             }
                         }
@@ -130,7 +130,7 @@ public class MainFragment extends Fragment {
                         point)));
 
         //공지사항 (상단 우측)
-        btnNotification.setOnClickListener(view -> moveActivity(NotificationActivity.class));
+        btnNotification.setOnClickListener(view -> moveActivityWidthDebug(NotificationActivity.class));
 
         //충전하기
         btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
@@ -140,7 +140,7 @@ public class MainFragment extends Fragment {
 //        btnWithdrawal.setOnClickListener(view -> onServiceReady());
 
         //업소관리
-        btnStore.setOnClickListener(view -> moveActivity(ModifyStoreActivity.class));
+        btnStore.setOnClickListener(view -> moveActivityWidthDebug(ModifyStoreActivity.class));
 //        btnStore.setOnClickListener(view -> onServiceReady());
 
         //리뷰관리
@@ -161,25 +161,29 @@ public class MainFragment extends Fragment {
 
         //비회원적립
         btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
-//        btnNonmemberSave.setOnClickListener(view -> onServiceReady());
 
         //슬라이드 메뉴
         slideMenu.setOnClickListener(view -> {
             onServiceReady();
         });
 
-        btnQrCode.setOnClickListener(view -> moveActivity(QrCodeActivity.class));
+        btnQrCode.setOnClickListener(view -> moveActivityWidthDebug(QrCodeActivity.class));
 
 
     }
 
-    private void moveActivity(Class moveClass) {
+    private void moveActivityWidthDebug(Class moveClass) {
         if (BuildConfig.BUILD_TYPE.equals("debug")) {
             Intent intent = new Intent(view.getContext(), moveClass);
             startActivity(intent);
         } else {
             onServiceReady();
         }
+    }
+
+    private void moveActivity(Class moveClass) {
+        Intent intent = new Intent(view.getContext(), moveClass);
+        startActivity(intent);
     }
 
     private void onServiceReady() {

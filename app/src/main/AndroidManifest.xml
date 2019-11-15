@@ -29,27 +29,69 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intro.GoSingAdminConfirmPermissionActivity" />
-        <activity android:name=".intro.sign_up.activity.SignUpActivity" />
-        <activity android:name=".intro.login.LoginActivity" />
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".main.submenu.point.activity.PointHistoryActivity" />
-        <activity android:name=".main.submenu.notification.NotificationActivity" />
-        <activity android:name=".main.submenu.ad.activity.GoSingAdActivity" />
-        <activity android:name=".main.submenu.store.activity.StoreActivity" />
-        <activity android:name=".main.submenu.review.activity.ReviewManagerActivity" />
-        <activity android:name=".main.submenu.food.activity.FoodOrderActivity" />
-        <activity android:name=".main.slide_menu.setting.SettingDetailActivity" />
-        <activity android:name=".main.slide_menu.setting.SettingDetailDataActivity" />
-        <activity android:name=".main.submenu.non_member.activity.NonMemberSaveActivity" />
-        <activity android:name=".main.submenu.charge.activity.ChargeActivity" />
-        <activity android:name=".main.submenu.charge.activity.CardRegisterActivity" />
-        <activity android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity" />
-        <activity android:name=".main.slide_menu.information.InformationActivity" />
-        <activity android:name=".main.submenu.store.activity.WaitingApprovalActivity" />
-        <activity android:name=".main.submenu.address.AddressSearchActivity" />
-        <activity android:name=".main.submenu.store.activity.ModifyStoreActivity" />
-        <activity android:name=".main.submenu.store.activity.RegisterStoreActivity" />
+        <activity
+            android:name=".intro.GoSingAdminConfirmPermissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".intro.sign_up.activity.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".intro.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.point.activity.PointHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.notification.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.ad.activity.GoSingAdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.store.activity.StoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.review.activity.ReviewManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.food.activity.FoodOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.slide_menu.setting.SettingDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.slide_menu.setting.SettingDetailDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.non_member.activity.NonMemberSaveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.charge.activity.ChargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.charge.activity.CardRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.slide_menu.information.InformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.store.activity.WaitingApprovalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.address.AddressSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.store.activity.ModifyStoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.store.activity.RegisterStoreActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.qrpayment.activity.QrCodeActivity"
             android:screenOrientation="portrait" />

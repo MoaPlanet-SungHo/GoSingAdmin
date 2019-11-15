@@ -17,8 +17,7 @@ import java.util.List;
 
 public class ChargeFragment extends BaseFragment {
 
-    // 타이틀 바
-    private CommonTitleBar titleBar;
+    private ViewPager mVpCharge;
 
     @Override
     public int layoutRes() {
@@ -27,12 +26,13 @@ public class ChargeFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        titleBar = view.findViewById(R.id.common_fragment_charge_title_bar);
         initTab();
     }
 
     @Override
     public void initListener() {
+        // 타이틀 바
+        CommonTitleBar titleBar = view.findViewById(R.id.common_fragment_charge_title_bar);
         titleBar.setBackButtonClickListener(view -> {
             if (getActivity() != null) {
                 getActivity().finish();
@@ -42,7 +42,7 @@ public class ChargeFragment extends BaseFragment {
 
     private void initTab() {
         TabLayout tabCharge = view.findViewById(R.id.tab_charge);
-        ViewPager vpCharge = view.findViewById(R.id.vp_charge);
+        mVpCharge = view.findViewById(R.id.vp_charge);
         CommonViewPagerAdapter viewPagerAdapter = new CommonViewPagerAdapter(
                 getChildFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
@@ -59,8 +59,12 @@ public class ChargeFragment extends BaseFragment {
         viewPagerAdapter.setFragmentList(fragmentList);
         viewPagerAdapter.notifyDataSetChanged();
 
-        vpCharge.setAdapter(viewPagerAdapter);
-        tabCharge.setupWithViewPager(vpCharge);
+        mVpCharge.setAdapter(viewPagerAdapter);
+        tabCharge.setupWithViewPager(mVpCharge);
 
+    }
+
+    public ViewPager getVpCharge() {
+        return mVpCharge;
     }
 }

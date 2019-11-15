@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
+import com.moaplanet.gosingadmin.network.model.CommonResDto;
 import com.orhanobut.logger.Logger;
 
 import java.util.HashSet;
@@ -38,13 +40,49 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
         Logger.d("세션 아이디 : " + response.headers().get("Set-Cookie"));
         sessionChecker.sessionCheck(isT -> {
             if (isT) {
-                if (response.body() != null) {
-                    onFinalResponse(call, response.body());
-                } else {
+
+                // 데이터가 Null 일경우
+                if (response.body() == null) {
                     onFinalFailure(call, true, new Exception("Data null"));
+                    return;
                 }
+
+                // CommonResDto 로 형변환 불가
+                if (!(response.body() instanceof CommonResDto)) {
+                    onFinalResponse(call, response.body());
+                    return;
+                }
+
+                CommonResDto commonResDto = (CommonResDto) response.body();
+
+                if (commonResDto.getStateCode() == null) {
+                    onFinalFailure(call, true, new Exception("State Code null"));
+                    return;
+                }
+
+                if (commonResDto.getDetailCode() == null) {
+                    onFinalFailure(call, true, new Exception("Detail Code null"));
+                    return;
+                }
+
+                // 서버 통신 성공 유무
+                if (commonResDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
+
+                    // 세션이 없을 경우
+                    if (commonResDto.getDetailCode() == NetworkConstants.DETAIL_CODE_NOT_EXIST_SESSION) {
+                        onFinalNotSession();
+                    } else {
+                        // 세션이 있을 경우
+                        onFinalResponse(call, response.body());
+                    }
+
+                } else {
+                    onFinalFailure(call, false, new Exception("서버 통신 실패"));
+                }
+
             } else {
-                onFinalFailure(call, false, new Exception("Moa session not invalid"));
+                onFinalNotSession();
+//                onFinalFailure(call, false, new Exception("Moa session not invalid"));
             }
         });
     }
@@ -65,6 +103,12 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
     abstract public void onFinalResponse(Call<T> call, T resModel);
 
     abstract public void onFinalFailure(Call<T> call, boolean isSession, Throwable t);
+
+    /**
+     * 세션이 없을 경우
+     */
+    public void onFinalNotSession() {
+    }
 
     private void retry() {
         Log.i(authConfig.getLogTagName(), "retry::" + this.retryCount);

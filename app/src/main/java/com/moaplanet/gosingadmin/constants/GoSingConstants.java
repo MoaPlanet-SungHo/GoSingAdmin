@@ -35,10 +35,13 @@ public class GoSingConstants {
     public static final int REQ_CODE_ADDRESS_SEARCH = 3000;
     public static final int RESULT_CODE_ADDRESS_SEARCH = 30001;
 
+    // 카드 등록 관련
+    public static final int ACTION_REQ_CODE_REGISTER_CARD = 8300;
+    public static final int ACTION_RESULT_CODE_REGISTER_CARD = 8301;
+
     // Intent 관련
     // 선택한 주소
     public static final String INTENT_KEY_ADDRESS_INFO = "INTENT_KEY_ADDRESS_INFO";
     // 주소 좌표
     public static final String INTENT_KEY_ADDRESS_COORDINATES = "INTENT_KEY_ADDRESS_COORDINATES";
-
 }

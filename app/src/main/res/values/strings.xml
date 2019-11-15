@@ -5,6 +5,7 @@
     <string name="common_go_sing_admin_logo">고씽 관리자 로고</string>
     <string name="sign_up_title">회원가입</string>
     <string name="common_date_format">Y.M.D</string>
+    <string name="common_not_exist_session">다시 로그인해 주세요</string>
 
     <!-- NoTitleDialog -->
     <string name="dialog_no_title_done">확인</string>
@@ -386,6 +387,8 @@
     <string name="fragment_deposit_without_bankbook_user_name_tail">님의 충전계좌</string>
     <string name="fragment_deposit_without_bankbook_copy">복사</string>
     <string name="fragment_deposit_without_bankbook_tool_tip">위의 가상계좌번호로 충전금액을 이체하여\nGOSING포인트를 충전할 수 있습니다.\n(1회 한도 50만원)</string>
+    <string name="fragment_deposit_without_bankbook_register_virtual_account">
+        우리은행 전용계좌를 발급하시겠습니까?</string>
 
     <!-- CardInfoRegisterFragment -->
     <string name="fragment_card_info_register_title">카드등록</string>

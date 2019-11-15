@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public abstract class CommonResDto {
     @SerializedName("detailCode")
-    int detailCode;
+    private Integer detailCode;
 
     @SerializedName("stateCode")
-    int stateCode;
+    private Integer stateCode;
 
-    public int getDetailCode() {
+    public Integer getDetailCode() {
         return detailCode;
     }
 
-    public int getStateCode() {
+    public Integer getStateCode() {
         return stateCode;
     }
 }
