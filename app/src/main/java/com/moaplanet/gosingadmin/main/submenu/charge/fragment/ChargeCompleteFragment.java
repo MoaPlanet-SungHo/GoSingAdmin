@@ -143,10 +143,7 @@ public class ChargeCompleteFragment extends BaseFragment {
         // 통신 성공 유무에 따른 처리
         mChargeCompleteViewModel.getIsApiSuccess().observe(this, isSuccess -> {
             if (!isSuccess) {
-                Toast.makeText(view.getContext(),
-                        "다시 시도해 주세요",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                onNetworkConnectFail();
             }
         });
 

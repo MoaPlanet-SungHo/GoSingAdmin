@@ -62,7 +62,7 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
 
                         } else {
-
+                            setIsApiSuccess(false);
                         }
 
                         setIsLoading(false);
@@ -73,7 +73,7 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                     public void onFinalFailure(Call<ResSearchVirtualAccountDto> call,
                                                boolean isSession, Throwable t) {
                         setIsLoading(false);
-
+                        setIsApiSuccess(false);
                     }
 
                     @Override

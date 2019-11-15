@@ -2,7 +2,6 @@ package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -79,6 +78,13 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
         mViewModel.getSession().observe(this, isSession -> {
             if (!isSession) {
                 onNotSession();
+            }
+        });
+
+        // 통신 실패
+        mViewModel.getIsApiSuccess().observe(this, isSuccess -> {
+            if (!isSuccess) {
+                onNetworkConnectFail();
             }
         });
     }

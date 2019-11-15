@@ -97,4 +97,14 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 통신 실패시
+     */
+    protected void onNetworkConnectFail() {
+        Toast.makeText(view.getContext(),
+                "다시 시도해 주세요",
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
 }
