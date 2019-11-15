@@ -2,6 +2,7 @@ package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -63,10 +64,19 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
         // 가상 계좌 조회 api 호출
         mViewModel.getVirtualAccountDto().observe(this, dto -> {
+            mSearchVirtualAccount = false;
             if (dto == null) {
-                mSearchVirtualAccount = false;
+
             } else {
-                
+                // 은행 이름
+                TextView bankName =
+                        view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_name);
+                bankName.setText(dto.getBankName());
+
+                // 계좌 번호
+                TextView bankAccountNumber =
+                        view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_number);
+                bankAccountNumber.setText(dto.getVirtaulAccountNumber());
             }
         });
 

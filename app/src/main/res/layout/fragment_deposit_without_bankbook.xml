@@ -75,29 +75,57 @@
                 android:background="@drawable/ic_copy" />
         </LinearLayout>
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/tv_fragment_deposit_without_bankbook_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="43dp"
-            android:fontFamily="@font/font_gd_17"
-            android:gravity="center"
-            android:text="우리은행 000000-00-000000"
-            android:textColor="@color/color_000000"
-            android:textSize="21dp"
-            app:layout_constraintEnd_toEndOf="@id/ll_fragment_deposit_without_bankbook_copy"
-            app:layout_constraintStart_toStartOf="@id/tv_fragment_deposit_without_bankbook_user_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_fragment_deposit_without_bankbook_user_name"
-            tools:ignore="SpUsage" />
+            android:layout_marginTop="46dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fragment_deposit_without_bankbook_user_name">
+
+            <TextView
+                android:id="@+id/tv_fragment_deposit_without_bankbook_bank_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:fontFamily="@font/font_gd_17"
+                android:textColor="@color/color_000000"
+                android:textSize="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage"
+                tools:text="우리은행" />
+
+            <TextView
+                android:id="@+id/tv_fragment_deposit_without_bankbook_bank_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="17dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/font_gd_17"
+                android:maxLines="1"
+                android:textAlignment="textEnd"
+                android:textColor="@color/color_000000"
+                android:textSize="21dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_fragment_deposit_without_bankbook_bank_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage"
+                tools:text="000000-00-000000" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/tv_fragment_deposit_without_bankbook_number_under_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginStart="17dp"
             android:layout_marginTop="27dp"
+            android:layout_marginEnd="17dp"
             android:background="@color/color_e9e9e9"
-            app:layout_constraintEnd_toEndOf="@id/tv_fragment_deposit_without_bankbook_number"
-            app:layout_constraintStart_toStartOf="@id/tv_fragment_deposit_without_bankbook_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_fragment_deposit_without_bankbook_number" />
 
         <TextView
