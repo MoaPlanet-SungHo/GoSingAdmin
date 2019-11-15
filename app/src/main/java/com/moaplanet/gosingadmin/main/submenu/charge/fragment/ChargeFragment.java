@@ -17,6 +17,8 @@ import java.util.List;
 
 public class ChargeFragment extends BaseFragment {
 
+    private ViewPager mVpCharge;
+
     @Override
     public int layoutRes() {
         return R.layout.fragment_charge;
@@ -40,7 +42,7 @@ public class ChargeFragment extends BaseFragment {
 
     private void initTab() {
         TabLayout tabCharge = view.findViewById(R.id.tab_charge);
-        ViewPager vpCharge = view.findViewById(R.id.vp_charge);
+        mVpCharge = view.findViewById(R.id.vp_charge);
         CommonViewPagerAdapter viewPagerAdapter = new CommonViewPagerAdapter(
                 getChildFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
@@ -57,8 +59,12 @@ public class ChargeFragment extends BaseFragment {
         viewPagerAdapter.setFragmentList(fragmentList);
         viewPagerAdapter.notifyDataSetChanged();
 
-        vpCharge.setAdapter(viewPagerAdapter);
-        tabCharge.setupWithViewPager(vpCharge);
+        mVpCharge.setAdapter(viewPagerAdapter);
+        tabCharge.setupWithViewPager(mVpCharge);
 
+    }
+
+    public ViewPager getVpCharge() {
+        return mVpCharge;
     }
 }

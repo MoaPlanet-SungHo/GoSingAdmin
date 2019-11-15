@@ -11,7 +11,9 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWithoutBankbookViewModel;
 
@@ -29,7 +31,7 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
     private ProgressBar mLoadingBar;
 
     // 가상계좌 조회 여부 --> true : 조회하기 | false : 조회 안함
-    private boolean mSearchVirtualAccount = true;
+    private boolean mSearchingVirtualAccount = true;
 
     @Override
     protected void initFragment() {
@@ -59,7 +61,8 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        if (mSearchVirtualAccount) {
+        if (mSearchingVirtualAccount) {
+            // 계좌 정보 조회 api 호출
             mViewModel.onSearchVirtualAccount();
         } else {
             mLoadingBar.setVisibility(View.GONE);
@@ -69,38 +72,13 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
     private void initObserve() {
 
-        // 가상 계좌 조회 api 호출
+        // 계좌 정보 초기화
         mViewModel.getVirtualAccountDto().observe(this, dto -> {
-            mSearchVirtualAccount = false;
+            mSearchingVirtualAccount = false;
             if (dto == null) {
-
+                onRegisterVirtualAccountDialogShow();
             } else {
-
-                // 은행 이름
-                TextView bankName =
-                        view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_name);
-                bankName.setText(dto.getBankName());
-
-                // 계좌 번호
-                TextView bankAccountNumber =
-                        view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_number);
-                bankAccountNumber.setText(dto.getVirtaulAccountNumber());
-
-                // 계좌번호 복사
-                LinearLayout llCopy = view.findViewById(R.id.ll_fragment_deposit_without_bankbook_copy);
-                llCopy.setOnClickListener(viewCopy -> {
-                    ClipboardManager clipboardManager =
-                            (ClipboardManager) view.getContext().getSystemService(CLIPBOARD_SERVICE);
-                    if (clipboardManager != null) {
-                        ClipData clipData = ClipData.newPlainText(
-                                "계좌번호",
-                                dto.getVirtaulAccountNumber());
-                        clipboardManager.setPrimaryClip(clipData);
-                        Toast.makeText(view.getContext(),
-                                "복사가 완료 되었습니다.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                initVirtualAccount(dto);
             }
         });
 
@@ -133,5 +111,61 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
     @Override
     protected void onStopLoading(View viewLoading) {
         super.onStopLoading(viewLoading);
+    }
+
+    /**
+     * 가상 계좌 발급 다이얼로그 표시
+     */
+    private void onRegisterVirtualAccountDialogShow() {
+        NoTitleDialog noTitleDialog = new NoTitleDialog();
+        noTitleDialog.setUseYesOrNo(true);
+        noTitleDialog.setContent(R.string.fragment_deposit_without_bankbook_register_virtual_account);
+        noTitleDialog.show(getChildFragmentManager(), "가상계좌발급 dialog");
+        noTitleDialog.onNoOnClickListener(view -> {
+            noTitleDialog.dismiss();
+
+            if (getParentFragment() != null && getParentFragment() instanceof ChargeFragment) {
+                mSearchingVirtualAccount = true;
+                ChargeFragment chargeFragment = (ChargeFragment) getParentFragment();
+                chargeFragment.getVpCharge().setCurrentItem(0);
+                mLoadingBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        noTitleDialog.onDoneOnCliListener(view -> {
+            noTitleDialog.dismiss();
+            mViewModel.onRegisterVirtualAccount();
+        });
+    }
+
+    /**
+     * 계좌 정보 초기화
+     */
+    private void initVirtualAccount(ResSearchVirtualAccountDto.VirtualAccountDto dto) {
+        // 은행 이름
+        TextView bankName =
+                view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_name);
+        bankName.setText(dto.getBankName());
+
+        // 계좌 번호
+        TextView bankAccountNumber =
+                view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_number);
+        bankAccountNumber.setText(dto.getVirtaulAccountNumber());
+
+        // 계좌번호 복사
+        LinearLayout llCopy = view.findViewById(R.id.ll_fragment_deposit_without_bankbook_copy);
+        llCopy.setOnClickListener(viewCopy -> {
+            ClipboardManager clipboardManager =
+                    (ClipboardManager) view.getContext().getSystemService(CLIPBOARD_SERVICE);
+            if (clipboardManager != null) {
+                ClipData clipData = ClipData.newPlainText(
+                        "계좌번호",
+                        dto.getVirtaulAccountNumber());
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(view.getContext(),
+                        "복사가 완료 되었습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

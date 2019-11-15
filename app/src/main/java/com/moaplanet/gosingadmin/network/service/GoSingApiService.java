@@ -10,6 +10,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPoi
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
@@ -125,5 +126,11 @@ public interface GoSingApiService {
      */
     @POST("session/PaymenyManageCtr/virtualAccount.json")
     Call<ResSearchVirtualAccountDto> onServerSearchVirtualAccount();
+
+    /**
+     * 가상 계좌 등록
+     */
+    @POST("session/PaymenyManageCtr/virtualAccount.json")
+    Call<ResRegisterVirtualAccountDto> onServerRegisterVirtualAccount();
 }
 
