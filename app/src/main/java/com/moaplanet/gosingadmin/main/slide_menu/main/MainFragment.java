@@ -200,22 +200,22 @@ public class MainFragment extends Fragment {
 
         mainViewModel.getDepositAccount().observe(this, dto -> {
 
-            if (dto == null) {
+//            if (dto == null) {
 
-                NoTitleDialog noTitleDialog = new NoTitleDialog();
-                noTitleDialog.setContent(R.string.fragment_main_no_deposit_account);
-                noTitleDialog.setUseYesOrNo(true);
-                noTitleDialog.show(getFragmentManager(), "출금 계좌 다이얼로그");
-                noTitleDialog.onDoneOnCliListener(view -> {
-                    noTitleDialog.dismiss();
-                    moveActivity(PointWithDrawalActivity.class);
-                });
+            NoTitleDialog noTitleDialog = new NoTitleDialog();
+            noTitleDialog.setContent(R.string.fragment_main_no_deposit_account);
+            noTitleDialog.setUseYesOrNo(true);
+            noTitleDialog.show(getFragmentManager(), "출금 계좌 다이얼로그");
+            noTitleDialog.onDoneOnCliListener(view -> {
+                noTitleDialog.dismiss();
+                moveActivity(PointWithDrawalActivity.class);
+            });
 
-                noTitleDialog.onNoOnClickListener(view -> noTitleDialog.dismiss());
+            noTitleDialog.onNoOnClickListener(view -> noTitleDialog.dismiss());
 
-            } else {
+//            } else {
 
-            }
+//            }
         });
 
     }

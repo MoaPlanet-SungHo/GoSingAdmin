@@ -1,18 +1,34 @@
 package com.moaplanet.gosingadmin.main.submenu.pointwithdrawal;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWithoutBankbookViewModel;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.BankSelectActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.DepositAccountViewModel;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
+import com.orhanobut.logger.Logger;
+
+import java.util.Objects;
 
 /**
  * 계좌등록/변경 Fragment
@@ -28,6 +44,18 @@ public class AccountResisterFragment extends BaseFragment {
 
     // 사용자가 선택한 은행
     private TextView mTvSelectBank;
+    private EditText mAccountName, mAccountNumber;
+
+    // 뷰모델
+    private DepositAccountViewModel viewModel;
+
+    @Override
+    protected void initFragment() {
+        super.initFragment();
+        if (getActivity() != null) {
+            viewModel = ViewModelProviders.of(getActivity()).get(DepositAccountViewModel.class);
+        }
+    }
 
     @Override
     public int layoutRes() {
@@ -42,6 +70,9 @@ public class AccountResisterFragment extends BaseFragment {
         clAccountInfoGroup = view.findViewById(R.id.cl_fragment_account_register_account_info_group);
         tvGuideText = view.findViewById(R.id.tv_account_register_guide_text);
         btnAccountRegister = view.findViewById(R.id.btn_fragment_account_register);
+
+        mAccountNumber = view.findViewById(R.id.et_account_register_account_number);
+        mAccountName = view.findViewById(R.id.tv_account_register_account_name);
 
         String fromView = "";
         if (getArguments() != null) {
@@ -69,16 +100,41 @@ public class AccountResisterFragment extends BaseFragment {
 
         // 등록 화면
         btnAccountRegister.setOnClickListener(view1 -> {
-            Bundle bundle = new Bundle();
-            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW,
-                    PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
-            Navigation.findNavController(view).navigate(R.id.action_fragment_password_input, bundle);
+
+//            Bundle bundle = new Bundle();
+//            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW,
+//                    PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
+//            Navigation.findNavController(view).navigate(R.id.action_fragment_password_input, bundle);
+
+            viewModel.setmAccountName(mAccountName.getText().toString());
+            viewModel.setmAccountNumber(mAccountNumber.getText().toString());
+
+            onMoveNavigation(R.id.action_fragment_withdrawal);
+
         });
 
         // 은행 선택
         mTvSelectBank.setOnClickListener(view1 -> {
-
+            Intent intent = new Intent(view.getContext(), BankSelectActivity.class);
+            startActivityForResult(intent, 4000);
         });
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null) {
+            Logger.d("데이터 받음!!@!");
+            ResBankInfoDto.BankInformationDto bankInformationDto = new Gson().fromJson(data.getStringExtra("data"),
+                    ResBankInfoDto.BankInformationDto.class);
+
+            TextView tvBankName = view.findViewById(R.id.tv_fragment_account_register_select_bank);
+            tvBankName.setText(bankInformationDto.getBankName());
+            viewModel.setmBankInfo(bankInformationDto);
+        }
+
+    }
+
 }

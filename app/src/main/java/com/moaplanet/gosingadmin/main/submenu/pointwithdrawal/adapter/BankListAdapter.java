@@ -40,8 +40,11 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
         holder.init(mBankList.get(position));
 
         holder.mBankName.setOnClickListener(view -> {
-            mBtnSelectBank.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_checkbox_nor, 0, 0, 0);
+
+            if (mBtnSelectBank != null) {
+                mBtnSelectBank.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_checkbox_nor, 0, 0, 0);
+            }
             mBtnSelectBank = holder.mBankName;
             mBtnSelectBank.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_all_check_press, 0, 0, 0);

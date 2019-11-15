@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -55,7 +56,9 @@ public class BankSelectActivity extends BaseActivity {
         recyclerView.setAdapter(mBankListAdapter);
 
         mBankListAdapter.setSelectBank(bankInformationDto -> {
-
+            Intent intent = new Intent();
+            intent.putExtra("data", new Gson().toJson(bankInformationDto));
+            setResult(RESULT_OK, intent);
         });
 
         getBankList();
@@ -102,11 +105,13 @@ public class BankSelectActivity extends BaseActivity {
                     @Override
                     public void onFinalResponse(Call<ResBankInfoDto> call, ResBankInfoDto resModel) {
                         onStopLoading();
+                        mIsLoading = false;
                         mBankListAdapter.setBankList(resModel.getBankList());
                     }
 
                     @Override
                     public void onFinalFailure(Call<ResBankInfoDto> call, boolean isSession, Throwable t) {
+                        mIsLoading = false;
                         Toast.makeText(BankSelectActivity.this,
                                 "다시 시도해 주세요",
                                 Toast.LENGTH_SHORT)
@@ -123,7 +128,7 @@ public class BankSelectActivity extends BaseActivity {
                                 R.string.common_not_exist_session,
                                 Toast.LENGTH_SHORT)
                                 .show();
-
+                        mIsLoading = false;
                         Intent intent = new Intent(BankSelectActivity.this,
                                 LoginActivity.class);
                         startActivity(intent);

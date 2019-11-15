@@ -13,6 +13,11 @@ import com.moaplanet.gosingadmin.common.dialog.CommonTitleNoUnderlineDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
+import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
+import com.moaplanet.gosingadmin.network.service.RetrofitService;
+
+import retrofit2.Call;
 
 /**
  * 포인트 인출 Fragment
@@ -65,6 +70,22 @@ public class PointwithdrawalFragment extends BaseFragment {
 
             commonTitleNoUnderlineDialog.setDoneClickListener(view2 -> commonTitleNoUnderlineDialog.dismiss());
         });
+
+        RetrofitService.getInstance().getGoSingApiService().onServerSearchDepositAccount()
+                .enqueue(new MoaAuthCallback<ResSearchDepositAccount>(
+                        RetrofitService.getInstance().getMoaAuthConfig(),
+                        RetrofitService.getInstance().getSessionChecker()
+                ) {
+                    @Override
+                    public void onFinalResponse(Call<ResSearchDepositAccount> call, ResSearchDepositAccount resModel) {
+
+                    }
+
+                    @Override
+                    public void onFinalFailure(Call<ResSearchDepositAccount> call, boolean isSession, Throwable t) {
+                        
+                    }
+                });
 
     }
 }

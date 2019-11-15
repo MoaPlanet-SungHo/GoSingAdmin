@@ -17,6 +17,11 @@
         <action
             android:id="@+id/action_fragment_password_input"
             app:destination="@id/fragment_password_input" />
+
+        <action
+            android:id="@+id/action_fragment_withdrawal"
+            app:destination="@id/fragment_withdrawal" />
+
     </fragment>
 
     <!-- 비밀번호 입력 -->
@@ -46,6 +51,6 @@
     <fragment
         android:id="@+id/fragment_withdrawal_tool_tip"
         android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointwithdrawalToolTipFragment"
-        tools:layout="@layout/fragment_point_withdrawal"/>
+        tools:layout="@layout/fragment_point_withdrawal" />
 
 </navigation>
