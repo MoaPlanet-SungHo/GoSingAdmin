@@ -1,8 +1,12 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -10,6 +14,8 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWithoutBankbookViewModel;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class DepositWithoutBankbookFragment extends BaseFragment {
 
@@ -42,7 +48,6 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         mLoadingBar = view.findViewById(R.id.pb_fragment_deposit_without_bankbook_loading);
-        mLoadingBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -56,6 +61,8 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
         if (mSearchVirtualAccount) {
             mViewModel.onSearchVirtualAccount();
+        } else {
+            mLoadingBar.setVisibility(View.GONE);
         }
 
     }
@@ -68,6 +75,7 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
             if (dto == null) {
 
             } else {
+
                 // 은행 이름
                 TextView bankName =
                         view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_name);
@@ -77,6 +85,22 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
                 TextView bankAccountNumber =
                         view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_number);
                 bankAccountNumber.setText(dto.getVirtaulAccountNumber());
+
+                // 계좌번호 복사
+                LinearLayout llCopy = view.findViewById(R.id.ll_fragment_deposit_without_bankbook_copy);
+                llCopy.setOnClickListener(viewCopy -> {
+                    ClipboardManager clipboardManager =
+                            (ClipboardManager) view.getContext().getSystemService(CLIPBOARD_SERVICE);
+                    if (clipboardManager != null) {
+                        ClipData clipData = ClipData.newPlainText(
+                                "계좌번호",
+                                dto.getVirtaulAccountNumber());
+                        clipboardManager.setPrimaryClip(clipData);
+                        Toast.makeText(view.getContext(),
+                                "복사가 완료 되었습니다.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

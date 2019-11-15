@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/color_ffffff">
 
-    <TextView
-        android:id="@+id/tv_fragment_deposit_without_bankbook_not_enough_points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/font_gd_13"
-        android:text="GOSING 포인트 잔액이 26,000원 부족합니다."
-        android:textColor="@color/color_000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_fragment_deposit_without_bankbook_not_enough_points"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:fontFamily="@font/font_gd_13"-->
+    <!--        android:text="GOSING 포인트 잔액이 26,000원 부족합니다."-->
+    <!--        android:textColor="@color/color_000000"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_fragment_deposit_without_bankbook_group"
@@ -28,7 +28,7 @@
         android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_fragment_deposit_without_bankbook_not_enough_points">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_fragment_deposit_without_bankbook_user_name"

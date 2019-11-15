@@ -64,8 +64,8 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                         } else {
                             setIsApiSuccess(false);
                         }
-
                         setIsLoading(false);
+
 
                     }
 
