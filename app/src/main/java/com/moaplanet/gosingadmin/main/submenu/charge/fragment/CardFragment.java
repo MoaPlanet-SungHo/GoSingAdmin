@@ -183,10 +183,8 @@ public class CardFragment extends BaseFragment {
         });
 
         mChargeCardViewModel.getSession().observe(this, session -> {
-            if (!session && getActivity() != null) {
-                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finishAffinity();
+            if (!session) {
+                onNotSession();
             }
         });
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.moaplanet.gosingadmin.common.model.BaseViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
@@ -58,6 +59,12 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                     public void onFinalResponse(Call<ResSearchVirtualAccountDto> call,
                                                 ResSearchVirtualAccountDto resModel) {
 
+                        if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+
+                        } else {
+
+                        }
+
                         setIsLoading(false);
 
                     }
@@ -65,9 +72,15 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
                     @Override
                     public void onFinalFailure(Call<ResSearchVirtualAccountDto> call,
                                                boolean isSession, Throwable t) {
-
                         setIsLoading(false);
 
+                    }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+                        setIsLoading(false);
+                        setSession(false);
                     }
                 });
     }

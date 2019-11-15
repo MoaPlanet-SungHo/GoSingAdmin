@@ -2,6 +2,7 @@ package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -72,6 +73,13 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
         mViewModel.getIsLoading().observe(this, isLoading -> {
             onInitLoading(mLoadingBar, isLoading);
             mChargeViewModel.setIsLoading(isLoading);
+        });
+
+        // 세션 없을경우 처리
+        mViewModel.getSession().observe(this, isSession -> {
+            if (!isSession) {
+                onNotSession();
+            }
         });
     }
 

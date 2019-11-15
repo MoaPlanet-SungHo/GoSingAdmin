@@ -127,15 +127,7 @@ public class ChargeCompleteFragment extends BaseFragment {
         // 세션 체크후 처리
         mChargeCompleteViewModel.getSession().observe(this, session -> {
             if (!session) {
-                if (getActivity() != null) {
-                    Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finishAffinity();
-                }
-                Toast.makeText(view.getContext(),
-                        R.string.common_not_exist_session,
-                        Toast.LENGTH_SHORT)
-                        .show();
+                onNotSession();
             }
         });
 

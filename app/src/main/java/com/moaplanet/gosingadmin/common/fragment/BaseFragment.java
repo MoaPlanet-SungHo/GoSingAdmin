@@ -1,16 +1,21 @@
 package com.moaplanet.gosingadmin.common.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 
 public abstract class BaseFragment extends Fragment {
     public View view;
@@ -73,6 +78,22 @@ public abstract class BaseFragment extends Fragment {
             onStartLoading(loadingBar);
         } else {
             onStopLoading(loadingBar);
+        }
+    }
+
+    /**
+     * 세션 없을 경우
+     */
+    protected void onNotSession() {
+        Toast.makeText(view.getContext(),
+                R.string.common_not_exist_session,
+                Toast.LENGTH_SHORT)
+                .show();
+
+        if (getActivity() != null) {
+            Intent intent = new Intent(view.getContext(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finishAffinity();
         }
     }
 
