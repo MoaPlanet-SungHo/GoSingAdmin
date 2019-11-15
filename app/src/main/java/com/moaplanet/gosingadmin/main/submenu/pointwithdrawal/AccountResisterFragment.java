@@ -26,6 +26,9 @@ public class AccountResisterFragment extends BaseFragment {
     private TextView tvGuideText;
     private Button btnAccountRegister;
 
+    // 사용자가 선택한 은행
+    private TextView mTvSelectBank;
+
     @Override
     public int layoutRes() {
         return R.layout.fragment_account_register;
@@ -57,14 +60,25 @@ public class AccountResisterFragment extends BaseFragment {
             btnAccountRegister.setText("등록");
         }
 
+        mTvSelectBank = view.findViewById(R.id.tv_fragment_account_register_select_bank);
+
     }
 
     @Override
     public void initListener() {
+
+        // 등록 화면
         btnAccountRegister.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
-            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW, PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
+            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW,
+                    PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
             Navigation.findNavController(view).navigate(R.id.action_fragment_password_input, bundle);
         });
+
+        // 은행 선택
+        mTvSelectBank.setOnClickListener(view1 -> {
+
+        });
+
     }
 }

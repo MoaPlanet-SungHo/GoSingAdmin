@@ -24,7 +24,7 @@ import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
-import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;

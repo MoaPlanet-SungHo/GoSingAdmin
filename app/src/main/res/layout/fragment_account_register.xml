@@ -116,6 +116,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_fragment_account_register_select_bank"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@null"

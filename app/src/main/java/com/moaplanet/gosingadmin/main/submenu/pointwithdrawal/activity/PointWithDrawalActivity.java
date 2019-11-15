@@ -1,11 +1,13 @@
-package com.moaplanet.gosingadmin.main.submenu.pointwithdrawal;
+package com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity;
 
 import android.os.Bundle;
 
 import androidx.navigation.Navigation;
+
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.AccountResisterFragment;
 
 
 /**
@@ -22,7 +24,10 @@ public class PointWithDrawalActivity extends BaseActivity {
     public void initView() {
         Bundle bundle = new Bundle();
         bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW, AccountResisterFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
-        Navigation.findNavController(this, R.id.fragment_activity_point_withdrawal).navigate(R.id.action_fragment_account_register, bundle);
+        Navigation.findNavController(
+                this,
+                R.id.fragment_activity_point_withdrawal)
+                .navigate(R.id.action_fragment_account_register, bundle);
     }
 
     @Override

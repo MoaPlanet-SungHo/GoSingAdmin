@@ -16,7 +16,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.information.InformationActivity;
-import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointWithDrawalActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

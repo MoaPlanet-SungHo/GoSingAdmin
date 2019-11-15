@@ -13,6 +13,7 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCa
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 
@@ -132,5 +133,11 @@ public interface GoSingApiService {
      */
     @POST("session/PaymenyManageCtr/virtualAccount.json")
     Call<ResRegisterVirtualAccountDto> onServerRegisterVirtualAccount();
+
+    /**
+     * 은행 정보 불러오기
+     */
+    @POST("session/PaymenyManageCtr/withdraw_write_page_init.json")
+    Call<ResBankInfoDto> onServerBankList();
 }
 

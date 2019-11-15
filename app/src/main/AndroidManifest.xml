@@ -75,7 +75,7 @@
             android:name=".main.submenu.charge.activity.CardRegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.pointwithdrawal.PointWithDrawalActivity"
+            android:name=".main.submenu.pointwithdrawal.activity.PointWithDrawalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.slide_menu.information.InformationActivity"
@@ -94,6 +94,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.qrpayment.activity.QrCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.pointwithdrawal.activity.BankSelectActivity"
             android:screenOrientation="portrait" />
     </application>
 

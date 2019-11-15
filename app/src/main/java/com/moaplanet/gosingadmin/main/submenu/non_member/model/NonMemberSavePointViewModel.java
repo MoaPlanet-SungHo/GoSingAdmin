@@ -17,6 +17,8 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
 
     // 고싱 포인트
     private MutableLiveData<String> mPoint = new MutableLiveData<>();
+    // 적립할 포인트
+    private MutableLiveData<String> mSavePoint = new MutableLiveData<>();
 
     // --- Field End--- //
 
@@ -26,9 +28,27 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
         return mPoint;
     }
 
+    public LiveData<String> getSavePoint() {
+        return mSavePoint;
+    }
+
     // --- Getter End --- //
 
     // --- Setter Start --- //
+
+    public void setSavePoint(String priceCharge) {
+
+        if (!priceCharge.replaceAll("원", "").equals(mSavePoint.getValue())) {
+            String price = priceCharge.replaceAll("[,원]", "");
+            if (price.equals("")) {
+                price = "0";
+            } else {
+                price = StringUtil.convertCommaPrice(price);
+            }
+            mSavePoint.setValue(price);
+        }
+    }
+
     // --- Setter End --- //
 
     // --- Other Method Start --- //
