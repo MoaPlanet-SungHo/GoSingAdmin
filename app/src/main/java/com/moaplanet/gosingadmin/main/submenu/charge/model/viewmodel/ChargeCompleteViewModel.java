@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.charge.model;
+package com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 

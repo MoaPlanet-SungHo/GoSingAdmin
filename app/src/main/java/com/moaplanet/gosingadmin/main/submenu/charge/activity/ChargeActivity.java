@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 
 public class ChargeActivity extends BaseActivity {
 

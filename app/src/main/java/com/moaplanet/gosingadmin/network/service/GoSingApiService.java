@@ -10,6 +10,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPoi
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
@@ -118,4 +119,11 @@ public interface GoSingApiService {
                                                   @Query("EP_password") String pw,
                                                   @Query("EP_auth_value") String birthday,
                                                   @Query("card_name") String cardName);
+
+    /**
+     * 가상계좌 조회
+     */
+    @POST("session/PaymenyManageCtr/virtualAccount.json")
+    Call<ResSearchVirtualAccountDto> onServerSearchVirtualAccount();
 }
+

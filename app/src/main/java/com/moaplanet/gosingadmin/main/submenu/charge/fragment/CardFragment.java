@@ -22,8 +22,8 @@ import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeCardViewModel;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.ChargeViewModel;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCardViewModel;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 
 public class CardFragment extends BaseFragment {
 
