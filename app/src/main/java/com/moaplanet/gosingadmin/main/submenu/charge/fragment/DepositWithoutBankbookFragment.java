@@ -3,6 +3,7 @@ package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -165,6 +166,14 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
                 Toast.makeText(view.getContext(),
                         "복사가 완료 되었습니다.",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 확인 버튼
+        Button btnDone = view.findViewById(R.id.btn_fragment_deposit_without_bankbook_confirm);
+        btnDone.setOnClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().finish();
             }
         });
     }
