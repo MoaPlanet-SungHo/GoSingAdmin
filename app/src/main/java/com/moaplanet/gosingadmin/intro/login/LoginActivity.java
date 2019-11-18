@@ -55,14 +55,10 @@ public class LoginActivity extends BaseActivity {
         etPw.setFilters(new InputFilter[]{
                 StringUtil.notEmptyFilter()
         });
-//Todo testMove 삭제
+
+        //Todo testMove 삭제
         testMove = findViewById(R.id.tv_login_change_pw);
-        testMove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moveActivity(MainActivity.class);
-            }
-        });
+        testMove.setOnClickListener(view -> moveActivity(MainActivity.class));
     }
 
     @Override
