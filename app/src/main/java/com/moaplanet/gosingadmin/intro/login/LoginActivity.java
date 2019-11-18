@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
@@ -42,6 +44,12 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+        // 로딩바 초기화
+        ProgressBar mLoadingBar = findViewById(R.id.pb_activity_login_loading);
+        mLoadingBar.setVisibility(View.GONE);
+        setLoadingBar(mLoadingBar);
+
         btnLogin = findViewById(R.id.btn_login_login);
         etEmail = findViewById(R.id.et_login_email);
         etPw = findViewById(R.id.et_login_pw);
@@ -56,9 +64,11 @@ public class LoginActivity extends BaseActivity {
                 StringUtil.notEmptyFilter()
         });
 
-        //Todo testMove 삭제
-        testMove = findViewById(R.id.tv_login_change_pw);
-        testMove.setOnClickListener(view -> moveActivity(MainActivity.class));
+        if (BuildConfig.DEBUG) {
+            //Todo testMove 삭제
+            testMove = findViewById(R.id.tv_login_change_pw);
+            testMove.setOnClickListener(view -> moveActivity(MainActivity.class));
+        }
     }
 
     @Override
