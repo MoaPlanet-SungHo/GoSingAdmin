@@ -181,6 +181,12 @@ public class PaymentMoneyFragment extends BaseFragment {
 
         // 결제 화면으로 이동
         btnQrPayment.setOnClickListener(view -> onMoveNavigation(R.id.action_fragment_qr_payment));
+
+        qrCodeViewModel.getSession().observe(this, isSession -> {
+            if (!isSession) {
+                onNotSession();
+            }
+        });
     }
 
     /**

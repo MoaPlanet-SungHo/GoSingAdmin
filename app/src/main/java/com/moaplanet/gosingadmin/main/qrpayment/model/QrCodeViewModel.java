@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.moaplanet.gosingadmin.common.model.viewmodel.BaseViewModel;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
@@ -12,7 +13,7 @@ import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import retrofit2.Call;
 
-public class QrCodeViewModel extends ViewModel {
+public class QrCodeViewModel extends BaseViewModel {
 
     private MutableLiveData<String> qrCodePk = new MutableLiveData<>();
     private MutableLiveData<Integer> reserveRatio = new MutableLiveData<>();
@@ -198,6 +199,16 @@ public class QrCodeViewModel extends ViewModel {
                         reserveRatio.setValue(null);
                         serverConnectFail.setValue(true);
                         loading.setValue(false);
+                    }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+                        qrCodePk.setValue(null);
+                        reserveRatio.setValue(null);
+                        serverConnectFail.setValue(true);
+                        loading.setValue(false);
+                        setSession(false);
                     }
                 });
     }
