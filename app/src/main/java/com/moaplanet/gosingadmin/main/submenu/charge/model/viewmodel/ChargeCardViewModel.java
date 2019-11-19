@@ -3,7 +3,7 @@ package com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.moaplanet.gosingadmin.common.model.BaseViewModel;
+import com.moaplanet.gosingadmin.common.model.viewmodel.BaseViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;

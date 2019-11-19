@@ -119,7 +119,7 @@ public class SavePhoneNumberFragment extends BaseFragment {
 
     private void nonMemberCheck() {
 
-        mActivityViewModel.setmIsLoading(true);
+        mActivityViewModel.setIsLoading(true);
 
         RetrofitService
                 .getInstance()
@@ -133,7 +133,7 @@ public class SavePhoneNumberFragment extends BaseFragment {
                     public void onFinalResponse(Call<ResPointSaveNonMemberCheckDTO> call,
                                                 ResPointSaveNonMemberCheckDTO resModel) {
 
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             mViewModel.setmPhoneNumber(etPhoneNumber.getText().toString());
                             // 키보드 포커스 제거
@@ -162,14 +162,14 @@ public class SavePhoneNumberFragment extends BaseFragment {
                     public void onFinalFailure(Call<ResPointSaveNonMemberCheckDTO> call,
                                                boolean isSession, Throwable t) {
                         onNetworkConnectFail();
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                     }
 
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
                         onNotSession();
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                     }
                 });
     }
@@ -181,7 +181,7 @@ public class SavePhoneNumberFragment extends BaseFragment {
 
 //        // 로딩 처리
         mViewModel.getIsLoading().observe(this,
-                isLoading -> mActivityViewModel.setmIsLoading(isLoading));
+                isLoading -> mActivityViewModel.setIsLoading(isLoading));
 
         // 세션이 없을떄
         mViewModel.getSession().observe(this, isSession -> {

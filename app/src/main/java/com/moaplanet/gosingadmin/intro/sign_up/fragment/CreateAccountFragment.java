@@ -23,11 +23,14 @@ import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
-import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.Objects;
 
+/**
+ * 회원가입 아이디 패스워드 일벽 화면
+ */
 public class CreateAccountFragment extends BaseFragment {
 
     private Button checkEmail;
@@ -35,18 +38,15 @@ public class CreateAccountFragment extends BaseFragment {
     private Button nextStep;
     private EditText etEmail, etPw, etPwCheck;
     private SignUpViewModel signUpViewModel;
-    private CommonTitleBar commonTitleBar;
 
     private TextView tvEmailErr, tvPwErr, tvPwCheckErr;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    protected void initFragment() {
+        super.initFragment();
         if (getActivity() != null) {
             signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
         }
-        return view;
     }
 
     @Override
@@ -56,7 +56,6 @@ public class CreateAccountFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        commonTitleBar = view.findViewById(R.id.common_create_account_title_bar);
         checkEmail = view.findViewById(R.id.btn_create_account_email_check);
         nextStep = view.findViewById(R.id.btn_create_account_done);
         etEmail = view.findViewById(R.id.et_create_account_email);
@@ -87,6 +86,7 @@ public class CreateAccountFragment extends BaseFragment {
     @Override
     public void initListener() {
 
+        CommonTitleBar commonTitleBar = view.findViewById(R.id.common_create_account_title_bar);
         commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
 
         checkEmail.setOnClickListener(view -> {

@@ -2,7 +2,7 @@ package com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.moaplanet.gosingadmin.common.model.BaseViewModel;
+import com.moaplanet.gosingadmin.common.model.viewmodel.BaseViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.req.ReqCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;

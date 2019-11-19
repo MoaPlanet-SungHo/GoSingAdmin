@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
-import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
 public class SignUpCompleteFragment extends BaseFragment {

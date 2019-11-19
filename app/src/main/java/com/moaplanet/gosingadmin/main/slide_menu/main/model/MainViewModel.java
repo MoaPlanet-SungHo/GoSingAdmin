@@ -3,7 +3,7 @@ package com.moaplanet.gosingadmin.main.slide_menu.main.model;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.moaplanet.gosingadmin.common.model.BaseViewModel;
+import com.moaplanet.gosingadmin.common.model.viewmodel.BaseViewModel;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResPointDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
 import com.moaplanet.gosingadmin.network.NetworkConstants;

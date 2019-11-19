@@ -1,49 +1,45 @@
 package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
-import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * 회원가입 전 약관 동의 화면
+ */
 public class SignUpTermsOfAgreementFragment extends BaseFragment {
 
-    private Button btnDone;
+    // 회원가입 공통 뷰 모델
     private SignUpViewModel signUpViewModel;
-    private CheckBox cbAll, cbTermsOfUse, cbBanking, cbPersonalInfo, cbThirdParty, cbAge, cbEvent;
-    private List<CheckBox> cbList;
-    private SimpleDateFormat simpleDateFormat;
 
-    @Nullable
+    // 다음 스탭으로 이동하기 위한 버튼
+    private Button mBtnDone;
+    // 전체 동의, 고싱 혜택 알림 체크박스
+    private CheckBox mCbAll, mCbEvent;
+
+    // 필수 체크 박스 리스트
+    private List<CheckBox> mRequiredCbList;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        initDefault();
-        return view;
-    }
+    protected void initFragment() {
+        super.initFragment();
 
-    private void initDefault() {
         if (getActivity() != null) {
             signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
         }
-        simpleDateFormat = new SimpleDateFormat("y.M.d",
-                Locale.KOREA);
     }
 
     @Override
@@ -53,65 +49,83 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        btnDone = view.findViewById(R.id.btn_terms_of_agreement_done);
 
-        cbAll = view.findViewById(R.id.cb_sign_up_terms_of_agreement_all_check);
-        cbTermsOfUse = view.findViewById(R.id.cb_sign_up_terms_of_agreement_use_check);
-        cbBanking = view.findViewById(R.id.cb_terms_of_agreement_banking_check);
-        cbPersonalInfo = view.findViewById(R.id.cb_terms_of_agreement_personal_info_check);
-        cbThirdParty = view.findViewById(R.id.cb_terms_of_agreement_third_party_check);
-        cbAge = view.findViewById(R.id.cb_terms_of_agreement_age_check);
-        cbEvent = view.findViewById(R.id.cb_terms_of_agreement_event_check);
+        mBtnDone = view.findViewById(R.id.btn_fragment_terms_of_agreement_done);
 
-        cbList = new ArrayList<>();
-        cbList.add(cbTermsOfUse);
-        cbList.add(cbBanking);
-        cbList.add(cbPersonalInfo);
-        cbList.add(cbThirdParty);
-        cbList.add(cbAge);
+        mCbAll = view.findViewById(R.id.cb_sign_up_terms_of_agreement_all_check);
+        CheckBox cbTermsOfUse = view.findViewById(R.id.cb_sign_up_terms_of_agreement_use_check);
+        CheckBox cbBanking = view.findViewById(R.id.cb_terms_of_agreement_banking_check);
+        CheckBox cbPersonalInfo = view.findViewById(R.id.cb_terms_of_agreement_personal_info_check);
+        CheckBox cbThirdParty = view.findViewById(R.id.cb_terms_of_agreement_third_party_check);
+        CheckBox cbAge = view.findViewById(R.id.cb_terms_of_agreement_age_check);
+        mCbEvent = view.findViewById(R.id.cb_terms_of_agreement_event_check);
+
+        mRequiredCbList = new ArrayList<>();
+        mRequiredCbList.add(cbTermsOfUse);
+        mRequiredCbList.add(cbBanking);
+        mRequiredCbList.add(cbPersonalInfo);
+        mRequiredCbList.add(cbThirdParty);
+        mRequiredCbList.add(cbAge);
     }
 
     @Override
     public void initListener() {
-        btnDone.setOnClickListener(view -> {
-            signUpViewModel.setCheckEventPush(cbEvent.isChecked() ? "Y" : "N");
-            onMoveNavigation(R.id.action_fragment_create_account);
-//                onMoveNavigation(R.id.action_fragment_sign_up_self_certification));
 
+        // 계정 입력 하는 화면으로 이동
+        mBtnDone.setOnClickListener(view -> {
+            if (signUpViewModel != null) {
+                signUpViewModel.setCheckEventPush(mCbEvent.isChecked());
+            }
+            onMoveNavigation(R.id.action_fragment_create_account);
         });
 
-        cbAll.setOnClickListener(onCheckBoxClickListener);
-        cbTermsOfUse.setOnClickListener(onCheckBoxClickListener);
-        cbBanking.setOnClickListener(onCheckBoxClickListener);
-        cbPersonalInfo.setOnClickListener(onCheckBoxClickListener);
-        cbThirdParty.setOnClickListener(onCheckBoxClickListener);
-        cbAge.setOnClickListener(onCheckBoxClickListener);
-        cbEvent.setOnClickListener(onCheckBoxClickListener);
+        // 체크박스에 리스너 연결
+        mCbAll.setOnClickListener(onCheckBoxClickListener);
+        for (CheckBox checkBox : mRequiredCbList) {
+            checkBox.setOnClickListener(onCheckBoxClickListener);
+        }
+        mCbEvent.setOnClickListener(onCheckBoxClickListener);
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        checkActivation();
+    }
+
+    /**
+     * 전체 체크 및 해제
+     *
+     * @param checkType 체크 타입 --> true : 체크 | false : 체크해제
+     */
     private void allCheck(boolean checkType) {
-        cbTermsOfUse.setChecked(checkType);
-        cbBanking.setChecked(checkType);
-        cbPersonalInfo.setChecked(checkType);
-        cbThirdParty.setChecked(checkType);
-        cbAge.setChecked(checkType);
-        cbEvent.setChecked(checkType);
+        for (CheckBox checkBox : mRequiredCbList) {
+            checkBox.setChecked(checkType);
+        }
+        mCbEvent.setChecked(checkType);
     }
 
+    /**
+     * 체크 박스들의 클릭 이벤트
+     */
     private View.OnClickListener onCheckBoxClickListener = view -> {
-        if (view.getId() == cbAll.getId()) {
-            allCheck(cbAll.isChecked());
+        if (view.getId() == mCbAll.getId()) {
+            allCheck(mCbAll.isChecked());
             agreementEventToast();
-        } else if (view.getId() == cbEvent.getId()) {
+        } else if (view.getId() == mCbEvent.getId()) {
             agreementEventToast();
         }
         checkActivation();
     };
 
+    /**
+     * 혜택 알림 동의 및 비동의 시 토스트 메시지 띄움
+     */
     private void agreementEventToast() {
         String msg;
-        if (cbEvent.isChecked()) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("y.M.d", Locale.KOREA);
+        if (mCbEvent.isChecked()) {
             msg = simpleDateFormat.format(System.currentTimeMillis()) +
                     getString(R.string.fragment_sign_up_terms_of_agreement_event_check);
         } else {
@@ -127,7 +141,7 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
      */
     private void checkActivation() {
         boolean activationType = false;
-        for (CheckBox checkBox : cbList) {
+        for (CheckBox checkBox : mRequiredCbList) {
             if (checkBox.isChecked()) {
                 activationType = true;
             } else {
@@ -135,7 +149,7 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
                 break;
             }
         }
-        btnDone.setEnabled(activationType);
-        cbAll.setChecked(activationType);
+        mBtnDone.setEnabled(activationType);
+        mCbAll.setChecked(activationType);
     }
 }

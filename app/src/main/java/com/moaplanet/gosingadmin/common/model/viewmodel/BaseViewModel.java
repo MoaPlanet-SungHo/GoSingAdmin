@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.common.model;
+package com.moaplanet.gosingadmin.common.model.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

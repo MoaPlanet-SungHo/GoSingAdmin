@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/btn_terms_of_agreement_done"
+        app:layout_constraintBottom_toTopOf="@id/btn_fragment_terms_of_agreement_done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -195,7 +195,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btn_terms_of_agreement_done"
+        android:id="@+id/btn_fragment_terms_of_agreement_done"
         style="@style/CommonGradientButton"
         android:layout_width="0dp"
         android:layout_height="71dp"

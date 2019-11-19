@@ -59,7 +59,7 @@ public class SavePointFragment extends BaseFragment {
     @Override
     public void initView(View view) {
 
-        mActivityViewModel.setmIsLoading(true);
+        mActivityViewModel.setIsLoading(true);
         tvSaveMaxPoint = view.findViewById(R.id.tv_save_point_max_save);
         initObserve();
         btnSaving = view.findViewById(R.id.btn_save_point_saving);
@@ -118,7 +118,7 @@ public class SavePointFragment extends BaseFragment {
                     @Override
                     public void onFinalResponse(Call<ResNonMemberPointSaveInitDTO> call,
                                                 ResNonMemberPointSaveInitDTO resModel) {
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
 
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             mViewModel.setmSaveMaxPoint(resModel.getPointDto().getMaxPoint());
@@ -131,21 +131,21 @@ public class SavePointFragment extends BaseFragment {
                     @Override
                     public void onFinalFailure(Call<ResNonMemberPointSaveInitDTO> call,
                                                boolean isSession, Throwable t) {
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                         onNetworkConnectFail();
                     }
 
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                         onNotSession();
                     }
                 });
     }
 
     private void onSavePoint() {
-        mActivityViewModel.setmIsLoading(true);
+        mActivityViewModel.setIsLoading(true);
         RetrofitService
                 .getInstance()
                 .getGoSingApiService()
@@ -159,7 +159,7 @@ public class SavePointFragment extends BaseFragment {
                     @Override
                     public void onFinalResponse(Call<ResNonMemberSavePointDTO> call,
                                                 ResNonMemberSavePointDTO resModel) {
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             if (getActivity() != null) {
                                 getActivity().finish();
@@ -181,14 +181,14 @@ public class SavePointFragment extends BaseFragment {
                     @Override
                     public void onFinalFailure(Call<ResNonMemberSavePointDTO> call,
                                                boolean isSession, Throwable t) {
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                         onNetworkConnectFail();
                     }
 
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
-                        mActivityViewModel.setmIsLoading(false);
+                        mActivityViewModel.setIsLoading(false);
                         onNotSession();
                     }
                 });

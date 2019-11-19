@@ -1,6 +1,5 @@
 package com.moaplanet.gosingadmin.common.activity;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,6 +10,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.common.model.viewmodel.BaseActivityViewModel;
 
+/**
+ * 공통으로 사용할 액티비티
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract int layoutRes();
@@ -30,11 +32,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBaseViewModel = ViewModelProviders.of(this).get(BaseActivityViewModel.class);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initActivity();
         setContentView(layoutRes());
         initView();
         initListener();
-
         initObserve();
     }
 
@@ -53,12 +54,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.mLoadingBar = loadingBar;
     }
 
+    public void initActivity(){}
+
     /**
      * 로딩 시작
      */
     protected void onLoadingStart() {
         mLoadingBar.setVisibility(View.VISIBLE);
-        mBaseViewModel.setmIsLoading(true);
+        mBaseViewModel.setIsLoading(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
@@ -66,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 로딩 종료
      */
     protected void onLoadingStop() {
-        mBaseViewModel.setmIsLoading(true);
+        mBaseViewModel.setIsLoading(true);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         mLoadingBar.setVisibility(View.GONE);
     }
@@ -74,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 뷰모델 옵저버 처리
      */
-    private void initObserve() {
+    protected void initObserve() {
         // 로딩 처리
         mBaseViewModel.getIsLoading().observe(this, isLoading -> {
             mIsLoading = isLoading;

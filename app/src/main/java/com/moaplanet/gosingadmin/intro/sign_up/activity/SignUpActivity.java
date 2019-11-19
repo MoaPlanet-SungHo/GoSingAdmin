@@ -1,30 +1,38 @@
 package com.moaplanet.gosingadmin.intro.sign_up.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
-import com.moaplanet.gosingadmin.intro.sign_up.model.SignUpViewModel;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
 import retrofit2.Call;
 
+/**
+ * 회원가입 액티비티
+ */
 public class SignUpActivity extends BaseActivity {
 
+    // 뷰 모델
     private SignUpViewModel signUpViewModel;
     private ReqSignUpDto reqModel;
+
+    @Override
+    public void initActivity() {
+        super.initActivity();
+        signUpViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+    }
 
     @Override
     public int layoutRes() {
@@ -33,7 +41,10 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        // 로딩바 초기화
+        View loadingBar = findViewById(R.id.pb_activity_sign_up_loading);
+        loadingBar.setVisibility(View.GONE);
+        setLoadingBar(loadingBar);
     }
 
     @Override
@@ -42,13 +53,9 @@ public class SignUpActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        signUpViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
-        reqModelInit();
-    }
+    protected void initObserve() {
+        super.initObserve();
 
-    private void reqModelInit() {
         reqModel = new ReqSignUpDto();
         signUpViewModel.getCheckEventPush().observe(this, reqModel::setAgreeEventNoti);
 
@@ -60,6 +67,7 @@ public class SignUpActivity extends BaseActivity {
             reqModel.setSalesCode(salesCode);
             onSignUp();
         });
+
     }
 
     private void onSignUp() {

@@ -3,7 +3,7 @@ package com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.moaplanet.gosingadmin.common.model.BaseViewModel;
+import com.moaplanet.gosingadmin.common.model.viewmodel.BaseViewModel;
 
 /**
  * 출금 계좌 관련 뷰 모델
