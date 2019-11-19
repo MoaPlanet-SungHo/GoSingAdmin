@@ -133,6 +133,9 @@ public class SignUpActivity extends BaseActivity {
 
             @Override
             public void onFail() {
+                Toast.makeText(SignUpActivity.this,
+                        "결제 비밀번호를 다시 생성해 주세요",
+                        Toast.LENGTH_SHORT).show();
                 Logger.d("키 생성 실패");
                 Intent intent = new Intent(SignUpActivity.this, CreatePinActivity.class);
                 startActivity(intent);
