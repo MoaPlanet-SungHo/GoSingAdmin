@@ -174,10 +174,9 @@ public class SavePhoneNumberFragment extends BaseFragment {
                 });
     }
 
-    /**
-     * 뷰 모델 옵저브 처리
-     */
-    private void initObserve() {
+    @Override
+    protected void initObserve() {
+        super.initObserve();
 
 //        // 로딩 처리
         mViewModel.getIsLoading().observe(this,

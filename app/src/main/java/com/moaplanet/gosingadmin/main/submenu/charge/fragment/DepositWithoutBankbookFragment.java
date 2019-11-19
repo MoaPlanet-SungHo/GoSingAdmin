@@ -71,7 +71,9 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
     }
 
-    private void initObserve() {
+    @Override
+    protected void initObserve() {
+        super.initObserve();
 
         // 계좌 정보 초기화
         mViewModel.getVirtualAccountDto().observe(this, dto -> {

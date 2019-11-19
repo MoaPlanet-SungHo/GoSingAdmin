@@ -33,6 +33,7 @@ public abstract class BaseFragment extends Fragment {
         initFragment();
         initView(view);
         initListener();
+        initObserve();
         return view;
     }
 
@@ -105,6 +106,12 @@ public abstract class BaseFragment extends Fragment {
                 "다시 시도해 주세요",
                 Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    /**
+     * 뷰모델 옵저버 처리
+     */
+    protected void initObserve() {
     }
 
 }

@@ -197,8 +197,10 @@ public class SavePointFragment extends BaseFragment {
     /**
      * 뷰 모델 옵저브
      */
-    private void initObserve() {
-
+    @Override
+    protected void initObserve() {
+        super.initObserve();
+        
         mViewModel.getSavePoint().observe(this, savePoint -> {
             int cp = etInputPoint.getSelectionStart();
             int startLen = etInputPoint.getText().length();
