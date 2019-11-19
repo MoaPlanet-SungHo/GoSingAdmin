@@ -349,6 +349,12 @@
         GOSING포인트를 적립할 고객님의 핸드폰 번호를\n입력하세요.</string>
     <string name="fragment_save_phone_number_max_two">
         - 동일한 고객에게 하루 최대 2회 적립금을 지급할 수 있습니다.</string>
+    <string name="fragment_save_phone_number_exist_user">
+        GOSING의 정회원으로 등록된 고객입니다. 정회원에게는 비회원 적립금을 지급할 수 없습니다.
+    </string>
+    <string name="fragment_save_phone_number_two_over">
+        동일한 회원에게 하루 2회를 초과하여 적립금을 지급할 수 없습니다.
+    </string>
 
     <!-- SavePointFragment -->
     <string name="fragment_save_point_input_gosing_point">적립할 GOSING포인트를 입력하세요.</string>
@@ -359,6 +365,9 @@
     <string name="fragment_save_point_saving">적립하기</string>
     <string name="fragment_save_point_max_tow_give">
         - 동일한 고객에게 하루 최대 2회 적립금을 지급할 수 있습니다.</string>
+    <string name="fragment_save_point_lacks_point">보유한 고씽포인트가 부족합니다.</string>
+    <string name="fragment_save_point_over_point_not_save">
+        1회 최대 %s을 초과한 적립금을 지급할 수 없습니다.</string>
 
     <!-- NonMemberSavePassword -->
     <string name="fragment_non_member_password_title_bar">비회원 적립</string>

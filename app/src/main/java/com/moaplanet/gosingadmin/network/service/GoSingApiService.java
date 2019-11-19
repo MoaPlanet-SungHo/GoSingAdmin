@@ -13,9 +13,13 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDt
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
+import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResNonMemberPointSaveInitDTO;
+import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResNonMemberSavePointDTO;
+import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResPointSaveNonMemberCheckDTO;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
 import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResPointWithDrawalDTO;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 
@@ -153,5 +157,36 @@ public interface GoSingApiService {
      */
     @POST("session/PaymenyManageCtr/withdraw_list.json")
     Call<ResSearchDepositAccount> onServerSearchDepositAccount();
+
+    /**
+     * 비회원 포인트 적립시 비회원 검사
+     */
+    @POST("session/PaymenyManageCtr/nonmmb_point_write_f_two.json")
+    Call<ResPointSaveNonMemberCheckDTO> onServerPointSaveNonMemberCheck(
+            @Query("phone_number") String phoneNumber);
+
+    /**
+     * 비회원 포인트 적립시 초기화
+     */
+    @POST("session/PaymenyManageCtr/nonmmb_point_page_init.json")
+    Call<ResNonMemberPointSaveInitDTO> onServerNonMemberPointSaveInit();
+
+    /**
+     * 비회원 포인트 적립
+     */
+    @POST("session/PaymenyManageCtr/nonmmb_point_write_f.json")
+    Call<ResNonMemberSavePointDTO> onServerNonMemberSavePoint(
+            @Query("phone_number") String phoneNumber,
+            @Query("point") String point
+    );
+
+    /**
+     * 출금 요청
+     */
+    @POST("session/PaymenyManageCtr/withdraw_request_join.json")
+    Call<ResPointWithDrawalDTO> onServerPointWithDrawal(
+            @Query("withdraw_info_seq") String accountNumber,
+            @Query("wthdr_amnt") String point
+    );
 }
 

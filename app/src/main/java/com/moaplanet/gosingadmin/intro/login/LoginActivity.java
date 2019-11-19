@@ -32,7 +32,6 @@ public class LoginActivity extends BaseActivity {
     private Button btnLogin;
     private EditText etEmail;
     private EditText etPw;
-    private ReqLoginDto reqLoginDto;
     private TextView tvErrMsg;
     private String userEmail, userPw;
     private TextView testMove;
@@ -113,11 +112,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        reqLoginDto = new ReqLoginDto();
     }
 
     private void startLogin() {
-
+//        onLoadingStart();
+        ReqLoginDto reqLoginDto = new ReqLoginDto();
         reqLoginDto.setEmail(userEmail);
         reqLoginDto.setPw(userPw);
 
@@ -125,11 +124,6 @@ public class LoginActivity extends BaseActivity {
         loginManager.setOnLoginListener(onLoginListener);
         loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
 
-//        RetrofitService.getInstance().getGoSingApiService(getApplicationContext()).login(
-//                reqLoginDto.getEmail(),
-//                reqLoginDto.getPw()
-//                , reqLoginDto.getSignType())
-//                .enqueue(moaAuthCallback);
     }
 
     private void onActivationButton() {

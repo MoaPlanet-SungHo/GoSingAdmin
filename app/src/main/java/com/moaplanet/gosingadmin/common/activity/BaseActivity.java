@@ -20,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract void initListener();
 
     // 뷰 모델
-    public BaseActivityViewModel mBaseViewModel;
+    private BaseActivityViewModel mBaseViewModel;
 
     // 로딩 유무 체크 변수
     private boolean mIsLoading = false;
@@ -47,25 +47,28 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 로딩 초기화
+     * 로딩바 초기화
      */
-    protected void initLoading() {
+    public void setLoadingBar(View loadingBar) {
+        this.mLoadingBar = loadingBar;
+    }
 
-        // 로딩뷰를 숨기거나 표시할 변수
-        int viewType;
+    /**
+     * 로딩 시작
+     */
+    protected void onLoadingStart() {
+        mLoadingBar.setVisibility(View.VISIBLE);
+        mBaseViewModel.setmIsLoading(true);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
 
-        if (mIsLoading) {
-            viewType = View.VISIBLE;
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        } else {
-            viewType = View.GONE;
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
-
-        if (mLoadingBar != null) {
-            mLoadingBar.setVisibility(viewType);
-        }
-
+    /**
+     * 로딩 종료
+     */
+    protected void onLoadingStop() {
+        mBaseViewModel.setmIsLoading(true);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        mLoadingBar.setVisibility(View.GONE);
     }
 
     /**
@@ -75,30 +78,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 로딩 처리
         mBaseViewModel.getIsLoading().observe(this, isLoading -> {
             mIsLoading = isLoading;
-            initLoading();
         });
     }
-
-    /**
-     * 로딩바 초기화
-     */
-    public void setLoadingBar(View loadingBar) {
-        this.mLoadingBar = loadingBar;
-    }
-
-    //    /**
-//     * 로딩 시작
-//     */
-//    private void onStartLoading(View viewLoading) {
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//        viewLoading.setVisibility(View.VISIBLE);
-//    }
-//
-//    /**
-//     * 로딩 종료
-//     */
-//    private void onStopLoading(View viewLoading) {
-//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//        viewLoading.setVisibility(View.GONE);
-//    }
 }

@@ -15,6 +15,10 @@ public class ResPointDto {
     @SerializedName("actv_schdl_point")
     private int mPointExpectedActive;
 
+    // 최대 적립 포인트
+    @SerializedName("maxPoint")
+    private int maxPoint;
+
     public int getPoint() {
         return mPoint;
     }
@@ -23,4 +27,7 @@ public class ResPointDto {
         return mPointExpectedActive;
     }
 
+    public int getMaxPoint() {
+        return maxPoint;
+    }
 }

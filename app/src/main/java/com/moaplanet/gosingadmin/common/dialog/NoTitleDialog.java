@@ -20,6 +20,7 @@ public class NoTitleDialog extends DialogFragment {
     private boolean typeYesOrNo = false;
     @StringRes
     private int content;
+    private String stringContent;
     // 확인 클릭 리스너
     private View.OnClickListener onDonClickListener;
     // 아니요 클릭 리스너
@@ -36,7 +37,11 @@ public class NoTitleDialog extends DialogFragment {
 
     private void initView() {
         TextView tvContent = view.findViewById(R.id.tv_no_title_content);
-        tvContent.setText(getString(content));
+        if (stringContent == null) {
+            tvContent.setText(getString(content));
+        } else {
+            tvContent.setText(stringContent);
+        }
         TextView tvDone = view.findViewById(R.id.tv_no_title_ok);
         tvDone.setOnClickListener(onDonClickListener);
         setCancelable(false);
@@ -53,6 +58,10 @@ public class NoTitleDialog extends DialogFragment {
 
     public void setContent(@StringRes int resId) {
         this.content = resId;
+    }
+
+    public void setContent(String stringContent) {
+        this.stringContent = stringContent;
     }
 
     /**

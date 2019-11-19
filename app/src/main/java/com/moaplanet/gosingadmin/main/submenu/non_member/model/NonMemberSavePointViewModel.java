@@ -19,6 +19,10 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
     private MutableLiveData<String> mPoint = new MutableLiveData<>();
     // 적립할 포인트
     private MutableLiveData<String> mSavePoint = new MutableLiveData<>();
+    // 최대 적립 포인트
+    private MutableLiveData<Integer> mSaveMaxPoint = new MutableLiveData<>();
+    // 핸드폰 번호
+    private MutableLiveData<String> mPhoneNumber = new MutableLiveData<>();
 
     // --- Field End--- //
 
@@ -30,6 +34,14 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
 
     public LiveData<String> getSavePoint() {
         return mSavePoint;
+    }
+
+    public LiveData<Integer> getSaveMaxPoint() {
+        return mSaveMaxPoint;
+    }
+
+    public LiveData<String> getPhoneNumber() {
+        return mPhoneNumber;
     }
 
     // --- Getter End --- //
@@ -47,6 +59,14 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
             }
             mSavePoint.setValue(price);
         }
+    }
+
+    public void setmSaveMaxPoint(int saveMaxPoint) {
+        this.mSaveMaxPoint.setValue(saveMaxPoint);
+    }
+
+    public void setmPhoneNumber(String mPhoneNumber) {
+        this.mPhoneNumber.setValue(mPhoneNumber);
     }
 
     // --- Setter End --- //

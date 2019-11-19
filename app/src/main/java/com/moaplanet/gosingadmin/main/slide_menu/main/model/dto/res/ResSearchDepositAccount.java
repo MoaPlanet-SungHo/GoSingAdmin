@@ -18,6 +18,10 @@ public class ResSearchDepositAccount extends CommonResDto {
 
     public class DepositAccount {
 
+        // 계좌 PK
+        @SerializedName("vrcis_info_seq")
+        private String bankAccountPk;
+
         // 은행 코드
         @SerializedName("back_cd")
         private String bankCd;
@@ -34,6 +38,14 @@ public class ResSearchDepositAccount extends CommonResDto {
         @SerializedName("user_name")
         private String name;
 
+        // 출금 가능 금액
+        @SerializedName("with_possi_point")
+        private int possibleWithdrawalPrice;
+
+        public String getBankAccountPk() {
+            return bankAccountPk;
+        }
+
         public String getAccountNumber() {
             return accountNumber;
         }
@@ -48,6 +60,10 @@ public class ResSearchDepositAccount extends CommonResDto {
 
         public String getName() {
             return name;
+        }
+
+        public int getPossibleWithdrawalPrice() {
+            return possibleWithdrawalPrice;
         }
     }
 

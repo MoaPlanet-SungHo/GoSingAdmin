@@ -9,7 +9,7 @@ public class BaseActivityViewModel extends ViewModel {
     // --- Field Start --- //
 
     // 로딩 유무 --> true : 로딩중 | false : 로딩 아님
-    private MutableLiveData<Boolean> mIsLoading;
+    private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
 
     // --- Field End --- //
 

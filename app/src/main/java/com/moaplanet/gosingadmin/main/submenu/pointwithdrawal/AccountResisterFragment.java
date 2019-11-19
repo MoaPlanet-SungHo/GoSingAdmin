@@ -126,7 +126,6 @@ public class AccountResisterFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (data != null) {
-            Logger.d("데이터 받음!!@!");
             ResBankInfoDto.BankInformationDto bankInformationDto = new Gson().fromJson(data.getStringExtra("data"),
                     ResBankInfoDto.BankInformationDto.class);
 
