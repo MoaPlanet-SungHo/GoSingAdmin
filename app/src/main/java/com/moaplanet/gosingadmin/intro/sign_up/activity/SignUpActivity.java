@@ -71,6 +71,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     private void onSignUp() {
+        onLoadingStart();
         RetrofitService.getInstance().getGoSingApiService().onServerSignUp(reqModel.getEmail(),
                 reqModel.getPw(),
                 reqModel.getSalesCode(),
@@ -89,6 +90,7 @@ public class SignUpActivity extends BaseActivity {
             if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
                 successSignUp();
             } else {
+                onLoadingStop();
                 Toast.makeText(SignUpActivity.this,
                         "이미 존재하는 계정 입니다.",
                         Toast.LENGTH_SHORT).show();
@@ -98,6 +100,7 @@ public class SignUpActivity extends BaseActivity {
 
         @Override
         public void onFinalFailure(Call<ResSignUpDto> call, boolean isSession, Throwable t) {
+            onLoadingStop();
             Toast.makeText(SignUpActivity.this,
                     " 회원가입을 실패했습니다.",
                     Toast.LENGTH_SHORT).show();
@@ -113,18 +116,12 @@ public class SignUpActivity extends BaseActivity {
                 reqModel.getPw(),
                 LoginManager.LoginType.LOGIN,
                 this);
-
-//        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-//        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-//        sharedPreferencesManager.setLoginInfo(reqModel.getEmail(), reqModel.getPw());
-//        Intent intent = new Intent(this, StoreActivity.class);
-//        startActivity(intent);
-//        finish();
     }
 
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
+            onLoadingStop();
             Intent intent = new Intent(SignUpActivity.this, RegisterStoreActivity.class);
             startActivity(intent);
             finishAffinity();
@@ -132,9 +129,10 @@ public class SignUpActivity extends BaseActivity {
 
         @Override
         public void onLoginFail(int stateCode, int detailCode) {
+            onLoadingStop();
             Toast.makeText(
                     SignUpActivity.this,
-                    "회원가입을 실패했습니다.",
+                    "로그인을 실패했습니다.",
                     Toast.LENGTH_SHORT).show();
         }
     };
