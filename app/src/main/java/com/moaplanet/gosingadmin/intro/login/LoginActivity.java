@@ -11,19 +11,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.common.manager.StoreManager;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
+import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
@@ -114,15 +118,41 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    private void startLogin() {
-//        onLoadingStart();
-        ReqLoginDto reqLoginDto = new ReqLoginDto();
-        reqLoginDto.setEmail(userEmail);
-        reqLoginDto.setPw(userPw);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        LoginManager loginManager = new LoginManager();
-        loginManager.setOnLoginListener(onLoginListener);
-        loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
+        if (requestCode == GoSingConstants.ACTION_REQ_CODE_PIN) {
+            if (resultCode == GoSingConstants.ACTION_RESULT_CODE_PIN_SUCCESS) {
+                startLogin();
+            } else {
+                Toast.makeText(this,
+                        "결제 비밀번호 생성에 실패했습니다",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+
+    }
+
+    private void startLogin() {
+
+        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
+            Toast.makeText(this,
+                    "결제 비밀번호를 생성해 주세요",
+                    Toast.LENGTH_SHORT)
+                    .show();
+            Intent intent = new Intent(this, CreatePinActivity.class);
+            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
+        } else {
+            ReqLoginDto reqLoginDto = new ReqLoginDto();
+            reqLoginDto.setEmail(userEmail);
+            reqLoginDto.setPw(userPw);
+
+            LoginManager loginManager = new LoginManager();
+            loginManager.setOnLoginListener(onLoginListener);
+            loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
+        }
 
     }
 
