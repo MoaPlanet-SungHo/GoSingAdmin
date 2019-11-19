@@ -86,20 +86,11 @@ public class SignUpActivity extends BaseActivity {
     ) {
         @Override
         public void onFinalResponse(Call<ResSignUpDto> call, ResSignUpDto resSignUpDto) {
-            if (resSignUpDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-
-                if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
-                    successSignUp();
-                } else {
-                    Toast.makeText(SignUpActivity.this,
-                            "이미 존재하는 계정 입니다.",
-                            Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-
+            if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
+                successSignUp();
             } else {
                 Toast.makeText(SignUpActivity.this,
-                        "회원가입을 실패했습니다.",
+                        "이미 존재하는 계정 입니다.",
                         Toast.LENGTH_SHORT).show();
                 finish();
             }
