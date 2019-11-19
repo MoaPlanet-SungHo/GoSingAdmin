@@ -42,6 +42,10 @@ public class ResSearchDepositAccount extends CommonResDto {
         @SerializedName("with_possi_point")
         private int possibleWithdrawalPrice;
 
+        // 출금 수수료
+        @SerializedName("with_fees")
+        private int withdrawalFee;
+
         public String getBankAccountPk() {
             return bankAccountPk;
         }
@@ -64,6 +68,10 @@ public class ResSearchDepositAccount extends CommonResDto {
 
         public int getPossibleWithdrawalPrice() {
             return possibleWithdrawalPrice;
+        }
+
+        public int getWithdrawalFee() {
+            return withdrawalFee;
         }
     }
 

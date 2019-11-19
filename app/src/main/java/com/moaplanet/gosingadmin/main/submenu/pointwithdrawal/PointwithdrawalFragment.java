@@ -117,6 +117,11 @@ public class PointwithdrawalFragment extends BaseFragment {
                             possibleWithdrawalPrice.setText(getString(R.string.fragment_payment_money_won,
                                     StringUtil.convertCommaPrice(getPossibleWithdrawalPrice)));
 
+                            // 출금 수수료
+                            TextView tvWithdrawalFell = view.findViewById(R.id.tv_fragment_point_withdrawal_remain_money);
+                            tvWithdrawalFell.setText(getString(R.string.fragment_payment_money_won,
+                                    StringUtil.convertCommaPrice(resModel.getDepositAccount().getWithdrawalFee())));
+
 
                         } else {
                             onNetworkConnectFail();
