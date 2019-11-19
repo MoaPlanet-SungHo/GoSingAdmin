@@ -22,6 +22,7 @@ import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.CreateAccountViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 import java.util.Objects;
 
@@ -97,10 +98,23 @@ public class CreateAccountFragment extends BaseFragment {
         commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
 
         // 다음 버튼 클릭
-        nextStep.setOnClickListener(view ->
-                mViewModel.onCheckAccount(
-                        etPw.getText().toString(),
-                        etPwCheck.getText().toString()));
+        nextStep.setOnClickListener(view -> {
+            mViewModel.onCheckAccount(
+                    etPw.getText().toString(),
+                    etPwCheck.getText().toString());
+//            Bundle bundle = new Bundle();
+//            bundle.putString(
+//                    GoSingConstants.BUNDLE_KEY_TYPE_PASSWORD,
+//                    GoSingConstants.BUNDLE_VALUE_NEW_PASSWORD
+//            );
+//
+//            Navigation.findNavController(this.view).navigate(
+//                    R.id.action_fragment_sign_up_input_password, bundle
+//            );
+        });
+//                mViewModel.onCheckAccount(
+//                        etPw.getText().toString(),
+//                        etPwCheck.getText().toString()));
 
         // 이메일 입력 리스터
         etEmail.addTextChangedListener(new TextWatcher() {
@@ -125,11 +139,11 @@ public class CreateAccountFragment extends BaseFragment {
     public void onPause() {
         view.clearFocus();
         //키보드 내리기
-        InputMethodManager imm = (InputMethodManager) Objects
-                .requireNonNull(view.getContext())
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
-//        ViewUtil.onHideKeyboard(view);
+//        InputMethodManager imm = (InputMethodManager) Objects
+//                .requireNonNull(view.getContext())
+//                .getSystemService(Context.INPUT_METHOD_SERVICE);
+//        Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
+        ViewUtil.onHideKeyboard(view);
         super.onPause();
     }
 
@@ -156,6 +170,7 @@ public class CreateAccountFragment extends BaseFragment {
         // 회원가입 데이터 체크 완료
         mViewModel.getAccountComplete().observe(this, complete -> {
             if (complete) {
+                mViewModel.setmAccountComplete(false);
                 signUpViewModel.setEmail(mViewModel.getEmail().getValue());
                 signUpViewModel.setPw(mViewModel.getPw().getValue());
 
@@ -172,4 +187,5 @@ public class CreateAccountFragment extends BaseFragment {
         });
 
     }
+
 }

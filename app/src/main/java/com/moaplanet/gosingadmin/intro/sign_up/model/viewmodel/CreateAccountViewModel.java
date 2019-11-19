@@ -41,7 +41,10 @@ public class CreateAccountViewModel extends BaseViewModel {
         } else {
             mEmailErrMsg.setValue(View.VISIBLE);
         }
+    }
 
+    public void setmAccountComplete(boolean mAccountComplete) {
+        this.mAccountComplete.setValue(mAccountComplete);
     }
 
     public LiveData<String> getEmail() {
