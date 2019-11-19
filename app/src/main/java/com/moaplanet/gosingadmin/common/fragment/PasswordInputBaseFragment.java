@@ -66,7 +66,6 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-//        commonTitle.setOnClickListener(view -> Navigation.findNavController(view).popBackStack());
         commonTitle.setBackButtonClickListener(view1 -> onBackNavigation());
     }
 
@@ -89,14 +88,14 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
     };
 
     private void visibleKeyboard(View view) {
-//        if (view instanceof EditText) {
-//            view.requestFocus();
-//            new Handler().postDelayed(() -> {
-//                //키보드 올리기
-//                InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);
-//                Objects.requireNonNull(imm).showSoftInput(view, 0);
-//            }, 200);
-//        }
+        if (view instanceof EditText) {
+            view.requestFocus();
+            new Handler().postDelayed(() -> {
+                //키보드 올리기
+                InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(imm).showSoftInput(view, 0);
+            }, 200);
+        }
     }
 
     private void goneKeyboard(View view) {

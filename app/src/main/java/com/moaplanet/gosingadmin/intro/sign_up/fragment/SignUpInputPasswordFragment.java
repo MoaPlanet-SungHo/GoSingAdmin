@@ -3,15 +3,28 @@ package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputBaseFragment;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.orhanobut.logger.Logger;
 
 
 public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
+
+    private SignUpViewModel mVieModel;
+
+    @Override
+    protected void initFragment() {
+        super.initFragment();
+        if (getActivity() != null) {
+            mVieModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
+        }
+    }
+
     @Override
     public void checkPasswordViewType() {
         if (getArguments() != null) {
@@ -42,10 +55,12 @@ public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
                 if (beforePw == null) {
                     Logger.e("이전에 입력한 비밀번호가 null 입니다.");
                 } else if (beforePw.equals(password)) {
+                    mVieModel.setPinPw(password);
                     tvPasswordError.setVisibility(View.INVISIBLE);
                     //패스워드 확인 후 화면 넘기기 처리
                     onMoveNavigation(R.id.action_fragment_sign_up_complete);
                 } else {
+                    tvPasswordError.setText("결제 비밀번호가 일치하지 않습니다.");
                     tvPasswordError.setVisibility(View.VISIBLE);
                 }
             }
@@ -78,9 +93,6 @@ public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
                 R.id.action_fragment_sign_up_input_password_check,
                 bundle
         );
-
-//        setArguments(bundle);
-//        checkPasswordViewType();
     }
 
     @Override
