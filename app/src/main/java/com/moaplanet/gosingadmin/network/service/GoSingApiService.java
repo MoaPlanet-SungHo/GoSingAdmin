@@ -22,6 +22,7 @@ import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResPointWithDrawalDTO;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
+import com.moaplanet.gosingadmin.network.model.CommonResDto;
 
 import java.util.Map;
 
@@ -187,6 +188,16 @@ public interface GoSingApiService {
     Call<ResPointWithDrawalDTO> onServerPointWithDrawal(
             @Query("withdraw_info_seq") String accountNumber,
             @Query("wthdr_amnt") String point
+    );
+
+    /**
+     * 가상계좌 등록
+     */
+    @POST("session/PaymenyManageCtr/virtualAccount_write.json")
+    Call<CommonResDto> onServerOpenBankAccount(
+            @Query("bank_cd") String bankPk,
+            @Query("bank_nm") String BankName,
+            @Query("EP_vacct_txtype") String txType
     );
 }
 

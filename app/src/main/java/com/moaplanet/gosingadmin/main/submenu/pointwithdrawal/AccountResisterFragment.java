@@ -26,9 +26,15 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWith
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.BankSelectActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.DepositAccountViewModel;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
+import com.moaplanet.gosingadmin.network.model.CommonResDto;
+import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
+import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.orhanobut.logger.Logger;
 
 import java.util.Objects;
+
+import retrofit2.Call;
 
 /**
  * 계좌등록/변경 Fragment
@@ -100,16 +106,16 @@ public class AccountResisterFragment extends BaseFragment {
 
         // 등록 화면
         btnAccountRegister.setOnClickListener(view1 -> {
-
+            onOpenVirualAccount();
 //            Bundle bundle = new Bundle();
 //            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW,
 //                    PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
 //            Navigation.findNavController(view).navigate(R.id.action_fragment_password_input, bundle);
 
-            viewModel.setmAccountName(mAccountName.getText().toString());
-            viewModel.setmAccountNumber(mAccountNumber.getText().toString());
-
-            onMoveNavigation(R.id.action_fragment_withdrawal);
+//            viewModel.setmAccountName(mAccountName.getText().toString());
+//            viewModel.setmAccountNumber(mAccountNumber.getText().toString());
+//
+//            onMoveNavigation(R.id.action_fragment_withdrawal);
 
         });
 
@@ -134,6 +140,47 @@ public class AccountResisterFragment extends BaseFragment {
             viewModel.setmBankInfo(bankInformationDto);
         }
 
+    }
+
+    private void onOpenVirualAccount() {
+        RetrofitService
+                .getInstance()
+                .getGoSingApiService()
+                .onServerOpenBankAccount(
+                        viewModel.getmBankInfo().getValue().getBankCode(),
+                        viewModel.getmBankInfo().getValue().getBankName(),
+                        "20"
+                )
+                .enqueue(new MoaAuthCallback<CommonResDto>(
+                        RetrofitService.getInstance().getMoaAuthConfig(),
+                        RetrofitService.getInstance().getSessionChecker()
+                ) {
+                    @Override
+                    public void onFinalResponse(Call<CommonResDto> call, CommonResDto resModel) {
+
+                        if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                            viewModel.setmAccountName(mAccountName.getText().toString());
+                            viewModel.setmAccountNumber(mAccountNumber.getText().toString());
+
+                            onMoveNavigation(R.id.action_fragment_withdrawal);
+                        } else {
+                            onNetworkConnectFail();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFinalFailure(Call<CommonResDto> call,
+                                               boolean isSession, Throwable t) {
+                        onNetworkConnectFail();
+                    }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+                        onNotSession();
+                    }
+                });
     }
 
 }

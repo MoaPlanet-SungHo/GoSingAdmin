@@ -2,7 +2,7 @@ package com.moaplanet.gosingadmin.network.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public abstract class CommonResDto {
+public class CommonResDto {
     @SerializedName("detailCode")
     private Integer detailCode;
 
