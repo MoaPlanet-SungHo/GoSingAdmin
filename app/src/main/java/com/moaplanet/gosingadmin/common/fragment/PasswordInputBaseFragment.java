@@ -41,6 +41,9 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
 
     public String viewType;
 
+    // 프래그먼트의 첫번쨰 스택인지 유무 상단 툴바 백버튼 클릭시 종료 때문에 필요
+    protected boolean isFirstStack = false;
+
     @Override
     public int layoutRes() {
         return R.layout.fragment_password_input;
@@ -66,7 +69,15 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        commonTitle.setBackButtonClickListener(view1 -> onBackNavigation());
+        commonTitle.setBackButtonClickListener(view1 -> {
+            if (!isFirstStack) {
+                onBackNavigation();
+            } else {
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+            }
+        });
     }
 
     private TextWatcher watcher = new TextWatcher() {

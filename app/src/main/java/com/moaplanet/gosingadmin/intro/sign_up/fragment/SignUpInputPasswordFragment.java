@@ -8,38 +8,39 @@ import androidx.navigation.Navigation;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputBaseFragment;
+import com.moaplanet.gosingadmin.common.model.viewmodel.CreatePinViewModel;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
-import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.orhanobut.logger.Logger;
 
 
 public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
 
-    private SignUpViewModel mVieModel;
+    private CreatePinViewModel mVieModel;
 
     @Override
     protected void initFragment() {
         super.initFragment();
         if (getActivity() != null) {
-            mVieModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
+            mVieModel = ViewModelProviders.of(getActivity()).get(CreatePinViewModel.class);
         }
     }
 
     @Override
     public void checkPasswordViewType() {
-        if (getArguments() != null) {
-            viewType = getArguments().getString(GoSingConstants.BUNDLE_KEY_TYPE_PASSWORD);
-
-            if (viewType == null) {
-                Logger.e("viewType 값이 null 입니다.");
-            } else if (viewType.equals(GoSingConstants.BUNDLE_VALUE_NEW_PASSWORD)) {
-                initCreatePasswordLayout();
-            } else {
-                initCheckPasswordLayout();
-            }
-
+        if (getArguments() == null) {
+            isFirstStack = true;
+            viewType = GoSingConstants.BUNDLE_VALUE_NEW_PASSWORD;
         } else {
-            Logger.e("getArguments 값이 null 입니다.");
+            viewType = getArguments().getString(GoSingConstants.BUNDLE_KEY_TYPE_PASSWORD);
+        }
+
+
+        if (viewType == null) {
+            Logger.e("viewType 값이 null 입니다.");
+        } else if (viewType.equals(GoSingConstants.BUNDLE_VALUE_NEW_PASSWORD)) {
+            initCreatePasswordLayout();
+        } else {
+            initCheckPasswordLayout();
         }
     }
 

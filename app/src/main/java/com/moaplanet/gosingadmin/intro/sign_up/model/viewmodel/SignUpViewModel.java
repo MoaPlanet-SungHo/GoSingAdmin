@@ -20,8 +20,6 @@ public class SignUpViewModel extends ViewModel {
     private MutableLiveData<String> mPw = new MutableLiveData<>();
     // 영업자 코드
     private MutableLiveData<String> mSalesCode = new MutableLiveData<>();
-    // 핀 패스워드
-    private MutableLiveData<String> mPinPw = new MutableLiveData<>();
 
     // --- Field End --- //
 
@@ -49,10 +47,6 @@ public class SignUpViewModel extends ViewModel {
         this.mSalesCode.setValue(salesCode);
     }
 
-    public void setPinPw(String pinPw) {
-        this.mPinPw.setValue(pinPw);
-    }
-
     // --- Setter End --- //
 
     // --- Getter Start --- //
@@ -74,7 +68,4 @@ public class SignUpViewModel extends ViewModel {
         return mSalesCode;
     }
 
-    public LiveData<String> getPinPw() {
-        return mPinPw;
-    }
 }

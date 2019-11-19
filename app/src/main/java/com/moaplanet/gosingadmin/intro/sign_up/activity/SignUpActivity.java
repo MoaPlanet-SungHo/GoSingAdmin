@@ -8,7 +8,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
+import com.moaplanet.gosingadmin.common.manager.AuthManager;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
+import com.moaplanet.gosingadmin.common.model.viewmodel.CreatePinViewModel;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.CreateAccountViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
@@ -16,6 +20,7 @@ import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivi
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
 
@@ -26,12 +31,14 @@ public class SignUpActivity extends BaseActivity {
 
     // 뷰 모델
     private SignUpViewModel signUpViewModel;
+    private CreatePinViewModel pinViewModel;
     private ReqSignUpDto reqModel;
 
     @Override
     public void initActivity() {
         super.initActivity();
         signUpViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+        pinViewModel = ViewModelProviders.of(this).get(CreatePinViewModel.class);
     }
 
     @Override
@@ -70,6 +77,9 @@ public class SignUpActivity extends BaseActivity {
 
     }
 
+    /**
+     * 회원가입
+     */
     private void onSignUp() {
         onLoadingStart();
         RetrofitService.getInstance().getGoSingApiService().onServerSignUp(reqModel.getEmail(),
@@ -81,6 +91,9 @@ public class SignUpActivity extends BaseActivity {
                 .enqueue(moaAuthCallback);
     }
 
+    /**
+     * 회원가입 콜백
+     */
     private MoaAuthCallback<ResSignUpDto> moaAuthCallback = new MoaAuthCallback<ResSignUpDto>(
             RetrofitService.getInstance().getMoaAuthConfig(),
             RetrofitService.getInstance().getSessionChecker()
@@ -88,7 +101,7 @@ public class SignUpActivity extends BaseActivity {
         @Override
         public void onFinalResponse(Call<ResSignUpDto> call, ResSignUpDto resSignUpDto) {
             if (resSignUpDto.getDetailCode() == NetworkConstants.CODE_SIGN_UP_SUCCESS) {
-                successSignUp();
+                createPin();
             } else {
                 onLoadingStop();
                 Toast.makeText(SignUpActivity.this,
@@ -108,6 +121,34 @@ public class SignUpActivity extends BaseActivity {
         }
     };
 
+    private void createPin() {
+
+        AuthManager authManager = new AuthManager();
+        authManager.setOnAuthCallback(new AuthManager.onAuthCallback() {
+            @Override
+            public void onSuccess() {
+                Logger.d("키 생성 성공");
+                successSignUp();
+            }
+
+            @Override
+            public void onFail() {
+                Logger.d("키 생성 실패");
+                Intent intent = new Intent(SignUpActivity.this, CreatePinActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+        authManager.onInitPin(this,
+                authManager.KEY_ALIAS_MOBILE_PIN,
+                pinViewModel.getPinPw().getValue());
+
+    }
+
+    /**
+     * 로그인 실행
+     */
     private void successSignUp() {
         LoginManager loginManager = new LoginManager();
         loginManager.setOnLoginListener(onLoginListener);
@@ -118,6 +159,9 @@ public class SignUpActivity extends BaseActivity {
                 this);
     }
 
+    /**
+     * 로그인 콜백
+     */
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_sign_up"
+    app:startDestination="@id/fragment_sign_up_input_password">
+
+    <fragment
+        android:id="@+id/fragment_sign_up_input_password"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.fragment.SignUpInputPasswordFragment"
+        tools:layout="@layout/fragment_password_input">
+        <action
+            android:id="@+id/action_fragment_sign_up_input_password_check"
+            app:destination="@id/fragment_sign_up_input_password_check" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_sign_up_input_password_check"
+        android:name="com.moaplanet.gosingadmin.intro.sign_up.fragment.SignUpInputPasswordFragment"
+        tools:layout="@layout/fragment_password_input" />
+
+</navigation>

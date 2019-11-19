@@ -51,4 +51,10 @@ public class SharedPreferencesManager {
 
     }
 
+    public void setPin(String pin) {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(GoSingConstants.USER_PIN, pin);
+        editor.apply();
+    }
+
 }

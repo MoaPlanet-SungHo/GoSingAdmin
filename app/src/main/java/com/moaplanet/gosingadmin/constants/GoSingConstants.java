@@ -19,6 +19,8 @@ public class GoSingConstants {
     public static String USER_ID = "userId";
     // 패스워드
     public static String USER_PW = "userPw";
+    // 핀
+    public final static String USER_PIN = "userPin";
 
     // bundle key 관련
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
