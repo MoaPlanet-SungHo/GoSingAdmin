@@ -51,16 +51,19 @@ public class CreatePinActivity extends BaseActivity {
     }
 
     private void initPin(String pin) {
+        onLoadingStart();
         AuthManager authManager = new AuthManager();
         authManager.setOnAuthCallback(new AuthManager.onAuthCallback() {
             @Override
             public void onSuccess() {
+                onLoadingStop();
                 setResult(GoSingConstants.ACTION_RESULT_CODE_PIN_SUCCESS);
                 finish();
             }
 
             @Override
             public void onFail() {
+                onLoadingStop();
                 setResult(GoSingConstants.ACTION_RESULT_CODE_PIN_FAIL);
                 finish();
             }
