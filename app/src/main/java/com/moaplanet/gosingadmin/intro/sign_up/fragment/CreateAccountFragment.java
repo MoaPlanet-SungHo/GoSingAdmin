@@ -1,19 +1,14 @@
 package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -25,16 +20,13 @@ import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
-
-import java.util.Objects;
+import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 /**
  * 회원가입 아이디 패스워드 일벽 화면
  */
 public class CreateAccountFragment extends BaseFragment {
 
-    private Button checkEmail;
-    private NoTitleDialog noTitleDialog;
     private Button nextStep;
     private EditText etEmail, etPw, etPwCheck;
     private SignUpViewModel signUpViewModel;
@@ -56,7 +48,6 @@ public class CreateAccountFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        checkEmail = view.findViewById(R.id.btn_create_account_email_check);
         nextStep = view.findViewById(R.id.btn_create_account_done);
         etEmail = view.findViewById(R.id.et_create_account_email);
         etPw = view.findViewById(R.id.et_create_account_pw);
@@ -86,16 +77,9 @@ public class CreateAccountFragment extends BaseFragment {
     @Override
     public void initListener() {
 
+        // 타이틀바 뒤로가기
         CommonTitleBar commonTitleBar = view.findViewById(R.id.common_create_account_title_bar);
         commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
-
-        checkEmail.setOnClickListener(view -> {
-            if (getFragmentManager() != null) {
-                noTitleDialog.setContent(R.string.fragment_create_account_exist_email);
-                noTitleDialog.show(getFragmentManager(), "existDialog");
-                noTitleDialog.onDoneOnCliListener(view1 -> noTitleDialog.dismiss());
-            }
-        });
 
         nextStep.setOnClickListener(view -> {
 
@@ -169,16 +153,12 @@ public class CreateAccountFragment extends BaseFragment {
 
     @Override
     public void onPause() {
-        view.clearFocus();
-        //키보드 내리기
-        InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
+        ViewUtil.onHideKeyboard(view);
         super.onPause();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        noTitleDialog = new NoTitleDialog();
     }
 }
