@@ -10,6 +10,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputBaseFragment;
 import com.moaplanet.gosingadmin.common.model.viewmodel.CreatePinViewModel;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.orhanobut.logger.Logger;
 
 
@@ -58,8 +59,10 @@ public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
                 } else if (beforePw.equals(password)) {
                     mVieModel.setPinPw(password);
                     tvPasswordError.setVisibility(View.INVISIBLE);
-                    //패스워드 확인 후 화면 넘기기 처리
-                    onMoveNavigation(R.id.action_fragment_sign_up_complete);
+                    if (getActivity() instanceof SignUpActivity) {
+                        //패스워드 확인 후 화면 넘기기 처리
+                        onMoveNavigation(R.id.action_fragment_sign_up_complete);
+                    }
                 } else {
                     tvPasswordError.setText("결제 비밀번호가 일치하지 않습니다.");
                     tvPasswordError.setVisibility(View.VISIBLE);

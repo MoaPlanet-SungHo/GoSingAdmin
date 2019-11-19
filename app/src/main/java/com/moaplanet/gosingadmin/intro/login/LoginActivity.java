@@ -137,56 +137,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-//    private MoaAuthCallback<ResLoginDto> moaAuthCallback = new MoaAuthCallback<ResLoginDto>(
-//            RetrofitService.getInstance().getMoaAuthConfig(),
-//            RetrofitService.getInstance().getSessionChecker()
-//    ) {
-//        @Override
-//        public void onFinalResponse(Call<ResLoginDto> call, ResLoginDto resLoginDto) {
-//            if (resLoginDto.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-//
-//                if (resLoginDto.getDetailCode() == NetworkConstants.CODE_LOGIN_SUCCESS) {
-//                    successLogin();
-//                } else if (resLoginDto.getDetailCode() == NetworkConstants.CODE_ACCOUNT_INACTIVE) {
-//                    accountInactive();
-//                } else {
-//                    tvErrMsg.setVisibility(View.VISIBLE);
-//                }
-//
-//            } else {
-//                tvErrMsg.setVisibility(View.VISIBLE);
-//            }
-//        }
-//
-//        @Override
-//        public void onFinalFailure(Call<ResLoginDto> call, boolean isSession, Throwable t) {
-//            tvErrMsg.setVisibility(View.VISIBLE);
-//        }
-//    };
-
-    /**
-     * 로그인 성공
-     */
-    private void successLogin() {
-//        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-//        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-//        sharedPreferencesManager.setLoginInfo(userEmail, userPw);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    /**
-     * 계정 비활성화
-     */
-    private void accountInactive() {
-        StoreManager storeManager = new StoreManager();
-        storeManager.onStoreSearch();
-//        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(this);
-//        sharedPreferencesManager.setIntroType(GoSingConstants.TYPE_AUTO_LOGIN);
-//        sharedPreferencesManager.setLoginInfo(userEmail, userPw);
-    }
-
     LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {

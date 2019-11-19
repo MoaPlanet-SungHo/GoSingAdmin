@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
@@ -58,6 +59,23 @@ public class IntroActivity extends BaseActivity {
         checkIntroType();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GoSingConstants.ACTION_REQ_CODE_PIN) {
+            if (resultCode == GoSingConstants.ACTION_RESULT_CODE_PIN_SUCCESS) {
+                onLogin();
+            } else {
+                Toast.makeText(this,
+                        "결제 비밀번호 생성에 실패했습니다",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+
+    }
+
     private void moveActivity(Class moveActivity) {
         Intent intent = new Intent(this, moveActivity);
         startActivity(intent);
@@ -66,7 +84,7 @@ public class IntroActivity extends BaseActivity {
     private void checkIntroType() {
         int introType = SharedPreferencesManager.getInstance().getType();
         if (introType == GoSingConstants.INTRO_TYPE_FIRST_START
-                || introType == GoSingConstants.INTRO_TYPE_ERROR ) {
+                || introType == GoSingConstants.INTRO_TYPE_ERROR) {
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     () -> moveActivity(GoSingAdminConfirmPermissionActivity.class), 1800);
@@ -82,9 +100,19 @@ public class IntroActivity extends BaseActivity {
     }
 
     private void onLogin() {
-        LoginManager loginManager = new LoginManager();
-        loginManager.setOnLoginListener(onLoginListener);
-        loginManager.onLogin(this, LoginManager.LoginType.AUTO_LOGIN);
+
+        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
+            Toast.makeText(this,
+                    "결제 비밀번호를 생성해 주세요",
+                    Toast.LENGTH_SHORT)
+                    .show();
+            Intent intent = new Intent(this, CreatePinActivity.class);
+            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
+        } else {
+            LoginManager loginManager = new LoginManager();
+            loginManager.setOnLoginListener(onLoginListener);
+            loginManager.onLogin(this, LoginManager.LoginType.AUTO_LOGIN);
+        }
     }
 
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {

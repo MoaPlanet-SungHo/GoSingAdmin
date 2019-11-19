@@ -57,4 +57,8 @@ public class SharedPreferencesManager {
         editor.apply();
     }
 
+    public String getPin() {
+        return pref.getString(GoSingConstants.USER_PIN, "");
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
@@ -12,6 +13,7 @@ import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.manager.AuthManager;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.common.model.viewmodel.CreatePinViewModel;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.CreateAccountViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.intro.sign_up.model.req.ReqSignUpDto;
@@ -77,6 +79,26 @@ public class SignUpActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GoSingConstants.ACTION_REQ_CODE_PIN) {
+
+            if (resultCode == GoSingConstants.ACTION_RESULT_CODE_PIN_SUCCESS) {
+                onLoadingStart();
+                successSignUp();
+            } else {
+                Toast.makeText(SignUpActivity.this,
+                        "결제 비밀번호 생성을 실패했습니다.",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+        }
+
+    }
+
     /**
      * 회원가입
      */
@@ -133,13 +155,13 @@ public class SignUpActivity extends BaseActivity {
 
             @Override
             public void onFail() {
+                Logger.d("키 생성 실패");
+                onLoadingStop();
                 Toast.makeText(SignUpActivity.this,
                         "결제 비밀번호를 다시 생성해 주세요",
                         Toast.LENGTH_SHORT).show();
-                Logger.d("키 생성 실패");
                 Intent intent = new Intent(SignUpActivity.this, CreatePinActivity.class);
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
 
             }
         });

@@ -41,6 +41,11 @@ public class GoSingConstants {
     public static final int ACTION_REQ_CODE_REGISTER_CARD = 8300;
     public static final int ACTION_RESULT_CODE_REGISTER_CARD = 8301;
 
+    // 결제 비밀번호 생성 관련
+    public static final int ACTION_REQ_CODE_PIN = 7300;
+    public static final int ACTION_RESULT_CODE_PIN_SUCCESS = 7301;
+    public static final int ACTION_RESULT_CODE_PIN_FAIL = 7302;
+
     // Intent 관련
     // 선택한 주소
     public static final String INTENT_KEY_ADDRESS_INFO = "INTENT_KEY_ADDRESS_INFO";

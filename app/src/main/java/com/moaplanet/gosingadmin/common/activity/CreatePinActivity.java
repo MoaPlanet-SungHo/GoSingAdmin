@@ -1,8 +1,14 @@
 package com.moaplanet.gosingadmin.common.activity;
 
+import android.content.Intent;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.manager.AuthManager;
+import com.moaplanet.gosingadmin.common.model.viewmodel.CreatePinViewModel;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 
 /**
  * 핀 패스워드 생성 액티비티
@@ -11,6 +17,15 @@ import com.moaplanet.gosingadmin.R;
  * 특정한 이유로 인해 핀 패스워드가 없을졌을시 사용
  */
 public class CreatePinActivity extends BaseActivity {
+
+    private CreatePinViewModel viewModel;
+
+    @Override
+    public void initActivity() {
+        super.initActivity();
+        viewModel = ViewModelProviders.of(this).get(CreatePinViewModel.class);
+    }
+
     @Override
     public int layoutRes() {
         return R.layout.activity_create_pin;
@@ -26,5 +41,31 @@ public class CreatePinActivity extends BaseActivity {
     @Override
     public void initListener() {
 
+    }
+
+    @Override
+    protected void initObserve() {
+        super.initObserve();
+
+        viewModel.getPinPw().observe(this, this::initPin);
+    }
+
+    private void initPin(String pin) {
+        AuthManager authManager = new AuthManager();
+        authManager.setOnAuthCallback(new AuthManager.onAuthCallback() {
+            @Override
+            public void onSuccess() {
+                setResult(GoSingConstants.ACTION_RESULT_CODE_PIN_SUCCESS);
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                setResult(GoSingConstants.ACTION_RESULT_CODE_PIN_FAIL);
+                finish();
+            }
+        });
+
+        authManager.onInitPin(this, authManager.KEY_ALIAS_MOBILE_PIN, pin);
     }
 }
