@@ -33,6 +33,7 @@ public class IntroActivity extends BaseActivity {
 
     // 회원가입 및 로그인 그룹
     private LinearLayout viewLoginOrSignUp;
+    private int mDetailCode = -1;
 
     @Override
     public int layoutRes() {
@@ -124,33 +125,23 @@ public class IntroActivity extends BaseActivity {
         }, 1800);
     }
 
+    /**
+     * 로그인
+     */
     private void onLogin() {
-
-        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
-            Toast.makeText(this,
-                    "결제 비밀번호를 생성해 주세요",
-                    Toast.LENGTH_SHORT)
-                    .show();
-            Intent intent = new Intent(this, CreatePinActivity.class);
-            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
-        } else {
-            LoginManager loginManager = new LoginManager();
-            loginManager.setOnLoginListener(onLoginListener);
-            loginManager.onLogin(this, LoginManager.LoginType.AUTO_LOGIN);
-        }
+        LoginManager loginManager = new LoginManager();
+        loginManager.setOnLoginListener(onLoginListener);
+        loginManager.onLogin(this, LoginManager.LoginType.AUTO_LOGIN);
     }
 
+    /**
+     * 로그인 콜백
+     */
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
-            if (detailCode == NetworkConstants.LOGIN_CODE_SUCCESS) {
-                moveActivity(MainActivity.class);
-            } else if (detailCode == NetworkConstants.LOGIN_CODE_ACCOUNT_INACTIVE) {
-                moveActivity(WaitingApprovalActivity.class);
-            } else if (detailCode == NetworkConstants.LOGIN_CODE_EMPTY_STORE) {
-                moveActivity(RegisterStoreActivity.class);
-            }
-            finish();
+            mDetailCode = detailCode;
+            onCheckPaymentCode();
         }
 
         @Override
@@ -162,5 +153,32 @@ public class IntroActivity extends BaseActivity {
                     Toast.LENGTH_SHORT).show();
         }
     };
+
+    /**
+     * 결제 코드 체크
+     */
+    private void onCheckPaymentCode() {
+        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
+            // 결제 코드 생성
+            Toast.makeText(this,
+                    getString(R.string.common_toast_create_payment_password),
+                    Toast.LENGTH_SHORT)
+                    .show();
+            Intent intent = new Intent(this, CreatePinActivity.class);
+            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
+        } else {
+            if (mDetailCode == NetworkConstants.LOGIN_CODE_SUCCESS) {
+                // 메인 화면 이동
+                moveActivity(MainActivity.class);
+            } else if (mDetailCode == NetworkConstants.LOGIN_CODE_ACCOUNT_INACTIVE) {
+                // 승인 대기 화면으로 이동
+                moveActivity(WaitingApprovalActivity.class);
+            } else if (mDetailCode == NetworkConstants.LOGIN_CODE_EMPTY_STORE) {
+                // 매장 등록 화면으로 이동
+                moveActivity(RegisterStoreActivity.class);
+            }
+            finish();
+        }
+    }
 
 }
