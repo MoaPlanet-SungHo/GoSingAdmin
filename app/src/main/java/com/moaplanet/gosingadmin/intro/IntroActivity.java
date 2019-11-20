@@ -103,24 +103,25 @@ public class IntroActivity extends BaseActivity {
      * 인트로 타입에 따라 화면 이동
      */
     private void checkIntroType() {
-        int introType = SharedPreferencesManager.getInstance().getType();
-        if (introType == GoSingConstants.INTRO_TYPE_FIRST_START
-                || introType == GoSingConstants.INTRO_TYPE_ERROR) {
-            // 권한 설정 화면으로 이동
-            Handler delayHandler = new Handler();
-            delayHandler.postDelayed(
-                    () -> moveActivity(GoSingAdminConfirmPermissionActivity.class), 1800);
-        } else if (introType == GoSingConstants.INTRO_TYPE_AUTO_LOGIN) {
-            // 자동 로그인
-            Handler delayHandler = new Handler();
-            delayHandler.postDelayed(
-                    this::onLogin, 1800);
-        } else if (introType == GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS) {
-            // 로그인 또는 회원가입 그룹 표시
-            Handler delayHandler = new Handler();
-            delayHandler.postDelayed(
-                    () -> viewLoginOrSignUp.setVisibility(View.VISIBLE), 1800);
-        }
+
+        Handler delayHandler = new Handler();
+        delayHandler.postDelayed(() -> {
+            int introType = SharedPreferencesManager.getInstance().getType();
+
+            if (introType == GoSingConstants.INTRO_TYPE_FIRST_START
+                    || introType == GoSingConstants.INTRO_TYPE_ERROR) {
+                // 권한 설정 화면으로 이동
+                moveActivity(GoSingAdminConfirmPermissionActivity.class);
+            } else if (introType == GoSingConstants.INTRO_TYPE_AUTO_LOGIN) {
+                // 자동 로그인
+                onLogin();
+            } else if (introType == GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS) {
+                // 로그인 또는 회원가입 그룹 표시
+                viewLoginOrSignUp.setVisibility(View.VISIBLE);
+            }
+
+
+        }, 1800);
     }
 
     private void onLogin() {
