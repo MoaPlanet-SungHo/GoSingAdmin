@@ -2,8 +2,6 @@ package com.moaplanet.gosingadmin.main.submenu.non_member.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,8 +85,6 @@ public class SavePointFragment extends BaseFragment {
             onMoveNavigation(R.id.actionfragment_non_member_save_password);
 //            onSavePoint();
         });
-
-//        etInputPoint.addTextChangedListener(mWatcherPriceCharge);
 
         PriceWatcher priceWatcher = new PriceWatcher(etInputPoint);
         priceWatcher.setCallback((completePrice, price) -> {

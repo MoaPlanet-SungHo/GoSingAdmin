@@ -18,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCardViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
+import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 public class CardFragment extends BaseFragment {
 
@@ -116,9 +118,12 @@ public class CardFragment extends BaseFragment {
             clCardListGroup.setVisibility(View.GONE);
         });
 
+//        btnCardCharge.setOnClickListener(view1 ->
+//                Navigation.findNavController(view)
+//                        .navigate(R.id.action_fragment_charge_complete, null));
+
         btnCardCharge.setOnClickListener(view1 ->
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_fragment_charge_complete, null));
+                onMoveNavigation(R.id.action_fragment_charge_input_password));
 
         llPriceChargeClear.setOnClickListener(view -> etPriceCharge.setText("0"));
 
@@ -126,7 +131,19 @@ public class CardFragment extends BaseFragment {
         mCardAdapter.setmSelectCard(cardInformation ->
                 mChargeViewModel.setSelectCardInfo(cardInformation));
 
-        etPriceCharge.addTextChangedListener(mWatcherPriceCharge);
+        PriceWatcher priceWatcher = new PriceWatcher(etPriceCharge);
+
+        priceWatcher.setCallback((completePrice, price) -> {
+            mChargeViewModel.setPriceCharge(completePrice);
+
+            if (price >= 1000) {
+                mChargeCardViewModel.setChargeButtonActive(true);
+            } else {
+                mChargeCardViewModel.setChargeButtonActive(false);
+            }
+
+        });
+        etPriceCharge.addTextChangedListener(priceWatcher);
 
     }
 
@@ -152,30 +169,6 @@ public class CardFragment extends BaseFragment {
                 // 카드가 리스트가 없을경우 카드 추가 뷰를 표시
                 initCarView(false);
             }
-        });
-
-        // 사용자가 입력한 충전금액 세팅
-        mChargeViewModel.getPriceCharge().observe(this, price -> {
-            //todo 수정 필요
-            int cp = etPriceCharge.getSelectionStart();
-            int startLen = etPriceCharge.getText().length();
-            int wonLen;
-            if (etPriceCharge.getText().length() == 1) {
-                wonLen = -1;
-            } else {
-                wonLen = 0;
-            }
-            etPriceCharge.setText(getString(R.string.fragment_payment_money_won, price));
-            int endLen = etPriceCharge.getText().length();
-            etPriceCharge.setSelection((cp + (endLen - startLen)) + wonLen);
-
-            int tempPrice = Integer.valueOf(price.replace(",", ""));
-            if (tempPrice >= 1000) {
-                mChargeCardViewModel.setChargeButtonActive(true);
-            } else {
-                mChargeCardViewModel.setChargeButtonActive(false);
-            }
-
         });
 
         // 버튼 활성화 및 비활성화
@@ -240,23 +233,9 @@ public class CardFragment extends BaseFragment {
         }
     }
 
-    private TextWatcher mWatcherPriceCharge = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            if (mChargeViewModel != null) {
-                mChargeViewModel.setPriceCharge(editable.toString());
-            }
-        }
-    };
-
+    @Override
+    public void onPause() {
+        ViewUtil.onHideKeyboard(view);
+        super.onPause();
+    }
 }

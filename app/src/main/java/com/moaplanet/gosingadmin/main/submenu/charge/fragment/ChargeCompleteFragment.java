@@ -109,12 +109,11 @@ public class ChargeCompleteFragment extends BaseFragment {
                 getActivity().finish();
             }
         });
-
-        observeViewModel();
     }
 
-    private void observeViewModel() {
-
+    @Override
+    protected void initObserve() {
+        super.initObserve();
         // 로딩 관련 처리
         mChargeCompleteViewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) {
@@ -150,6 +149,5 @@ public class ChargeCompleteFragment extends BaseFragment {
                 onNetworkConnectFail();
             }
         });
-
     }
 }

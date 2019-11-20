@@ -9,6 +9,18 @@
         android:id="@+id/fragment_charge"
         android:name="com.moaplanet.gosingadmin.main.submenu.charge.fragment.ChargeFragment"
         tools:layout="@layout/fragment_charge">
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_charge_complete"-->
+<!--            app:destination="@id/fragment_charge_complete" />-->
+        <action
+            android:id="@+id/action_fragment_charge_input_password"
+            app:destination="@id/fragment_charge_input_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_charge_input_password"
+        android:name="com.moaplanet.gosingadmin.main.submenu.charge.fragment.ChargeInputPasswordFragment"
+        tools:layout="@layout/fragment_password_input">
         <action
             android:id="@+id/action_fragment_charge_complete"
             app:destination="@id/fragment_charge_complete" />
