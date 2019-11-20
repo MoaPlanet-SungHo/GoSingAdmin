@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.manager.AuthManager;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.RegisterAccountActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.DepositAccountViewModel;
@@ -29,9 +30,13 @@ public class PasswordInputFragment extends PasswordInputBaseFragment {
     // 출금 화면 뷰모델
     private DepositAccountViewModel depositAccountViewModel;
 
+    // 계좌 변경 플래스
+    private boolean isChangeAccountNumber = false;
+
     @Override
     protected void initViewModel() {
         super.initViewModel();
+
         if (getActivity() != null) {
             if (getActivity() instanceof RegisterAccountActivity) {
                 registerWithdrawalAccountViewModel =
@@ -57,6 +62,14 @@ public class PasswordInputFragment extends PasswordInputBaseFragment {
             @Override
             public void onSuccess() {
                 tvPasswordError.setVisibility(View.GONE);
+
+                if (isChangeAccountNumber) {
+                    if (getActivity() != null) {
+                        getActivity().setResult(GoSingConstants.RESULT_CODE_CHANGE_ACCOUNT_NUMBER);
+                        getActivity().finish();
+                    }
+                    return;
+                }
 
                 if (depositAccountViewModel != null) {
                     depositAccountViewModel.setPinSuccess(true);
@@ -88,6 +101,12 @@ public class PasswordInputFragment extends PasswordInputBaseFragment {
             if (viewType != null && viewType.equals(BUNDLE_VALUE_POINT_WITHDRAWAL)) {
                 return "출금하기";
             }
+        } else if (getActivity() != null &&
+                getActivity().getIntent().getIntExtra("REQ_CODE", -1)
+                        == GoSingConstants.REQ_CODE_CHANGE_ACCOUNT_NUMBER) {
+            isChangeAccountNumber = true;
+            return "계좌 변경";
+
         }
 
         return getString(R.string.fragment_password_input_title_account_register);

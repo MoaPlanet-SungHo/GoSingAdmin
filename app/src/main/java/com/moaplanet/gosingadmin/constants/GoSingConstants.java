@@ -37,14 +37,18 @@ public class GoSingConstants {
     public static final int REQ_CODE_ADDRESS_SEARCH = 3000;
     public static final int RESULT_CODE_ADDRESS_SEARCH = 30001;
 
-    // 카드 등록 관련
-    public static final int ACTION_REQ_CODE_REGISTER_CARD = 8300;
-    public static final int ACTION_RESULT_CODE_REGISTER_CARD = 8301;
+    // 계좌 번호 변경
+    public static final int REQ_CODE_CHANGE_ACCOUNT_NUMBER = 4000;
+    public static final int RESULT_CODE_CHANGE_ACCOUNT_NUMBER = 4001;
 
     // 결제 비밀번호 생성 관련
     public static final int ACTION_REQ_CODE_PIN = 7300;
     public static final int ACTION_RESULT_CODE_PIN_SUCCESS = 7301;
     public static final int ACTION_RESULT_CODE_PIN_FAIL = 7302;
+
+    // 카드 등록 관련
+    public static final int ACTION_REQ_CODE_REGISTER_CARD = 8300;
+    public static final int ACTION_RESULT_CODE_REGISTER_CARD = 8301;
 
     // Intent 관련
     // 선택한 주소

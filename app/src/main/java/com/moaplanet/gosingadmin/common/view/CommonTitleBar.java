@@ -69,6 +69,10 @@ public class CommonTitleBar extends ConstraintLayout {
         btnBack.setOnClickListener(onClickListener);
     }
 
+    public View getBtnBack() {
+        return btnBack;
+    }
+
     public void setTitle(String title) {
         this.title.setText(title);
     }
