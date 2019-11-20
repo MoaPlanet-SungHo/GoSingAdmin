@@ -215,7 +215,12 @@ public class SavePointFragment extends BaseFragment {
             }
             etInputPoint.setText(getString(R.string.fragment_payment_money_won, savePoint));
             int endLen = etInputPoint.getText().length();
-            etInputPoint.setSelection((cp + (endLen - startLen)) + wonLen);
+            int selectionPos = (cp + (endLen - startLen)) + wonLen;
+            if (selectionPos >= 0) {
+                etInputPoint.setSelection(selectionPos);
+            } else {
+                etInputPoint.setSelection(0);
+            }
 
             TextView tvSaveAfterPoint = view.findViewById(R.id.tv_save_point_balance_point);
             int afterPoint = Integer.valueOf(savePoint.replace(",", "")) +
