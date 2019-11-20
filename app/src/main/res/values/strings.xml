@@ -1,6 +1,8 @@
 <resources>
     <string name="apps_name">고씽사장님</string>
 
+    <!-- Common Toast -->
+    <string name="common_toast_payment_password_not_create">결제 비밀번호 생성을 실패했습니다.</string>
     <!-- Common -->
     <string name="common_go_sing_admin_logo">고씽 관리자 로고</string>
     <string name="sign_up_title">회원가입</string>

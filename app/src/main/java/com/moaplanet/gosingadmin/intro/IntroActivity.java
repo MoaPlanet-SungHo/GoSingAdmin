@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
@@ -24,9 +25,13 @@ import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActi
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
+
 public class IntroActivity extends BaseActivity {
 
-    private Button btnSignUp, btnLogin;
+    // 회원가입 및 로그인 그룹
     private LinearLayout viewLoginOrSignUp;
 
     @Override
@@ -41,16 +46,26 @@ public class IntroActivity extends BaseActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        btnSignUp = findViewById(R.id.btn_activity_intro_sign_up);
-        btnLogin = findViewById(R.id.btn_activity_intro_login);
         viewLoginOrSignUp = findViewById(R.id.ll_activity_intro_user_group);
         viewLoginOrSignUp.setVisibility(View.GONE);
     }
 
     @Override
     public void initListener() {
-        btnSignUp.setOnClickListener(view -> moveActivity(SignUpActivity.class));
-        btnLogin.setOnClickListener(view -> moveActivity(LoginActivity.class));
+
+        // 회원가입 클릭
+        Button btnSignUp = findViewById(R.id.btn_activity_intro_sign_up);
+        RxView.clicks(btnSignUp)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(SignUpActivity.class));
+
+        // 로그인 클릭
+        Button btnLogin = findViewById(R.id.btn_activity_intro_login);
+        RxView.clicks(btnLogin)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(LoginActivity.class));
     }
 
     @Override
@@ -68,7 +83,7 @@ public class IntroActivity extends BaseActivity {
                 onLogin();
             } else {
                 Toast.makeText(this,
-                        "결제 비밀번호 생성에 실패했습니다",
+                        getString(R.string.common_toast_payment_password_not_create),
                         Toast.LENGTH_SHORT)
                         .show();
             }
@@ -76,23 +91,32 @@ public class IntroActivity extends BaseActivity {
 
     }
 
+    /**
+     * 액티비티 이동
+     */
     private void moveActivity(Class moveActivity) {
         Intent intent = new Intent(this, moveActivity);
         startActivity(intent);
     }
 
+    /**
+     * 인트로 타입에 따라 화면 이동
+     */
     private void checkIntroType() {
         int introType = SharedPreferencesManager.getInstance().getType();
         if (introType == GoSingConstants.INTRO_TYPE_FIRST_START
                 || introType == GoSingConstants.INTRO_TYPE_ERROR) {
+            // 권한 설정 화면으로 이동
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     () -> moveActivity(GoSingAdminConfirmPermissionActivity.class), 1800);
         } else if (introType == GoSingConstants.INTRO_TYPE_AUTO_LOGIN) {
+            // 자동 로그인
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     this::onLogin, 1800);
         } else if (introType == GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS) {
+            // 로그인 또는 회원가입 그룹 표시
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(
                     () -> viewLoginOrSignUp.setVisibility(View.VISIBLE), 1800);

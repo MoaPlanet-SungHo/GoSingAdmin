@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
@@ -14,9 +15,11 @@ import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
+import java.util.concurrent.TimeUnit;
 
-    private Button btnDone;
+import rx.android.schedulers.AndroidSchedulers;
+
+public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
 
     @Override
     public int layoutRes() {
@@ -25,20 +28,24 @@ public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        btnDone = findViewById(R.id.btn_confirm_permission_done);
     }
 
     @Override
     public void initListener() {
 
-        btnDone.setOnClickListener(view -> {
-            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager();
-            Intent intent = new Intent(this, IntroActivity.class);
-            sharedPreferencesManager.setIntroType(GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        });
+        // 완료 버튼
+        Button btnDone = findViewById(R.id.btn_confirm_permission_done);
+        RxView.clicks(btnDone)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager();
+                    Intent intent = new Intent(this, IntroActivity.class);
+                    sharedPreferencesManager.setIntroType(GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                });
     }
 
     @Override
