@@ -106,12 +106,15 @@ public class PointwithdrawalFragment extends BaseFragment {
                     }
                 });
 
-        tvWithdrawAbleMoneyToolTip.setOnClickListener(view1 -> {
-            Navigation.findNavController(view).navigate(R.id.action_fragment_withdrawal_tool_tip, null);
-        });
-        ivWithdrawAbleMoneyToolTip.setOnClickListener(view1 -> {
-            Navigation.findNavController(view).navigate(R.id.action_fragment_withdrawal_tool_tip, null);
-        });
+        RxView.clicks(tvWithdrawAbleMoneyToolTip)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_withdrawal_tool_tip));
+
+        RxView.clicks(ivWithdrawAbleMoneyToolTip)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_withdrawal_tool_tip));
 
         RxView.clicks(btnAccountCharge)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
@@ -122,24 +125,28 @@ public class PointwithdrawalFragment extends BaseFragment {
                     startActivityForResult(intent, GoSingConstants.REQ_CODE_CHANGE_ACCOUNT_NUMBER);
                 });
 
-        btnPointWithdrawal.setOnClickListener(view1 -> {
-            Bundle bundle = new Bundle();
-            bundle.putString(
-                    PasswordInputFragment.BUNDLE_KEY_POINT_WITHDRAWAL_PASSWORD_TYPE,
-                    PasswordInputFragment.BUNDLE_VALUE_POINT_WITHDRAWAL
-            );
 
-            Navigation.findNavController(this.view).navigate(
-                    R.id.action_fragment_password_input,
-                    bundle
-            );
+        RxView.clicks(btnPointWithdrawal)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(
+                            PasswordInputFragment.BUNDLE_KEY_POINT_WITHDRAWAL_PASSWORD_TYPE,
+                            PasswordInputFragment.BUNDLE_VALUE_POINT_WITHDRAWAL
+                    );
 
-        });
+                    Navigation.findNavController(this.view).navigate(
+                            R.id.action_fragment_password_input,
+                            bundle
+                    );
+                });
 
         ImageView clear = view.findViewById(R.id.iv_fragment_card_delete_input_won);
-        clear.setOnClickListener(v -> {
-            etWithdrawal.setText("0");
-        });
+        RxView.clicks(clear)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> etWithdrawal.setText("0"));
 
         etWithdrawal.addTextChangedListener(mWatcherPriceCharge);
 

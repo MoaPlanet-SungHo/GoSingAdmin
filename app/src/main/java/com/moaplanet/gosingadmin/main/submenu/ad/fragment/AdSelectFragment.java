@@ -2,8 +2,13 @@ package com.moaplanet.gosingadmin.main.submenu.ad.fragment;
 
 import android.view.View;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class AdSelectFragment extends BaseFragment {
 
@@ -22,8 +27,14 @@ public class AdSelectFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        thirtyDayProduct.setOnClickListener(view -> onMoveNavigation(R.id.action_fragment_ad_payment));
+        RxView.clicks(thirtyDayProduct)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_ad_payment));
 
-        fifteenDayProduct.setOnClickListener(view -> onMoveNavigation(R.id.action_fragment_ad_payment));
+        RxView.clicks(fifteenDayProduct)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_ad_payment));
     }
 }

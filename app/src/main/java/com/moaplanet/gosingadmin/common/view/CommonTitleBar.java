@@ -65,9 +65,9 @@ public class CommonTitleBar extends ConstraintLayout {
         ivLeftIc = findViewById(R.id.iv_common_title_bar_left_ic);
     }
 
-    public void setBackButtonClickListener(OnClickListener onClickListener) {
-        btnBack.setOnClickListener(onClickListener);
-    }
+//    public void setBackButtonClickListener(OnClickListener onClickListener) {
+//        btnBack.setOnClickListener(onClickListener);
+//    }
 
     public View getBtnBack() {
         return btnBack;

@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
@@ -27,6 +28,10 @@ import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCardViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.utils.ViewUtil;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class CardFragment extends BaseFragment {
 
@@ -95,38 +100,52 @@ public class CardFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        clSelectCardTitle.setOnClickListener(view1 -> {
-            if (clSelectCardTitle.isSelected()) {
-                clSelectCardTitle.setSelected(false);
-                clCardListGroup.setVisibility(View.GONE);
-            } else {
-                clSelectCardTitle.setSelected(true);
-                clCardListGroup.setVisibility(View.VISIBLE);
-            }
-        });
+        RxView.clicks(clSelectCardTitle)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (clSelectCardTitle.isSelected()) {
+                        clSelectCardTitle.setSelected(false);
+                        clCardListGroup.setVisibility(View.GONE);
+                    } else {
+                        clSelectCardTitle.setSelected(true);
+                        clCardListGroup.setVisibility(View.VISIBLE);
+                    }
+                });
 
-        clAddCardGroup.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getContext(), CardRegisterActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
-        });
+        RxView.clicks(clAddCardGroup)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(getContext(), CardRegisterActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
+                });
 
         // 카드 항목 추가 뷰 -- 카드 리스트에서 카드 추가
-        mClCardItemAdd.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getContext(), CardRegisterActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
-            clCardListGroup.setVisibility(View.GONE);
-        });
+        RxView.clicks(mClCardItemAdd)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(getContext(), CardRegisterActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_REGISTER_CARD);
+                    clCardListGroup.setVisibility(View.GONE);
+                });
 
 //        btnCardCharge.setOnClickListener(view1 ->
 //                Navigation.findNavController(view)
 //                        .navigate(R.id.action_fragment_charge_complete, null));
 
-        btnCardCharge.setOnClickListener(view1 ->
-                onMoveNavigation(R.id.action_fragment_charge_input_password));
+        RxView.clicks(btnCardCharge)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_charge_input_password));
 
-        llPriceChargeClear.setOnClickListener(view -> etPriceCharge.setText("0"));
+        RxView.clicks(llPriceChargeClear)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> etPriceCharge.setText("0"));
 
         // cardAdapter 에서 사용자가 선택한 카드에 대한 정보를 받은후 뷰 모델로 넘김
         mCardAdapter.setmSelectCard(cardInformation -> {

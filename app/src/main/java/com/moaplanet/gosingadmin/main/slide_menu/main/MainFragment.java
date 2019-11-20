@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
@@ -22,18 +23,24 @@ import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
+import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
+import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.RegisterAccountActivity;
+import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class MainFragment extends Fragment {
 
@@ -100,7 +107,11 @@ public class MainFragment extends Fragment {
             View noticeContent = inflater.inflate(R.layout.item_main_notice_top_three, container, false);
             noticeView.addView(noticeContent);
         }
-        noticeView.setOnClickListener(view -> onServiceReady());
+
+        RxView.clicks(noticeView)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onServiceReady());
 
         btnPointHistory = view.findViewById(R.id.cl_main_point_history);
         btnNotification = view.findViewById(R.id.cl_main_notification);
@@ -133,45 +144,69 @@ public class MainFragment extends Fragment {
                         point)));
 
         //공지사항 (상단 우측)
-        btnNotification.setOnClickListener(view -> moveActivityWidthDebug(NotificationActivity.class));
+        RxView.clicks(btnNotification)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivityWidthDebug(NotificationActivity.class));
 
         //충전하기
-        btnCargePoint.setOnClickListener(view -> moveActivity(ChargeActivity.class));
+        RxView.clicks(btnCargePoint)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(ChargeActivity.class));
 
         //출금하기
-//        btnWithdrawal.setOnClickListener(view -> moveActivity(PointWithDrawalActivity.class));
-        btnWithdrawal.setOnClickListener(view -> mainViewModel.onSearchDepositAccount());
-//        btnWithdrawal.setOnClickListener(view -> onServiceReady());
+        RxView.clicks(btnWithdrawal)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> mainViewModel.onSearchDepositAccount());
 
         //업소관리
-        btnStore.setOnClickListener(view -> moveActivityWidthDebug(ModifyStoreActivity.class));
-//        btnStore.setOnClickListener(view -> onServiceReady());
+        RxView.clicks(btnStore)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivityWidthDebug(ModifyStoreActivity.class));
 
         //리뷰관리
-//        btnReview.setOnClickListener(view -> moveActivity(ReviewManagerActivity.class));
-        btnReview.setOnClickListener(view -> onServiceReady());
+        RxView.clicks(btnReview)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivityWidthDebug(ReviewManagerActivity.class));
 
         //포인트내역
-        btnPointHistory.setOnClickListener(view -> moveActivity(PointHistoryActivity.class));
-//        btnPointHistory.setOnClickListener(view -> onServiceReady());
+        RxView.clicks(btnPointHistory)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(PointHistoryActivity.class));
 
         //광고관리
-//        btnAd.setOnClickListener(view -> moveActivity(GoSingAdActivity.class));
-        btnAd.setOnClickListener(view -> onServiceReady());
+        RxView.clicks(btnAd)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivityWidthDebug(GoSingAdActivity.class));
 
         //먹거리주문
-//        btnFoodOrder.setOnClickListener(view -> moveActivity(FoodOrderActivity.class));
-        btnFoodOrder.setOnClickListener(view -> onServiceReady());
+        RxView.clicks(btnFoodOrder)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivityWidthDebug(FoodOrderActivity.class));
 
         //비회원적립
-        btnNonmemberSave.setOnClickListener(view -> moveActivity(NonMemberSaveActivity.class));
+        RxView.clicks(btnNonmemberSave)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(NonMemberSaveActivity.class));
 
         //슬라이드 메뉴
-        slideMenu.setOnClickListener(view -> {
-            onServiceReady();
-        });
+        RxView.clicks(slideMenu)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onServiceReady());
 
-        btnQrCode.setOnClickListener(view -> moveActivityWidthDebug(QrCodeActivity.class));
+        RxView.clicks(btnQrCode)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivityWidthDebug(QrCodeActivity.class));
 
         // 세션 없을경우
         mainViewModel.getSession().observe(this, isSession -> {

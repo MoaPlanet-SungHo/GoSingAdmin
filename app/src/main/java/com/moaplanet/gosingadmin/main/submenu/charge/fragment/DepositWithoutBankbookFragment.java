@@ -11,12 +11,17 @@ import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirtualAccountDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWithoutBankbookViewModel;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
@@ -158,26 +163,32 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
         // 계좌번호 복사
         LinearLayout llCopy = view.findViewById(R.id.ll_fragment_deposit_without_bankbook_copy);
-        llCopy.setOnClickListener(viewCopy -> {
-            ClipboardManager clipboardManager =
-                    (ClipboardManager) view.getContext().getSystemService(CLIPBOARD_SERVICE);
-            if (clipboardManager != null) {
-                ClipData clipData = ClipData.newPlainText(
-                        "계좌번호",
-                        dto.getVirtaulAccountNumber());
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(view.getContext(),
-                        "복사가 완료 되었습니다.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        RxView.clicks(llCopy)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    ClipboardManager clipboardManager =
+                            (ClipboardManager) view.getContext().getSystemService(CLIPBOARD_SERVICE);
+                    if (clipboardManager != null) {
+                        ClipData clipData = ClipData.newPlainText(
+                                "계좌번호",
+                                dto.getVirtaulAccountNumber());
+                        clipboardManager.setPrimaryClip(clipData);
+                        Toast.makeText(view.getContext(),
+                                "복사가 완료 되었습니다.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         // 확인 버튼
         Button btnDone = view.findViewById(R.id.btn_fragment_deposit_without_bankbook_confirm);
-        btnDone.setOnClickListener(view -> {
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+        RxView.clicks(btnDone)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
     }
 }

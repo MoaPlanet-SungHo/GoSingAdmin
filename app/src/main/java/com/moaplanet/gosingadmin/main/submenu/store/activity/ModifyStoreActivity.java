@@ -12,6 +12,7 @@ import androidx.annotation.ArrayRes;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.model.dto.req.ReqStoreSearchDto;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
@@ -30,11 +31,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class ModifyStoreActivity extends BaseStoreActivity {
 
@@ -54,7 +57,10 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         super.initListener();
         for (int i = 0; i < PICTURE_COUNT; i++) {
             int count = i;
-            pictureImageViewList.get(i).setOnClickListener(view1 -> selectPicture(count));
+            RxView.clicks(pictureImageViewList.get(i))
+                    .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(click -> selectPicture(count));
         }
     }
 

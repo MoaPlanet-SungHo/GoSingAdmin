@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
@@ -30,6 +31,10 @@ import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActi
 import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class LoginActivity extends BaseActivity {
 
@@ -72,13 +77,19 @@ public class LoginActivity extends BaseActivity {
         if (BuildConfig.DEBUG) {
             //Todo testMove 삭제
             testMove = findViewById(R.id.tv_login_change_pw);
-            testMove.setOnClickListener(view -> moveActivity(MainActivity.class));
+            RxView.clicks(testMove)
+                    .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(click -> moveActivity(MainActivity.class));
         }
     }
 
     @Override
     public void initListener() {
-        btnLogin.setOnClickListener(view -> startLogin());
+        RxView.clicks(btnLogin)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> startLogin());
 
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
