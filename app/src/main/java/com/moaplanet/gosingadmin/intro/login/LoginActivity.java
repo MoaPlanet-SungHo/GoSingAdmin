@@ -40,6 +40,8 @@ public class LoginActivity extends BaseActivity {
     private String userEmail, userPw;
     private TextView testMove;
 
+    private int mDetailCode = -1;
+
     @Override
     public int layoutRes() {
         return R.layout.activity_login;
@@ -124,10 +126,10 @@ public class LoginActivity extends BaseActivity {
 
         if (requestCode == GoSingConstants.ACTION_REQ_CODE_PIN) {
             if (resultCode == GoSingConstants.ACTION_RESULT_CODE_PIN_SUCCESS) {
-                startLogin();
+                onLoginComplete();
             } else {
                 Toast.makeText(this,
-                        "결제 비밀번호 생성에 실패했습니다",
+                        "결제 비밀번호 생성에 실패했습니다.",
                         Toast.LENGTH_SHORT)
                         .show();
             }
@@ -137,22 +139,13 @@ public class LoginActivity extends BaseActivity {
 
     private void startLogin() {
 
-        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
-            Toast.makeText(this,
-                    "결제 비밀번호를 생성해 주세요",
-                    Toast.LENGTH_SHORT)
-                    .show();
-            Intent intent = new Intent(this, CreatePinActivity.class);
-            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
-        } else {
-            ReqLoginDto reqLoginDto = new ReqLoginDto();
-            reqLoginDto.setEmail(userEmail);
-            reqLoginDto.setPw(userPw);
+        ReqLoginDto reqLoginDto = new ReqLoginDto();
+        reqLoginDto.setEmail(userEmail);
+        reqLoginDto.setPw(userPw);
 
-            LoginManager loginManager = new LoginManager();
-            loginManager.setOnLoginListener(onLoginListener);
-            loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
-        }
+        LoginManager loginManager = new LoginManager();
+        loginManager.setOnLoginListener(onLoginListener);
+        loginManager.onLogin(reqLoginDto, LoginManager.LoginType.LOGIN, this);
 
     }
 
@@ -170,16 +163,8 @@ public class LoginActivity extends BaseActivity {
     LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
-            if (detailCode == NetworkConstants.LOGIN_CODE_SUCCESS) {
-                moveActivity(MainActivity.class);
-                finishAffinity();
-            } else if (detailCode == NetworkConstants.LOGIN_CODE_ACCOUNT_INACTIVE) {
-                moveActivity(WaitingApprovalActivity.class);
-                finishAffinity();
-            } else if (detailCode == NetworkConstants.LOGIN_CODE_EMPTY_STORE) {
-                moveActivity(RegisterStoreActivity.class);
-                finishAffinity();
-            }
+            mDetailCode = detailCode;
+            onCheckPin();
         }
 
         @Override
@@ -187,6 +172,36 @@ public class LoginActivity extends BaseActivity {
             tvErrMsg.setVisibility(View.VISIBLE);
         }
     };
+
+    private void onCheckPin() {
+        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
+            Toast.makeText(this,
+                    "결제 비밀번호를 생성해 주세요.",
+                    Toast.LENGTH_SHORT)
+                    .show();
+            Intent intent = new Intent(this, CreatePinActivity.class);
+            startActivityForResult(intent, GoSingConstants.ACTION_REQ_CODE_PIN);
+        } else {
+            onLoginComplete();
+        }
+    }
+
+    private void onLoginComplete() {
+        if (mDetailCode == NetworkConstants.LOGIN_CODE_SUCCESS) {
+            moveActivity(MainActivity.class);
+            finishAffinity();
+        } else if (mDetailCode == NetworkConstants.LOGIN_CODE_ACCOUNT_INACTIVE) {
+            moveActivity(WaitingApprovalActivity.class);
+            finishAffinity();
+        } else if (mDetailCode == NetworkConstants.LOGIN_CODE_EMPTY_STORE) {
+            moveActivity(RegisterStoreActivity.class);
+            finishAffinity();
+        } else {
+            Toast.makeText(this,
+                    "다시 로그인해 주세요.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void moveActivity(Class moveActivity) {
         Intent intent = new Intent(this, moveActivity);
