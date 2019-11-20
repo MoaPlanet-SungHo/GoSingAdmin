@@ -205,6 +205,7 @@
             android:nextFocusDown="@+id/et_fragment_card_info_register_card_password"
             android:paddingStart="11dp"
             android:paddingEnd="11dp"
+            android:maxLength="10"
             android:singleLine="true"
             android:textColor="@color/color_aaaaaa"
             android:textColorHint="@color/color_aaaaaa"

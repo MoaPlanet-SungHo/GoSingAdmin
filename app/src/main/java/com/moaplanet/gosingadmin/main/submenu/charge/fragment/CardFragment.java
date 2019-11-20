@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -128,8 +129,17 @@ public class CardFragment extends BaseFragment {
         llPriceChargeClear.setOnClickListener(view -> etPriceCharge.setText("0"));
 
         // cardAdapter 에서 사용자가 선택한 카드에 대한 정보를 받은후 뷰 모델로 넘김
-        mCardAdapter.setmSelectCard(cardInformation ->
-                mChargeViewModel.setSelectCardInfo(cardInformation));
+        mCardAdapter.setmSelectCard(cardInformation -> {
+
+            mChargeViewModel.setSelectCardInfo(cardInformation);
+
+            Toast.makeText(view.getContext(),
+                    getString(R.string.fragment_card_toast_select_card, cardInformation.getCardName()),
+                    Toast.LENGTH_SHORT).show();
+            clSelectCardTitle.setSelected(false);
+            clCardListGroup.setVisibility(View.GONE);
+
+        });
 
         PriceWatcher priceWatcher = new PriceWatcher(etPriceCharge);
 

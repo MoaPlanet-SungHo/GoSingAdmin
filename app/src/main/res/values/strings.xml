@@ -391,6 +391,7 @@
     <string name="fragment_card_add_card_btn_charge">충전하기</string>
     <string name="fragment_card_input_text_hint">0원</string>
     <string name="fragment_card_point_title">충전 후 GOSING포인트</string>
+    <string name="fragment_card_toast_select_card">%s로 충전용 카드가 변경되었습니다.</string>
 
     <!-- FragmentDepositWithoutBankbook -->
     <string name="fragment_deposit_without_bankbook_not_enough_points_header">GOSING 포인트 잔액이 </string>
