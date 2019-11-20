@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
@@ -16,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 회원가입 전 약관 동의 화면
@@ -73,12 +77,15 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
     public void initListener() {
 
         // 계정 입력 하는 화면으로 이동
-        mBtnDone.setOnClickListener(view -> {
-            if (signUpViewModel != null) {
-                signUpViewModel.setCheckEventPush(mCbEvent.isChecked());
-            }
-            onMoveNavigation(R.id.action_fragment_create_account);
-        });
+        RxView.clicks(mBtnDone)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (signUpViewModel != null) {
+                        signUpViewModel.setCheckEventPush(mCbEvent.isChecked());
+                    }
+                    onMoveNavigation(R.id.action_fragment_create_account);
+                });
 
         // 체크박스에 리스너 연결
         mCbAll.setOnClickListener(onCheckBoxClickListener);

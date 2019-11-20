@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -27,9 +28,12 @@ import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearch
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class AddressSearchActivity extends BaseActivity {
 
@@ -40,7 +44,6 @@ public class AddressSearchActivity extends BaseActivity {
     private AddressViewModel addressViewModel;
     private LinearLayout llEmptyView;
     private LinearLayout llTipView;
-    private CommonTitleBar commonTitleBar;
 
     @Override
     public int layoutRes() {
@@ -56,13 +59,20 @@ public class AddressSearchActivity extends BaseActivity {
         llEmptyView = findViewById(R.id.ll_address_search_empty_group);
         llEmptyView.setVisibility(View.GONE);
         llTipView = findViewById(R.id.ll_address_search_tip_group);
-        commonTitleBar = findViewById(R.id.common_address_search_title_bar);
     }
 
     @Override
     public void initListener() {
-        btnSearch.setOnClickListener(view -> onAddressSearch());
-        commonTitleBar.setBackButtonClickListener(view -> finish());
+        RxView.clicks(btnSearch)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onAddressSearch());
+
+        CommonTitleBar commonTitleBar = findViewById(R.id.common_address_search_title_bar);
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onAddressSearch());
     }
 
     @Override

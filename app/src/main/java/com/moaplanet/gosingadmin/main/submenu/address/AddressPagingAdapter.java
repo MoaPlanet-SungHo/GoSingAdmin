@@ -12,8 +12,13 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.AddressInfoDto, AddressPagingAdapter.AddressHolder> {
 
@@ -48,11 +53,15 @@ public class AddressPagingAdapter extends PagedListAdapter<ResAddressSearchDto.A
     @Override
     public void onBindViewHolder(@NonNull AddressHolder holder, int position) {
         holder.init(position);
-        holder.itemView.setOnClickListener(view -> {
-            if (onItemClick != null) {
-                onItemClick.onClick(getItem(position));
-            }
-        });
+
+        RxView.clicks(holder.itemView)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (onItemClick != null) {
+                        onItemClick.onClick(getItem(position));
+                    }
+                });
     }
 
     public class AddressHolder extends RecyclerView.ViewHolder {

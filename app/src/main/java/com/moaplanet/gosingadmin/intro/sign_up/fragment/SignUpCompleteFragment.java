@@ -14,11 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class SignUpCompleteFragment extends BaseFragment {
 
@@ -53,13 +58,21 @@ public class SignUpCompleteFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        btnDone.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                code = etCode.getText().toString();//존재 확인시 삭제 가능
-                signUpViewModel.setSalesCode(code);
-            }
-        });
-        btnCodeCheck.setOnClickListener(view -> code = btnCodeCheck.getText().toString());//btnCodeCheck 이 값을 왜 가져와!!
+        RxView.clicks(btnDone)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        code = etCode.getText().toString();//존재 확인시 삭제 가능
+                        signUpViewModel.setSalesCode(code);
+                    }
+                });
+
+        RxView.clicks(btnCodeCheck)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> code = btnCodeCheck.getText().toString());
+
         etCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

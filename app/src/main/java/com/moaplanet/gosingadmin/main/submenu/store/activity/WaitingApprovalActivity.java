@@ -2,9 +2,14 @@ package com.moaplanet.gosingadmin.main.submenu.store.activity;
 
 import android.widget.Button;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 
 public class WaitingApprovalActivity extends BaseActivity {
@@ -26,7 +31,14 @@ public class WaitingApprovalActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        commonTitleBar.setBackButtonClickListener(view -> finishAffinity());
-        btnFinish.setOnClickListener(view -> finishAffinity());
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> finishAffinity());
+
+        RxView.clicks(btnFinish)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> finishAffinity());
     }
 }

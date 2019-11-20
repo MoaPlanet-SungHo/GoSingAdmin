@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -25,6 +26,9 @@ import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 회원가입 아이디 패스워드 일벽 화면
@@ -99,11 +103,16 @@ public class CreateAccountFragment extends BaseFragment {
 
         // 타이틀바 뒤로가기
         CommonTitleBar commonTitleBar = view.findViewById(R.id.common_create_account_title_bar);
-        commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onBackNavigation());
 
         // 다음 버튼 클릭
-        nextStep.setOnClickListener(view ->
-                mViewModel.onCheckAccount(
+        RxView.clicks(nextStep)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> mViewModel.onCheckAccount(
                         etPw.getText().toString(),
                         etPwCheck.getText().toString()));
 
