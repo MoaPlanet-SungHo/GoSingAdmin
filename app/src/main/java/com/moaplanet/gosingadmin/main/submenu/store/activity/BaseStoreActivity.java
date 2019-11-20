@@ -1,6 +1,5 @@
 package com.moaplanet.gosingadmin.main.submenu.store.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressCoordD
 import com.moaplanet.gosingadmin.main.submenu.address.model.res.ResAddressSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
-import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
@@ -44,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import gun0912.tedimagepicker.builder.TedImagePicker;
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
