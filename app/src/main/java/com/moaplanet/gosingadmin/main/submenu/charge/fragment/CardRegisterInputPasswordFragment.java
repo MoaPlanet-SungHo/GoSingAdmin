@@ -7,9 +7,9 @@ import com.moaplanet.gosingadmin.common.fragment.PasswordInputBaseFragment;
 import com.moaplanet.gosingadmin.common.manager.AuthManager;
 
 /**
- * 충전하기의 패드워드 일벽 화면
+ * 카드 등록 결제 비밀번호 입력
  */
-public class ChargeInputPasswordFragment extends PasswordInputBaseFragment {
+public class CardRegisterInputPasswordFragment extends PasswordInputBaseFragment {
     @Override
     public void checkPasswordViewType() {
         tvPasswordInputTitle.setText(R.string.fragment_non_member_password_title);
@@ -24,7 +24,7 @@ public class ChargeInputPasswordFragment extends PasswordInputBaseFragment {
             @Override
             public void onSuccess() {
                 tvPasswordError.setVisibility(View.GONE);
-                onMoveNavigation(R.id.action_fragment_charge_complete);
+                onMoveNavigation(R.id.action_fragment_card_info_register);
             }
 
             @Override
@@ -38,6 +38,6 @@ public class ChargeInputPasswordFragment extends PasswordInputBaseFragment {
 
     @Override
     public String titleText() {
-        return getString(R.string.fragment_charge_title_bar);
+        return getString(R.string.fragment_card_info_register_title);
     }
 }

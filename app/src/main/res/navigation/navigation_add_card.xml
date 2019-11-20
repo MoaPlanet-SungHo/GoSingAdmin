@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/fragment_card_info_register">
+    app:startDestination="@+id/fragment_card_register_input_password">
+
+    <fragment
+        android:id="@+id/fragment_card_register_input_password"
+        android:name="com.moaplanet.gosingadmin.main.submenu.charge.fragment.CardRegisterInputPasswordFragment"
+        tools:layout="@layout/fragment_password_input">
+        <action
+            android:id="@+id/action_fragment_card_info_register"
+            app:destination="@id/fragment_card_info_register" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_card_info_register"
         android:name="com.moaplanet.gosingadmin.main.submenu.charge.fragment.CardInfoRegisterFragment"
-        tools:layout="@layout/fragment_card_info_register">
-        <action
-            android:id="@+id/action_fragment_password_input"
-            app:destination="@id/fragment_password_input" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_password_input"
-        android:name="com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment"
-        tools:layout="@layout/fragment_password_input" />
+        tools:layout="@layout/fragment_card_info_register" />
 </navigation>
