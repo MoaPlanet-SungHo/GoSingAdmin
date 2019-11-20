@@ -16,6 +16,8 @@ public class DepositAccountViewModel extends BaseViewModel {
     private MutableLiveData<String> mAccountName = new MutableLiveData<>();
     // 은행 점보
     private MutableLiveData<ResBankInfoDto.BankInformationDto> mBankInfo = new MutableLiveData<>();
+    // 결제 비밀번호 입력
+    private MutableLiveData<Boolean> mPinSuccess = new MutableLiveData<>();
 
     public LiveData<ResBankInfoDto.BankInformationDto> getmBankInfo() {
         return mBankInfo;
@@ -29,6 +31,10 @@ public class DepositAccountViewModel extends BaseViewModel {
         return mAccountNumber;
     }
 
+    public LiveData<Boolean> getPinSuccess() {
+        return mPinSuccess;
+    }
+
     public void setmAccountName(String mAccountName) {
         this.mAccountName.setValue(mAccountName);
     }
@@ -39,5 +45,9 @@ public class DepositAccountViewModel extends BaseViewModel {
 
     public void setmBankInfo(ResBankInfoDto.BankInformationDto mBankInfo) {
         this.mBankInfo.setValue(mBankInfo);
+    }
+
+    public void setPinSuccess(boolean mPinSuccess) {
+        this.mPinSuccess.setValue(mPinSuccess);
     }
 }

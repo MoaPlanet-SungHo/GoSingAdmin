@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.manager.AuthManager;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.RegisterAccountActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.DepositAccountViewModel;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.RegisterWithdrawalAccountViewModel;
 
 /**
@@ -13,15 +16,30 @@ import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.RegisterWith
  */
 public class PasswordInputFragment extends PasswordInputBaseFragment {
 
+    public static String BUNDLE_KEY_POINT_WITHDRAWAL_PASSWORD_TYPE = "BUNDLE_KEY_POINT_WITHDRAWAL_PASSWORD_TYPE";
+    public static String BUNDLE_VALUE_POINT_WITHDRAWAL = "BUNDLE_VALUE_POINT_WITHDRAWAL";
+
+    public static String BUNDLE_REQUEST_FROM_VIEW_CARD_REGISTER = "BUNDLE_REQUEST_FROM_VIEW_CARD_REGISTER";
+    public static String BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER = "BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER";
+    public static String BUNDLE_REQUEST_FROM_VIEW_PAYMENT = "BUNDLE_REQUEST_FROM_VIEW_PAYMENT";
+
     // 뷰모델
-    private RegisterWithdrawalAccountViewModel viewModel;
+    // 출금 계좌 생성 관련 뷰모델
+    private RegisterWithdrawalAccountViewModel registerWithdrawalAccountViewModel;
+    // 출금 화면 뷰모델
+    private DepositAccountViewModel depositAccountViewModel;
 
     @Override
     protected void initViewModel() {
         super.initViewModel();
         if (getActivity() != null) {
-            viewModel =
-                    ViewModelProviders.of(getActivity()).get(RegisterWithdrawalAccountViewModel.class);
+            if (getActivity() instanceof RegisterAccountActivity) {
+                registerWithdrawalAccountViewModel =
+                        ViewModelProviders.of(getActivity()).get(RegisterWithdrawalAccountViewModel.class);
+            } else if (getActivity() instanceof PointWithDrawalActivity) {
+                depositAccountViewModel =
+                        ViewModelProviders.of(getActivity()).get(DepositAccountViewModel.class);
+            }
         }
     }
 
@@ -39,8 +57,17 @@ public class PasswordInputFragment extends PasswordInputBaseFragment {
             @Override
             public void onSuccess() {
                 tvPasswordError.setVisibility(View.GONE);
-                viewModel.setPinSuccess(true);
-                onBackNavigation();
+
+                if (depositAccountViewModel != null) {
+                    depositAccountViewModel.setPinSuccess(true);
+                    onBackNavigation();
+                    return;
+                }
+
+                if (registerWithdrawalAccountViewModel != null) {
+                    registerWithdrawalAccountViewModel.setPinSuccess(true);
+                    onBackNavigation();
+                }
 //                onMoveNavigation(R.id.action_fragment_card_info_register);
             }
 
@@ -55,12 +82,16 @@ public class PasswordInputFragment extends PasswordInputBaseFragment {
 
     @Override
     public String titleText() {
+
+        if (getArguments() != null) {
+            String viewType = getArguments().getString(BUNDLE_KEY_POINT_WITHDRAWAL_PASSWORD_TYPE);
+            if (viewType != null && viewType.equals(BUNDLE_VALUE_POINT_WITHDRAWAL)) {
+                return "출금하기";
+            }
+        }
+
         return getString(R.string.fragment_password_input_title_account_register);
     }
-
-//    public static String BUNDLE_REQUEST_FROM_VIEW_CARD_REGISTER = "BUNDLE_REQUEST_FROM_VIEW_CARD_REGISTER";
-//    public static String BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER = "BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER";
-//    public static String BUNDLE_REQUEST_FROM_VIEW_PAYMENT = "BUNDLE_REQUEST_FROM_VIEW_PAYMENT";
 //
 //    @Override
 //    public void onActivityCreated(@Nullable Bundle savedInstanceState) {

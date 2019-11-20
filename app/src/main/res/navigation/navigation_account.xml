@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_fragment_change_account"
             app:destination="@id/fragment_account_register" />
+
+        <action
+            android:id="@+id/action_fragment_password_input"
+            app:destination="@id/fragment_password_input" />
     </fragment>
 
     <!-- 출금 가능 금액 -->
@@ -33,9 +37,9 @@
         android:id="@+id/fragment_account_register"
         android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.AccountResisterFragment"
         tools:layout="@layout/fragment_account_register">
-        <action
-            android:id="@+id/action_fragment_password_input"
-            app:destination="@id/fragment_password_input" />
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_password_input"-->
+<!--            app:destination="@id/fragment_password_input" />-->
 
         <action
             android:id="@+id/action_fragment_withdrawal"

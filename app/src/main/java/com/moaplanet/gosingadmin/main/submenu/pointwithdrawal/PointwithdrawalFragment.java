@@ -10,19 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.CommonTitleNoUnderlineDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.DepositAccountViewModel;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResPointWithDrawalDTO;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+import com.moaplanet.gosingadmin.utils.ViewUtil;
+import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
 
@@ -42,9 +47,34 @@ public class PointwithdrawalFragment extends BaseFragment {
 
     private String bankAccountPk = "";
 
+    // 부모 모델의 뷰 모델
+    private DepositAccountViewModel viewModel;
+
+    // 서버 통신을 해서 계좌 정보를 가져왔는지 체크
+    // false 계좌 정보 없음 | true 계좌 정보 있음
+    private boolean isSearchDepositAccount = false;
+
     @Override
     public int layoutRes() {
         return R.layout.fragment_point_withdrawal;
+    }
+
+    @Override
+    protected void initViewModel() {
+        super.initViewModel();
+        if (getActivity() != null) {
+            viewModel = ViewModelProviders.of(getActivity()).get(DepositAccountViewModel.class);
+        }
+    }
+
+    @Override
+    protected void initObserve() {
+        super.initObserve();
+        viewModel.getPinSuccess().observe(getViewLifecycleOwner(), isSuccess -> {
+            if (isSuccess) {
+                pointWithdrawal();
+            }
+        });
     }
 
     @Override
@@ -79,7 +109,19 @@ public class PointwithdrawalFragment extends BaseFragment {
         });
 
         btnPointWithdrawal.setOnClickListener(view1 -> {
-            pointWithdrawal();
+            Bundle bundle = new Bundle();
+            bundle.putString(
+                    PasswordInputFragment.BUNDLE_KEY_POINT_WITHDRAWAL_PASSWORD_TYPE,
+                    PasswordInputFragment.BUNDLE_VALUE_POINT_WITHDRAWAL
+            );
+
+            Navigation.findNavController(this.view).navigate(
+                    R.id.action_fragment_password_input,
+                    bundle
+            );
+
+//            pointWithdrawal();
+
 //            CommonTitleNoUnderlineDialog commonTitleNoUnderlineDialog = new CommonTitleNoUnderlineDialog(getContext());
 //            commonTitleNoUnderlineDialog.setContent("출금 요청이 완료되었습니다.");
 //            commonTitleNoUnderlineDialog.show();
@@ -94,54 +136,57 @@ public class PointwithdrawalFragment extends BaseFragment {
 
         etWithdrawal.addTextChangedListener(mWatcherPriceCharge);
 
-        RetrofitService.getInstance().getGoSingApiService().onServerSearchDepositAccount()
-                .enqueue(new MoaAuthCallback<ResSearchDepositAccount>(
-                        RetrofitService.getInstance().getMoaAuthConfig(),
-                        RetrofitService.getInstance().getSessionChecker()
-                ) {
-                    @Override
-                    public void onFinalResponse(Call<ResSearchDepositAccount> call, ResSearchDepositAccount resModel) {
+        if (!isSearchDepositAccount) {
+            isSearchDepositAccount = true;
+            RetrofitService.getInstance().getGoSingApiService().onServerSearchDepositAccount()
+                    .enqueue(new MoaAuthCallback<ResSearchDepositAccount>(
+                            RetrofitService.getInstance().getMoaAuthConfig(),
+                            RetrofitService.getInstance().getSessionChecker()
+                    ) {
+                        @Override
+                        public void onFinalResponse(Call<ResSearchDepositAccount> call, ResSearchDepositAccount resModel) {
 
-                        if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
-                            bankAccountPk = resModel.getDepositAccount().getBankAccountPk();
+                            if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                                bankAccountPk = resModel.getDepositAccount().getBankAccountPk();
 
-                            TextView bankName = view.findViewById(R.id.tv_fragment_point_withdrawal_account_info_bank_name);
-                            bankName.setText(resModel.getDepositAccount().getBankName());
+                                TextView bankName = view.findViewById(R.id.tv_fragment_point_withdrawal_account_info_bank_name);
+                                bankName.setText(resModel.getDepositAccount().getBankName());
 
-                            TextView bankNumber = view.findViewById(R.id.tv_fragment_point_withdrawal_account_number);
-                            bankNumber.setText(resModel.getDepositAccount().getAccountNumber());
+                                TextView bankNumber = view.findViewById(R.id.tv_fragment_point_withdrawal_account_number);
+                                bankNumber.setText(resModel.getDepositAccount().getAccountNumber());
 
-                            // 출금 가능 금액
-                            TextView possibleWithdrawalPrice = view.findViewById(R.id.tv_fragment_point_withdrawal_passible_money);
-                            getPossibleWithdrawalPrice = resModel.getDepositAccount().getPossibleWithdrawalPrice();
-                            possibleWithdrawalPrice.setText(getString(R.string.fragment_payment_money_won,
-                                    StringUtil.convertCommaPrice(getPossibleWithdrawalPrice)));
+                                // 출금 가능 금액
+                                TextView possibleWithdrawalPrice = view.findViewById(R.id.tv_fragment_point_withdrawal_passible_money);
+                                getPossibleWithdrawalPrice = resModel.getDepositAccount().getPossibleWithdrawalPrice();
+                                possibleWithdrawalPrice.setText(getString(R.string.fragment_payment_money_won,
+                                        StringUtil.convertCommaPrice(getPossibleWithdrawalPrice)));
 
-                            // 출금 수수료
-                            TextView tvWithdrawalFell = view.findViewById(R.id.tv_fragment_point_withdrawal_remain_money);
-                            tvWithdrawalFell.setText(getString(R.string.fragment_payment_money_won,
-                                    StringUtil.convertCommaPrice(resModel.getDepositAccount().getWithdrawalFee())));
+                                // 출금 수수료
+                                TextView tvWithdrawalFell = view.findViewById(R.id.tv_fragment_point_withdrawal_remain_money);
+                                tvWithdrawalFell.setText(getString(R.string.fragment_payment_money_won,
+                                        StringUtil.convertCommaPrice(resModel.getDepositAccount().getWithdrawalFee())));
 
 
-                        } else {
+                            } else {
+                                onNetworkConnectFail();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFinalFailure(Call<ResSearchDepositAccount> call, boolean isSession, Throwable t) {
                             onNetworkConnectFail();
                         }
 
-                    }
+                        @Override
+                        public void onFinalNotSession() {
+                            super.onFinalNotSession();
 
-                    @Override
-                    public void onFinalFailure(Call<ResSearchDepositAccount> call, boolean isSession, Throwable t) {
-                        onNetworkConnectFail();
-                    }
+                            onNotSession();
 
-                    @Override
-                    public void onFinalNotSession() {
-                        super.onFinalNotSession();
-
-                        onNotSession();
-
-                    }
-                });
+                        }
+                    });
+        }
 
     }
 
@@ -234,4 +279,9 @@ public class PointwithdrawalFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onPause() {
+        ViewUtil.onHideKeyboard(view);
+        super.onPause();
+    }
 }
