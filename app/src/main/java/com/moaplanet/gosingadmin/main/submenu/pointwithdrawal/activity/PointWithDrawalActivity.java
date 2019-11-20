@@ -30,12 +30,12 @@ public class PointWithDrawalActivity extends BaseActivity {
 
         viewModel = ViewModelProviders.of(this).get(DepositAccountViewModel.class);
 
-        Bundle bundle = new Bundle();
-        bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW, AccountResisterFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
-        Navigation.findNavController(
-                this,
-                R.id.fragment_activity_point_withdrawal)
-                .navigate(R.id.action_fragment_account_register, bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW, AccountResisterFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
+//        Navigation.findNavController(
+//                this,
+//                R.id.fragment_activity_point_withdrawal)
+//                .navigate(R.id.action_fragment_account_register, bundle);
     }
 
     @Override

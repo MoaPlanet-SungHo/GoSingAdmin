@@ -101,6 +101,9 @@
         <activity
             android:name=".common.activity.CreatePinActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.submenu.pointwithdrawal.activity.RegisterAccountActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

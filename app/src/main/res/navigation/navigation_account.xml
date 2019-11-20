@@ -3,11 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/fragment_account_register">
+    app:startDestination="@+id/fragment_withdrawal">
 
-    <action
-        android:id="@+id/action_fragment_account_register"
-        app:destination="@id/fragment_account_register" />
+    <!-- 포인트 인출 -->
+    <fragment
+        android:id="@+id/fragment_withdrawal"
+        android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointwithdrawalFragment"
+        tools:layout="@layout/fragment_point_withdrawal">
+        <action
+            android:id="@+id/action_fragment_withdrawal_tool_tip"
+            app:destination="@id/fragment_withdrawal_tool_tip" />
+        <action
+            android:id="@+id/action_fragment_change_account"
+            app:destination="@id/fragment_account_register" />
+    </fragment>
+
+    <!-- 출금 가능 금액 -->
+    <fragment
+        android:id="@+id/fragment_withdrawal_tool_tip"
+        android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointwithdrawalToolTipFragment"
+        tools:layout="@layout/fragment_point_withdrawal_tool_tip" />
+
+    <!--    <action-->
+    <!--        android:id="@+id/action_fragment_account_register"-->
+    <!--        app:destination="@id/fragment_account_register" />-->
 
     <!-- 계좌등록 -->
     <fragment
@@ -33,24 +52,5 @@
             android:id="@+id/action_fragment_withdrawal"
             app:destination="@id/fragment_withdrawal" />
     </fragment>
-
-    <!-- 포인트 인출 -->
-    <fragment
-        android:id="@+id/fragment_withdrawal"
-        android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointwithdrawalFragment"
-        tools:layout="@layout/fragment_point_withdrawal">
-        <action
-            android:id="@+id/action_fragment_withdrawal_tool_tip"
-            app:destination="@id/fragment_withdrawal_tool_tip" />
-        <action
-            android:id="@+id/action_fragment_change_account"
-            app:destination="@id/fragment_account_register" />
-    </fragment>
-
-    <!-- 출금 가능 금액 -->
-    <fragment
-        android:id="@+id/fragment_withdrawal_tool_tip"
-        android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.PointwithdrawalToolTipFragment"
-        tools:layout="@layout/fragment_point_withdrawal" />
 
 </navigation>

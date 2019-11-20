@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/fragment_account_register">
+
+    <!-- 계좌등록 -->
+    <fragment
+        android:id="@+id/fragment_account_register"
+        android:name="com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.AccountResisterFragment"
+        tools:layout="@layout/fragment_account_register">
+        <action
+            android:id="@+id/action_fragment_password_input"
+            app:destination="@id/fragment_password_input" />
+
+    </fragment>
+
+    <!-- 비밀번호 입력 -->
+    <fragment
+        android:id="@+id/fragment_password_input"
+        android:name="com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment"
+        tools:layout="@layout/fragment_password_input" />
+
+</navigation>

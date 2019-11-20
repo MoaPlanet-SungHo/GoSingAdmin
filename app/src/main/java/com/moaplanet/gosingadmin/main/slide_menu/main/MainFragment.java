@@ -27,6 +27,7 @@ import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveA
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.RegisterAccountActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
@@ -208,7 +209,8 @@ public class MainFragment extends Fragment {
             noTitleDialog.show(getFragmentManager(), "출금 계좌 다이얼로그");
             noTitleDialog.onDoneOnCliListener(view -> {
                 noTitleDialog.dismiss();
-                moveActivity(PointWithDrawalActivity.class);
+//                moveActivity(PointWithDrawalActivity.class);
+                moveActivity(RegisterAccountActivity.class);
             });
 
             noTitleDialog.onNoOnClickListener(view -> noTitleDialog.dismiss());
