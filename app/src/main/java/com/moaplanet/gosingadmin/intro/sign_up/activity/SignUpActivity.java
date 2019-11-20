@@ -90,7 +90,7 @@ public class SignUpActivity extends BaseActivity {
                 successSignUp();
             } else {
                 Toast.makeText(SignUpActivity.this,
-                        "결제 비밀번호 생성을 실패했습니다.",
+                        getString(R.string.common_toast_payment_password_not_create),
                         Toast.LENGTH_SHORT).show();
                 finish();
             }
