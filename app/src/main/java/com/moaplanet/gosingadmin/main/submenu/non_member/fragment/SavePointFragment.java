@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
 import com.moaplanet.gosingadmin.common.model.viewmodel.BaseActivityViewModel;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
@@ -87,7 +88,24 @@ public class SavePointFragment extends BaseFragment {
 //            onSavePoint();
         });
 
-        etInputPoint.addTextChangedListener(mWatcherPriceCharge);
+//        etInputPoint.addTextChangedListener(mWatcherPriceCharge);
+
+        PriceWatcher priceWatcher = new PriceWatcher(etInputPoint);
+        priceWatcher.setCallback((completePrice, price) -> {
+
+            TextView tvSaveAfterPoint = view.findViewById(R.id.tv_save_point_balance_point);
+            int afterPoint;
+            try {
+                String havePoint = mViewModel.getPoint().getValue().replace(",", "");
+                afterPoint = Integer.parseInt(havePoint) + price;
+            } catch (NullPointerException | NumberFormatException e) {
+                afterPoint = price;
+            }
+            mViewModel.setSavePoint(completePrice);
+            tvSaveAfterPoint.setText(getString(R.string.fragment_payment_money_won,
+                    StringUtil.convertCommaPrice(afterPoint)));
+        });
+        etInputPoint.addTextChangedListener(priceWatcher);
 
         Button btnCharge = view.findViewById(R.id.btn_fragment_save_point_charge);
         btnCharge.setOnClickListener(v -> {
@@ -204,32 +222,6 @@ public class SavePointFragment extends BaseFragment {
     @Override
     protected void initObserve() {
         super.initObserve();
-        mViewModel.getSavePoint().observe(getViewLifecycleOwner(), savePoint -> {
-            int cp = etInputPoint.getSelectionStart();
-            int startLen = etInputPoint.getText().length();
-            int wonLen;
-            if (etInputPoint.getText().length() == 1) {
-                wonLen = -1;
-            } else {
-                wonLen = 0;
-            }
-            etInputPoint.setText(getString(R.string.fragment_payment_money_won, savePoint));
-            int endLen = etInputPoint.getText().length();
-            int selectionPos = (cp + (endLen - startLen)) + wonLen;
-            if (selectionPos >= 0) {
-                etInputPoint.setSelection(selectionPos);
-            } else {
-                etInputPoint.setSelection(0);
-            }
-
-            TextView tvSaveAfterPoint = view.findViewById(R.id.tv_save_point_balance_point);
-            int afterPoint = Integer.valueOf(savePoint.replace(",", "")) +
-                    Integer.valueOf(mViewModel.getPoint().getValue().replace(",", ""));
-            tvSaveAfterPoint.setText(getString(R.string.fragment_payment_money_won,
-                    StringUtil.convertCommaPrice(afterPoint)));
-
-        });
-
         mViewModel.getSaveMaxPoint().observe(getViewLifecycleOwner(),
                 saveMaxPoint -> tvSaveMaxPoint.setText(getString(R.string.fragment_payment_money_won,
                         StringUtil.convertCommaPrice(saveMaxPoint))));
@@ -242,26 +234,10 @@ public class SavePointFragment extends BaseFragment {
 
     }
 
-    private TextWatcher mWatcherPriceCharge = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            mViewModel.setSavePoint(editable.toString());
-        }
-    };
-
     @Override
     public void onPause() {
         ViewUtil.onHideKeyboard(view);
         super.onPause();
     }
+
 }

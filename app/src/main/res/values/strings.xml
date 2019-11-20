@@ -6,6 +6,7 @@
     <string name="sign_up_title">회원가입</string>
     <string name="common_date_format">Y.M.D</string>
     <string name="common_not_exist_session">다시 로그인해 주세요</string>
+    <string name="common_price_won">%s원</string>
 
     <!-- NoTitleDialog -->
     <string name="dialog_no_title_done">확인</string>
