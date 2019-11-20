@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.ECGenParameterSpec;
 import java.util.Calendar;
@@ -58,6 +59,44 @@ public class AuthManager {
             onFail();
         } else {
             onCreatePin(keyAlias, pin);
+        }
+    }
+
+    /**
+     * 결제 패스워드 체크
+     */
+    public void onCheckPin(String keyAlias, String inputPin) {
+        Boolean existKey = onExistKey(keyAlias);
+
+        if (existKey != null && existKey) {
+            try {
+                String userPin = SharedPreferencesManager.getInstance().getPin();
+
+                if (userPin.equals("")) {
+                    onFail();
+                } else {
+                    PrivateKey privateKey = (PrivateKey) keyStore.getKey(keyAlias, null);
+                    PublicKey publicKey = keyStore.getCertificate(keyAlias).getPublicKey();
+
+                    Signature signature = Signature.getInstance("SHA512withECDSA");
+                    signature.initVerify(publicKey);
+                    signature.update(inputPin.getBytes());
+
+                    byte[] userPinByte = Base64.decode(userPin, Base64.DEFAULT);
+
+                    if (signature.verify(userPinByte)) {
+                        onSuccess();
+                    } else {
+                        onFail();
+                    }
+
+                }
+
+            } catch (Exception e) {
+
+            }
+        } else {
+            onFail();
         }
     }
 
@@ -189,8 +228,10 @@ public class AuthManager {
      * 키스토어 관련 인증 콜백
      */
     public interface onAuthCallback {
+        // 성공
         void onSuccess();
 
+        // 실패
         void onFail();
     }
 }

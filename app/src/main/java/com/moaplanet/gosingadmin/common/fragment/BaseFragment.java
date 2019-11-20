@@ -26,15 +26,26 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract void initListener();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(layoutRes(), container, false);
-        initFragment();
         initView(view);
         initListener();
-        initObserve();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViewModel();
+        initObserve();
     }
 
     protected void onBackNavigation() {
@@ -45,7 +56,16 @@ public abstract class BaseFragment extends Fragment {
         Navigation.findNavController(view).navigate(actionId);
     }
 
+    /**
+     * fragment 초기화
+     */
     protected void initFragment() {
+    }
+
+    /**
+     * 뷰 모델 초기화
+     */
+    protected void initViewModel() {
     }
 
     /**

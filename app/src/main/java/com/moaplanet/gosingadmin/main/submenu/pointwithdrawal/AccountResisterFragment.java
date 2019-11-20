@@ -56,8 +56,8 @@ public class AccountResisterFragment extends BaseFragment {
     private DepositAccountViewModel viewModel;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
             viewModel = ViewModelProviders.of(getActivity()).get(DepositAccountViewModel.class);
         }

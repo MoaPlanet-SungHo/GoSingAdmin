@@ -35,12 +35,14 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
     private boolean mSearchingVirtualAccount = true;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
             mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
         }
-        mViewModel = ViewModelProviders.of(this).get(DepositWithoutBankbookViewModel.class);
+        if (mViewModel == null) {
+            mViewModel = ViewModelProviders.of(this).get(DepositWithoutBankbookViewModel.class);
+        }
     }
 
     @Override
@@ -55,7 +57,6 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        initObserve();
     }
 
     @Override

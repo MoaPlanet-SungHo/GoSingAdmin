@@ -36,9 +36,10 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
     @Override
     protected void initFragment() {
         super.initFragment();
-
         if (getActivity() != null) {
-            signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
+            if (signUpViewModel == null) {
+                signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
+            }
         }
     }
 

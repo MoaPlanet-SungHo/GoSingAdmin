@@ -51,12 +51,25 @@ public class QrPaymentFragment extends BaseFragment {
     private ImageView ivQrCode;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
-            qrCodeViewModel = ViewModelProviders.of(getActivity()).get(QrCodeViewModel.class);
+            if (qrCodeViewModel == null) {
+                qrCodeViewModel = ViewModelProviders.of(getActivity()).get(QrCodeViewModel.class);
+
+                // 총 결제금액 초기화
+                TextView tvPriceTotal = view.findViewById(R.id.tv_main_total_payment_amount_price);
+                initPrice(tvPriceTotal, qrCodeViewModel.getTotalPaymentPrice().getValue());
+
+                // 고객 적립금 초기화
+                TextView tvPriceReserve = view.findViewById(R.id.tv_main_customer_reserve_fund_price);
+                initPrice(tvPriceReserve, qrCodeViewModel.getSaveMoney().getValue());
+
+            }
         }
-        qrPaymentViewModel = ViewModelProviders.of(this).get(QrPaymentViewModel.class);
+        if (qrPaymentViewModel == null) {
+            qrPaymentViewModel = ViewModelProviders.of(this).get(QrPaymentViewModel.class);
+        }
     }
 
     @Override
@@ -69,7 +82,6 @@ public class QrPaymentFragment extends BaseFragment {
         // 로딩 초기화
         loading = view.findViewById(R.id.pr_fragment_qr_payment_loading);
         loading.setVisibility(View.GONE);
-        onStartLoading();
 
         // 타이머
         tvFiveTimer = view.findViewById(R.id.show_five_minute);
@@ -79,14 +91,6 @@ public class QrPaymentFragment extends BaseFragment {
 
         // QRCode
         ivQrCode = view.findViewById(R.id.iv_fragment_qr_payment_qr_code);
-
-        // 총 결제금액 초기화
-        TextView tvPriceTotal = view.findViewById(R.id.tv_main_total_payment_amount_price);
-        initPrice(tvPriceTotal, qrCodeViewModel.getTotalPaymentPrice().getValue());
-
-        // 고객 적립금 초기화
-        TextView tvPriceReserve = view.findViewById(R.id.tv_main_customer_reserve_fund_price);
-        initPrice(tvPriceReserve, qrCodeViewModel.getSaveMoney().getValue());
 
     }
 
@@ -137,6 +141,11 @@ public class QrPaymentFragment extends BaseFragment {
         // 타이틀바
         CommonTitleBar titleBar = view.findViewById(R.id.common_inputqr_title_bar);
         titleBar.setBackButtonClickListener(view -> onBackNavigation());
+    }
+
+    @Override
+    protected void initObserve() {
+        super.initObserve();
 
         // 가맹점 이름 초기화
         qrPaymentViewModel.getStoreName().observe(this,
@@ -211,6 +220,7 @@ public class QrPaymentFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        onStartLoading();
         initReqQrCodeDto();
     }
 

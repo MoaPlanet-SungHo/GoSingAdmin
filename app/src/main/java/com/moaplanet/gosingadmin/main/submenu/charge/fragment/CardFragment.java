@@ -51,13 +51,18 @@ public class CardFragment extends BaseFragment {
     private ConstraintLayout mClCardItemAdd;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
-        mChargeCardViewModel = ViewModelProviders.of(this).get(ChargeCardViewModel.class);
-
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
-            mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
+            if (mChargeViewModel == null) {
+                mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
+            }
         }
+        if (mChargeCardViewModel == null) {
+            mChargeCardViewModel = ViewModelProviders.of(this).get(ChargeCardViewModel.class);
+        }
+        mChargeCardViewModel.setIsLoading(true);
+        mChargeCardViewModel.onCardListInit();
     }
 
     @Override
@@ -68,7 +73,6 @@ public class CardFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         mPrLoading = view.findViewById(R.id.pr_fragment_card_loading);
-        mChargeCardViewModel.setIsLoading(true);
 
         clSelectCardTitle = view.findViewById(R.id.cl_fragment_card_select_card_title);
 
@@ -123,6 +127,12 @@ public class CardFragment extends BaseFragment {
                 mChargeViewModel.setSelectCardInfo(cardInformation));
 
         etPriceCharge.addTextChangedListener(mWatcherPriceCharge);
+
+    }
+
+    @Override
+    protected void initObserve() {
+        super.initObserve();
 
         // -- 뷰 모델 관련 -- //
         // 선택된 카드에 대한 정보를 받음
@@ -188,6 +198,7 @@ public class CardFragment extends BaseFragment {
             }
         });
 
+
     }
 
     @Override
@@ -211,7 +222,6 @@ public class CardFragment extends BaseFragment {
         RecyclerView rvCardList = view.findViewById(R.id.rv_fragment_card);
         mCardAdapter = new CardAdapter();
         rvCardList.setAdapter(mCardAdapter);
-        mChargeCardViewModel.onCardListInit();
     }
 
     /**
@@ -243,7 +253,9 @@ public class CardFragment extends BaseFragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            mChargeViewModel.setPriceCharge(editable.toString());
+            if (mChargeViewModel != null) {
+                mChargeViewModel.setPriceCharge(editable.toString());
+            }
         }
     };
 

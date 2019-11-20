@@ -23,6 +23,8 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
     private MutableLiveData<Integer> mSaveMaxPoint = new MutableLiveData<>();
     // 핸드폰 번호
     private MutableLiveData<String> mPhoneNumber = new MutableLiveData<>();
+    // 결제 비밀번호 체크 --> true : 체크 완료 | false : 체크 안함
+    private MutableLiveData<Boolean> mIsPinCheck = new MutableLiveData<>();
 
     // --- Field End--- //
 
@@ -44,6 +46,10 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
         return mPhoneNumber;
     }
 
+    public LiveData<Boolean> getIsPinCheck() {
+        return mIsPinCheck;
+    }
+
     // --- Getter End --- //
 
     // --- Setter Start --- //
@@ -62,11 +68,17 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
     }
 
     public void setmSaveMaxPoint(int saveMaxPoint) {
-        this.mSaveMaxPoint.setValue(saveMaxPoint);
+        if (mSaveMaxPoint.getValue() != null && saveMaxPoint != mSaveMaxPoint.getValue()) {
+            this.mSaveMaxPoint.setValue(saveMaxPoint);
+        }
     }
 
     public void setmPhoneNumber(String mPhoneNumber) {
         this.mPhoneNumber.setValue(mPhoneNumber);
+    }
+
+    public void setIsPinCheck(Boolean mIsPinCheck) {
+        this.mIsPinCheck.setValue(mIsPinCheck);
     }
 
     // --- Setter End --- //

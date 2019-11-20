@@ -34,14 +34,49 @@ public class ChargeCompleteFragment extends BaseFragment {
     // 로딩뷰
     private ProgressBar mPrLoading;
 
+    private ReqCardChargeDto reqCardChargeDto;
+
     @Override
     protected void initFragment() {
         super.initFragment();
+        reqCardChargeDto = new ReqCardChargeDto();
+    }
+
+    @Override
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
-            mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
+            if (mChargeViewModel == null) {
+                mChargeViewModel = ViewModelProviders.of(getActivity()).get(ChargeViewModel.class);
+            }
         }
-        mChargeCompleteViewModel =
-                ViewModelProviders.of(this).get(ChargeCompleteViewModel.class);
+
+        if (mChargeCompleteViewModel == null) {
+            mChargeCompleteViewModel =
+                    ViewModelProviders.of(this).get(ChargeCompleteViewModel.class);
+        }
+        mChargeCompleteViewModel.setIsLoading(true);
+
+        // 충전 금액
+        TextView mPriceCharge = view.findViewById(R.id.tv_fragment_charge_complete_money);
+        String price = mChargeViewModel.getPriceCharge().getValue();
+        mPriceCharge.setText(getString(
+                R.string.fragment_payment_money_won,
+                price));
+
+        // 선택한 카드
+        ResCardListDto.CardInformationDto cardInfoDto =
+                mChargeViewModel.getSelectCardInfo().getValue();
+        if (cardInfoDto != null) {
+            TextView mSelectCard = view.findViewById(R.id.tv_fragment_charge_complete_charge_type);
+            mSelectCard.setText(cardInfoDto.getCardName());
+        }
+        reqCardChargeDto.setCardHashPk(mChargeViewModel.getSelectCardInfo().getValue().getCardHash());
+        if (price != null) {
+            reqCardChargeDto.setChargeMoney(price.replace(",", ""));
+        }
+        mChargeCompleteViewModel.onCardPointCharge(reqCardChargeDto);
+
     }
 
     @Override
@@ -54,40 +89,9 @@ public class ChargeCompleteFragment extends BaseFragment {
 
         // 로딩 관련
         mPrLoading = view.findViewById(R.id.pr_fragment_charge_complete_loading);
-        mChargeCompleteViewModel.setIsLoading(true);
 
         TextView mTvChargeCompleteTitle = view.findViewById(R.id.tv_fragment_charge_complete_money_title);
         mTvChargeCompleteTitle.setVisibility(View.GONE);
-
-        if (mChargeViewModel != null) {
-            // 충전 금액
-            TextView mPriceCharge = view.findViewById(R.id.tv_fragment_charge_complete_money);
-            String price = mChargeViewModel.getPriceCharge().getValue();
-            mPriceCharge.setText(getString(
-                    R.string.fragment_payment_money_won,
-                    price));
-
-            // 선택한 카드
-            ResCardListDto.CardInformationDto cardInfoDto =
-                    mChargeViewModel.getSelectCardInfo().getValue();
-            if (cardInfoDto != null) {
-                TextView mSelectCard = view.findViewById(R.id.tv_fragment_charge_complete_charge_type);
-                mSelectCard.setText(cardInfoDto.getCardName());
-            }
-
-            ReqCardChargeDto reqCardChargeDto = new ReqCardChargeDto();
-            reqCardChargeDto.setCardHashPk(mChargeViewModel.getSelectCardInfo().getValue().getCardHash());
-            if (price != null) {
-                reqCardChargeDto.setChargeMoney(price.replace(",", ""));
-            }
-            mChargeCompleteViewModel.onCardPointCharge(reqCardChargeDto);
-
-        } else {
-            Toast.makeText(view.getContext(),
-                    "재시도해 주세요",
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
 
     }
 

@@ -74,20 +74,6 @@ public class PaymentMoneyFragment extends BaseFragment {
             }
         });
 
-        qrCodeViewModel.getServerConnectFail().observe(this, type ->
-                Toast.makeText(
-                        view.getContext(),
-                        "서버와 원활하지 않습니다.",
-                        Toast.LENGTH_SHORT).show());
-
-        qrCodeViewModel.getLoading().observe(this, loadingType -> {
-            if (loadingType) {
-                onStartLoading();
-            } else {
-                onStopLoading();
-            }
-        });
-
         // 적립 결제 금액 지우기
         btnClearSaveMoney.setOnClickListener(view -> {
             etInputSaveMoney.setText("0");
@@ -116,7 +102,9 @@ public class PaymentMoneyFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                qrCodeViewModel.setInputSavePrice(editable.toString());
+                if (qrCodeViewModel != null) {
+                    qrCodeViewModel.setInputSavePrice(editable.toString());
+                }
             }
         });
 
@@ -133,7 +121,31 @@ public class PaymentMoneyFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                qrCodeViewModel.setInputNoSavePrice(editable.toString());
+                if (qrCodeViewModel != null) {
+                    qrCodeViewModel.setInputNoSavePrice(editable.toString());
+                }
+            }
+        });
+
+        // 결제 화면으로 이동
+        btnQrPayment.setOnClickListener(view -> onMoveNavigation(R.id.action_fragment_qr_payment));
+    }
+
+    @Override
+    protected void initObserve() {
+        super.initObserve();
+
+        qrCodeViewModel.getServerConnectFail().observe(this, type ->
+                Toast.makeText(
+                        view.getContext(),
+                        "서버와 원활하지 않습니다.",
+                        Toast.LENGTH_SHORT).show());
+
+        qrCodeViewModel.getLoading().observe(this, loadingType -> {
+            if (loadingType) {
+                onStartLoading();
+            } else {
+                onStopLoading();
             }
         });
 
@@ -179,9 +191,6 @@ public class PaymentMoneyFragment extends BaseFragment {
         qrCodeViewModel.getSaveMoney().observe(this, savePrice ->
                 tvReserveFund.setText(getString(R.string.fragment_payment_money_won, savePrice)));
 
-        // 결제 화면으로 이동
-        btnQrPayment.setOnClickListener(view -> onMoveNavigation(R.id.action_fragment_qr_payment));
-
         qrCodeViewModel.getSession().observe(this, isSession -> {
             if (!isSession) {
                 onNotSession();
@@ -212,8 +221,8 @@ public class PaymentMoneyFragment extends BaseFragment {
     }
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
             qrCodeViewModel = ViewModelProviders.of(getActivity()).get(QrCodeViewModel.class);
             qrCodeViewModel.onPaymentInfoInit();

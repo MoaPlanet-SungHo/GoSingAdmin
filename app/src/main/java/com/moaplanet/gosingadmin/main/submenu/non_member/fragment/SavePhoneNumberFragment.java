@@ -2,6 +2,7 @@ package com.moaplanet.gosingadmin.main.submenu.non_member.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.moaplanet.gosingadmin.R;
@@ -45,11 +47,15 @@ public class SavePhoneNumberFragment extends BaseFragment {
     private boolean mIsPhoneNumber = false;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
-            mViewModel = ViewModelProviders.of(getActivity()).get(NonMemberSavePointViewModel.class);
-            mActivityViewModel = ViewModelProviders.of(getActivity()).get(BaseActivityViewModel.class);
+            if (mViewModel == null) {
+                mViewModel = ViewModelProviders.of(getActivity()).get(NonMemberSavePointViewModel.class);
+            }
+            if (mActivityViewModel == null) {
+                mActivityViewModel = ViewModelProviders.of(getActivity()).get(BaseActivityViewModel.class);
+            }
         }
     }
 
@@ -112,9 +118,12 @@ public class SavePhoneNumberFragment extends BaseFragment {
             }
         });
 
-        mViewModel.searchGoSingPoint();
-        initObserve();
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel.searchGoSingPoint();
     }
 
     private void nonMemberCheck() {

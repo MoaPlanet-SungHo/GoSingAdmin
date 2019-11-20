@@ -43,10 +43,14 @@ public class CreateAccountFragment extends BaseFragment {
     private CreateAccountViewModel mViewModel;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
-        mViewModel = ViewModelProviders.of(this).get(CreateAccountViewModel.class);
-        if (getActivity() != null) {
+    protected void initViewModel() {
+        super.initViewModel();
+
+        if (mViewModel == null) {
+            mViewModel = ViewModelProviders.of(this).get(CreateAccountViewModel.class);
+        }
+
+        if (getActivity() != null && signUpViewModel == null) {
             signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
         }
     }

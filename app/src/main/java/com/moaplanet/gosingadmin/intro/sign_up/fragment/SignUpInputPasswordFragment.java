@@ -19,10 +19,12 @@ public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
     private CreatePinViewModel mVieModel;
 
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
-            mVieModel = ViewModelProviders.of(getActivity()).get(CreatePinViewModel.class);
+            if (mVieModel == null) {
+                mVieModel = ViewModelProviders.of(getActivity()).get(CreatePinViewModel.class);
+            }
         }
     }
 

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,6 +16,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.model.viewmodel.BaseActivityViewModel;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.NonMemberSavePointViewModel;
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResNonMemberPointSaveInitDTO;
@@ -25,8 +25,7 @@ import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
-
-import java.text.DecimalFormat;
+import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 import retrofit2.Call;
 
@@ -37,17 +36,30 @@ public class SavePointFragment extends BaseFragment {
     private BaseActivityViewModel mActivityViewModel;
 
     private EditText etInputPoint;
-    private DecimalFormat decimalFormat;
     private Button btnSaving;
 
     private TextView tvSaveMaxPoint;
 
+    // 포인트 초기화 통신을 할지 말지에 대한 플래그값
+    private boolean isLoadSavePoint = true;
+
     @Override
-    protected void initFragment() {
-        super.initFragment();
+    protected void initViewModel() {
+        super.initViewModel();
         if (getActivity() != null) {
             mViewModel = ViewModelProviders.of(getActivity()).get(NonMemberSavePointViewModel.class);
             mActivityViewModel = ViewModelProviders.of(getActivity()).get(BaseActivityViewModel.class);
+
+            // 포인트 표시
+            TextView tvPoint = view.findViewById(R.id.tv_fragment_save_point);
+
+            if (mViewModel != null) {
+                tvPoint.setText(getString(R.string.fragment_payment_money_won,
+                        mViewModel.getPoint().getValue()));
+            } else {
+                tvPoint.setText("0원");
+            }
+
         }
     }
 
@@ -58,33 +70,21 @@ public class SavePointFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
-        mActivityViewModel.setIsLoading(true);
         tvSaveMaxPoint = view.findViewById(R.id.tv_save_point_max_save);
-        initObserve();
         btnSaving = view.findViewById(R.id.btn_save_point_saving);
         etInputPoint = view.findViewById(R.id.et_save_point_input_point);
-
-        // 포인트 표시
-        TextView tvPoint = view.findViewById(R.id.tv_fragment_save_point);
-
-        if (mViewModel != null) {
-            tvPoint.setText(getString(R.string.fragment_payment_money_won,
-                    mViewModel.getPoint().getValue()));
-        } else {
-            tvPoint.setText("0원");
-        }
-
-
     }
 
     @Override
     public void initListener() {
 
+        CommonTitleBar commonTitleBar = view.findViewById(R.id.common_save_point_title_bar);
+        commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
+
         // 적립 버튼
         btnSaving.setOnClickListener(view -> {
-//            onMoveNavigation(R.id.actionfragment_non_member_save_password)
-            onSavePoint();
+            onMoveNavigation(R.id.actionfragment_non_member_save_password);
+//            onSavePoint();
         });
 
         etInputPoint.addTextChangedListener(mWatcherPriceCharge);
@@ -101,12 +101,16 @@ public class SavePointFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initSavePoint();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (isLoadSavePoint) {
+            isLoadSavePoint = false;
+            initSavePoint();
+        }
     }
 
     private void initSavePoint() {
+        mActivityViewModel.setIsLoading(true);
         RetrofitService
                 .getInstance()
                 .getGoSingApiService()
@@ -151,7 +155,7 @@ public class SavePointFragment extends BaseFragment {
                 .getGoSingApiService()
                 .onServerNonMemberSavePoint(
                         mViewModel.getPhoneNumber().getValue(),
-                        mViewModel.getPoint().getValue().replace(",", ""))
+                        mViewModel.getSavePoint().getValue().replace(",", ""))
                 .enqueue(new MoaAuthCallback<ResNonMemberSavePointDTO>(
                         RetrofitService.getInstance().getMoaAuthConfig(),
                         RetrofitService.getInstance().getSessionChecker()
@@ -200,8 +204,7 @@ public class SavePointFragment extends BaseFragment {
     @Override
     protected void initObserve() {
         super.initObserve();
-        
-        mViewModel.getSavePoint().observe(this, savePoint -> {
+        mViewModel.getSavePoint().observe(getViewLifecycleOwner(), savePoint -> {
             int cp = etInputPoint.getSelectionStart();
             int startLen = etInputPoint.getText().length();
             int wonLen;
@@ -222,9 +225,14 @@ public class SavePointFragment extends BaseFragment {
 
         });
 
-        mViewModel.getSaveMaxPoint().observe(this, saveMaxPoint -> {
-            tvSaveMaxPoint.setText(getString(R.string.fragment_payment_money_won,
-                    StringUtil.convertCommaPrice(saveMaxPoint)));
+        mViewModel.getSaveMaxPoint().observe(getViewLifecycleOwner(),
+                saveMaxPoint -> tvSaveMaxPoint.setText(getString(R.string.fragment_payment_money_won,
+                        StringUtil.convertCommaPrice(saveMaxPoint))));
+
+        mViewModel.getIsPinCheck().observe(getViewLifecycleOwner(), isCheck -> {
+            if (isCheck) {
+                onSavePoint();
+            }
         });
 
     }
@@ -246,4 +254,9 @@ public class SavePointFragment extends BaseFragment {
         }
     };
 
+    @Override
+    public void onPause() {
+        ViewUtil.onHideKeyboard(view);
+        super.onPause();
+    }
 }
