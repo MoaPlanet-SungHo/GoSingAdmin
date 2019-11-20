@@ -247,26 +247,16 @@ public abstract class BaseStoreActivity extends BaseActivity {
                 ) {
                     @Override
                     public void onFinalResponse(Call<ResStoreRegisterDto> call, ResStoreRegisterDto resModel) {
-                        if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-                            if (resModel.getDetailCode() == 200) {
-                                Logger.d("업소 등록 성공");
-                                Intent intent = new Intent(BaseStoreActivity.this,
-                                        WaitingApprovalActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(
-                                        BaseStoreActivity.this,
-                                        "업소 등록을 실패했습니다.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
+                        endLoading();
+                        if (resModel.getDetailCode() == 200) {
+                            Logger.d("업소 등록 성공");
+                            onServerSuccess();
                         } else {
                             Toast.makeText(
                                     BaseStoreActivity.this,
                                     "업소 등록을 실패했습니다.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        endLoading();
                     }
 
                     @Override
@@ -391,4 +381,17 @@ public abstract class BaseStoreActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+
+    private void onServerSuccess() {
+
+        if (this instanceof ModifyStoreActivity) {
+            finish();
+        } else {
+            Intent intent = new Intent(BaseStoreActivity.this,
+                    WaitingApprovalActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 }
