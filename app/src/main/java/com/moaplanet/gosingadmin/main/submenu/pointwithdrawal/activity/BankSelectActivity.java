@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -19,7 +20,10 @@ import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoD
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 은행 선택 화면
@@ -48,7 +52,10 @@ public class BankSelectActivity extends BaseActivity {
     @Override
     public void initListener() {
         CommonTitleBar commonTitleBar = findViewById(R.id.common_activity_bank_select_title_bar);
-        commonTitleBar.setBackButtonClickListener(view -> finish());
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> finish());
 
         RecyclerView recyclerView = findViewById(R.id.rv_activity_bank_select);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

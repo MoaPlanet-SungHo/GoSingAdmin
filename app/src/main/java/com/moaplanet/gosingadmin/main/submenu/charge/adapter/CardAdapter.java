@@ -9,10 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 카드 리스트 어뎁터
@@ -38,16 +42,19 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     public void onBindViewHolder(@NonNull CardHolder holder, int position) {
         holder.init(mCardList.get(position));
 
-        holder.mCardName.setOnClickListener(view -> {
-            mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_checkbox_nor, 0, 0, 0);
-            mBtnSelectCard = holder.mCardName;
-            mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_all_check_press, 0, 0, 0);
-            if (mSelectCard != null) {
-                mSelectCard.onCardInformation(mCardList.get(position));
-            }
-        });
+        RxView.clicks(holder.mCardName)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_checkbox_nor, 0, 0, 0);
+                    mBtnSelectCard = holder.mCardName;
+                    mBtnSelectCard.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_all_check_press, 0, 0, 0);
+                    if (mSelectCard != null) {
+                        mSelectCard.onCardInformation(mCardList.get(position));
+                    }
+                });
     }
 
     @Override

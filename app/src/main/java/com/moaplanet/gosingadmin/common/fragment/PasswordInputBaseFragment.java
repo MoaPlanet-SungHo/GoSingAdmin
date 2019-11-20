@@ -13,10 +13,14 @@ import android.widget.TextView;
 import androidx.navigation.Navigation;
 
 import com.chaos.view.PinView;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 비밀번호 입력화면 공통
@@ -69,15 +73,18 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        commonTitle.setBackButtonClickListener(view1 -> {
-            if (!isFirstStack) {
-                onBackNavigation();
-            } else {
-                if (getActivity() != null) {
-                    getActivity().finish();
-                }
-            }
-        });
+        RxView.clicks(commonTitle.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (!isFirstStack) {
+                        onBackNavigation();
+                    } else {
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                        }
+                    }
+                });
     }
 
     private TextWatcher watcher = new TextWatcher() {

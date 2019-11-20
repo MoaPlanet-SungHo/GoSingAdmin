@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
@@ -26,7 +27,10 @@ import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.moaplanet.gosingadmin.utils.ViewUtil;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class SavePointFragment extends BaseFragment {
 
@@ -78,13 +82,16 @@ public class SavePointFragment extends BaseFragment {
     public void initListener() {
 
         CommonTitleBar commonTitleBar = view.findViewById(R.id.common_save_point_title_bar);
-        commonTitleBar.setBackButtonClickListener(view -> onBackNavigation());
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onBackNavigation());
 
         // 적립 버튼
-        btnSaving.setOnClickListener(view -> {
-            onMoveNavigation(R.id.actionfragment_non_member_save_password);
-//            onSavePoint();
-        });
+        RxView.clicks(btnSaving)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.actionfragment_non_member_save_password));
 
         PriceWatcher priceWatcher = new PriceWatcher(etInputPoint);
         priceWatcher.setCallback((completePrice, price) -> {
@@ -104,13 +111,16 @@ public class SavePointFragment extends BaseFragment {
         etInputPoint.addTextChangedListener(priceWatcher);
 
         Button btnCharge = view.findViewById(R.id.btn_fragment_save_point_charge);
-        btnCharge.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), ChargeActivity.class);
-            startActivity(intent);
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+        RxView.clicks(btnCharge)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), ChargeActivity.class);
+                    startActivity(intent);
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
 
     }
 

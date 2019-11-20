@@ -17,6 +17,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
@@ -28,6 +29,9 @@ import com.orhanobut.logger.Logger;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 
 public class QrPaymentFragment extends BaseFragment {
@@ -140,7 +144,10 @@ public class QrPaymentFragment extends BaseFragment {
     public void initListener() {
         // 타이틀바
         CommonTitleBar titleBar = view.findViewById(R.id.common_inputqr_title_bar);
-        titleBar.setBackButtonClickListener(view -> onBackNavigation());
+        RxView.clicks(titleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onBackNavigation());
     }
 
     @Override

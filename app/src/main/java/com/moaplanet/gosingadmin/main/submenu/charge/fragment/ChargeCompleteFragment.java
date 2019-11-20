@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -19,6 +20,10 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewM
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.req.ReqCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 충전완료 화면 Fragment
@@ -100,15 +105,21 @@ public class ChargeCompleteFragment extends BaseFragment {
 
         // 상단 백버튼 클릭
         CommonTitleBar commonTitle = view.findViewById(R.id.title_fragment_charge_complete);
-        commonTitle.setBackButtonClickListener(view1 -> Navigation.findNavController(view).popBackStack());
+        RxView.clicks(commonTitle.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onBackNavigation());
 
         // 완료 버튼 클릭
         Button btnChargeConfirm = view.findViewById(R.id.btn_fragment_charge_complete_confirm);
-        btnChargeConfirm.setOnClickListener(view1 -> {
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+        RxView.clicks(btnChargeConfirm)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
     }
 
     @Override

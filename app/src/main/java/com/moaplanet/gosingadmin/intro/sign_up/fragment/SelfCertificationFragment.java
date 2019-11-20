@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.interfaces.JsReceiver;
@@ -16,10 +17,13 @@ import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.utils.JsBridge;
 import com.orhanobut.logger.Logger;
 
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
+
 public class SelfCertificationFragment extends BaseFragment implements JsReceiver {
 
     private WebView webViewKgMobilians;
-    private CommonTitleBar titleBar;
 
     @Override
     public int layoutRes() {
@@ -30,12 +34,15 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
     public void initView(View view) {
         webViewKgMobilians = view.findViewById(
                 R.id.wv_self_certification_kg);
-        titleBar = view.findViewById(R.id.common_self_certification_title_bar);
     }
 
     @Override
     public void initListener() {
-        titleBar.setBackButtonClickListener(view -> onBackNavigation());
+        CommonTitleBar titleBar = view.findViewById(R.id.common_self_certification_title_bar);
+        RxView.clicks(titleBar)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onBackNavigation());
     }
 
     @Override

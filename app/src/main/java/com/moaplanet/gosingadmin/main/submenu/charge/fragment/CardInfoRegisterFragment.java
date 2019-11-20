@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -17,7 +18,10 @@ import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class CardInfoRegisterFragment extends BaseFragment {
 
@@ -38,20 +42,20 @@ public class CardInfoRegisterFragment extends BaseFragment {
     public void initListener() {
 
         CommonTitleBar commonTitle = view.findViewById(R.id.title_fragment_card_info_register);
-        commonTitle.setBackButtonClickListener(view1 -> {
-//            Navigation.findNavController(view).popBackStack()
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+        RxView.clicks(commonTitle.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
 
         Button button = view.findViewById(R.id.btn_fragment_card_info_register);
-        button.setOnClickListener(view1 -> {
-            checkCardInfoField();
-//            Bundle bundle = new Bundle();
-//            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW, PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_CARD_REGISTER);
-//            Navigation.findNavController(view).navigate(R.id.action_fragment_password_input, bundle);
-        });
+        RxView.clicks(button)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> checkCardInfoField());
     }
 
     /**

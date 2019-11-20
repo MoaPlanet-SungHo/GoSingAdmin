@@ -10,11 +10,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.point.dialog.PointHistoryDialog;
 import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class PointHistoryListAdapter extends
         RecyclerView.Adapter<PointHistoryListAdapter.PointHistoryHolder> {
@@ -44,10 +48,13 @@ public class PointHistoryListAdapter extends
     public void onBindViewHolder(@NonNull PointHistoryHolder holder, int position) {
         holder.initView();
         PointHistoryDialog dialog = new PointHistoryDialog();
-        holder.itemView.setOnClickListener(view -> {
-            dialog.setType(viewType);
-            dialog.show(fragmentManager, "dialog");
-        });
+        RxView.clicks(holder.itemView)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    dialog.setType(viewType);
+                    dialog.show(fragmentManager, "dialog");
+                });
 
         dialog.setDialogDoneClickListener(view -> dialog.dismiss());
     }

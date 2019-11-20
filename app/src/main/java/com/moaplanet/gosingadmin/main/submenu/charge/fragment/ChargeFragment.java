@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.adapter.CommonViewPagerAdapter;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
@@ -14,6 +15,9 @@ import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class ChargeFragment extends BaseFragment {
 
@@ -33,11 +37,14 @@ public class ChargeFragment extends BaseFragment {
     public void initListener() {
         // 타이틀 바
         CommonTitleBar titleBar = view.findViewById(R.id.common_fragment_charge_title_bar);
-        titleBar.setBackButtonClickListener(view -> {
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+        RxView.clicks(titleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
     }
 
     private void initTab() {

@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment;
@@ -37,8 +38,10 @@ import com.moaplanet.gosingadmin.utils.ViewUtil;
 import com.orhanobut.logger.Logger;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * 계좌등록/변경 Fragment
@@ -51,6 +54,8 @@ public class AccountResisterFragment extends BaseFragment {
     private ConstraintLayout clAccountInfoGroup;
     private TextView tvGuideText;
     private Button btnAccountRegister;
+
+    private CommonTitleBar commonTitle;
 
     // 사용자가 선택한 은행
     private TextView mTvSelectBank;
@@ -78,8 +83,7 @@ public class AccountResisterFragment extends BaseFragment {
     @Override
     public void initView(View view) {
 
-        CommonTitleBar commonTitle = view.findViewById(R.id.title_account_register);
-        commonTitle.setBackButtonClickListener(view1 -> getActivity().finish());
+        commonTitle = view.findViewById(R.id.title_account_register);
         clAccountInfoGroup = view.findViewById(R.id.cl_fragment_account_register_account_info_group);
         tvGuideText = view.findViewById(R.id.tv_account_register_guide_text);
         btnAccountRegister = view.findViewById(R.id.btn_fragment_account_register);
@@ -111,29 +115,33 @@ public class AccountResisterFragment extends BaseFragment {
     @Override
     public void initListener() {
 
+        RxView.clicks(commonTitle.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
+
         // 등록 화면
-        btnAccountRegister.setOnClickListener(view1 -> {
-            if (inputDataCheck()) {
-//                onOpenVirualAccount();
-                onMoveNavigation(R.id.action_fragment_password_input);
-            }
-//            Bundle bundle = new Bundle();
-//            bundle.putString(GoSingConstants.BUNDLE_REQUEST_FROM_VIEW,
-//                    PasswordInputFragment.BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_REGISTER);
-//            Navigation.findNavController(view).navigate(R.id.action_fragment_password_input, bundle);
-
-//            viewModel.setmAccountName(mAccountName.getText().toString());
-//            viewModel.setmAccountNumber(mAccountNumber.getText().toString());
-//
-//            onMoveNavigation(R.id.action_fragment_withdrawal);
-
-        });
+        RxView.clicks(btnAccountRegister)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (inputDataCheck()) {
+                        onMoveNavigation(R.id.action_fragment_password_input);
+                    }
+                });
 
         // 은행 선택
-        mTvSelectBank.setOnClickListener(view1 -> {
-            Intent intent = new Intent(view.getContext(), BankSelectActivity.class);
-            startActivityForResult(intent, 4000);
-        });
+        RxView.clicks(mTvSelectBank)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), BankSelectActivity.class);
+                    startActivityForResult(intent, 4000);
+                });
 
     }
 

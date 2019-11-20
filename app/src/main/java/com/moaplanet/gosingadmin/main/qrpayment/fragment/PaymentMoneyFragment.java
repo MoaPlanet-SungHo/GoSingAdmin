@@ -14,10 +14,15 @@ import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.qrpayment.model.QrCodeViewModel;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -68,25 +73,34 @@ public class PaymentMoneyFragment extends BaseFragment {
     @Override
     public void initListener() {
         CommonTitleBar titleBar = view.findViewById(R.id.title_fragment_payment_money_title_bar);
-        titleBar.setBackButtonClickListener(view -> {
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+        RxView.clicks(titleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
 
         // 적립 결제 금액 지우기
-        btnClearSaveMoney.setOnClickListener(view -> {
-            etInputSaveMoney.setText("0");
-            etInputSaveMoney.requestFocus();
-            imm.showSoftInput(etInputSaveMoney, 0);
-        });
+        RxView.clicks(btnClearSaveMoney)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    etInputSaveMoney.setText("0");
+                    etInputSaveMoney.requestFocus();
+                    imm.showSoftInput(etInputSaveMoney, 0);
+                });
 
         // 비적립 결제 금액 지우기
-        btnClearNoSaveMoney.setOnClickListener(view -> {
-            etInputNoSaveMoney.setText("0");
-            etInputNoSaveMoney.requestFocus();
-            imm.showSoftInput(etInputNoSaveMoney, 0);
-        });
+        RxView.clicks(btnClearNoSaveMoney)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    etInputNoSaveMoney.setText("0");
+                    etInputNoSaveMoney.requestFocus();
+                    imm.showSoftInput(etInputNoSaveMoney, 0);
+                });
 
         etInputSaveMoney.addTextChangedListener(new TextWatcher() {
 
@@ -128,7 +142,10 @@ public class PaymentMoneyFragment extends BaseFragment {
         });
 
         // 결제 화면으로 이동
-        btnQrPayment.setOnClickListener(view -> onMoveNavigation(R.id.action_fragment_qr_payment));
+        RxView.clicks(btnQrPayment)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_qr_payment));
     }
 
     @Override

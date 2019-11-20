@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.adapter.CommonViewPagerAdapter;
@@ -13,10 +14,12 @@ import com.moaplanet.gosingadmin.main.submenu.review.fragment.EmptyCommentReview
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class ReviewManagerActivity extends BaseActivity {
 
-    private CommonTitleBar commonTitleBar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -27,7 +30,6 @@ public class ReviewManagerActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        commonTitleBar = findViewById(R.id.title_activity_review_manager_title_bar);
         tabLayout = findViewById(R.id.tab_activity_review_manager);
 
         List<String> tabList = new ArrayList<>();
@@ -52,6 +54,10 @@ public class ReviewManagerActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        commonTitleBar.setBackButtonClickListener(view -> finish());
+        CommonTitleBar commonTitleBar = findViewById(R.id.title_activity_review_manager_title_bar);
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> finish());
     }
 }

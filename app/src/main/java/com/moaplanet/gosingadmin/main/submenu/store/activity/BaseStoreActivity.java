@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
@@ -41,10 +42,12 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 public abstract class BaseStoreActivity extends BaseActivity {
 
@@ -178,7 +181,10 @@ public abstract class BaseStoreActivity extends BaseActivity {
 //            pictureImageViewList.get(i).setOnClickListener(view1 -> selectPicture());
 //        }
 
-        titleBar.setBackButtonClickListener(view -> finish());
+        RxView.clicks(titleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> finish());
 
         etCeoComment.addTextChangedListener(new TextWatcher() {
             @Override
@@ -197,19 +203,25 @@ public abstract class BaseStoreActivity extends BaseActivity {
             }
         });
 
-        btnDone.setOnClickListener(view -> {
-            if (checkData()) {
-                registerStore();
-            }
-        });
+        RxView.clicks(btnDone)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (checkData()) {
+                        registerStore();
+                    }
+                });
 
         etStoreCallNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         etCeoCallNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
-        tvAddressSearch.setOnClickListener(view -> {
-            Intent intent = new Intent(this, AddressSearchActivity.class);
-            startActivityForResult(intent, GoSingConstants.REQ_CODE_ADDRESS_SEARCH);
-        });
+        RxView.clicks(tvAddressSearch)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(this, AddressSearchActivity.class);
+                    startActivityForResult(intent, GoSingConstants.REQ_CODE_ADDRESS_SEARCH);
+                });
 
     }
 

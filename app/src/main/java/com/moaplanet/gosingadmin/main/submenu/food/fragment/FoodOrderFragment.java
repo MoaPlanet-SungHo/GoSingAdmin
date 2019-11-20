@@ -8,9 +8,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.main.submenu.food.adapter.FoodOrderAdapter;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class FoodOrderFragment extends BaseFragment {
 
@@ -32,8 +37,10 @@ public class FoodOrderFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        btnFoodPayment.setOnClickListener(view ->
-                onMoveNavigation(R.id.action_fragment_food_order_payment));
+        RxView.clicks(btnFoodPayment)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> onMoveNavigation(R.id.action_fragment_food_order_payment));
     }
 
     @Override

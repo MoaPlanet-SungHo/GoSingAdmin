@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.CommonTitleNoUnderlineDialog;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
@@ -31,8 +32,10 @@ import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.orhanobut.logger.Logger;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class SavePhoneNumberFragment extends BaseFragment {
 
@@ -75,13 +78,17 @@ public class SavePhoneNumberFragment extends BaseFragment {
 
         // 포인트 충전 화면으로 이동
         Button btnCharge = view.findViewById(R.id.btn_fragment_save_phone_number_charge);
-        btnCharge.setOnClickListener(v -> {
-            Intent intent = new Intent(view.getContext(), ChargeActivity.class);
-            startActivity(intent);
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
+
+        RxView.clicks(btnCharge)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), ChargeActivity.class);
+                    startActivity(intent);
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
 
         // 핸드폰  번호일시 "-" 추가
         etPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
@@ -112,11 +119,14 @@ public class SavePhoneNumberFragment extends BaseFragment {
         });
 
         // 포인트 적립 화면으로 이동
-        btnDone.setOnClickListener(view1 -> {
-            if (mIsPhoneNumber) {
-                nonMemberCheck();
-            }
-        });
+        RxView.clicks(btnDone)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (mIsPhoneNumber) {
+                        nonMemberCheck();
+                    }
+                });
 
     }
 
