@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -112,7 +113,7 @@ public class AccountResisterFragment extends BaseFragment {
 
         // 등록 화면
         btnAccountRegister.setOnClickListener(view1 -> {
-            if (mBankInformationDto != null) {
+            if (inputDataCheck()) {
 //                onOpenVirualAccount();
                 onMoveNavigation(R.id.action_fragment_password_input);
             }
@@ -161,6 +162,32 @@ public class AccountResisterFragment extends BaseFragment {
             }
         });
 
+    }
+
+    private boolean inputDataCheck() {
+
+        if (mTvSelectBank.getText().length() == 0) {
+            Toast.makeText(view.getContext(),
+                    "은행을 선택해 주세요",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (mAccountNumber.getText().length() == 0) {
+            Toast.makeText(view.getContext(),
+                    "계좌번호를 입력해 주세요",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (mAccountName.getText().length() == 0) {
+            Toast.makeText(view.getContext(),
+                    "예금주를 입력해 주세요.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     private void onOpenVirualAccount() {
