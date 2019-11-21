@@ -44,15 +44,15 @@ public class PointHistoryListAdapter extends
     public void onBindViewHolder(@NonNull PointHistoryHolder holder, int position) {
         holder.initView(pointList.get(position));
         PointHistoryDialog dialog = new PointHistoryDialog();
-        RxView.clicks(holder.itemView)
-                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> {
-//                    dialog.setType(viewType);
-                    dialog.show(fragmentManager, "dialog");
-                });
+//        RxView.clicks(holder.itemView)
+//                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(click -> {
+////                    dialog.setType(viewType);
+//                    dialog.show(fragmentManager, "dialog");
+//                });
 
-        dialog.setDialogDoneClickListener(view -> dialog.dismiss());
+//        dialog.setDialogDoneClickListener(view -> dialog.dismiss());
     }
 
     public void setList(List<ResPointHistoryDto.PointHistoryDto> pointList) {
