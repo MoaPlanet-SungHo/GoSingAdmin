@@ -13,10 +13,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.manager.PointManager;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResPointDto;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryListAdapter;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryPagerAdapter;
 import com.moaplanet.gosingadmin.main.submenu.point.fragment.PointHistoryFragment;
@@ -25,9 +27,12 @@ import com.moaplanet.gosingadmin.utils.StringUtil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 
-public class PointHistoryActivity extends BaseActivity implements View.OnClickListener {
+public class PointHistoryActivity extends BaseActivity {
 
 //    private Button btnOneDay;
 //    private Button btnSevenDay;
@@ -89,6 +94,24 @@ public class PointHistoryActivity extends BaseActivity implements View.OnClickLi
 //        btnSixMonth.setOnClickListener(this);
 //        btnOneYear.setOnClickListener(this);
 
+        // 상단 툴바 뒤로 가기
+        CommonTitleBar commonTitleBar = findViewById(R.id.common_point_history_title_bar);
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    finish();
+                });
+
+        // 1일 포인트 내역 조회
+        Button btnOneDay = findViewById(R.id.btn_point_history_one_day);
+        RxView.clicks(btnOneDay)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+
+                });
+
 
     }
 
@@ -98,7 +121,7 @@ public class PointHistoryActivity extends BaseActivity implements View.OnClickLi
 //        savedInstanceState.putString("defaultEndDate",getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
     }
 
-    @Override
+//    @Override
     public void onClick(View v) {
 //        switch (v.getId()) {
 //            case R.id.btn_point_history_one_day: // 1일
