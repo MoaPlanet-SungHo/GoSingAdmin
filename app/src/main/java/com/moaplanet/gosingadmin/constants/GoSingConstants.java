@@ -38,9 +38,9 @@ public class GoSingConstants {
     // 포인트 관련
     public static final String BUNDLE_VALUE_POINT_VIEW_ALL = "1";
     // 입금만 조회
-    public static final String BUNDLE_VALUE_POINT_VIEW_DEPOSIT = "1";
+    public static final String BUNDLE_VALUE_POINT_VIEW_DEPOSIT = "2";
     // 출금만 조회
-    public static final String BUNDLE_VALUE_POINT_VIEW_WITHDRAWAL = "1";
+    public static final String BUNDLE_VALUE_POINT_VIEW_WITHDRAWAL = "3";
 
     // 주소 검색 관련
     public static final int REQ_CODE_ADDRESS_SEARCH = 3000;
