@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.point.fragment.PointHistoryFragment;
 
 import java.util.ArrayList;
@@ -24,7 +26,6 @@ public class PointHistoryPagerAdapter extends FragmentPagerAdapter {
         titleList.add("출금");
     }
 
-
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -32,13 +33,19 @@ public class PointHistoryPagerAdapter extends FragmentPagerAdapter {
         PointHistoryFragment pointHistoryFragment = new PointHistoryFragment();
         switch (position) {
             case 0:
-                bundle.putString("type", "all");
+                bundle.putString(
+                        GoSingConstants.BUNDLE_KEY_TYPE_POINT_VIEW,
+                        GoSingConstants.BUNDLE_VALUE_POINT_VIEW_ALL);
                 break;
             case 1:
-                bundle.putString("type", "deposit");
+                bundle.putString(
+                        GoSingConstants.BUNDLE_KEY_TYPE_POINT_VIEW,
+                        GoSingConstants.BUNDLE_VALUE_POINT_VIEW_DEPOSIT);
                 break;
             case 2:
-                bundle.putString("type", "withdrawal");
+                bundle.putString(
+                        GoSingConstants.BUNDLE_KEY_TYPE_POINT_VIEW,
+                        GoSingConstants.BUNDLE_VALUE_POINT_VIEW_WITHDRAWAL);
                 break;
         }
 

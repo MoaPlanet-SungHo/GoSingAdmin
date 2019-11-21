@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -20,6 +21,7 @@ import com.moaplanet.gosingadmin.common.manager.PointManager;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResPointDto;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryPagerAdapter;
+import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointHistoryViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.moaplanet.gosingadmin.utils.TimeUtil;
 
@@ -50,9 +52,18 @@ public class PointHistoryActivity extends BaseActivity {
 //        return new GregorianCalendar();
 //    }
 
+    // 포인트 히스토리 뷰모델
+    private PointHistoryViewModel mViewModl;
+
     @Override
     public int layoutRes() {
         return R.layout.activity_point_history;
+    }
+
+    @Override
+    public void initActivity() {
+        super.initActivity();
+        mViewModl = ViewModelProviders.of(this).get(PointHistoryViewModel.class);
     }
 
     @Override
@@ -271,6 +282,7 @@ public class PointHistoryActivity extends BaseActivity {
      * 날짜 초기화
      */
     private void initDate(int beforeDate) {
+        // 시작날짜
         EditText etStartDate = findViewById(R.id.et_point_history_start_date);
         String startDate =
                 TimeUtil.getStringFormatDate(
@@ -279,12 +291,17 @@ public class PointHistoryActivity extends BaseActivity {
                         beforeDate);
         etStartDate.setText(startDate);
 
+        // 종료 날짜
         EditText etEndDate = findViewById(R.id.et_point_history_end_date);
         String endDate =
                 TimeUtil.getStringFormatDate(
                         DATE_FORMAT_SIMPLE,
                         TimeUtil.getTodayCalendar());
         etEndDate.setText(endDate);
+
+        mViewModl.setStartDate(startDate);
+        mViewModl.setEndDate(endDate);
+        mViewModl.setSearchDateComplete(true);
     }
 
     // --- 서버 통신 부분 --- //

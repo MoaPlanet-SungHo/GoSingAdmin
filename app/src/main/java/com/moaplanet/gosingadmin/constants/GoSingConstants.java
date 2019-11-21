@@ -22,16 +22,25 @@ public class GoSingConstants {
     // 핀
     public final static String USER_PIN = "userPin";
 
+    public static HashSet<String> TestSet;
+
     // bundle key 관련
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
     public static final String BUNDLE_KEY_TYPE_PASSWORD = "PASSWORD_TYPE";
     public static final String BUNDLE_KEY_BEFORE_INPUT_PASSWORD = "BEFORE_INPUT_PASSWORD";
+    // 포인트 관련
+    public static final String BUNDLE_KEY_TYPE_POINT_VIEW = "BUNDLE_KEY_TYPE_POINT_VIEW";
 
-    public static HashSet<String> TestSet;
 
     // bundle value 관련
     public static final String BUNDLE_VALUE_CHECK_PASSWORD = "CHECK_PASSWORD";
     public static final String BUNDLE_VALUE_NEW_PASSWORD = "NEW_PASSWORD";
+    // 포인트 관련
+    public static final String BUNDLE_VALUE_POINT_VIEW_ALL = "1";
+    // 입금만 조회
+    public static final String BUNDLE_VALUE_POINT_VIEW_DEPOSIT = "1";
+    // 출금만 조회
+    public static final String BUNDLE_VALUE_POINT_VIEW_WITHDRAWAL = "1";
 
     // 주소 검색 관련
     public static final int REQ_CODE_ADDRESS_SEARCH = 3000;
