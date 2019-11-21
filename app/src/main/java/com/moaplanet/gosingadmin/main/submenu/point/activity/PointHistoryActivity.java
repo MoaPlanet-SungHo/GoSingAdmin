@@ -1,14 +1,10 @@
 package com.moaplanet.gosingadmin.main.submenu.point.activity;
 
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-import androidx.annotation.Nullable;
-
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -34,26 +30,10 @@ import static com.moaplanet.gosingadmin.utils.TimeUtil.DATE_FORMAT_SIMPLE;
 
 public class PointHistoryActivity extends BaseActivity {
 
-//    private Button btnOneDay;
-//    private Button btnSevenDay;
-//    private Button btnOneMonth;
-//    private Button btnThreeMonth;
-//    private Button btnSixMonth;
-//    private Button btnOneYear;
-//    private EditText etStartDate;
-//    private EditText etEndDate;
-
-//    private PointHistoryFragment pointHistoryFragment;
-//    private PointHistoryListAdapter pointHistoryListAdapter;
-
-//    private static final String DATE_FORMAT_SIMPLE = "yyyy-MM-dd";
-
-//    private static Calendar getTodayCalendar() {
-//        return new GregorianCalendar();
-//    }
-
     // 포인트 히스토리 뷰모델
-    private PointHistoryViewModel mViewModl;
+    private PointHistoryViewModel mViewModel;
+    // 1일 7일등 기간 조회 버튼을 클릭했을때 뷰
+    private Button mBtnSelectDaySearch;
 
     @Override
     public int layoutRes() {
@@ -63,28 +43,13 @@ public class PointHistoryActivity extends BaseActivity {
     @Override
     public void initActivity() {
         super.initActivity();
-        mViewModl = ViewModelProviders.of(this).get(PointHistoryViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(PointHistoryViewModel.class);
     }
 
     @Override
     public void initView() {
         TabLayout tabPointHistory = findViewById(R.id.tl_point_history_tab);
         ViewPager vpPointHistory = findViewById(R.id.vp_point_history);
-//        btnOneDay = findViewById(R.id.btn_point_history_one_day);
-//        btnSevenDay = findViewById(R.id.btn_point_history_seven_day);
-//        btnOneMonth = findViewById(R.id.btn_point_history_thirty_day);
-//        btnThreeMonth = findViewById(R.id.btn_point_history_three_months);
-//        btnSixMonth = findViewById(R.id.btn_point_history_six_months);
-//        btnOneYear = findViewById(R.id.btn_point_history_one_year);
-//        etStartDate = findViewById(R.id.et_point_history_start_date);
-//        etEndDate = findViewById(R.id.et_point_history_end_date);
-//        pointHistoryFragment = ((PointHistoryFragment) getSupportFragmentManager().findFragmentById(R.id.rv_point_history));
-//        pointHistoryListAdapter = new PointHistoryListAdapter();
-
-        // etStartDate, etEndDate 기본 값 설정
-//        setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -7)
-//                , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-
 
         PointHistoryPagerAdapter pointHistoryPagerAdapter = new PointHistoryPagerAdapter(
                 getSupportFragmentManager(),
@@ -99,12 +64,6 @@ public class PointHistoryActivity extends BaseActivity {
     @Override
     public void initListener() {
         onPointLoad();
-//        btnOneDay.setOnClickListener(this);
-//        btnSevenDay.setOnClickListener(this);
-//        btnOneMonth.setOnClickListener(this);
-//        btnThreeMonth.setOnClickListener(this);
-//        btnSixMonth.setOnClickListener(this);
-//        btnOneYear.setOnClickListener(this);
 
         // 상단 툴바 뒤로 가기
         CommonTitleBar commonTitleBar = findViewById(R.id.common_point_history_title_bar);
@@ -118,142 +77,62 @@ public class PointHistoryActivity extends BaseActivity {
         RxView.clicks(btnOneDay)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> initDate(-1));
+                .subscribe(click -> {
+                    onChangeSelectButton(btnOneDay);
+                    initDate(-1);
+                });
 
         // 7일 포인트 내역 조회 날짜 세팅
         Button btnSevenDay = findViewById(R.id.btn_point_history_seven_day);
         RxView.clicks(btnSevenDay)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> initDate(-7));
+                .subscribe(click -> {
+                    onChangeSelectButton(btnSevenDay);
+                    initDate(-7);
+                });
 
         // 1달 포인트 내역 조회 날짜 세팅
         Button btnAMonth = findViewById(R.id.btn_point_history_thirty_day);
         RxView.clicks(btnAMonth)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> initDate(-30));
+                .subscribe(click -> {
+                    onChangeSelectButton(btnAMonth);
+                    initDate(-30);
+                });
 
         // 3개월 포인트 내역 조회 날짜 세팅
         Button btnThreeMonth = findViewById(R.id.btn_point_history_three_months);
         RxView.clicks(btnThreeMonth)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> initDate(-90));
+                .subscribe(click -> {
+                    onChangeSelectButton(btnThreeMonth);
+                    initDate(-90);
+                });
 
         // 6월 포인트 내역 조회 날짜 세팅
         Button btnSixMonthDay = findViewById(R.id.btn_point_history_six_months);
         RxView.clicks(btnSixMonthDay)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> initDate(-180));
+                .subscribe(click -> {
+                    onChangeSelectButton(btnSixMonthDay);
+                    initDate(-180);
+                });
 
         // 1년 포인트 내역 조회 날짜 세팅
         Button btnAYear = findViewById(R.id.btn_point_history_one_year);
         RxView.clicks(btnAYear)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> initDate(-365));
+                .subscribe(click -> {
+                    onChangeSelectButton(btnAYear);
+                    initDate(-365);
+                });
 
     }
-
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        savedInstanceState.putString("defaultStartDate",getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -7));
-//        savedInstanceState.putString("defaultEndDate",getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-    }
-
-    //    @Override
-    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btn_point_history_one_day: // 1일
-//                setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -1)
-//                        , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-//                sendDate();
-//                pointHistoryFragment.onPointHistoryList();
-//
-//                break;
-//
-//            case R.id.btn_point_history_seven_day: // 1주일
-//                setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -7)
-//                        , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-//                sendDate();
-//                pointHistoryFragment.onPointHistoryList();
-//                break;
-//
-//            case R.id.btn_point_history_thirty_day: // 1개월
-//                setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -30)
-//                        , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-//                sendDate();
-//                pointHistoryFragment.onPointHistoryList();
-//                break;
-//
-//            case R.id.btn_point_history_three_months: // 3개월
-//                setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -90)
-//                        , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-//                sendDate();
-//                pointHistoryFragment.onPointHistoryList();
-//                break;
-//
-//            case R.id.btn_point_history_six_months: // 6개월
-//                setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -180)
-//                        , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-//                sendDate();
-//                pointHistoryFragment.onPointHistoryList();
-//                break;
-//
-//            case R.id.btn_point_history_one_year: // 1년
-//                setCalendarTextView(getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar(), -365)
-//                        , getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
-//                sendDate();
-//                pointHistoryFragment.onPointHistoryList();
-//                break;
-//        }
-    }
-
-    // PointHistoryFragment로 값 전달
-//    private void sendDate() {
-//        Bundle bundle = new Bundle();
-//        pointHistoryFragment = new PointHistoryFragment();
-//        bundle.putString("startDate", DateToString(etStartDate));
-//        bundle.putString("endDate", DateToString(etEndDate));
-//        pointHistoryFragment.setArguments(bundle);
-//    }
-
-//    public String DateToString(EditText editText) {
-//        return editText.getText().toString().trim().replaceAll("-", "");
-//    }
-
-    // 오늘 날짜 가져오기
-//    private static String getStringFormatDate(String toFormat, Calendar calendar) {
-//        SimpleDateFormat transToFormat = new SimpleDateFormat(toFormat);
-//        return transToFormat.format(calendar.getTime());
-//    }
-
-    // 버튼 누른 날짜 가져오기
-//    private static String getStringFormatDate(String toFormat, Calendar calendar, int day) {
-//        SimpleDateFormat transToFormat = new SimpleDateFormat(toFormat);
-//        calendar.add(Calendar.DATE, day);
-//        return transToFormat.format(calendar.getTime());
-//    }
-
-    // 빈 값 체크
-//    private boolean checkNotNull(String value) {
-//        return value != null;
-//    }
-
-
-    // 시작일 종료일 설정
-//    private void setCalendarTextView(String startDate, String endDate) {
-//        if (checkNotNull(startDate) && checkNotNull(endDate)) {
-//            if (etStartDate != null) {
-//                etStartDate.setText(startDate);
-//            }
-//            if (etEndDate != null) {
-//                etEndDate.setText(endDate);
-//            }
-//        }
-//    }
 
     /**
      * 포인트 초기화
@@ -279,6 +158,25 @@ public class PointHistoryActivity extends BaseActivity {
     }
 
     /**
+     * 선택된 버튼 변경
+     */
+    private void onChangeSelectButton(Button button) {
+
+        if (mBtnSelectDaySearch != null) {
+            mBtnSelectDaySearch.setBackgroundResource(R.drawable.border_rect_4_4_4_4_1dp_e9e9e9_ffffff);
+            mBtnSelectDaySearch.setTextColor(
+                    ContextCompat.getColor(this, R.color.color_aaaaaa)
+            );
+        }
+        mBtnSelectDaySearch = button;
+        mBtnSelectDaySearch.setBackgroundResource(R.drawable.border_rect_4_4_4_4_1dp_4300ff_ffffff);
+        mBtnSelectDaySearch.setTextColor(
+                ContextCompat.getColor(this, R.color.color_4300ff)
+        );
+
+    }
+
+    /**
      * 날짜 초기화
      */
     private void initDate(int beforeDate) {
@@ -299,9 +197,9 @@ public class PointHistoryActivity extends BaseActivity {
                         TimeUtil.getTodayCalendar());
         etEndDate.setText(endDate);
 
-        mViewModl.setStartDate(startDate);
-        mViewModl.setEndDate(endDate);
-        mViewModl.setSearchDateComplete(true);
+        mViewModel.setStartDate(startDate);
+        mViewModel.setEndDate(endDate);
+        mViewModel.setSearchDateComplete(true);
     }
 
     // --- 서버 통신 부분 --- //
