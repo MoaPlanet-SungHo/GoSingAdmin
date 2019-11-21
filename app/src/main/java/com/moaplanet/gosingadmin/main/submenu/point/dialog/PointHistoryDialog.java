@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
 
 public class PointHistoryDialog extends DialogFragment {
 
@@ -18,8 +19,14 @@ public class PointHistoryDialog extends DialogFragment {
     private String type;
     private View.OnClickListener onClickListener;
 
-    public void setType(String type) {
-        this.type = type;
+    private ResPointHistoryDto.PointHistoryDto pointModel;
+
+//    public void setType(String type) {
+//        this.type = type;
+//    }
+
+    public void setPointModel(ResPointHistoryDto.PointHistoryDto pointModel) {
+        this.pointModel = pointModel;
     }
 
     @Nullable
@@ -35,19 +42,19 @@ public class PointHistoryDialog extends DialogFragment {
         TextView dialogDone = view.findViewById(R.id.tv_point_history_dialog_done);
         TextView dialogPoint = view.findViewById(R.id.tv_point_history_dialog_point);
 
-        if (type.equals("deposit")) {
-            dialogPoint.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_4300ff_plus,
-                    0,
-                    0,
-                    0);
-        } else {
+//        if (type.equals("deposit")) {
+//            dialogPoint.setCompoundDrawablesWithIntrinsicBounds(
+//                    R.drawable.ic_4300ff_plus,
+//                    0,
+//                    0,
+//                    0);
+//        } else {
             dialogPoint.setCompoundDrawablesWithIntrinsicBounds(
                     R.drawable.ic_ff4a24_minus,
                     0,
                     0,
                     0);
-        }
+//        }
 
         dialogPoint.setText("3,000원");
         dialogDone.setOnClickListener(onClickListener);

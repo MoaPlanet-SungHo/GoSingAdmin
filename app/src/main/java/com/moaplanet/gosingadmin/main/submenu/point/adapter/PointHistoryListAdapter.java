@@ -42,17 +42,18 @@ public class PointHistoryListAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull PointHistoryHolder holder, int position) {
-        holder.initView(pointList.get(position));
+        ResPointHistoryDto.PointHistoryDto pointModel = pointList.get(position);
+        holder.initView(pointModel);
         PointHistoryDialog dialog = new PointHistoryDialog();
-//        RxView.clicks(holder.itemView)
-//                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(click -> {
-////                    dialog.setType(viewType);
-//                    dialog.show(fragmentManager, "dialog");
-//                });
+        RxView.clicks(holder.itemView)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    dialog.setPointModel(pointModel);
+                    dialog.show(fragmentManager, "dialog");
+                });
 
-//        dialog.setDialogDoneClickListener(view -> dialog.dismiss());
+        dialog.setDialogDoneClickListener(view -> dialog.dismiss());
     }
 
     public void setList(List<ResPointHistoryDto.PointHistoryDto> pointList) {
@@ -70,8 +71,6 @@ public class PointHistoryListAdapter extends
     }
 
     public class PointHistoryHolder extends RecyclerView.ViewHolder {
-
-        private final int GET_POINT = 1;
 
         // 포인트
         private TextView tvPoint;
@@ -94,6 +93,7 @@ public class PointHistoryListAdapter extends
 
             int pointColor;
             int stringResId;
+            final int GET_POINT = 1;
             if (pointModel.getInfoPkType() == GET_POINT) {
                 stringResId = R.string.item_point_history_plus_point;
                 pointColor = ContextCompat.getColor(itemView.getContext(), R.color.color_4300ff);
