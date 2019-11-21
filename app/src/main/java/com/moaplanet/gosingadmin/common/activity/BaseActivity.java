@@ -1,14 +1,18 @@
 package com.moaplanet.gosingadmin.common.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.model.viewmodel.BaseActivityViewModel;
+import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 
 /**
  * 공통으로 사용할 액티비티
@@ -83,4 +87,29 @@ public abstract class BaseActivity extends AppCompatActivity {
             mIsLoading = isLoading;
         });
     }
+
+    /**
+     * 세션 없을 경우
+     */
+    protected void onNotSession() {
+        Toast.makeText(this,
+                R.string.common_not_exist_session,
+                Toast.LENGTH_SHORT)
+                .show();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finishAffinity();
+    }
+
+    /**
+     * 통신 실패시
+     */
+    protected void onNetworkConnectFail() {
+        Toast.makeText(this,
+                "다시 시도해 주세요",
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
 }

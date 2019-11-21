@@ -102,7 +102,6 @@
                             android:id="@+id/tv_point_history_schedule_point"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_question_mark"
                             android:drawablePadding="7dp"
                             android:fontFamily="@font/font_gd_17"
                             android:textColor="@color/color_000000"

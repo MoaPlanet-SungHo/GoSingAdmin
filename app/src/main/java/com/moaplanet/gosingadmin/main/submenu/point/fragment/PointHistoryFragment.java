@@ -13,7 +13,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryListAdapter;
-import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.point.model.res.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;

@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.point.dto.res;
+package com.moaplanet.gosingadmin.main.submenu.point.model.res;
 
 import com.google.gson.annotations.SerializedName;
 import com.moaplanet.gosingadmin.network.model.CommonResDto;

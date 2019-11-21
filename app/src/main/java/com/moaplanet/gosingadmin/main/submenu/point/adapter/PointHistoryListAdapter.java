@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.point.dialog.PointHistoryDialog;
-import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.point.model.res.ResPointHistoryDto;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

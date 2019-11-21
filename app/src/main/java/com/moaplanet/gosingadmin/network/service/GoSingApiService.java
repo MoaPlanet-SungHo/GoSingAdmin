@@ -18,7 +18,7 @@ import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResNonMemberSaveP
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResPointSaveNonMemberCheckDTO;
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
-import com.moaplanet.gosingadmin.main.submenu.point.dto.res.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.point.model.res.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResPointWithDrawalDTO;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
