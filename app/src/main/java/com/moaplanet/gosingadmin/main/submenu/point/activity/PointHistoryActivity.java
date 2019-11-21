@@ -19,17 +19,15 @@ import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.manager.PointManager;
 import com.moaplanet.gosingadmin.common.model.dto.res.ResPointDto;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
-import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryListAdapter;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryPagerAdapter;
-import com.moaplanet.gosingadmin.main.submenu.point.fragment.PointHistoryFragment;
 import com.moaplanet.gosingadmin.utils.StringUtil;
+import com.moaplanet.gosingadmin.utils.TimeUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
+
+import static com.moaplanet.gosingadmin.utils.TimeUtil.DATE_FORMAT_SIMPLE;
 
 
 public class PointHistoryActivity extends BaseActivity {
@@ -82,6 +80,8 @@ public class PointHistoryActivity extends BaseActivity {
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpPointHistory.setAdapter(pointHistoryPagerAdapter);
         tabPointHistory.setupWithViewPager(vpPointHistory);
+
+        initDate(0);
     }
 
     @Override
@@ -99,19 +99,14 @@ public class PointHistoryActivity extends BaseActivity {
         RxView.clicks(commonTitleBar.getBtnBack())
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> {
-                    finish();
-                });
+                .subscribe(click -> finish());
 
         // 1일 포인트 내역 조회
         Button btnOneDay = findViewById(R.id.btn_point_history_one_day);
         RxView.clicks(btnOneDay)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> {
-
-                });
-
+                .subscribe(click -> initDate(-1));
 
     }
 
@@ -121,7 +116,7 @@ public class PointHistoryActivity extends BaseActivity {
 //        savedInstanceState.putString("defaultEndDate",getStringFormatDate(DATE_FORMAT_SIMPLE, getTodayCalendar()));
     }
 
-//    @Override
+    //    @Override
     public void onClick(View v) {
 //        switch (v.getId()) {
 //            case R.id.btn_point_history_one_day: // 1일
@@ -214,7 +209,7 @@ public class PointHistoryActivity extends BaseActivity {
 //    }
 
     /**
-     * 포인트 세팅
+     * 포인트 초기화
      */
     private void initPoint(ResPointDto pointModel) {
         // 포인트
@@ -234,6 +229,26 @@ public class PointHistoryActivity extends BaseActivity {
         tvPointRemove.setText(getString(
                 R.string.common_price_won,
                 StringUtil.convertCommaPrice(pointModel.getRemovePoint())));
+    }
+
+    /**
+     * 날짜 초기화
+     */
+    private void initDate(int beforeDate) {
+        EditText etStartDate = findViewById(R.id.et_point_history_start_date);
+        String startDate =
+                TimeUtil.getStringFormatDate(
+                        DATE_FORMAT_SIMPLE,
+                        TimeUtil.getTodayCalendar(),
+                        beforeDate);
+        etStartDate.setText(startDate);
+
+        EditText etEndDate = findViewById(R.id.et_point_history_end_date);
+        String endDate =
+                TimeUtil.getStringFormatDate(
+                        DATE_FORMAT_SIMPLE,
+                        TimeUtil.getTodayCalendar());
+        etEndDate.setText(endDate);
     }
 
     // --- 서버 통신 부분 --- //
