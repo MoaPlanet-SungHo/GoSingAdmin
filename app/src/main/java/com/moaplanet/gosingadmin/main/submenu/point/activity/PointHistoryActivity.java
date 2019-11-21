@@ -101,12 +101,47 @@ public class PointHistoryActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> finish());
 
-        // 1일 포인트 내역 조회
+        // 1일 포인트 내역 조회 날짜 세팅
         Button btnOneDay = findViewById(R.id.btn_point_history_one_day);
         RxView.clicks(btnOneDay)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> initDate(-1));
+
+        // 7일 포인트 내역 조회 날짜 세팅
+        Button btnSevenDay = findViewById(R.id.btn_point_history_seven_day);
+        RxView.clicks(btnSevenDay)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> initDate(-7));
+
+        // 1달 포인트 내역 조회 날짜 세팅
+        Button btnAMonth = findViewById(R.id.btn_point_history_thirty_day);
+        RxView.clicks(btnAMonth)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> initDate(-30));
+
+        // 3개월 포인트 내역 조회 날짜 세팅
+        Button btnThreeMonth = findViewById(R.id.btn_point_history_three_months);
+        RxView.clicks(btnThreeMonth)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> initDate(-90));
+
+        // 6월 포인트 내역 조회 날짜 세팅
+        Button btnSixMonthDay = findViewById(R.id.btn_point_history_six_months);
+        RxView.clicks(btnSixMonthDay)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> initDate(-180));
+
+        // 1년 포인트 내역 조회 날짜 세팅
+        Button btnAYear = findViewById(R.id.btn_point_history_one_year);
+        RxView.clicks(btnAYear)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> initDate(-365));
 
     }
 
