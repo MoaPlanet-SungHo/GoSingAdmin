@@ -17,6 +17,7 @@ import com.moaplanet.gosingadmin.main.submenu.point.model.res.ResPointHistoryDto
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
 
@@ -35,6 +36,18 @@ public class PointHistoryFragment extends BaseFragment {
     }
 
     @Override
+    protected void initFragment() {
+        super.initFragment();
+        if (getArguments() != null) {
+            viewType = getArguments().getString("type");
+            startDate = getArguments().getString("defaultStartDate");
+            endDate = getArguments().getString("defaultEndDate");
+        }
+
+        Logger.d("viewType : " + viewType);
+    }
+
+    @Override
     public void initView(View view) {
         rvPointHistory = view.findViewById(R.id.rv_point_history);
         rvPointHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -43,9 +56,7 @@ public class PointHistoryFragment extends BaseFragment {
         pointHistoryListAdapter.setFragmentManager(getFragmentManager());
         rvPointHistory.setAdapter(pointHistoryListAdapter);
 
-        String str;
-        str = getArguments().getString("type");
-        Log.e("type!","type "+str);
+        onPointHistoryList();
     }
 
     @Override
@@ -53,18 +64,7 @@ public class PointHistoryFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            viewType = getArguments().getString("type");
-            startDate = getArguments().getString("defaultStartDate");
-            endDate = getArguments().getString("defaultEndDate");
-        }
-        onPointHistoryList();
-    }
-
-    public void onPointHistoryList() {
+    private void onPointHistoryList() {
         PointHistoryListAdapter pointHistoryListAdapter = new PointHistoryListAdapter();
         RetrofitService.getInstance().getGoSingApiService().onServerPointHistoryList(setString(startDate), setString(endDate), setSearchCount(viewType))
                 .enqueue(new MoaAuthCallback<ResPointHistoryDto>(

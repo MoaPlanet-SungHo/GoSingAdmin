@@ -79,6 +79,7 @@ public class PointHistoryActivity extends BaseActivity {
                 getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpPointHistory.setAdapter(pointHistoryPagerAdapter);
+        vpPointHistory.setOffscreenPageLimit(2);
         tabPointHistory.setupWithViewPager(vpPointHistory);
 
         initDate(0);
