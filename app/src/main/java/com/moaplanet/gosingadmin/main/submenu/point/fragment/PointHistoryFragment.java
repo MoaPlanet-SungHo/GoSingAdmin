@@ -11,7 +11,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryListAdapter;
-import com.moaplanet.gosingadmin.main.submenu.point.model.res.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointHistoryViewModel;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
@@ -55,7 +55,7 @@ public class PointHistoryFragment extends BaseFragment {
         RecyclerView rvPointHistory = view.findViewById(R.id.rv_point_history);
         rvPointHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mAdapter = new PointHistoryListAdapter();
-        mAdapter.setViewType(viewType);
+//        mAdapter.setViewType(viewType);
         mAdapter.setFragmentManager(getFragmentManager());
         rvPointHistory.setAdapter(mAdapter);
 

@@ -31,7 +31,7 @@ public class PointHistoryViewModel extends BaseViewModel {
 
     public String getStartDate() {
         if (mStartDate.getValue() != null) {
-            return mStartDate.getValue().replace(",", "");
+            return mStartDate.getValue().replace(".", "");
         } else {
             return "";
         }
@@ -39,7 +39,7 @@ public class PointHistoryViewModel extends BaseViewModel {
 
     public String getEndDate() {
         if (mEndDate.getValue() != null) {
-            return mEndDate.getValue().replace(",", "");
+            return mEndDate.getValue().replace(".", "");
         } else {
             return "";
         }

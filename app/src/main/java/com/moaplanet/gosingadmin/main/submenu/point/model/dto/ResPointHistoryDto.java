@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.point.model.res;
+package com.moaplanet.gosingadmin.main.submenu.point.model.dto;
 
 import com.google.gson.annotations.SerializedName;
 import com.moaplanet.gosingadmin.network.model.CommonResDto;
@@ -6,12 +6,9 @@ import com.moaplanet.gosingadmin.network.model.CommonResDto;
 import java.util.List;
 
 /**
- * Created by seungju on 2019-11-13
+ * 포인트 리스트 데이터 받을 dto
  */
 public class ResPointHistoryDto extends CommonResDto {
-
-    @SerializedName("point_return_map")
-    private PointHistoryDto pointReturnMapDto;
 
     @SerializedName("point_list")
     private List<PointHistoryDto> pointHistoryDtoList;
@@ -30,7 +27,7 @@ public class ResPointHistoryDto extends CommonResDto {
         private String title;
 
         // 등록 날짜
-        @SerializedName("insert_")
+        @SerializedName("insert_date")
         private String insertDate;
 
         // 포인트 액수
@@ -83,23 +80,6 @@ public class ResPointHistoryDto extends CommonResDto {
 
         public String getContent() { return content; }
     }
-
-    public class pointReturnMapDto {
-
-        // 고잇포인트
-        @SerializedName("goeat_point")
-        private int goEatPoint;
-
-        // 활성예정 포인트
-        @SerializedName("actv_schdl_point")
-        private int actvPoint;
-
-        public int getGoEatPoint() { return goEatPoint; }
-
-        public int getActvPoint() { return actvPoint; }
-    }
-
-    public PointHistoryDto getPointReturnMapDto() { return pointReturnMapDto; }
 
     public List<PointHistoryDto> getPointHistoryDtoList() { return pointHistoryDtoList; }
 }

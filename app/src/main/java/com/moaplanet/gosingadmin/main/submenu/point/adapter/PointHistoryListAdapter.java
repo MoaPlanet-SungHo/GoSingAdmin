@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.main.submenu.point.dialog.PointHistoryDialog;
-import com.moaplanet.gosingadmin.main.submenu.point.model.res.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -23,10 +23,10 @@ import rx.android.schedulers.AndroidSchedulers;
 public class PointHistoryListAdapter extends
         RecyclerView.Adapter<PointHistoryListAdapter.PointHistoryHolder> {
 
-    private String viewType = "all";
+    //    private String viewType = "all";
     private FragmentManager fragmentManager;
 
-    private List<ResPointHistoryDto.PointHistoryDto> pointHistoryDtoList;
+    private List<ResPointHistoryDto.PointHistoryDto> pointList;
 
     @NonNull
     @Override
@@ -36,9 +36,9 @@ public class PointHistoryListAdapter extends
         return new PointHistoryHolder(view);
     }
 
-    public void setViewType(String viewType) {
-        this.viewType = viewType;
-    }
+//    public void setViewType(String viewType) {
+//        this.viewType = viewType;
+//    }
 
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -46,54 +46,66 @@ public class PointHistoryListAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull PointHistoryHolder holder, int position) {
-        holder.initView();
+        holder.initView(pointList.get(position));
         PointHistoryDialog dialog = new PointHistoryDialog();
         RxView.clicks(holder.itemView)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> {
-                    dialog.setType(viewType);
+//                    dialog.setType(viewType);
                     dialog.show(fragmentManager, "dialog");
                 });
 
         dialog.setDialogDoneClickListener(view -> dialog.dismiss());
     }
 
-    public void setList(List<ResPointHistoryDto.PointHistoryDto> pointHistoryDtoList) {
-        this.pointHistoryDtoList = pointHistoryDtoList;
+    public void setList(List<ResPointHistoryDto.PointHistoryDto> pointList) {
+        this.pointList = pointList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 30;
+        if (pointList == null) {
+            return 0;
+        } else {
+            return pointList.size();
+        }
     }
 
     public class PointHistoryHolder extends RecyclerView.ViewHolder {
 
         private TextView tvPoint;
+        private TextView mTitle;
+        private TextView mDate;
 
         public PointHistoryHolder(@NonNull View itemView) {
             super(itemView);
             tvPoint = itemView.findViewById(R.id.tv_item_point_history_point);
+            mTitle = itemView.findViewById(R.id.tv_item_point_history_title);
+            mDate = itemView.findViewById(R.id.tv_item_point_history_date);
         }
 
-        public void initView() {
+        public void initView(ResPointHistoryDto.PointHistoryDto pointModel) {
+
+            mTitle.setText(pointModel.getTitle());
+            mDate.setText(pointModel.getInsertDate());
 
             int pointColor;
             int stringResId;
-            if (viewType.equals("deposit")) {
-                stringResId = R.string.item_point_history_plus_point;
-                pointColor = ContextCompat.getColor(itemView.getContext(), R.color.color_4300ff);
-            } else {
-                stringResId = R.string.item_point_history_minus_point;
-                pointColor = ContextCompat.getColor(itemView.getContext(), R.color.color_ff4a24);
-            }
-            tvPoint.setText(itemView.getContext().getString(
-                    stringResId,
-                    "3,000"));
+//            if (viewType.equals("deposit")) {
+//                stringResId = R.string.item_point_history_plus_point;
+//                pointColor = ContextCompat.getColor(itemView.getContext(), R.color.color_4300ff);
+//            } else {
+//                stringResId = R.string.item_point_history_minus_point;
+//                pointColor = ContextCompat.getColor(itemView.getContext(), R.color.color_ff4a24);
+//            }
+//            tvPoint.setText(itemView.getContext().getString(
+//                    stringResId,
+//                    "3,000"));
 
-            tvPoint.setTextColor(pointColor);
+//            tvPoint.setTextColor(pointColor);
         }
+
     }
 }
