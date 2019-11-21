@@ -66,6 +66,7 @@ public class BankSelectActivity extends BaseActivity {
             Intent intent = new Intent();
             intent.putExtra("data", new Gson().toJson(bankInformationDto));
             setResult(RESULT_OK, intent);
+            finish();
         });
 
         getBankList();
