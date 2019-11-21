@@ -16,16 +16,11 @@ import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointHistory
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
 
 public class PointHistoryFragment extends BaseFragment {
 
-
-    //    private String startDate = "startDate";
-//    private String endDate = "startDate";
-//    private String type = "type";
     // 뷰 타입
     private String viewType = GoSingConstants.BUNDLE_VALUE_POINT_VIEW_ALL;
     // 포인트 내역 리스트 어뎁터
@@ -43,8 +38,6 @@ public class PointHistoryFragment extends BaseFragment {
         super.initFragment();
         if (getArguments() != null) {
             viewType = getArguments().getString(GoSingConstants.BUNDLE_KEY_TYPE_POINT_VIEW);
-//            startDate = getArguments().getString("defaultStartDate");
-//            endDate = getArguments().getString("defaultEndDate");
         }
 
     }
