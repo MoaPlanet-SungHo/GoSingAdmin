@@ -68,7 +68,7 @@ public class NonMemberSavePointViewModel extends BaseViewModel {
     }
 
     public void setmSaveMaxPoint(int saveMaxPoint) {
-        if (mSaveMaxPoint.getValue() != null && saveMaxPoint != mSaveMaxPoint.getValue()) {
+        if (mSaveMaxPoint.getValue() == null || saveMaxPoint != mSaveMaxPoint.getValue()) {
             this.mSaveMaxPoint.setValue(saveMaxPoint);
         }
     }

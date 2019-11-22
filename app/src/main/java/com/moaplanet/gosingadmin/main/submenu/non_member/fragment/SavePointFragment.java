@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -42,6 +43,7 @@ public class SavePointFragment extends BaseFragment {
     private Button btnSaving;
 
     private TextView tvSaveMaxPoint;
+    private TextView tvSaveAfterPoint;
 
     // 포인트 초기화 통신을 할지 말지에 대한 플래그값
     private boolean isLoadSavePoint = true;
@@ -62,6 +64,7 @@ public class SavePointFragment extends BaseFragment {
             } else {
                 tvPoint.setText("0원");
             }
+            tvSaveAfterPoint.setText(tvPoint.getText());
 
         }
     }
@@ -76,6 +79,7 @@ public class SavePointFragment extends BaseFragment {
         tvSaveMaxPoint = view.findViewById(R.id.tv_save_point_max_save);
         btnSaving = view.findViewById(R.id.btn_save_point_saving);
         etInputPoint = view.findViewById(R.id.et_save_point_input_point);
+        tvSaveAfterPoint = view.findViewById(R.id.tv_save_point_balance_point);
     }
 
     @Override
@@ -95,8 +99,6 @@ public class SavePointFragment extends BaseFragment {
 
         PriceWatcher priceWatcher = new PriceWatcher(etInputPoint);
         priceWatcher.setCallback((completePrice, price) -> {
-
-            TextView tvSaveAfterPoint = view.findViewById(R.id.tv_save_point_balance_point);
             int afterPoint;
             try {
                 String havePoint = mViewModel.getPoint().getValue().replace(",", "");
@@ -189,6 +191,9 @@ public class SavePointFragment extends BaseFragment {
                                                 ResNonMemberSavePointDTO resModel) {
                         mActivityViewModel.setIsLoading(false);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                            Toast.makeText(view.getContext(),
+                                    "포인트 적립이 완료되었습니다."
+                                    , Toast.LENGTH_SHORT).show();
                             if (getActivity() != null) {
                                 getActivity().finish();
                             }
