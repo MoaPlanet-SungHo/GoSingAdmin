@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.point.activity;
 
+import android.app.DatePickerDialog;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointHistory
 import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.moaplanet.gosingadmin.utils.TimeUtil;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -30,10 +32,16 @@ import static com.moaplanet.gosingadmin.utils.TimeUtil.DATE_FORMAT_SIMPLE;
 
 public class PointHistoryActivity extends BaseActivity {
 
+    private DatePickerDialog startDatePickerDialog;     //달력 시작일
+    private DatePickerDialog endDatePickerDialog;       //달력 종료일
+
     // 포인트 히스토리 뷰모델
     private PointHistoryViewModel mViewModel;
     // 1일 7일등 기간 조회 버튼을 클릭했을때 뷰
     private Button mBtnSelectDaySearch;
+
+    private TextView etStartDate;
+    private TextView etEndDate;
 
     @Override
     public int layoutRes() {
@@ -58,7 +66,31 @@ public class PointHistoryActivity extends BaseActivity {
         vpPointHistory.setOffscreenPageLimit(2);
         tabPointHistory.setupWithViewPager(vpPointHistory);
 
+        etStartDate = findViewById(R.id.et_point_history_start_date);
+        etEndDate = findViewById(R.id.et_point_history_end_date);
+
         initDate(0);
+
+        startDatePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            if (etStartDate != null) {
+                etStartDate.setText(TimeUtil.getStringFormatDate(TimeUtil.DATE_FORMAT_SIMPLE, year, month, dayOfMonth));
+                mViewModel.setStartDate(etStartDate.getText().toString());
+            }
+        }, TimeUtil.getCalendar(DATE_FORMAT_SIMPLE, etStartDate.getText().toString()).get(Calendar.YEAR)
+                , TimeUtil.getCalendar(DATE_FORMAT_SIMPLE, etStartDate.getText().toString()).get(Calendar.MONTH)
+                , TimeUtil.getCalendar(DATE_FORMAT_SIMPLE, etStartDate.getText().toString()).get(Calendar.DATE)
+        );
+
+        endDatePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            if (etEndDate != null) {
+                etEndDate.setText(TimeUtil.getStringFormatDate(TimeUtil.DATE_FORMAT_SIMPLE, year, month, dayOfMonth));
+                mViewModel.setEndDate(etEndDate.getText().toString());
+            }
+        }, TimeUtil.getCalendar(DATE_FORMAT_SIMPLE, etEndDate.getText().toString()).get(Calendar.YEAR)
+                , TimeUtil.getCalendar(DATE_FORMAT_SIMPLE, etEndDate.getText().toString()).get(Calendar.MONTH)
+                , TimeUtil.getCalendar(DATE_FORMAT_SIMPLE, etEndDate.getText().toString()).get(Calendar.DATE)
+        );
+
     }
 
     @Override
@@ -132,6 +164,21 @@ public class PointHistoryActivity extends BaseActivity {
                     initDate(-365);
                 });
 
+        RxView.clicks(etStartDate)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    showStartDatePickerDialog();
+                });
+
+        RxView.clicks(etEndDate)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    showEndDatePickerDialog();
+                });
+
+
     }
 
     /**
@@ -181,7 +228,7 @@ public class PointHistoryActivity extends BaseActivity {
      */
     private void initDate(int beforeDate) {
         // 시작날짜
-        EditText etStartDate = findViewById(R.id.et_point_history_start_date);
+//        EditText etStartDate = findViewById(R.id.et_point_history_start_date);
         String startDate =
                 TimeUtil.getStringFormatDate(
                         DATE_FORMAT_SIMPLE,
@@ -190,7 +237,7 @@ public class PointHistoryActivity extends BaseActivity {
         etStartDate.setText(startDate);
 
         // 종료 날짜
-        EditText etEndDate = findViewById(R.id.et_point_history_end_date);
+//        EditText etEndDate = findViewById(R.id.et_point_history_end_date);
         String endDate =
                 TimeUtil.getStringFormatDate(
                         DATE_FORMAT_SIMPLE,
@@ -226,6 +273,18 @@ public class PointHistoryActivity extends BaseActivity {
             }
         });
         pointManager.getGoSingPoint();
+    }
+
+    private void showStartDatePickerDialog() {
+        if (startDatePickerDialog != null && !startDatePickerDialog.isShowing()) {
+            startDatePickerDialog.show();
+        }
+    }
+
+    private void showEndDatePickerDialog() {
+        if (endDatePickerDialog != null && !endDatePickerDialog.isShowing()) {
+            endDatePickerDialog.show();
+        }
     }
 
 }
