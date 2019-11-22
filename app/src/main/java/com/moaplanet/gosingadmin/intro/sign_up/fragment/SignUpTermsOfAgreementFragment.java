@@ -76,7 +76,7 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
     @Override
     public void initListener() {
 
-        // 계정 입력 하는 화면으로 이동
+        // 본인인증 화면으로 이동
         RxView.clicks(mBtnDone)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -84,7 +84,7 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
                     if (signUpViewModel != null) {
                         signUpViewModel.setCheckEventPush(mCbEvent.isChecked());
                     }
-                    onMoveNavigation(R.id.action_fragment_create_account);
+                    onMoveNavigation(R.id.action_fragment_sign_up_self_certification);
                 });
 
         // 체크박스에 리스너 연결

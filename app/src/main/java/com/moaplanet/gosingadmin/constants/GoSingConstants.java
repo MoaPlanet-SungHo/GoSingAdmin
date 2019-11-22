@@ -28,6 +28,7 @@ public class GoSingConstants {
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
     public static final String BUNDLE_KEY_TYPE_PASSWORD = "PASSWORD_TYPE";
     public static final String BUNDLE_KEY_BEFORE_INPUT_PASSWORD = "BEFORE_INPUT_PASSWORD";
+    public static final String BUNDLE_KEY_MOBILE_AUTH_TYPE = "BUNDLE_KEY_MOBILE_AUTH_TYPE";
     // 포인트 관련
     public static final String BUNDLE_KEY_TYPE_POINT_VIEW = "BUNDLE_KEY_TYPE_POINT_VIEW";
 
