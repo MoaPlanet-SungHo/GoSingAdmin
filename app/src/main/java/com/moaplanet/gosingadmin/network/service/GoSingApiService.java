@@ -1,6 +1,7 @@
 package com.moaplanet.gosingadmin.network.service;
 
 import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
+import com.moaplanet.gosingadmin.intro.ResVersionDTO;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
@@ -206,5 +207,14 @@ public interface GoSingApiService {
      */
     @POST("session/PaymenyManageCtr/fees_point.json")
     Call<ResDepositablePointDto> onServerDepositablePoint();
+
+    /**
+     * 앱 버전 체크
+     */
+    @POST("MemberManageCtr/app_version_info.json")
+    Call<ResVersionDTO> onServerAppVersionCheck(
+            @Query("app_type") String deviceType,
+            @Query("side_type") String userType);
+
 }
 

@@ -24,16 +24,16 @@ public class JsBridge implements JsReceiver {
         }
         String resultJson = html.substring(html.indexOf('{'), html.indexOf('}') + 1);
         try {
-            new JSONObject(resultJson);
+            JSONObject jsonObject = new JSONObject(resultJson);
+            if (jsonObject.get("suc_cd").equals("0000")) {
+                onJsReceiverSuccess(resultJson);
+            } else {
+                onJsReceiverFail();
+            }
         } catch (JSONException e) {
             Logger.d("Json Error\n" + e);
-            return;
-        }
-        if (resultJson.length() == 0) {
             onJsReceiverFail();
-            return;
         }
-        onJsReceiverSuccess(resultJson);
     }
 
     @Override
