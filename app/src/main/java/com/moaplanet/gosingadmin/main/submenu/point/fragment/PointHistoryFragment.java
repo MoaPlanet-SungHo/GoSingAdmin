@@ -27,6 +27,8 @@ public class PointHistoryFragment extends BaseFragment {
     private PointHistoryListAdapter mAdapter;
     // 뷰모댈
     private PointHistoryViewModel mViewModel;
+    // 로딩뷰
+    private View mLoadingBar;
 
     @Override
     public int layoutRes() {
@@ -52,14 +54,13 @@ public class PointHistoryFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        mLoadingBar = view.findViewById(R.id.pb_fragment_point_history_loading);
+        mLoadingBar.setVisibility(View.GONE);
         RecyclerView rvPointHistory = view.findViewById(R.id.rv_point_history);
         rvPointHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mAdapter = new PointHistoryListAdapter();
-//        mAdapter.setViewType(viewType);
         mAdapter.setFragmentManager(getFragmentManager());
         rvPointHistory.setAdapter(mAdapter);
-
-//        onPointHistoryList();
     }
 
     @Override
@@ -90,6 +91,7 @@ public class PointHistoryFragment extends BaseFragment {
      * 포인트 내역 불러오기 서버 통신
      */
     private void onPointHistoryList() {
+        mLoadingBar.setVisibility(View.VISIBLE);
         RetrofitService
                 .getInstance()
                 .getGoSingApiService()
@@ -103,6 +105,7 @@ public class PointHistoryFragment extends BaseFragment {
                 ) {
                     @Override
                     public void onFinalResponse(Call<ResPointHistoryDto> call, ResPointHistoryDto resModel) {
+                        mLoadingBar.setVisibility(View.GONE);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             mAdapter.setList(resModel.getPointHistoryDtoList());
                         } else {
@@ -112,12 +115,14 @@ public class PointHistoryFragment extends BaseFragment {
 
                     @Override
                     public void onFinalFailure(Call<ResPointHistoryDto> call, boolean isSession, Throwable t) {
+                        mLoadingBar.setVisibility(View.GONE);
                         onNetworkConnectFail();
                     }
 
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
+                        mLoadingBar.setVisibility(View.GONE);
                         onNotSession();
                     }
                 });

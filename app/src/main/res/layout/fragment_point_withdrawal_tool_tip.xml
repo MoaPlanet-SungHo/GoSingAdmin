@@ -11,9 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:title="출금 가능 금액"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="출금 가능 금액" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,13 +53,13 @@
             android:inputType="number"
             android:lineSpacingExtra="9.7dp"
             android:singleLine="true"
-            android:text="10,000원"
             android:textColor="@color/color_000000"
             android:textSize="27dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_fragment_point_withdrawal_tool_tip_withdrawalable_money_title"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="10,000원" />
 
         <ImageView
             android:id="@+id/iv_fragment_point_withdrawal_tool_tip_won_icon"
@@ -101,11 +101,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:lineSpacingExtra="5dp"
-        android:text="10,000원"
         android:textColor="#000000"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/cl_fragment_point_withdrawal_tool_tip_money_group"
-        app:layout_constraintTop_toBottomOf="@id/view_fragment_point_withdrawal_money_group_under_line" />
+        app:layout_constraintTop_toBottomOf="@id/view_fragment_point_withdrawal_money_group_under_line"
+        tools:text="10,000원" />
 
     <TextView
         android:id="@+id/tv_fragment_point_withdrawal_tool_tip_save_point_title"
@@ -125,11 +125,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:lineSpacingExtra="5dp"
-        android:text="1,000원"
         android:textColor="#000000"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/cl_fragment_point_withdrawal_tool_tip_money_group"
-        app:layout_constraintTop_toBottomOf="@id/tv_fragment_point_withdrawal_tool_tip_charge_point_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_fragment_point_withdrawal_tool_tip_charge_point_title"
+        tools:text="1,000원" />
 
     <View
         android:id="@+id/view_fragment_point_withdrawal_tool_tip_point_under_line"
@@ -180,5 +180,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pb_fragment_point_withdrawal_tool_tip_loading_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

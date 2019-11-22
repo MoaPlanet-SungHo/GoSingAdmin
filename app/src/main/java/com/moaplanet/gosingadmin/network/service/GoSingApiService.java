@@ -19,6 +19,7 @@ import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResPointSaveNonMe
 import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
 import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
+import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResDepositablePointDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResPointWithDrawalDTO;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
@@ -199,5 +200,11 @@ public interface GoSingApiService {
             @Query("bank_nm") String BankName,
             @Query("EP_vacct_txtype") String txType
     );
+
+    /**
+     * 출금 가능 금액
+     */
+    @POST("session/PaymenyManageCtr/fees_point.json")
+    Call<ResDepositablePointDto> onServerDepositablePoint();
 }
 

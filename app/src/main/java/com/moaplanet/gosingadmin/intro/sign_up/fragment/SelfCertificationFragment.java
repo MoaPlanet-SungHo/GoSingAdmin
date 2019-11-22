@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.interfaces.JsReceiver;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.utils.JsBridge;
 import com.orhanobut.logger.Logger;
 
@@ -63,9 +65,26 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
                         "\"ciMode\":\"61\",\"mstr\":\"authSepaCd=01$userId=191002001642$mobiAuthHistId=2019100200001140$email=null\"," +
                         "\"logoYn\":\"N\",\"okurl\":\"http://backend.goeat.co.kr/mobiAuth/mobiAuthResult.jsp\"," +
                         "\"tradeid\":\"MLVnGs0WdHia5dq1ISpIqgg==\"}";
+
+        final String PHONE_CHECK_URL = "http://175.198.102.230:8085/MOAGossingShop/notLogin/kgMobilTestPage.do?typeInfo=";
+        final String RESULT_PAGE = "http://175.198.102.230:8085/MOAGossingShop/notLogin/okayMobile.do";
+
+
         webViewKgMobilians.getSettings().setJavaScriptEnabled(true);
         webViewKgMobilians.addJavascriptInterface(new JsBridge(this), "Android");
-        webViewKgMobilians.loadUrl(KG_MOBILIANS_BASE_URL + KG_MOBILIANS_START_URL);
+//        webViewKgMobilians.loadUrl(KG_MOBILIANS_BASE_URL + KG_MOBILIANS_START_URL);
+
+        String authMobileType = "01";
+
+        if (getActivity() != null) {
+            if (getActivity() instanceof SignUpActivity) {
+                authMobileType = "01";
+            } else if (getActivity() instanceof CreatePinActivity) {
+                authMobileType = "04";
+            }
+        }
+
+        webViewKgMobilians.loadUrl(PHONE_CHECK_URL + authMobileType);
 
         webViewKgMobilians.setWebViewClient(new WebViewClient() {
             @Override
@@ -73,11 +92,19 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
                 super.onPageFinished(view, url);
 
                 switch (url) {
-                    case KG_MOBILIANS_BASE_URL + KG_MOBILIANS_START_URL:
-                        webViewKgMobilians.loadUrl("javascript:setMyAuthInfo('" + DUMMY_JSON + "')");
-                        break;
-                    case KG_MOBILIANS_BASE_URL + KG_MOBILIANS_RESULT_URL:
-                        webViewKgMobilians.loadUrl("javascript:Android.showHTML" + "(document.getElementsByTagName('body')[0].innerHTML);");
+//                    case KG_MOBILIANS_BASE_URL + KG_MOBILIANS_START_URL:
+//                        webViewKgMobilians.loadUrl("javascript:setMyAuthInfo('" + DUMMY_JSON + "')");
+//                        break;
+//                    case KG_MOBILIANS_BASE_URL + KG_MOBILIANS_RESULT_URL:
+//                        webViewKgMobilians.loadUrl("javascript:Android.showHTML" + "(document.getElementsByTagName('body')[0].innerHTML);");
+//                        break;
+                    case RESULT_PAGE:
+//                        webViewKgMobilians.loadUrl("javascript:Android.showHTML" + "(document.getElementsByTagName('body')[0].innerHTML);");
+                        if (getActivity() instanceof SignUpActivity) {
+                            onMoveNavigation(R.id.action_fragment_create_account);
+                        } else if (getActivity() instanceof CreatePinActivity) {
+                            onMoveNavigation(R.id.action_fragment_sign_up_input_password);
+                        }
                         break;
                 }
 

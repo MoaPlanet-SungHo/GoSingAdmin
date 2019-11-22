@@ -23,6 +23,14 @@ public class ResPointDto {
     @SerializedName("maxPoint")
     private int maxPoint;
 
+    // 충전한 고싱 보인트
+    @SerializedName("charged_point")
+    private int chargePoint;
+
+    // 적립된 포인트
+    @SerializedName("accumulate_point")
+    private int savingPoint;
+
     public int getPoint() {
         return mPoint;
     }
@@ -37,5 +45,13 @@ public class ResPointDto {
 
     public int getRemovePoint() {
         return mRemovePoint;
+    }
+
+    public int getChargePoint() {
+        return chargePoint;
+    }
+
+    public int getSavingPoint() {
+        return savingPoint;
     }
 }

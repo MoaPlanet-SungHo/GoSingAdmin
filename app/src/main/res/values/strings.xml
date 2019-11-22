@@ -158,6 +158,9 @@
     <string name="item_point_history_plus_point">+ %s 원</string>
     <string name="item_point_history_minus_point">- %s 원</string>
 
+    <!-- PointHistoryDialog -->
+    <string name="dialog_point_history_validity">%s-%s</string>
+
     <!-- NotificationActivity -->
     <string name="activity_notification_title">알림</string>
 
