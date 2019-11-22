@@ -1,33 +1,20 @@
 package com.moaplanet.gosingadmin.main.submenu.pointwithdrawal;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
-
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
-import com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.DepositWithoutBankbookViewModel;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.BankSelectActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
-import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.DepositAccountViewModel;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.RegisterWithdrawalAccountViewModel;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
@@ -35,11 +22,12 @@ import com.moaplanet.gosingadmin.network.model.CommonResDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
 import com.moaplanet.gosingadmin.utils.ViewUtil;
-import com.orhanobut.logger.Logger;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
