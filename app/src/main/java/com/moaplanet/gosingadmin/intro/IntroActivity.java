@@ -1,6 +1,7 @@
 package com.moaplanet.gosingadmin.intro;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
+import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
@@ -24,9 +27,12 @@ import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivi
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
+import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class IntroActivity extends BaseActivity {
@@ -72,7 +78,7 @@ public class IntroActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkIntroType();
+        onAppVersionCheck();
     }
 
     @Override
@@ -93,10 +99,88 @@ public class IntroActivity extends BaseActivity {
     }
 
     /**
+     * 앱 버전체크
+     */
+    private void onAppVersionCheck() {
+//        checkIntroType();
+
+        RetrofitService
+                .getInstance()
+                .getGoSingApiService()
+                .onServerAppVersionCheck(
+                        "1", "2"
+                ).enqueue(new MoaAuthCallback<ResVersionDTO>(
+                RetrofitService.getInstance().getMoaAuthConfig(),
+                RetrofitService.getInstance().getSessionChecker()
+        ) {
+            @Override
+            public void onFinalResponse(Call<ResVersionDTO> call, ResVersionDTO resModel) {
+
+                int nowAppVersion = BuildConfig.VERSION_CODE;
+
+                if (nowAppVersion < resModel.getAppVersionModel().getVersionMin()) {
+                    NoTitleDialog noTitleDialog = new NoTitleDialog();
+                    noTitleDialog.setUseYesOrNo(true);
+                    noTitleDialog.setContent(R.string.activity_intro_force_update);
+                    noTitleDialog.show(getSupportFragmentManager(), "다이얼로그");
+
+                    noTitleDialog.onNoOnClickListener(view -> {
+                        noTitleDialog.dismiss();
+                        finish();
+                    });
+
+                    noTitleDialog.onDoneOnCliListener(view -> {
+                        noTitleDialog.dismiss();
+                        goPlayStoreMoaApp();
+                        finish();
+                    });
+
+                } else if (nowAppVersion >= resModel.getAppVersionModel().getVersionMin()
+                        && nowAppVersion < resModel.getAppVersionModel().getVersionMax()) {
+
+                    NoTitleDialog noTitleDialog = new NoTitleDialog();
+                    noTitleDialog.setUseYesOrNo(true);
+                    noTitleDialog.setContent(R.string.activity_intro_select_update);
+                    noTitleDialog.show(getSupportFragmentManager(), "다이얼로그");
+
+                    noTitleDialog.onNoOnClickListener(view -> {
+                        noTitleDialog.dismiss();
+                        checkIntroType();
+                    });
+
+                    noTitleDialog.onDoneOnCliListener(view -> {
+                        noTitleDialog.dismiss();
+                        goPlayStoreMoaApp();
+                        finish();
+                    });
+
+                } else {
+                    checkIntroType();
+                }
+            }
+
+            @Override
+            public void onFinalFailure(Call<ResVersionDTO> call, boolean isSession, Throwable t) {
+                checkIntroType();
+            }
+        });
+
+    }
+
+    /**
      * 액티비티 이동
      */
     private void moveActivity(Class moveActivity) {
         Intent intent = new Intent(this, moveActivity);
+        startActivity(intent);
+    }
+
+    /**
+     * 플레이스토어로 이동
+     */
+    private void goPlayStoreMoaApp() {
+        Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://play.google.com/store/apps/details?id=com.moaplanet.gosingadmin"));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
