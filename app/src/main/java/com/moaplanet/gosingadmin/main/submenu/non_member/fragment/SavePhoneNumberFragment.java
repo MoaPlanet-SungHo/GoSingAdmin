@@ -22,6 +22,7 @@ import com.moaplanet.gosingadmin.common.dialog.CommonTitleNoUnderlineDialog;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.model.viewmodel.BaseActivityViewModel;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.NonMemberSavePointViewModel;
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResPointSaveNonMemberCheckDTO;
@@ -127,6 +128,17 @@ public class SavePhoneNumberFragment extends BaseFragment {
                         nonMemberCheck();
                     }
                 });
+
+        CommonTitleBar commonTitleBar = view.findViewById(R.id.common_save_phone_number_title_bar);
+        RxView.clicks(commonTitleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
+
 
     }
 
