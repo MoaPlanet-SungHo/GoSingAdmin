@@ -99,12 +99,7 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
 //                        webViewKgMobilians.loadUrl("javascript:Android.showHTML" + "(document.getElementsByTagName('body')[0].innerHTML);");
 //                        break;
                     case RESULT_PAGE:
-//                        webViewKgMobilians.loadUrl("javascript:Android.showHTML" + "(document.getElementsByTagName('body')[0].innerHTML);");
-                        if (getActivity() instanceof SignUpActivity) {
-                            onMoveNavigation(R.id.action_fragment_create_account);
-                        } else if (getActivity() instanceof CreatePinActivity) {
-                            onMoveNavigation(R.id.action_fragment_sign_up_input_password);
-                        }
+                        webViewKgMobilians.loadUrl("javascript:Android.showHTML" + "(document.getElementsByTagName('body')[0].innerHTML);");
                         break;
                 }
 
@@ -114,13 +109,22 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
 
     @Override
     public void onJsReceiverSuccess(String resultMsg) {
-        Logger.d(resultMsg);
-        Toast.makeText(getContext(), "본인인증 성공", Toast.LENGTH_SHORT).show();
-        onMoveNavigation(R.id.action_fragment_create_account);
+        if (getActivity() instanceof SignUpActivity) {
+            onMoveNavigation(R.id.action_fragment_create_account);
+        } else if (getActivity() instanceof CreatePinActivity) {
+            onMoveNavigation(R.id.action_fragment_sign_up_input_password);
+        }
     }
 
     @Override
     public void onJsReceiverFail() {
-        Toast.makeText(getContext(), "본인인증 실패", Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(),
+                "다시 시도해 주세요",
+                Toast.LENGTH_SHORT).show();
+        if (getActivity() instanceof SignUpActivity) {
+            onBackNavigation();
+        } else if (getActivity() instanceof CreatePinActivity) {
+            getActivity().finish();
+        }
     }
 }
