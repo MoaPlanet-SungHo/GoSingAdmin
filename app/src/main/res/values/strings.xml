@@ -22,7 +22,7 @@
     <!-- IntoActivity -->
     <string name="activity_intro_login">로그인</string>
     <string name="activity_intro_sign_up">GOSING 회원가입</string>
-    <string name="activity_intro_auto_login_fail">자동로그인을 실패 헀습니다.</string>
+    <string name="activity_intro_auto_login_fail">자동로그인을 실패 했습니다.</string>
 
     <!-- GoSingAdminConfirmPermissionActivity -->
     <string name="activity_go_sing_admin_confirm_permission_header">
@@ -147,7 +147,7 @@
         거래에 대하여 책임을 지지 않습니다.</string>
     <string name="fragment_main_default_point">%s원</string>
     <string name="fragment_main_expected_active_point">활성 예정 포인트 : %s원</string>
-    <string name="fragment_main_no_deposit_account">"출금 계좌가 등록되어 있지 않습니다. 출금 계좌를 등록 하시곘습니까?"</string>
+    <string name="fragment_main_no_deposit_account">"출금 계좌가 등록되어 있지 않습니다. 출금 계좌를 등록 하시겠습니까?"</string>
 
     <!-- PointHistoryActivity-->
     <string name="activity_point_history_point_balance">GOSING포인트 잔액</string>
@@ -295,7 +295,7 @@
     <string name="fragment_food_order_third_party_personal_info_agree">개인정보 제 3자 정보 제공 동의</string>
     <string name="fragment_food_order_payment_agree">위 내용을 확인하였으며 결제에 동의합니다.</string>
     <string name="fragment_food_order_payment">주문하기</string>
-    <string name="fragment_food_order_read_all">전문 보기</string>
+    <string name="fragment_food_order_read_all">전문보기</string>
 
     <!-- item_food_order_menu -->
     <string name="item_food_order_food_description">음식 이미지</string>
