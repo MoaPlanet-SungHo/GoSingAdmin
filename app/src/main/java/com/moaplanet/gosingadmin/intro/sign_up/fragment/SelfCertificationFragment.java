@@ -1,13 +1,19 @@
 package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
@@ -19,6 +25,7 @@ import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.utils.JsBridge;
 import com.orhanobut.logger.Logger;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -87,6 +94,36 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
         webViewKgMobilians.loadUrl(PHONE_CHECK_URL + authMobileType);
 
         webViewKgMobilians.setWebViewClient(new WebViewClient() {
+
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString();
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    view.loadUrl(request.getUrl().toString());
+                    return true;
+                } else
+                    return runIdentityVerificationApp(url);
+
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    view.loadUrl(url);
+                    return true;
+                } else
+                    return runIdentityVerificationApp(url);
+            }
+
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
+                super.onPageCommitVisible(view, url);
+                if (url.equals("http://175.198.102.230:8085/MOAGossingShop/notLogin/okayMobile.do")) {
+                    webViewKgMobilians.setVisibility(View.INVISIBLE);
+                }
+            }
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -105,6 +142,26 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
 
             }
         });
+    }
+
+    private boolean runIdentityVerificationApp(String url) {
+        if (url.startsWith("intent:")) {
+            try {
+                Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                Intent getPackage = view.getContext().getPackageManager().getLaunchIntentForPackage(Objects.requireNonNull(intent.getPackage()));
+                if (getPackage != null) {
+                    startActivity(intent);
+                } else {
+                    Intent marketIntent = new Intent(Intent.ACTION_VIEW);
+                    marketIntent.setData(Uri.parse("market://details?id=" + intent.getPackage()));
+                    startActivity(marketIntent);
+                }
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 
     @Override

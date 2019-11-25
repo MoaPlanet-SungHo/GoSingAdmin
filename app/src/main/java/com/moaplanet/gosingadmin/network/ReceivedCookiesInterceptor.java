@@ -25,7 +25,7 @@ public class ReceivedCookiesInterceptor implements Interceptor {
             for (String header : originalResponse.headers("Set-Cookie")) {
                 cookies.add(header);
             }
-            GoSingConstants.TestSet = cookies;
+            GoSingConstants.cookieHash = cookies;
 
         }
 

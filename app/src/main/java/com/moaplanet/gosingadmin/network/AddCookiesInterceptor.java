@@ -18,8 +18,8 @@ public class AddCookiesInterceptor implements Interceptor {
         Request.Builder builder = chain.request().newBuilder();
 //        builder.removeHeader("JSESSIONID").addHeader("JSESSIONID", "5BBBA68529EA8C734FD4F24C4C19EC58");
 //        builder.addHeader("Cookie")
-        if (GoSingConstants.TestSet != null) {
-            for (String ck : GoSingConstants.TestSet) {
+        if (GoSingConstants.cookieHash != null) {
+            for (String ck : GoSingConstants.cookieHash) {
                 builder.addHeader("Cookie", ck);
             }
         }

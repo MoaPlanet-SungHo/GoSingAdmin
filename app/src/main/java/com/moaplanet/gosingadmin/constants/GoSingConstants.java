@@ -22,7 +22,7 @@ public class GoSingConstants {
     // 핀
     public final static String USER_PIN = "userPin";
 
-    public static HashSet<String> TestSet;
+    public static HashSet<String> cookieHash;
 
     // bundle key 관련
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
