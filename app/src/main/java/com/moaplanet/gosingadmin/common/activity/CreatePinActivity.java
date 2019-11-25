@@ -1,6 +1,5 @@
 package com.moaplanet.gosingadmin.common.activity;
 
-import android.content.Intent;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProviders;

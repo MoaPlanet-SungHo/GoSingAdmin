@@ -276,6 +276,13 @@ public abstract class BaseStoreActivity extends BaseActivity {
                                 Toast.LENGTH_SHORT).show();
                         endLoading();
                     }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+                        endLoading();
+                        onNotSession();
+                    }
                 });
     }
 

@@ -137,6 +137,13 @@ public class ModifyStoreActivity extends BaseStoreActivity {
                     public void onFinalFailure(Call<ResStoreSearchDto> call, boolean isSession, Throwable t) {
                         loadingBar.setVisibility(View.GONE);
                     }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+                        loadingBar.setVisibility(View.GONE);
+                        onNotSession();
+                    }
                 });
     }
 
