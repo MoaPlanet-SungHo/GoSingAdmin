@@ -217,17 +217,8 @@ public class CardInfoRegisterFragment extends BaseFragment {
             @Override
             public void onFinalNotSession() {
                 super.onFinalNotSession();
-
                 onStopLoading(mLoading);
-
-                Toast.makeText(view.getContext(),
-                        "다시 로그인해 주세요",
-                        Toast.LENGTH_SHORT)
-                        .show();
-
-                if (getActivity() != null) {
-                    getActivity().finishAffinity();
-                }
+                onNotSession();
             }
         });
 
