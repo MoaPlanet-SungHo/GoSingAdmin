@@ -1,28 +1,23 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
-import com.moaplanet.gosingadmin.intro.login.LoginActivity;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCompleteViewModel;
-import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.req.ReqCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCompleteViewModel;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.lifecycle.ViewModelProviders;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**

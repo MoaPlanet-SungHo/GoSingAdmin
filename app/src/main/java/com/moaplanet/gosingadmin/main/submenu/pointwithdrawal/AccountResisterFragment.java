@@ -6,11 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
@@ -29,6 +27,9 @@ import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
