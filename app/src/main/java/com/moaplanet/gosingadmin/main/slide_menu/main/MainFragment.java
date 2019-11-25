@@ -19,6 +19,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
+import com.moaplanet.gosingadmin.intro.IntroActivity;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
@@ -217,7 +218,9 @@ public class MainFragment extends Fragment {
                         .show();
 
                 if (getActivity() != null) {
-                    Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                    Intent intent = new Intent(view.getContext(), IntroActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("appVersionSkip", true);
                     startActivity(intent);
                     getActivity().finishAffinity();
                 }

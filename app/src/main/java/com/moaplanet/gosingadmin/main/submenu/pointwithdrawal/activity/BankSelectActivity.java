@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.intro.IntroActivity;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.adapter.BankListAdapter;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
@@ -130,15 +131,16 @@ public class BankSelectActivity extends BaseActivity {
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
-
                         onStopLoading();
+                        mIsLoading = false;
                         Toast.makeText(BankSelectActivity.this,
                                 R.string.common_not_exist_session,
                                 Toast.LENGTH_SHORT)
                                 .show();
-                        mIsLoading = false;
-                        Intent intent = new Intent(BankSelectActivity.this,
-                                LoginActivity.class);
+
+                        Intent intent = new Intent(BankSelectActivity.this, IntroActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("appVersionSkip", true);
                         startActivity(intent);
                         finishAffinity();
 

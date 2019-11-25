@@ -78,7 +78,12 @@ public class IntroActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onAppVersionCheck();
+        if (!getIntent().getBooleanExtra("appVersionSkip", false)) {
+            onAppVersionCheck();
+        } else {
+            checkIntroType();
+        }
+
     }
 
     @Override

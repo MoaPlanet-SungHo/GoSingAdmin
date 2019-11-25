@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.intro.IntroActivity;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 
 public abstract class BaseFragment extends Fragment {
@@ -112,7 +113,9 @@ public abstract class BaseFragment extends Fragment {
                 .show();
 
         if (getActivity() != null) {
-            Intent intent = new Intent(view.getContext(), LoginActivity.class);
+            Intent intent = new Intent(view.getContext(), IntroActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("appVersionSkip", true);
             startActivity(intent);
             getActivity().finishAffinity();
         }

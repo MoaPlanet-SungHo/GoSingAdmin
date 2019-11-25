@@ -199,8 +199,8 @@ public class SavePhoneNumberFragment extends BaseFragment {
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
-                        onNotSession();
                         mActivityViewModel.setIsLoading(false);
+                        onNotSession();
                     }
                 });
     }
