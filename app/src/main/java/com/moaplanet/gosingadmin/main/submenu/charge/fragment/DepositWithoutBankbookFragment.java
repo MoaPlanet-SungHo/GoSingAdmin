@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -108,6 +109,14 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
         mViewModel.getIsApiSuccess().observe(this, isSuccess -> {
             if (!isSuccess) {
                 onNetworkConnectFail();
+            }
+        });
+
+        mViewModel.resCode.observe(this, resCode -> {
+            if (resCode == 201) {
+                Toast.makeText(view.getContext(), "이미 등록된 계좌입니다.", Toast.LENGTH_SHORT).show();
+            } else if (resCode == 4000) {
+                Toast.makeText(view.getContext(), "계좌 본인 인증에 실패 하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }

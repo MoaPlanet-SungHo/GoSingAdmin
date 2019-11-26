@@ -19,6 +19,7 @@ public class ChargeCompleteViewModel extends BaseViewModel {
     // --- Field Start --- //
 
     private MutableLiveData<ResCardChargeDto.PointDto> mPointDto = new MutableLiveData<>();
+    public MutableLiveData<Integer> resCode = new MutableLiveData<>();
 
     // --- Field End --- //
 
@@ -59,6 +60,8 @@ public class ChargeCompleteViewModel extends BaseViewModel {
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             setIsApiSuccess(true);
                             setPointDto(resModel.getPointDto());
+                        } else if (resModel.getDetailCode() == 4001) {
+                            resCode.setValue(4001);
                         } else {
                             setIsApiSuccess(false);
                         }

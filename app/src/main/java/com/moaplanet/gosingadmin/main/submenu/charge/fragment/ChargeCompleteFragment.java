@@ -4,12 +4,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.req.ReqCardChargeDto;
+import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCompleteViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
@@ -17,7 +19,9 @@ import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -153,6 +157,13 @@ public class ChargeCompleteFragment extends BaseFragment {
         mChargeCompleteViewModel.getIsApiSuccess().observe(this, isSuccess -> {
             if (!isSuccess) {
                 onNetworkConnectFail();
+            }
+        });
+
+        mChargeCompleteViewModel.resCode.observe(this, resCode -> {
+            if (resCode == 4001) {
+                Toast.makeText(view.getContext(),
+                        " 결제 실패하였습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
             }
         });
     }

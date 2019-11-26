@@ -1,5 +1,7 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel;
 
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -21,6 +23,8 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
 
     private MutableLiveData<ResSearchVirtualAccountDto.VirtualAccountDto> mVirtualAccountDto
             = new MutableLiveData<>();
+
+    public MutableLiveData<Integer> resCode = new MutableLiveData<>();
 
     // --- Field End--- //
 
@@ -105,6 +109,12 @@ public class DepositWithoutBankbookViewModel extends BaseViewModel {
 
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             onSearchVirtualAccount();
+                        } else if (resModel.getDetailCode() == 201) {
+                            setIsLoading(false);
+                            resCode.setValue(201);
+                        } else if (resModel.getDetailCode() == 4000) {
+                            setIsLoading(false);
+                            resCode.setValue(4000);
                         } else {
                             setIsApiSuccess(false);
                             setIsLoading(false);

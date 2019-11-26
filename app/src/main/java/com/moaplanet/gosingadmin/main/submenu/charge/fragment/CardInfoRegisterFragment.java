@@ -195,6 +195,11 @@ public class CardInfoRegisterFragment extends BaseFragment {
                         getActivity().setResult(GoSingConstants.ACTION_RESULT_CODE_REGISTER_CARD);
                         getActivity().finish();
                     }
+                } else if (resModel.getDetailCode() == 201) {
+                    Toast.makeText(view.getContext(),
+                            "이미 등록된 카드입니다.",
+                            Toast.LENGTH_SHORT)
+                            .show();
                 } else {
                     Toast.makeText(view.getContext(),
                             "다시 시도해 주세요",
