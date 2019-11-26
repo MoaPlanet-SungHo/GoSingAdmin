@@ -92,12 +92,12 @@ public class AccountResisterFragment extends BaseFragment {
         if (fromView != null && fromView.equals(BUNDLE_REQUEST_FROM_VIEW_ACCOUNT_CHANGE)) {
             commonTitle.setTitle("계좌 변경");
             clAccountInfoGroup.setVisibility(View.VISIBLE);
-            tvGuideText.setText("새로운 인출 계좌를 등록하세요.");
+            tvGuideText.setText("새로운 출금 계좌를 등록하세요.");
             btnAccountRegister.setText("변경");
         } else {
             commonTitle.setTitle("계좌 등록");
             clAccountInfoGroup.setVisibility(View.GONE);
-            tvGuideText.setText("인출 계좌를 등록하세요.");
+            tvGuideText.setText("출금 계좌를 등록하세요.");
             btnAccountRegister.setText("등록");
         }
 
@@ -223,6 +223,14 @@ public class AccountResisterFragment extends BaseFragment {
                             if (getActivity() != null) {
                                 getActivity().finish();
                             }
+                        } else if (resModel.getDetailCode() == 201) {
+                            Toast.makeText(view.getContext(),
+                                    "이미 등록된 계좌입니다.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (resModel.getDetailCode() == 4000) {
+                            Toast.makeText(view.getContext(),
+                                    "계좌 본인 인증에 실패 하였습니다.",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             onNetworkConnectFail();
                         }

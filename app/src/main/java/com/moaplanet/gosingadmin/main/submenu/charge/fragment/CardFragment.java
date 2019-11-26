@@ -27,6 +27,7 @@ import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivi
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCardViewModel;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeViewModel;
+import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.moaplanet.gosingadmin.utils.ViewUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -57,6 +58,10 @@ public class CardFragment extends BaseFragment {
     private ProgressBar mPrLoading;
     // 카드 추가 뷰
     private ConstraintLayout mClCardItemAdd;
+    // 충전후 포인트
+    private TextView tvAfterPoint;
+
+    private int myPoint = 0;
 
     @Override
     protected void initViewModel() {
@@ -92,6 +97,8 @@ public class CardFragment extends BaseFragment {
 
         etPriceCharge = view.findViewById(R.id.et_fragment_card_input_won);
         llPriceChargeClear = view.findViewById(R.id.ll_fragment_card_clear_input_price_group);
+
+        tvAfterPoint = view.findViewById(R.id.tv_fragment_card_point);
 
         mClCardItemAdd = view.findViewById(R.id.cl_fragment_card_add_group);
         initAdapter();
@@ -164,7 +171,9 @@ public class CardFragment extends BaseFragment {
 
         priceWatcher.setCallback((completePrice, price) -> {
             mChargeViewModel.setPriceCharge(completePrice);
-
+            tvAfterPoint.setText(getString(R.string.common_price_won,
+                    StringUtil.convertCommaPrice(price + myPoint))
+            );
             if (price >= 1000) {
                 mChargeCardViewModel.setChargeButtonActive(true);
             } else {
@@ -218,6 +227,13 @@ public class CardFragment extends BaseFragment {
             if (!session) {
                 onNotSession();
             }
+        });
+
+        // 포인트
+        mChargeCardViewModel.mPoint.observe(this, point -> {
+            myPoint = point;
+            tvAfterPoint.setText(getString(R.string.common_price_won,
+                    StringUtil.convertCommaPrice(point)));
         });
 
 

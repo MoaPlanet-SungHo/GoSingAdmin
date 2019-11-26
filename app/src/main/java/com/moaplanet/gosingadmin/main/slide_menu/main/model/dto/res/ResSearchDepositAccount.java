@@ -19,7 +19,7 @@ public class ResSearchDepositAccount extends CommonResDto {
     public class DepositAccount {
 
         // 계좌 PK
-        @SerializedName("vrcis_info_seq")
+        @SerializedName("withdraw_info_seq")
         private String bankAccountPk;
 
         // 은행 코드

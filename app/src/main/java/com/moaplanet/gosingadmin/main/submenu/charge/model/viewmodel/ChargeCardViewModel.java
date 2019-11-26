@@ -23,6 +23,8 @@ public class ChargeCardViewModel extends BaseViewModel {
     private MutableLiveData<List<ResCardListDto.CardInformationDto>> mCardInfoList =
             new MutableLiveData<>();
 
+    public MutableLiveData<Integer> mPoint = new MutableLiveData<>();
+
     // 충전 버튼 활성화 유무 -- > true : 활성화 | false : 비활성화
     private MutableLiveData<Boolean> mChargeButtonActive = new MutableLiveData<>();
     // -- Field End -- //
@@ -63,6 +65,7 @@ public class ChargeCardViewModel extends BaseViewModel {
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             setIsApiSuccess(true);
                             mCardInfoList.setValue(resModel.getCardInformationDtoList());
+                            mPoint.setValue(resModel.getResPointDto().getPoint());
                         } else {
                             setSession(false);
                         }

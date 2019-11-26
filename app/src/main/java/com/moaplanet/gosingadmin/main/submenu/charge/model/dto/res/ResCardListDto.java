@@ -1,6 +1,7 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res;
 
 import com.google.gson.annotations.SerializedName;
+import com.moaplanet.gosingadmin.common.model.dto.res.ResPointDto;
 import com.moaplanet.gosingadmin.network.model.CommonResDto;
 
 import java.util.List;
@@ -14,12 +15,18 @@ public class ResCardListDto extends CommonResDto {
     @SerializedName("card_list")
     private List<CardInformationDto> mCardInformationDtoList;
 
+    @SerializedName("point_map")
+    private ResPointDto resPointDto;
+
     // --- getter start --- //
 
     public List<CardInformationDto> getCardInformationDtoList() {
         return mCardInformationDtoList;
     }
 
+    public ResPointDto getResPointDto() {
+        return resPointDto;
+    }
 
     // --- getter end --- //
 

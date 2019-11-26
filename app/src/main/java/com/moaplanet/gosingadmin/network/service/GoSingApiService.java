@@ -146,7 +146,7 @@ public interface GoSingApiService {
     /**
      * 가상 계좌 등록
      */
-    @POST("session/PaymenyManageCtr/virtualAccount.json")
+    @POST("session/PaymenyManageCtr/virtualAccount_write.json")
     Call<ResRegisterVirtualAccountDto> onServerRegisterVirtualAccount();
 
     /**
@@ -208,7 +208,7 @@ public interface GoSingApiService {
     @POST("session/PaymenyManageCtr/withdraw_join.json")
     Call<CommonResDto> onServerRegisterWithdrawalBank(
             @Query("back_cd") String bankPk,
-            @Query("back_cd") String BankName,
+            @Query("back_name") String BankName,
             @Query("account_number") String accountNumber,
             @Query("user_name") String userName
     );

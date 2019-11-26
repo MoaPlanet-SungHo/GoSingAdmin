@@ -30,6 +30,8 @@ public class PointHistoryFragment extends BaseFragment {
     // 로딩뷰
     private View mLoadingBar;
 
+    private View viewPointListEmpty;
+
     @Override
     public int layoutRes() {
         return R.layout.fragment_point_history;
@@ -54,6 +56,7 @@ public class PointHistoryFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        viewPointListEmpty = view.findViewById(R.id.cl_point_history_empty);
         mLoadingBar = view.findViewById(R.id.pb_fragment_point_history_loading);
         mLoadingBar.setVisibility(View.GONE);
         RecyclerView rvPointHistory = view.findViewById(R.id.rv_point_history);
@@ -107,6 +110,13 @@ public class PointHistoryFragment extends BaseFragment {
                     public void onFinalResponse(Call<ResPointHistoryDto> call, ResPointHistoryDto resModel) {
                         mLoadingBar.setVisibility(View.GONE);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+
+                            if (resModel.getPointHistoryDtoList() != null &&
+                                    resModel.getPointHistoryDtoList().size() > 0) {
+                                viewPointListEmpty.setVisibility(View.GONE);
+                            } else {
+                                viewPointListEmpty.setVisibility(View.VISIBLE);
+                            }
                             mAdapter.setList(resModel.getPointHistoryDtoList());
                         } else {
                             onNetworkConnectFail();
