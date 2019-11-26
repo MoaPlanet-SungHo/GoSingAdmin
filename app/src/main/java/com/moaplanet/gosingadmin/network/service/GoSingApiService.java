@@ -203,6 +203,17 @@ public interface GoSingApiService {
     );
 
     /**
+     * 출금 계좌 등록
+     */
+    @POST("session/PaymenyManageCtr/withdraw_join.json")
+    Call<CommonResDto> onServerRegisterWithdrawalBank(
+            @Query("back_cd") String bankPk,
+            @Query("back_cd") String BankName,
+            @Query("account_number") String accountNumber,
+            @Query("user_name") String userName
+    );
+
+    /**
      * 출금 가능 금액
      */
     @POST("session/PaymenyManageCtr/fees_point.json")

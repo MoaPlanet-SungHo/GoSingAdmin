@@ -6,9 +6,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
+
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
@@ -30,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
+
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -192,12 +195,15 @@ public class AccountResisterFragment extends BaseFragment {
         RetrofitService
                 .getInstance()
                 .getGoSingApiService()
-                .onServerOpenBankAccount(
+                .onServerRegisterWithdrawalBank(
                         mBankInformationDto.getBankCode(),
                         mBankInformationDto.getBankName(),
 //                        viewModel.getmBankInfo().getValue().getBankCode(),
 //                        viewModel.getmBankInfo().getValue().getBankName(),
-                        "20"
+//                        "20"
+                        mAccountNumber.getText().toString(),
+                        mAccountName.getText().toString()
+
                 )
                 .enqueue(new MoaAuthCallback<CommonResDto>(
                         RetrofitService.getInstance().getMoaAuthConfig(),
