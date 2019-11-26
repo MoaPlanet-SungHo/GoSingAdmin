@@ -55,7 +55,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/font_gd_15"
             android:maxLines="1"
-            android:text="20,000원"
+            android:text="0원"
             android:textAlignment="center"
             android:textColor="@color/color_000000"
             android:textSize="14dp"

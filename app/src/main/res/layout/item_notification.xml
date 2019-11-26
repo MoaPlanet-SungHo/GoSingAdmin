@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/font_gd_15"
-        android:text="01095659494 님에게 고씽포인트 3,000원이 지급되었습니다."
+        android:text="01095659494 님에게 고씽포인트 0원이 지급되었습니다."
         android:textColor="@color/color_000000"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"

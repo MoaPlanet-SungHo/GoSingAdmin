@@ -52,7 +52,7 @@
             android:inputType="number"
             android:lineSpacingExtra="9.7dp"
             android:singleLine="true"
-            android:text="10,000원"
+            android:text="0원"
             android:textColor="@color/color_000000"
             android:textSize="27dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +143,7 @@
         app:layout_constraintEnd_toEndOf="@id/view_fragment_charge_complete_money_group_under_line"
         app:layout_constraintTop_toBottomOf="@id/tv_fragment_charge_complete_charge_type_title"
         tools:ignore="SpUsage"
-        tools:text="43,000원" />
+        tools:text="0원" />
 
     <Button
         android:id="@+id/btn_fragment_charge_complete_confirm"

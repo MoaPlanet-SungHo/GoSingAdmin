@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_gd_15"
-        android:text="+ 5,000 원"
+        android:text="+ 0 원"
         android:textColor="@color/color_4300ff"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

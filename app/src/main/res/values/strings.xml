@@ -226,11 +226,11 @@
     <string name="total_payment_amount_qr">총 결제금액</string>
     <string name="customer_reserve_fund">고객 적립금</string>
     <string name="balance_gosing_point">결제 후 GOSING포인트 잔액</string>
-    <string name="save_money_content">30,000원</string>
-    <string name="no_save_money_content">25,000원</string>
-    <string name="total_payment_amount_qr_content">55,000원</string>
-    <string name="customer_reserve_fund_content">3,000원</string>
-    <string name="balance_gosing_point_content">35,000원</string>
+    <string name="save_money_content">0원</string>
+    <string name="no_save_money_content">0원</string>
+    <string name="total_payment_amount_qr_content">0원</string>
+    <string name="customer_reserve_fund_content">0원</string>
+    <string name="balance_gosing_point_content">0원</string>
     <string name="common_next_btn">다음</string>
     <string name="common_save_money_help">결제 금액(적립)에 대한 설명 UI를 띄움</string>
     <string name="common_no_save_money_help">결제 금액(비적립)에 대한 설명 UI를 띄움</string>
@@ -239,8 +239,8 @@
     <string name="common_save_money_clear_btn">결제 금액(적립)에 입력된 금액을 0원으로 초기화한다.</string>
     <string name="common_no_save_money_clear_btn">결제 금액(비적립)에 입력된 금액을 0원으로 초기화한다.</string>
     <string name="common_total_money">총 결제 금액으로(적립)과 결제 금액(비적립)이 합산된 금액이다.</string>
-    <string name="gosing_plus_15day_price">55,000원</string>
-    <string name="delivery_amount_content">3,000 원</string>
+    <string name="gosing_plus_15day_price">0원</string>
+    <string name="delivery_amount_content">0 원</string>
 
     <!-- PaymentQRcodeActivity -->
     <string name="common_qr_left_above_description">QR코드 왼쪽 위</string>

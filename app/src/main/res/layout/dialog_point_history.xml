@@ -32,7 +32,7 @@
         android:textColor="@color/color_000000"
         android:textSize="28.3dp"
         tools:ignore="SpUsage"
-        tools:text="5,000원" />
+        tools:text="0원" />
 
     <View
         android:layout_width="wrap_content"

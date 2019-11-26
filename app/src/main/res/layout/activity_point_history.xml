@@ -65,7 +65,7 @@
                             android:drawableStart="@drawable/ic_kor_money"
                             android:drawablePadding="8dp"
                             android:fontFamily="@font/font_gd_17"
-                            android:text="100,000원"
+                            android:text="0원"
                             android:textColor="@color/color_000000"
                             android:textSize="36.3dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
                             app:layout_constraintEnd_toEndOf="@id/view_point_history_underline"
                             app:layout_constraintTop_toTopOf="@id/tv_point_history_active_schedule_point_title"
                             tools:ignore="SpUsage"
-                            tools:text="1,000 원" />
+                            tools:text="0 원" />
 
                         <TextView
                             android:id="@+id/tv_point_history_remove_schedule_point_title"
@@ -136,7 +136,7 @@
                             app:layout_constraintEnd_toEndOf="@id/view_point_history_underline"
                             app:layout_constraintTop_toTopOf="@id/tv_point_history_remove_schedule_point_title"
                             tools:ignore="SpUsage"
-                            tools:text="15,000 원" />
+                            tools:text="0 원" />
 
                         <View
                             android:layout_width="match_parent"

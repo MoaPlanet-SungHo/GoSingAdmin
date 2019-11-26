@@ -183,7 +183,7 @@
             android:layout_marginTop="9dp"
             android:fontFamily="@font/font_gd_15"
             android:lineSpacingExtra="4.3sp"
-            android:text="43,000원"
+            android:text="0원"
             android:textColor="@color/color_000000"
             android:textSize="12dp"
             app:layout_constraintRight_toRightOf="@id/view_fragment_card_input_won_under_line"

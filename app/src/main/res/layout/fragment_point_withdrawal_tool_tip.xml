@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_fragment_point_withdrawal_tool_tip_withdrawalable_money_title"
             tools:ignore="SpUsage"
-            tools:text="10,000원" />
+            tools:text="0원" />
 
         <ImageView
             android:id="@+id/iv_fragment_point_withdrawal_tool_tip_won_icon"
@@ -105,7 +105,7 @@
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/cl_fragment_point_withdrawal_tool_tip_money_group"
         app:layout_constraintTop_toBottomOf="@id/view_fragment_point_withdrawal_money_group_under_line"
-        tools:text="10,000원" />
+        tools:text="0원" />
 
     <TextView
         android:id="@+id/tv_fragment_point_withdrawal_tool_tip_save_point_title"
@@ -129,7 +129,7 @@
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@id/cl_fragment_point_withdrawal_tool_tip_money_group"
         app:layout_constraintTop_toBottomOf="@id/tv_fragment_point_withdrawal_tool_tip_charge_point_title"
-        tools:text="1,000원" />
+        tools:text="0원" />
 
     <View
         android:id="@+id/view_fragment_point_withdrawal_tool_tip_point_under_line"
