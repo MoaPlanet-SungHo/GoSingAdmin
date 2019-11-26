@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
+import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.address.AddressSearchActivity;
@@ -95,6 +96,8 @@ public abstract class BaseStoreActivity extends BaseActivity {
     // 주소 정보가 들어있는 dto
     protected ResAddressSearchDto.AddressInfoDto addressInfoDto;
 
+    private String lPrice = "", mPrice = "", sPrice = "";
+
     public abstract void registerStore();
 
     @Override
@@ -162,10 +165,34 @@ public abstract class BaseStoreActivity extends BaseActivity {
         roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_middle_room_personnel));
         roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_small_room_personnel));
 
+        EditText etLargeRoom = findViewById(R.id.et_activity_base_store_large_room_price);
+        EditText etMiddleRoom = findViewById(R.id.et_activity_base_store_middle_room_price);
+        EditText etSmallRoom = findViewById(R.id.et_activity_base_store_small_room_price);
+
+        PriceWatcher lpriceWatcher = new PriceWatcher(etLargeRoom);
+        etLargeRoom.addTextChangedListener(lpriceWatcher);
+        lpriceWatcher.setCallback((completePrice, price) -> {
+
+        });
+
+        PriceWatcher mPriceWatcher = new PriceWatcher(etMiddleRoom);
+        etMiddleRoom.addTextChangedListener(mPriceWatcher);
+
+        mPriceWatcher.setCallback((completePrice, price) -> {
+
+        });
+
+        PriceWatcher sPriceWatcher = new PriceWatcher(etSmallRoom);
+        etSmallRoom.addTextChangedListener(sPriceWatcher);
+
+        sPriceWatcher.setCallback((completePrice, price) -> {
+
+        });
+
         roomPriceList = new ArrayList<>();
-        roomPriceList.add(findViewById(R.id.et_activity_base_store_large_room_price));
-        roomPriceList.add(findViewById(R.id.et_activity_base_store_middle_room_price));
-        roomPriceList.add(findViewById(R.id.et_activity_base_store_small_room_price));
+        roomPriceList.add(etLargeRoom);
+        roomPriceList.add(etMiddleRoom);
+        roomPriceList.add(etSmallRoom);
 
         roomTypeList = new ArrayList<>();
         roomTypeList.add(findViewById(R.id.cb_activity_base_store_large_room));

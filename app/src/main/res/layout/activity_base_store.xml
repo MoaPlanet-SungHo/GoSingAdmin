@@ -513,6 +513,7 @@
                         android:hint="@string/activity_base_store_input_price"
                         android:importantForAutofill="no"
                         android:inputType="number"
+                        android:maxLength="13"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_activity_base_store_large_room_price"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -583,6 +584,7 @@
                         android:hint="@string/activity_base_store_input_price"
                         android:importantForAutofill="no"
                         android:inputType="number"
+                        android:maxLength="13"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_activity_base_store_middle_room_price"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -653,6 +655,7 @@
                         android:hint="@string/activity_base_store_input_price"
                         android:importantForAutofill="no"
                         android:inputType="number"
+                        android:maxLength="13"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tv_activity_base_store_small_room_price"
                         app:layout_constraintTop_toTopOf="parent" />

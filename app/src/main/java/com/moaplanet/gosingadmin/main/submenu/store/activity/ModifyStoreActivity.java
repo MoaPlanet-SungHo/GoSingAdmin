@@ -246,7 +246,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
             shopRoomInfoDto = shopRoomInfoDtoMap.get(i);
             if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
                 // 신규 등록 or 수정
-                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString());
+                roomInfoDto.setPrice(roomPriceList.get(i).getText().toString().replaceAll("[,원]", ""));
                 roomInfoDto.setRoomType(String.valueOf(i + 1));
                 roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
                 if (shopRoomInfoDto == null) {
