@@ -28,7 +28,7 @@ public class ResBankInfoDto extends CommonResDto {
         private String mBankCode;
 
         // 은행 이름
-        @SerializedName("back_nm")
+        @SerializedName("back_name")
         private String mBankName;
 
         public String getBankCode() {
