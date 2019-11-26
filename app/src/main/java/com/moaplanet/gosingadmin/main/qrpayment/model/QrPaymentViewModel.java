@@ -51,7 +51,7 @@ public class QrPaymentViewModel extends ViewModel {
                         resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS &&
                         resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
 
-                    qrCodeUrl.setValue(NetworkConstants.IMAGE_BASE_URL + resModel.getPathQrCode());
+                    qrCodeUrl.setValue(resModel.getPathQrCode());
                     storeName.setValue(resModel.getStoreName());
                     connectServerResult.setValue(true);
 

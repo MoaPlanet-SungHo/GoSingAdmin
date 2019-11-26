@@ -38,6 +38,8 @@ public class QrCodeViewModel extends BaseViewModel {
     // 서버 로딩
     private MutableLiveData<Boolean> isLoadingServer = new MutableLiveData<>();
 
+    public MutableLiveData<Integer> myPoint = new MutableLiveData<>();
+
     public LiveData<Integer> getReserveRatio() {
         return reserveRatio;
     }
@@ -181,6 +183,7 @@ public class QrCodeViewModel extends BaseViewModel {
                                 && resModel.getStateCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                             qrCodePk.setValue(resModel.getPaymentInitDto().getQrCodePk());
                             reserveRatio.setValue(resModel.getPaymentInitDto().getReserveRatio());
+                            myPoint.setValue(resModel.getPaymentInitDto().getGossingPoint());
                         } else {
                             qrCodePk.setValue(null);
                             reserveRatio.setValue(null);

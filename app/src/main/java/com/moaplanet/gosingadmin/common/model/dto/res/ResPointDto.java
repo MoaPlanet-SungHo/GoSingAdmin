@@ -24,7 +24,7 @@ public class ResPointDto {
     private int maxPoint;
 
     // 충전한 고싱 보인트
-    @SerializedName("charged_point")
+    @SerializedName("charge_point")
     private int chargePoint;
 
     // 적립된 포인트

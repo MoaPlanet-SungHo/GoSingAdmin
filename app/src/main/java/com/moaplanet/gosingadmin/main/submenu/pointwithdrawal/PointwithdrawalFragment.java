@@ -150,10 +150,11 @@ public class PointwithdrawalFragment extends BaseFragment {
 
         etWithdrawal.addTextChangedListener(mWatcherPriceCharge);
 
-        if (!isSearchDepositAccount) {
-            isSearchDepositAccount = true;
-            onLoadAccountInfo();
-        }
+//        if (!isSearchDepositAccount) {
+//            isSearchDepositAccount = true;
+//            onLoadAccountInfo();
+//        }
+        onLoadAccountInfo();
 
     }
 

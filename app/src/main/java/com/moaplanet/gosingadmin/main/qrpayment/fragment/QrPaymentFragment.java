@@ -2,6 +2,7 @@ package com.moaplanet.gosingadmin.main.qrpayment.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -158,37 +159,39 @@ public class QrPaymentFragment extends BaseFragment {
         qrPaymentViewModel.getStoreName().observe(this,
                 storeName -> tvStoreName.setText(storeName));
 
-        qrPaymentViewModel.getQrCodeUrl().observe(this, qrCodeUrl ->
-                        Glide.with(view)
-                                .load(qrCodeUrl)
-                                .error(R.drawable.bg_err_qr_code)
-                                .placeholder(R.drawable.bg_err_qr_code)
-                                .listener(new RequestListener<Drawable>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e,
-                                                                Object model,
-                                                                Target<Drawable> target,
-                                                                boolean isFirstResource) {
+        qrPaymentViewModel.getQrCodeUrl().observe(this, qrCodeUrl -> {
+            byte[] qrImg =  Base64.decode(qrCodeUrl, Base64.DEFAULT);
+
+            Glide.with(view)
+                    .load(qrImg)
+                    .error(R.drawable.bg_err_qr_code)
+                    .placeholder(R.drawable.bg_err_qr_code)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e,
+                                                    Object model,
+                                                    Target<Drawable> target,
+                                                    boolean isFirstResource) {
 //                                Toast.makeText(view.getContext(),
 //                                        "다시 시도해 주세요",
 //                                        Toast.LENGTH_SHORT).show();
 //                                onBackNavigation();
-                                        // 실패시
-                                        return false;
-                                    }
+                            // 실패시
+                            return false;
+                        }
 
-                                    @Override
-                                    public boolean onResourceReady(Drawable resource,
-                                                                   Object model,
-                                                                   Target<Drawable> target,
-                                                                   DataSource dataSource,
-                                                                   boolean isFirstResource) {
-                                        // 성공시
-                                        return false;
-                                    }
-                                })
-                                .into(ivQrCode)
-        );
+                        @Override
+                        public boolean onResourceReady(Drawable resource,
+                                                       Object model,
+                                                       Target<Drawable> target,
+                                                       DataSource dataSource,
+                                                       boolean isFirstResource) {
+                            // 성공시
+                            return false;
+                        }
+                    })
+                    .into(ivQrCode);
+        });
 
         qrPaymentViewModel.getConnectServerResult().observe(this, result -> {
             if (result) {

@@ -20,12 +20,20 @@ public class ResPaymentInitDto extends CommonResDto {
         @SerializedName("acrl_rate")
         private int reserveRatio;
 
+        // 포인트
+        @SerializedName("gossing_point")
+        private int gossingPoint;
+
         public String getQrCodePk() {
             return qrCodePk;
         }
 
         public int getReserveRatio() {
             return reserveRatio;
+        }
+
+        public int getGossingPoint() {
+            return gossingPoint;
         }
     }
 

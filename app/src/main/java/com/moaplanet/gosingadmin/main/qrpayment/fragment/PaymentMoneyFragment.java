@@ -19,6 +19,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.qrpayment.model.QrCodeViewModel;
+import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,9 +42,12 @@ public class PaymentMoneyFragment extends BaseFragment {
     // 총결제 금액
     private TextView tvTotalPrice;
     private TextView tvReserveFund;
+    private TextView tvGoSingPoint;
 
     // Qr코드로 결제하는 화면이동 버튼
     private Button btnQrPayment;
+
+    private int myPoint = 0;
 
     @Override
     public int layoutRes() {
@@ -68,6 +72,8 @@ public class PaymentMoneyFragment extends BaseFragment {
         tvReserveFund.setText(getString(R.string.fragment_payment_money_won, "0"));
 
         btnQrPayment = view.findViewById(R.id.make_qr_code);
+
+        tvGoSingPoint = view.findViewById(R.id.tv_main_balance_gosing_point_content);
     }
 
     @Override
@@ -166,6 +172,12 @@ public class PaymentMoneyFragment extends BaseFragment {
             }
         });
 
+        qrCodeViewModel.myPoint.observe(this, point -> {
+            myPoint = point;
+            tvGoSingPoint.setText(getString(R.string.common_price_won,
+                    StringUtil.convertCommaPrice(point)));
+        });
+
         // 적립 결제 금액 세팅
         qrCodeViewModel.getInputSavePrice().observe(this, price -> {
             //todo 수정 필요
@@ -205,8 +217,12 @@ public class PaymentMoneyFragment extends BaseFragment {
                 tvTotalPrice.setText(getString(R.string.fragment_payment_money_won, totalPrice)));
 
         // 적립 금액 초기화
-        qrCodeViewModel.getSaveMoney().observe(this, savePrice ->
-                tvReserveFund.setText(getString(R.string.fragment_payment_money_won, savePrice)));
+        qrCodeViewModel.getSaveMoney().observe(this, savePrice -> {
+            tvReserveFund.setText(getString(R.string.fragment_payment_money_won, savePrice));
+            int price = Integer.valueOf(savePrice.replace(",", ""));
+            tvGoSingPoint.setText(getString(R.string.fragment_payment_money_won,
+                    StringUtil.convertCommaPrice(myPoint - price)));
+        });
 
         qrCodeViewModel.getSession().observe(this, isSession -> {
             if (!isSession) {
