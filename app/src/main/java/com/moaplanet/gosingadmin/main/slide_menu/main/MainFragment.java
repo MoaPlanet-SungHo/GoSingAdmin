@@ -207,7 +207,7 @@ public class MainFragment extends Fragment {
         RxView.clicks(btnQrCode)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivityWidthDebug(QrCodeActivity.class));
+                .subscribe(click -> moveActivity(QrCodeActivity.class));
 
         // 세션 없을경우
         mainViewModel.getSession().observe(this, isSession -> {
