@@ -174,7 +174,7 @@ public class CardFragment extends BaseFragment {
             tvAfterPoint.setText(getString(R.string.common_price_won,
                     StringUtil.convertCommaPrice(price + myPoint))
             );
-            if (price >= 1000) {
+            if (price >= 1000 && clAddCardGroup.getVisibility() == View.GONE) {
                 mChargeCardViewModel.setChargeButtonActive(true);
             } else {
                 mChargeCardViewModel.setChargeButtonActive(false);

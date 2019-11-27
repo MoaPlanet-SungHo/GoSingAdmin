@@ -203,9 +203,14 @@ public class SavePointFragment extends BaseFragment {
                                     tvSaveMaxPoint.getText().toString()));
                             dialog.show(getChildFragmentManager(), "dialog");
                             dialog.onDoneOnCliListener(v -> dialog.dismiss());
-                        } else {
+                        } else if (resModel.getDetailCode() == 204){
                             NoTitleDialog dialog = new NoTitleDialog();
                             dialog.setContent(R.string.fragment_save_point_lacks_point);
+                            dialog.show(getChildFragmentManager(), "dialog");
+                            dialog.onDoneOnCliListener(v -> dialog.dismiss());
+                        } else if (resModel.getDetailCode() == 201){
+                            NoTitleDialog dialog = new NoTitleDialog();
+                            dialog.setContent(R.string.fragment_save_phone_number_exist_user);
                             dialog.show(getChildFragmentManager(), "dialog");
                             dialog.onDoneOnCliListener(v -> dialog.dismiss());
                         }
