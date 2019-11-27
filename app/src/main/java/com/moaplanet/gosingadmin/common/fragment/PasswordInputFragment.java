@@ -65,8 +65,11 @@ public class PasswordInputFragment extends PasswordInputBaseFragment {
 
                 if (isChangeAccountNumber) {
                     if (getActivity() != null) {
-                        getActivity().setResult(GoSingConstants.RESULT_CODE_CHANGE_ACCOUNT_NUMBER);
-                        getActivity().finish();
+
+//                        getActivity().setResult(GoSingConstants.RESULT_CODE_CHANGE_ACCOUNT_NUMBER);
+//                        getActivity().finish();
+                        registerWithdrawalAccountViewModel.setPinSuccess(true);
+                        onBackNavigation();
                     }
                     return;
                 }

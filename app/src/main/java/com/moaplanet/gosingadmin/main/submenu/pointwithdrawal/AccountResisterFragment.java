@@ -50,6 +50,8 @@ public class AccountResisterFragment extends BaseFragment {
 
     private CommonTitleBar commonTitle;
 
+    private View loadingBar;
+
     // 사용자가 선택한 은행
     private TextView mTvSelectBank;
     private EditText mAccountName, mAccountNumber;
@@ -75,6 +77,9 @@ public class AccountResisterFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+
+        loadingBar = view.findViewById(R.id.pb_fragment_account_register_loading);
+        loadingBar.setVisibility(View.GONE);
 
         commonTitle = view.findViewById(R.id.title_account_register);
         clAccountInfoGroup = view.findViewById(R.id.cl_fragment_account_register_account_info_group);
@@ -192,6 +197,7 @@ public class AccountResisterFragment extends BaseFragment {
     }
 
     private void onOpenVirualAccount() {
+        onStartLoading(loadingBar);
         RetrofitService
                 .getInstance()
                 .getGoSingApiService()
@@ -211,16 +217,23 @@ public class AccountResisterFragment extends BaseFragment {
                 ) {
                     @Override
                     public void onFinalResponse(Call<CommonResDto> call, CommonResDto resModel) {
-
+                        onStopLoading(loadingBar);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
 //                            viewModel.setmAccountName(mAccountName.getText().toString());
 //                            viewModel.setmAccountNumber(mAccountNumber.getText().toString());
 
 //                            onMoveNavigation(R.id.action_fragment_withdrawal);
 //                            onMoveNavigation(R.id.fragment_password_input);
-                            Intent intent = new Intent(view.getContext(), PointWithDrawalActivity.class);
-                            startActivity(intent);
-                            if (getActivity() != null) {
+
+                            if (getActivity() != null &&
+                                    getActivity().getIntent().getIntExtra("REQ_CODE", -1)
+                                            == GoSingConstants.REQ_CODE_CHANGE_ACCOUNT_NUMBER) {
+
+                                getActivity().setResult(GoSingConstants.RESULT_CODE_CHANGE_ACCOUNT_NUMBER);
+                                getActivity().finish();
+                            } else {
+                                Intent intent = new Intent(view.getContext(), PointWithDrawalActivity.class);
+                                startActivity(intent);
                                 getActivity().finish();
                             }
                         } else if (resModel.getDetailCode() == 201) {
@@ -240,12 +253,14 @@ public class AccountResisterFragment extends BaseFragment {
                     @Override
                     public void onFinalFailure(Call<CommonResDto> call,
                                                boolean isSession, Throwable t) {
+                        onStopLoading(loadingBar);
                         onNetworkConnectFail();
                     }
 
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
+                        onStopLoading(loadingBar);
                         onNotSession();
                     }
                 });
