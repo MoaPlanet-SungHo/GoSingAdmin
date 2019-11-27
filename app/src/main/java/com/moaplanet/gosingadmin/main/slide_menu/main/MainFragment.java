@@ -259,12 +259,13 @@ public class MainFragment extends Fragment {
     }
 
     private void moveActivityWidthDebug(Class moveClass) {
-        if (BuildConfig.BUILD_TYPE.equals("debug")) {
-            Intent intent = new Intent(view.getContext(), moveClass);
-            startActivity(intent);
-        } else {
-            onServiceReady();
-        }
+        onServiceReady();
+//        if (BuildConfig.BUILD_TYPE.equals("debug")) {
+//            Intent intent = new Intent(view.getContext(), moveClass);
+//            startActivity(intent);
+//        } else {
+//            onServiceReady();
+//        }
     }
 
     private void moveActivity(Class moveClass) {
