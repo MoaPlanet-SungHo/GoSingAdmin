@@ -239,6 +239,7 @@ public class SavePointFragment extends BaseFragment {
 
         mViewModel.getIsPinCheck().observe(getViewLifecycleOwner(), isCheck -> {
             if (isCheck) {
+                mViewModel.setIsPinCheck(false);
                 onSavePoint();
             }
         });
