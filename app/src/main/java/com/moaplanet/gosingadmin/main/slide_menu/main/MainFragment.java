@@ -166,7 +166,7 @@ public class MainFragment extends Fragment {
         RxView.clicks(btnStore)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivityWidthDebug(ModifyStoreActivity.class));
+                .subscribe(click -> moveActivity(ModifyStoreActivity.class));
 
         //리뷰관리
         RxView.clicks(btnReview)
