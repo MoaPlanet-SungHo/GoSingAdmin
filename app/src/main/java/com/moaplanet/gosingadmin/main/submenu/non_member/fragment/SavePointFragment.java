@@ -102,7 +102,7 @@ public class SavePointFragment extends BaseFragment {
             int afterPoint;
             try {
                 String havePoint = mViewModel.getPoint().getValue().replace(",", "");
-                afterPoint = Integer.parseInt(havePoint) + price;
+                afterPoint = Integer.parseInt(havePoint) - price;
             } catch (NullPointerException | NumberFormatException e) {
                 afterPoint = price;
             }
