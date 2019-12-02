@@ -56,6 +56,14 @@ public class QrPaymentFragment extends BaseFragment {
     private ImageView ivQrCode;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getActivity() != null) {
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
+
+    @Override
     protected void initViewModel() {
         super.initViewModel();
         if (getActivity() != null) {
@@ -160,7 +168,7 @@ public class QrPaymentFragment extends BaseFragment {
                 storeName -> tvStoreName.setText(storeName));
 
         qrPaymentViewModel.getQrCodeUrl().observe(this, qrCodeUrl -> {
-            byte[] qrImg =  Base64.decode(qrCodeUrl, Base64.DEFAULT);
+            byte[] qrImg = Base64.decode(qrCodeUrl, Base64.DEFAULT);
 
             Glide.with(view)
                     .load(qrImg)
