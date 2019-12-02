@@ -1,5 +1,7 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,9 @@ public class CardInfoRegisterFragment extends BaseFragment {
 
     private ProgressBar mLoading;
 
+    private EditText cardNumberOne, cardNumberTwo, cardNumberThree, cardNumberFour, etYear, etMonth,
+            birthNumber, pw, cardName;
+
     @Override
     public int layoutRes() {
         return R.layout.fragment_card_info_register;
@@ -36,6 +41,28 @@ public class CardInfoRegisterFragment extends BaseFragment {
     public void initView(View view) {
         mLoading = view.findViewById(R.id.pr_fragment_card_info_register_loading);
         mLoading.setVisibility(View.GONE);
+
+        cardNumberOne =
+                view.findViewById(R.id.et_fragment_card_info_register_card_number_1);
+
+        cardNumberTwo =
+                view.findViewById(R.id.et_fragment_card_info_register_card_number_2);
+
+        cardNumberThree =
+                view.findViewById(R.id.et_fragment_card_info_register_card_number_3);
+
+        cardNumberFour =
+                view.findViewById(R.id.et_fragment_card_info_register_card_number_4);
+
+        etYear = view.findViewById(R.id.et_fragment_card_info_register_card_validity_1);
+
+        etMonth = view.findViewById(R.id.et_fragment_card_info_register_card_validity_2);
+
+        birthNumber = view.findViewById(R.id.et_fragment_card_info_register_card_birth);
+
+        pw = view.findViewById(R.id.et_fragment_card_info_register_card_password);
+
+        cardName = view.findViewById(R.id.et_fragment_card_info_register_title_card_nick_name);
     }
 
     @Override
@@ -56,6 +83,157 @@ public class CardInfoRegisterFragment extends BaseFragment {
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> checkCardInfoField());
+
+        cardNumberOne.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 4) {
+                    cardNumberTwo.requestFocus();
+                }
+            }
+        });
+
+        cardNumberTwo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 4) {
+                    cardNumberThree.requestFocus();
+                }
+            }
+        });
+
+        cardNumberThree.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 4) {
+                    cardNumberFour.requestFocus();
+                }
+            }
+        });
+
+        cardNumberFour.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 4) {
+                    etYear.requestFocus();
+                }
+            }
+        });
+
+        etYear.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 2) {
+                    etMonth.requestFocus();
+                }
+            }
+        });
+
+        etMonth.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 2) {
+                    birthNumber.requestFocus();
+                }
+            }
+        });
+
+        birthNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 10) {
+                    pw.requestFocus();
+                }
+            }
+        });
+
+        pw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 2) {
+                    cardName.requestFocus();
+                }
+            }
+        });
     }
 
     /**
@@ -65,8 +243,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         ReqRegisterCardDto reqRegisterCardDto = new ReqRegisterCardDto();
         // 카드 번호 체크
         // 카드 번호 입력화면1
-        EditText cardNumberOne =
-                view.findViewById(R.id.et_fragment_card_info_register_card_number_1);
         if (inputCardNumberCheck(cardNumberOne)) {
             reqRegisterCardDto.setCardNumberOne(cardNumberOne.getText().toString());
         } else {
@@ -77,8 +253,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 카드 번호 입력화면2
-        EditText cardNumberTwo =
-                view.findViewById(R.id.et_fragment_card_info_register_card_number_2);
         if (inputCardNumberCheck(cardNumberTwo)) {
             reqRegisterCardDto.setCardNumberTwo(cardNumberTwo.getText().toString());
         } else {
@@ -89,8 +263,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 카드 번호 입력화면3
-        EditText cardNumberThree =
-                view.findViewById(R.id.et_fragment_card_info_register_card_number_3);
         if (inputCardNumberCheck(cardNumberThree)) {
             reqRegisterCardDto.setCardNumberThree(cardNumberThree.getText().toString());
         } else {
@@ -101,8 +273,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 카드 번호 입력화면4
-        EditText cardNumberFour =
-                view.findViewById(R.id.et_fragment_card_info_register_card_number_4);
         if (inputCardNumberCheck(cardNumberFour)) {
             reqRegisterCardDto.setCardNumberFour(cardNumberFour.getText().toString());
         } else {
@@ -114,7 +284,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
 
         // 카드 유효기간 체크
         // 년도
-        EditText etYear = view.findViewById(R.id.et_fragment_card_info_register_card_validity_1);
         if (etYear.getText().length() == 2) {
             reqRegisterCardDto.setYear(etYear.getText().toString());
         } else {
@@ -125,7 +294,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 월
-        EditText etMonth = view.findViewById(R.id.et_fragment_card_info_register_card_validity_2);
         if (etMonth.getText().length() == 2) {
             reqRegisterCardDto.setMonth(etMonth.getText().toString());
         } else {
@@ -136,7 +304,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 생년월일 혹은 사업자등록번호 체크
-        EditText birthNumber = view.findViewById(R.id.et_fragment_card_info_register_card_birth);
         if (birthNumber.getText().length() == 6 || birthNumber.getText().length() == 10) {
             reqRegisterCardDto.setBirth(birthNumber.getText().toString());
         } else {
@@ -147,7 +314,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 패스워드
-        EditText pw = view.findViewById(R.id.et_fragment_card_info_register_card_password);
         if (pw.getText().length() == 2) {
             reqRegisterCardDto.setPw(pw.getText().toString());
         } else {
@@ -158,7 +324,6 @@ public class CardInfoRegisterFragment extends BaseFragment {
         }
 
         // 카드 닉네임
-        EditText cardName = view.findViewById(R.id.et_fragment_card_info_register_title_card_nick_name);
         reqRegisterCardDto.setCardName(cardName.getText().toString());
 
         onRegisterCard(reqRegisterCardDto);
