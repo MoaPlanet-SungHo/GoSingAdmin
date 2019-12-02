@@ -6,6 +6,7 @@ import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
+import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
@@ -98,6 +99,13 @@ public interface GoSingApiService {
             @Query("shop_qr_save_history_seq") String qrCodePk,
             @Query("price") String reservePrice,
             @Query("non_ernng_price") String noReservePrice);
+
+    /**
+     * QRCode 체크
+     */
+    @POST("session/PaymenyManageCtr/qrPaymentConfirm.json")
+    Call<ResQrCodeCheckDTO> onServerCreateQrCodeCheck(
+            @Query("shop_qr_seq") String shopQrSeq);
 
     // 카드 리스트 불러오기
     @POST("session/PaymenyManageCtr/card_list_Return.json")

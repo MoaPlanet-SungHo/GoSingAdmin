@@ -48,6 +48,12 @@ public class QrPaymentFragment extends BaseFragment {
     private TextView tvFiveTimer;
     private TimerTask timerTask;
     private Timer timer = new Timer();
+    // qr 코드 만료 체크 -> true  : 만료 | false : 만료 아님
+    private boolean qrCodeEnd = false;
+
+    // qr 코드 체크 관련
+    private TimerTask qrCodeCheckTimerTask;
+    private Timer qrCodeCheckTimer = new Timer();
 
     // 가맹점 이름
     private TextView tvStoreName;
@@ -129,6 +135,7 @@ public class QrPaymentFragment extends BaseFragment {
 
                     if (minute == 0 && second == 0) {
                         stopTimerTask();
+                        stopQrTimerTask();
                         Logger.d("타이머 종료");
                         createQrCodeDialogShow();
                     }
@@ -138,15 +145,16 @@ public class QrPaymentFragment extends BaseFragment {
         timer.schedule(timerTask, 0, 1000);
     }
 
-    /**
-     * 타이머 중지
-     */
-    private void stopTimerTask() {
-        if (timerTask != null) {
-            tvFiveTimer.setText("0초");
-            timerTask.cancel();
-            timerTask = null;
-        }
+    private void startQrTimerTask() {
+        stopQrTimerTask();
+
+        qrCodeCheckTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                qrPaymentViewModel.onQrCodeCheck();
+            }
+        };
+        qrCodeCheckTimer.schedule(qrCodeCheckTimerTask, 0, 2000);
     }
 
     @Override
@@ -204,12 +212,30 @@ public class QrPaymentFragment extends BaseFragment {
         qrPaymentViewModel.getConnectServerResult().observe(this, result -> {
             if (result) {
                 startTimerTask();
+                startQrTimerTask();
                 onStopLoading();
             } else {
                 Toast.makeText(view.getContext(),
                         "재시도해 주세요",
                         Toast.LENGTH_SHORT).show();
                 onBackNavigation();
+            }
+        });
+
+        qrPaymentViewModel.getIsPaymentSuccess().observe(this, success -> {
+            if (success) {
+                stopQrTimerTask();
+
+                NoTitleDialog noTitleDialog = new NoTitleDialog();
+                noTitleDialog.setContent(R.string.fragment_qr_payment_qr_code_payment_dialog);
+                noTitleDialog.show(getChildFragmentManager(), "QRCodePaymentDialog");
+                // 확인 버튼 클릭시
+                noTitleDialog.onDoneOnCliListener(view -> {
+                    noTitleDialog.dismiss();
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                });
             }
         });
     }
@@ -270,9 +296,31 @@ public class QrPaymentFragment extends BaseFragment {
         ));
     }
 
+    /**
+     * 타이머 중지
+     */
+    private void stopTimerTask() {
+        if (timerTask != null) {
+            tvFiveTimer.setText("0초");
+            timerTask.cancel();
+            timerTask = null;
+        }
+    }
+
+    /**
+     * 타이머 중지
+     */
+    private void stopQrTimerTask() {
+        if (qrCodeCheckTimerTask != null) {
+            qrCodeCheckTimerTask.cancel();
+            qrCodeCheckTimerTask = null;
+        }
+    }
+
     @Override
     public void onDestroy() {
         stopTimerTask();
+        stopQrTimerTask();
         super.onDestroy();
     }
 

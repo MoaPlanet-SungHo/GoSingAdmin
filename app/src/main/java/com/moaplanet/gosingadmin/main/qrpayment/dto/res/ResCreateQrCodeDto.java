@@ -13,11 +13,19 @@ public class ResCreateQrCodeDto extends CommonResDto {
     @SerializedName("shop_nm")
     private String storeName;
 
+    // QRCode SEQ 값
+    @SerializedName("shop_qr_seq")
+    private String qrCodeSeq;
+
     public String getStoreName() {
         return storeName;
     }
 
     public String getPathQrCode() {
         return pathQrCode;
+    }
+
+    public String getQrCodeSeq() {
+        return qrCodeSeq;
     }
 }

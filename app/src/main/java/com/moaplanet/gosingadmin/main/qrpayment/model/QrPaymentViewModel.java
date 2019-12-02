@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.moaplanet.gosingadmin.main.qrpayment.dto.req.ReqCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
+import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
@@ -20,6 +21,10 @@ public class QrPaymentViewModel extends ViewModel {
     private MutableLiveData<String> qrCodeUrl = new MutableLiveData<>();
     // 통신 결과 --> true 성공 | false 실패
     private MutableLiveData<Boolean> connectServerResult = new MutableLiveData<>();
+    // 결제 됬는지 체크 값 => true : 결제 성공 | false 결제 실패
+    private MutableLiveData<Boolean> isPaymentSuccess = new MutableLiveData<>();
+    // qrCode Seq 값
+    private String qrCodeSeq;
 
     public LiveData<String> getStoreName() {
         return storeName;
@@ -31,6 +36,10 @@ public class QrPaymentViewModel extends ViewModel {
 
     public LiveData<Boolean> getConnectServerResult() {
         return connectServerResult;
+    }
+
+    public MutableLiveData<Boolean> getIsPaymentSuccess() {
+        return isPaymentSuccess;
     }
 
     public void onCreateQrCode(ReqCreateQrCodeDto reqCreateQrCodeDto) {
@@ -51,6 +60,7 @@ public class QrPaymentViewModel extends ViewModel {
                         resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS &&
                         resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
 
+                    qrCodeSeq = resModel.getQrCodeSeq();
                     qrCodeUrl.setValue(resModel.getPathQrCode());
                     storeName.setValue(resModel.getStoreName());
                     connectServerResult.setValue(true);
@@ -63,6 +73,27 @@ public class QrPaymentViewModel extends ViewModel {
 
             @Override
             public void onFinalFailure(Call<ResCreateQrCodeDto> call,
+                                       boolean isSession, Throwable t) {
+                connectServerResult.setValue(false);
+            }
+        });
+    }
+
+    public void onQrCodeCheck() {
+        RetrofitService.getInstance().getGoSingApiService().onServerCreateQrCodeCheck(
+                qrCodeSeq
+        ).enqueue(new MoaAuthCallback<ResQrCodeCheckDTO>(
+                RetrofitService.getInstance().getMoaAuthConfig(),
+                RetrofitService.getInstance().getSessionChecker()
+        ) {
+            @Override
+            public void onFinalResponse(Call<ResQrCodeCheckDTO> call,
+                                        ResQrCodeCheckDTO resModel) {
+                isPaymentSuccess.setValue(resModel.getIsPayment());
+            }
+
+            @Override
+            public void onFinalFailure(Call<ResQrCodeCheckDTO> call,
                                        boolean isSession, Throwable t) {
                 connectServerResult.setValue(false);
             }

@@ -215,6 +215,7 @@
         결제QR코드가 만료되었습니다.
         \n결제QR코드를 재생성 하시겠습니까?
     </string>
+    <string name="fragment_qr_payment_qr_code_payment_dialog">결제가 완료되었습니다.</string>
 
     <!-- MakingQRcodeActivity -->
     <string name="common_hint_text">0원</string>
