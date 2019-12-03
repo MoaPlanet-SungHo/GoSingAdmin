@@ -68,7 +68,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getPointInfo();
     }
 
     private void getPointInfo() {
@@ -93,6 +92,12 @@ public class MainFragment extends Fragment {
                         errMsg();
                     }
                 });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPointInfo();
     }
 
     private void errMsg() {

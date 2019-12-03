@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.information.InformationActivity;
+import com.moaplanet.gosingadmin.main.slide_menu.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +26,8 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    private long backKeyPressedTime = 0;                //사용자가 뒤로가기를 하였을시 시간
+    private Toast toast;
     private DrawerLayout drawerLayout;
     private TextView mTvInformation;
 
@@ -81,6 +86,35 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (getNowFragment() instanceof MainFragment) {
+            onCustomBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private Fragment getNowFragment() {
+        Fragment nowFragment = getSupportFragmentManager().findFragmentById(R.id.fm_main_nav_host);
+        if (nowFragment != null) {
+            return nowFragment.getChildFragmentManager().getFragments().get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public void onCustomBackPressed() {
+        //두번 터치시 동작 유효시간 정의
+        long onBackPresedFiishTime = 2000;
+        if (System.currentTimeMillis() > backKeyPressedTime + onBackPresedFiishTime) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, getString(R.string.common_toast_msg_finish), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + onBackPresedFiishTime) {
+            toast.cancel();
+            moveTaskToBack(true);
+            finish();
+        }
     }
 }

@@ -38,7 +38,7 @@
             android:layout_marginTop="23dp"
             android:fontFamily="@font/font_gd_15"
             android:lineSpacingExtra="1.7dp"
-            android:text="김모아 님의 충전계좌"
+            android:text="님의 충전계좌"
             android:textColor="@color/color_000000"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="parent"
