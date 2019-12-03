@@ -113,6 +113,14 @@ public class QrPaymentFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (qrCodeCheckTimerTask == null) {
+            startQrTimerTask();
+        }
+    }
+
     /**
      * QrCode 타이머 실행
      */
@@ -318,9 +326,14 @@ public class QrPaymentFragment extends BaseFragment {
     }
 
     @Override
+    public void onPause() {
+        stopQrTimerTask();
+        super.onPause();
+    }
+
+    @Override
     public void onDestroy() {
         stopTimerTask();
-        stopQrTimerTask();
         super.onDestroy();
     }
 

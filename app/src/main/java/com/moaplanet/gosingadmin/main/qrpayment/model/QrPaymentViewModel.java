@@ -24,7 +24,7 @@ public class QrPaymentViewModel extends ViewModel {
     // 결제 됬는지 체크 값 => true : 결제 성공 | false 결제 실패
     private MutableLiveData<Boolean> isPaymentSuccess = new MutableLiveData<>();
     // qrCode Seq 값
-    private String qrCodeSeq;
+    private String qrCodeSeq = "";
 
     public LiveData<String> getStoreName() {
         return storeName;
@@ -80,23 +80,26 @@ public class QrPaymentViewModel extends ViewModel {
     }
 
     public void onQrCodeCheck() {
-        RetrofitService.getInstance().getGoSingApiService().onServerCreateQrCodeCheck(
-                qrCodeSeq
-        ).enqueue(new MoaAuthCallback<ResQrCodeCheckDTO>(
-                RetrofitService.getInstance().getMoaAuthConfig(),
-                RetrofitService.getInstance().getSessionChecker()
-        ) {
-            @Override
-            public void onFinalResponse(Call<ResQrCodeCheckDTO> call,
-                                        ResQrCodeCheckDTO resModel) {
-                isPaymentSuccess.setValue(resModel.getIsPayment());
-            }
 
-            @Override
-            public void onFinalFailure(Call<ResQrCodeCheckDTO> call,
-                                       boolean isSession, Throwable t) {
-                connectServerResult.setValue(false);
-            }
-        });
+        if (!qrCodeSeq.equals("")) {
+            RetrofitService.getInstance().getGoSingApiService().onServerCreateQrCodeCheck(
+                    qrCodeSeq
+            ).enqueue(new MoaAuthCallback<ResQrCodeCheckDTO>(
+                    RetrofitService.getInstance().getMoaAuthConfig(),
+                    RetrofitService.getInstance().getSessionChecker()
+            ) {
+                @Override
+                public void onFinalResponse(Call<ResQrCodeCheckDTO> call,
+                                            ResQrCodeCheckDTO resModel) {
+                    isPaymentSuccess.setValue(resModel.getIsPayment());
+                }
+
+                @Override
+                public void onFinalFailure(Call<ResQrCodeCheckDTO> call,
+                                           boolean isSession, Throwable t) {
+                    connectServerResult.setValue(false);
+                }
+            });
+        }
     }
 }
