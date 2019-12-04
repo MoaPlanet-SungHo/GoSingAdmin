@@ -170,17 +170,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         storeImageList = new ArrayList<>();
         for (ResStoreSearchDto.ShopPhotoDto shopPhotoDto : photoDtoList) {
             String imgSrc = shopPhotoDto.getImgSrc();
-
-            String[] middlePathArray = imgSrc.split("_");
-            StringBuilder middlePath = new StringBuilder();
-
-            final int SRC_MIDDLE_PATH_COUNT = middlePathArray.length - 1;
-            for (int i = 0; i < SRC_MIDDLE_PATH_COUNT; i++) {
-                middlePath.append(middlePathArray[i]).append("/");
-            }
-
             String srcFullPath = NetworkConstants.IMAGE_BASE_URL +
-                    middlePath +
                     imgSrc;
 
             storeImageList.add(srcFullPath);
@@ -292,7 +282,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         reqStoreRegisterDto.setStorePhoto(storeImgMap);
         List<String> removePhotoList = new ArrayList<>(removePhotoMap.values());
 //        if (removePhotoList.size() > 0) {
-            reqStoreRegisterDto.setRemovePhoto(removePhotoList);
+        reqStoreRegisterDto.setRemovePhoto(removePhotoList);
 //        }
 
 
