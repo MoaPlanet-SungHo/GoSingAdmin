@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.main.qrpayment.model.QrCodeViewModel;
 import com.moaplanet.gosingadmin.utils.StringUtil;
@@ -108,44 +109,65 @@ public class PaymentMoneyFragment extends BaseFragment {
                     imm.showSoftInput(etInputNoSaveMoney, 0);
                 });
 
-        etInputSaveMoney.addTextChangedListener(new TextWatcher() {
-
+        PriceWatcher savePriceWatcher = new PriceWatcher(etInputSaveMoney);
+        savePriceWatcher.setCallback(new PriceWatcher.onPriceWatcherCallback() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onTextChange(String completePrice, int price) {
                 if (qrCodeViewModel != null) {
-                    qrCodeViewModel.setInputSavePrice(editable.toString());
+                    qrCodeViewModel.setInputSavePrice(completePrice);
                 }
             }
         });
+        etInputSaveMoney.addTextChangedListener(savePriceWatcher);
 
-        etInputNoSaveMoney.addTextChangedListener(new TextWatcher() {
+//        etInputSaveMoney.addTextChangedListener(new TextWatcher() {
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if (qrCodeViewModel != null) {
+//                    qrCodeViewModel.setInputSavePrice(editable.toString());
+//                }
+//            }
+//        });
+
+        PriceWatcher noSavePriceWatcher = new PriceWatcher(etInputNoSaveMoney);
+        noSavePriceWatcher.setCallback(new PriceWatcher.onPriceWatcherCallback() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onTextChange(String completePrice, int price) {
                 if (qrCodeViewModel != null) {
-                    qrCodeViewModel.setInputNoSavePrice(editable.toString());
+                    qrCodeViewModel.setInputNoSavePrice(completePrice);
                 }
             }
         });
+        etInputNoSaveMoney.addTextChangedListener(noSavePriceWatcher);
+//        etInputNoSaveMoney.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                if (qrCodeViewModel != null) {
+//                    qrCodeViewModel.setInputNoSavePrice(editable.toString());
+//                }
+//            }
+//        });
 
         // 결제 화면으로 이동
         RxView.clicks(btnQrPayment)
@@ -179,38 +201,38 @@ public class PaymentMoneyFragment extends BaseFragment {
         });
 
         // 적립 결제 금액 세팅
-        qrCodeViewModel.getInputSavePrice().observe(this, price -> {
-            //todo 수정 필요
-            int cp = etInputSaveMoney.getSelectionStart();
-            int startLen = etInputSaveMoney.getText().length();
-            int wonLen;
-            if (etInputSaveMoney.getText().length() == 1) {
-                wonLen = -1;
-            } else {
-                wonLen = 0;
-            }
-            etInputSaveMoney.setText(getString(R.string.fragment_payment_money_won, price));
-            int endLen = etInputSaveMoney.getText().length();
+//        qrCodeViewModel.getInputSavePrice().observe(this, price -> {
+//            //todo 수정 필요
+//            int cp = etInputSaveMoney.getSelectionStart();
+//            int startLen = etInputSaveMoney.getText().length();
+//            int wonLen;
+//            if (etInputSaveMoney.getText().length() == 1) {
+//                wonLen = -1;
+//            } else {
+//                wonLen = 0;
+//            }
+//            etInputSaveMoney.setText(getString(R.string.fragment_payment_money_won, price));
+//            int endLen = etInputSaveMoney.getText().length();
+//
+//            etInputSaveMoney.setSelection((cp + (endLen - startLen)) + wonLen);
+//        });
 
-            etInputSaveMoney.setSelection((cp + (endLen - startLen)) + wonLen);
-        });
-
-        // 비적립 결제 금액 세팅
-        qrCodeViewModel.getInputNoSavePrice().observe(this, price -> {
-            //todo 수정 필요
-            int cp = etInputNoSaveMoney.getSelectionStart();
-            int startLen = etInputNoSaveMoney.getText().length();
-            int wonLen;
-            if (etInputNoSaveMoney.getText().length() == 1) {
-                wonLen = -1;
-            } else {
-                wonLen = 0;
-            }
-            etInputNoSaveMoney.setText(getString(R.string.fragment_payment_money_won, price));
-            int endLen = etInputNoSaveMoney.getText().length();
-
-            etInputNoSaveMoney.setSelection((cp + (endLen - startLen)) + wonLen);
-        });
+//        // 비적립 결제 금액 세팅
+//        qrCodeViewModel.getInputNoSavePrice().observe(this, price -> {
+//            //todo 수정 필요
+//            int cp = etInputNoSaveMoney.getSelectionStart();
+//            int startLen = etInputNoSaveMoney.getText().length();
+//            int wonLen;
+//            if (etInputNoSaveMoney.getText().length() == 1) {
+//                wonLen = -1;
+//            } else {
+//                wonLen = 0;
+//            }
+//            etInputNoSaveMoney.setText(getString(R.string.fragment_payment_money_won, price));
+//            int endLen = etInputNoSaveMoney.getText().length();
+//
+//            etInputNoSaveMoney.setSelection((cp + (endLen - startLen)) + wonLen);
+//        });
 
         // 총 결제금액 세팅
         qrCodeViewModel.getTotalPaymentPrice().observe(this, totalPrice ->
