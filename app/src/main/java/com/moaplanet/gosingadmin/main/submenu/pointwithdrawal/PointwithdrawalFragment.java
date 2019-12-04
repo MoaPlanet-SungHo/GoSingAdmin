@@ -19,6 +19,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputFragment;
+import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
@@ -148,7 +149,14 @@ public class PointwithdrawalFragment extends BaseFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> etWithdrawal.setText("0"));
 
-        etWithdrawal.addTextChangedListener(mWatcherPriceCharge);
+//        etWithdrawal.addTextChangedListener(mWatcherPriceCharge);
+        PriceWatcher priceWatcher = new PriceWatcher(etWithdrawal);
+        priceWatcher.setCallback(new PriceWatcher.onPriceWatcherCallback() {
+            @Override
+            public void onTextChange(String completePrice, int price) {
+            }
+        });
+        etWithdrawal.addTextChangedListener(priceWatcher);
 
 //        if (!isSearchDepositAccount) {
 //            isSearchDepositAccount = true;
@@ -241,7 +249,12 @@ public class PointwithdrawalFragment extends BaseFragment {
                 if (price.equals("")) {
                     price = "0";
                 } else {
-                    price = StringUtil.convertCommaPrice(price);
+                    try {
+                        int tempPrice = Integer.parseInt(price);
+                        price = StringUtil.convertCommaPrice(tempPrice);
+                    } catch (NumberFormatException e) {
+                        price = "0";
+                    }
                 }
                 inputPrice = price;
 
