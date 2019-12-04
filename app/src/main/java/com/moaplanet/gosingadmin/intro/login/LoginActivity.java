@@ -74,15 +74,6 @@ public class LoginActivity extends BaseActivity {
         etPw.setFilters(new InputFilter[]{
                 StringUtil.notEmptyFilter()
         });
-
-        if (BuildConfig.DEBUG) {
-            //Todo testMove 삭제
-            testMove = findViewById(R.id.tv_login_change_pw);
-            RxView.clicks(testMove)
-                    .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(click -> moveActivity(MainActivity.class));
-        }
     }
 
     @Override
