@@ -177,7 +177,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
 
         }
 
-        for (int i = 0; i < storeImageList.size(); i++) {
+        for (int i = 0; i < pictureImageViewList.size(); i++) {
             Glide.with(this)
                     .load(storeImageList.get(i))
                     .thumbnail(0.1f)
