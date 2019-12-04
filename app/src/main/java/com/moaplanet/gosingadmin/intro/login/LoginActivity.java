@@ -22,6 +22,7 @@ import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.common.manager.StoreManager;
+import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
@@ -73,19 +74,17 @@ public class LoginActivity extends BaseActivity {
         etPw.setFilters(new InputFilter[]{
                 StringUtil.notEmptyFilter()
         });
-
-        if (BuildConfig.DEBUG) {
-            //Todo testMove 삭제
-            testMove = findViewById(R.id.tv_login_change_pw);
-            RxView.clicks(testMove)
-                    .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(click -> moveActivity(MainActivity.class));
-        }
     }
 
     @Override
     public void initListener() {
+
+        CommonTitleBar titleBar = findViewById(R.id.common_login_title_bar);
+        RxView.clicks(titleBar.getBtnBack())
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> finish());
+
         RxView.clicks(btnLogin)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
