@@ -73,7 +73,9 @@ public interface GoSingApiService {
     @POST("session/MemberManageCtr/point_page_info_list.json")
     Call<ResPointHistoryDto> onServerPointHistoryList(@Query("start_date") String startDate,
                                                       @Query("end_date") String endDate,
-                                                      @Query("search_count") String searchCount);
+                                                      @Query("search_count") String searchCount,
+                                                      @Query("pageNo") int pageNo,
+                                                      @Query("limit") int limit);
 
     // 고씽 포인트 조회
     @POST("session/MemberManageCtr/gossingPointSearch_Init.json")
