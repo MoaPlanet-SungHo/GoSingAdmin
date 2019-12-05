@@ -37,7 +37,7 @@ abstract public class MoaAuthCallback<T> implements Callback<T> {
             this.call = call;
         }
 //        GoSingConstants.Test = response.headers().get("Set-Cookie");
-        Logger.d("세션 아이디 : " + response.headers().get("Set-Cookie"));
+        Logger.d("세션 아이디 : " + GoSingConstants.cookieHash);
         sessionChecker.sessionCheck(isT -> {
             if (isT) {
 

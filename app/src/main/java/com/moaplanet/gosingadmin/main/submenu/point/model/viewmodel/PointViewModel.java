@@ -49,10 +49,10 @@ public class PointViewModel extends ViewModel {
                 PointHistoryDataSource::getIsEmptyData);
 
         noSession = Transformations.switchMap(dataSourceFactory.getDataSource(),
-                PointHistoryDataSource::getIsEmptyData);
+                PointHistoryDataSource::getNoSession);
 
         networkFail = Transformations.switchMap(dataSourceFactory.getDataSource(),
-                PointHistoryDataSource::getIsEmptyData);
+                PointHistoryDataSource::getNetworkFail);
 
         dataSourceFactory.setStartDate(startDate);
         dataSourceFactory.setEndDate(endDate);
