@@ -78,7 +78,8 @@ public class IntroActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!getIntent().getBooleanExtra("appVersionSkip", false)) {
+        if (getIntent().getBooleanExtra(GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
+                GoSingConstants.BUNDLE_VALUE_APP_VERSION_NOT_CHECK)) {
             onAppVersionCheck();
         } else {
             checkIntroType();
@@ -224,26 +225,6 @@ public class IntroActivity extends BaseActivity {
     }
 
     /**
-     * 로그인 콜백
-     */
-    private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
-        @Override
-        public void onLoginSuccess(int stateCode, int detailCode) {
-            mDetailCode = detailCode;
-            onCheckPaymentCode();
-        }
-
-        @Override
-        public void onLoginFail(int stateCode, int detailCode) {
-            viewLoginOrSignUp.setVisibility(View.VISIBLE);
-            Toast.makeText(
-                    IntroActivity.this,
-                    getString(R.string.activity_intro_auto_login_fail),
-                    Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    /**
      * 결제 코드 체크
      */
     private void onCheckPaymentCode() {
@@ -269,5 +250,25 @@ public class IntroActivity extends BaseActivity {
             finish();
         }
     }
+
+    /**
+     * 로그인 콜백
+     */
+    private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
+        @Override
+        public void onLoginSuccess(int stateCode, int detailCode) {
+            mDetailCode = detailCode;
+            onCheckPaymentCode();
+        }
+
+        @Override
+        public void onLoginFail(int stateCode, int detailCode) {
+            viewLoginOrSignUp.setVisibility(View.VISIBLE);
+            Toast.makeText(
+                    IntroActivity.this,
+                    getString(R.string.activity_intro_auto_login_fail),
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }

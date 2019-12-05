@@ -24,6 +24,12 @@ public class GoSingConstants {
 
     public static HashSet<String> cookieHash;
 
+    // Bundle 관련
+    // 인드로에서 앱 버전 체크 관련 --> true : 체크 | false : 체크 안함
+    public static final String BUNDLE_KEY_APP_VERSION_CHECK = "BUNDLE_KEY_APP_VERSION_CHECK";
+    public static final boolean BUNDLE_VALUE_APP_VERSION_CHECK = true;
+    public static final boolean BUNDLE_VALUE_APP_VERSION_NOT_CHECK = false;
+
     // bundle key 관련
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
     public static final String BUNDLE_KEY_TYPE_PASSWORD = "PASSWORD_TYPE";
@@ -31,7 +37,6 @@ public class GoSingConstants {
     public static final String BUNDLE_KEY_MOBILE_AUTH_TYPE = "BUNDLE_KEY_MOBILE_AUTH_TYPE";
     // 포인트 관련
     public static final String BUNDLE_KEY_TYPE_POINT_VIEW = "BUNDLE_KEY_TYPE_POINT_VIEW";
-
 
     // bundle value 관련
     public static final String BUNDLE_VALUE_CHECK_PASSWORD = "CHECK_PASSWORD";

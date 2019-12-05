@@ -12,14 +12,8 @@ import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryListAdapter;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryPaingAdapter;
-import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointHistoryViewModel;
 import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointViewModel;
-import com.moaplanet.gosingadmin.network.NetworkConstants;
-import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
-import com.moaplanet.gosingadmin.network.service.RetrofitService;
-
-import retrofit2.Call;
 
 public class PointHistoryFragment extends BaseFragment {
 
@@ -47,7 +41,6 @@ public class PointHistoryFragment extends BaseFragment {
         if (getArguments() != null) {
             viewType = getArguments().getString(GoSingConstants.BUNDLE_KEY_TYPE_POINT_VIEW);
         }
-
     }
 
     @Override

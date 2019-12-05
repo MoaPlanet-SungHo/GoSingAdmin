@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.IntroActivity;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.adapter.BankListAdapter;
@@ -140,7 +141,9 @@ public class BankSelectActivity extends BaseActivity {
 
                         Intent intent = new Intent(BankSelectActivity.this, IntroActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("appVersionSkip", true);
+                        intent.putExtra(
+                                GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
+                                GoSingConstants.BUNDLE_VALUE_APP_VERSION_NOT_CHECK);
                         startActivity(intent);
                         finishAffinity();
 
