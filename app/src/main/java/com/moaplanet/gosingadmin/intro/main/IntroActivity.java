@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.intro;
+package com.moaplanet.gosingadmin.intro.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.BuildConfig;
@@ -20,6 +22,8 @@ import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.intro.GoSingAdminConfirmPermissionActivity;
+import com.moaplanet.gosingadmin.intro.ResVersionDTO;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
@@ -35,11 +39,16 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
+/**
+ * 인트로 화면
+ */
 public class IntroActivity extends BaseActivity {
 
     // 회원가입 및 로그인 그룹
     private LinearLayout viewLoginOrSignUp;
     private int mDetailCode = -1;
+
+    private IntroViewModel mViewModel;
 
     @Override
     public int layoutRes() {
@@ -58,33 +67,38 @@ public class IntroActivity extends BaseActivity {
     }
 
     @Override
+    public void initActivity() {
+        super.initActivity();
+        // 뷰 모델 초기화
+        mViewModel = ViewModelProviders.of(this).get(IntroViewModel.class);
+    }
+
+    @Override
     public void initListener() {
-
-        // 회원가입 클릭
-        Button btnSignUp = findViewById(R.id.btn_activity_intro_sign_up);
-        RxView.clicks(btnSignUp)
-                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivity(SignUpActivity.class));
-
-        // 로그인 클릭
-        Button btnLogin = findViewById(R.id.btn_activity_intro_login);
-        RxView.clicks(btnLogin)
-                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivity(LoginActivity.class));
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().getBooleanExtra(GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
-                GoSingConstants.BUNDLE_VALUE_APP_VERSION_NOT_CHECK)) {
+
+        // 앱 버전 체크 유무 로직
+        boolean isAppVersionCheck = getIntent().getBooleanExtra(
+                GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
+                GoSingConstants.BUNDLE_VALUE_APP_VERSION_CHECK);
+
+        if (isAppVersionCheck) {
             onAppVersionCheck();
         } else {
             checkIntroType();
         }
 
+    }
+
+    @Override
+    protected void initObserve() {
+        super.initObserve();
+
+        mViewModel.getMoveActivity().observe(this, this::moveActivity);
     }
 
     @Override
@@ -152,6 +166,7 @@ public class IntroActivity extends BaseActivity {
                     noTitleDialog.onNoOnClickListener(view -> {
                         noTitleDialog.dismiss();
                         checkIntroType();
+//                        mViewModel.onIntroType();
                     });
 
                     noTitleDialog.onDoneOnCliListener(view -> {
@@ -162,12 +177,14 @@ public class IntroActivity extends BaseActivity {
 
                 } else {
                     checkIntroType();
+//                    mViewModel.onIntroType();
                 }
             }
 
             @Override
             public void onFinalFailure(Call<ResVersionDTO> call, boolean isSession, Throwable t) {
                 checkIntroType();
+//                mViewModel.onIntroType();
             }
         });
 
@@ -194,23 +211,23 @@ public class IntroActivity extends BaseActivity {
      * 인트로 타입에 따라 화면 이동
      */
     private void checkIntroType() {
+//        mViewModel.onIntroType();
 
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(() -> {
             int introType = SharedPreferencesManager.getInstance().getType();
 
-            if (introType == GoSingConstants.INTRO_TYPE_FIRST_START
-                    || introType == GoSingConstants.INTRO_TYPE_ERROR) {
+            if (introType == GoSingConstants.INTRO_TYPE_FIRST_START) {
                 // 권한 설정 화면으로 이동
                 moveActivity(GoSingAdminConfirmPermissionActivity.class);
             } else if (introType == GoSingConstants.INTRO_TYPE_AUTO_LOGIN) {
                 // 자동 로그인
                 onLogin();
-            } else if (introType == GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS) {
+            } else {
                 // 로그인 또는 회원가입 그룹 표시
+                initLoginAndSignUp();
                 viewLoginOrSignUp.setVisibility(View.VISIBLE);
             }
-
 
         }, 1800);
     }
@@ -252,6 +269,25 @@ public class IntroActivity extends BaseActivity {
     }
 
     /**
+     * 로그인이랑 회원가입 리스너 초기화
+     */
+    private void initLoginAndSignUp() {
+        // 회원가입 클릭
+        Button btnSignUp = findViewById(R.id.btn_activity_intro_sign_up);
+        RxView.clicks(btnSignUp)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(SignUpActivity.class));
+
+        // 로그인 클릭
+        Button btnLogin = findViewById(R.id.btn_activity_intro_login);
+        RxView.clicks(btnLogin)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> moveActivity(LoginActivity.class));
+    }
+
+    /**
      * 로그인 콜백
      */
     private LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
@@ -263,6 +299,7 @@ public class IntroActivity extends BaseActivity {
 
         @Override
         public void onLoginFail(int stateCode, int detailCode) {
+            initLoginAndSignUp();
             viewLoginOrSignUp.setVisibility(View.VISIBLE);
             Toast.makeText(
                     IntroActivity.this,

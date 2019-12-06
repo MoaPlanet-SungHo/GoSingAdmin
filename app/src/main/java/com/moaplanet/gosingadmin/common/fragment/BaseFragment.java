@@ -16,8 +16,7 @@ import androidx.navigation.Navigation;
 
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
-import com.moaplanet.gosingadmin.intro.IntroActivity;
-import com.moaplanet.gosingadmin.intro.login.LoginActivity;
+import com.moaplanet.gosingadmin.intro.main.IntroActivity;
 
 public abstract class BaseFragment extends Fragment {
     public View view;

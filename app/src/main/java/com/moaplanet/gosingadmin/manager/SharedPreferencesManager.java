@@ -32,7 +32,7 @@ public class SharedPreferencesManager {
     }
 
     public int getType() {
-        return pref.getInt(GoSingConstants.INTRO_TYPE, GoSingConstants.INTRO_TYPE_ERROR);
+        return pref.getInt(GoSingConstants.INTRO_TYPE, GoSingConstants.INTRO_TYPE_FIRST_START);
     }
 
     public String getEmail() {

@@ -4,8 +4,13 @@ import java.util.HashSet;
 
 public class GoSingConstants {
 
-    // SharedPreferences 관련
+    // *** SharedPreferences Start *** //
+
+    // 파일 이름
     public static String GOSING_ADMIN_FILE_NAME = "GOSING_ADMIN";
+
+    // 인트로 타입
+    // 인트로 타입 키값
     public static String INTRO_TYPE = "INTRO_TYPE";
     // 최초 실행
     public static int INTRO_TYPE_FIRST_START = 0;
@@ -13,18 +18,24 @@ public class GoSingConstants {
     public static int INTRO_TYPE_PERMISSION_CHECK_SUCCESS = 1;
     // 로그인 완료
     public static int INTRO_TYPE_AUTO_LOGIN = 2;
-    // 에러 타입 일경울
-    public static int INTRO_TYPE_ERROR = -999;
+
+    // 사용자 계정 관련
     // 아이디
     public static String USER_ID = "userId";
     // 패스워드
     public static String USER_PW = "userPw";
+
+    // 암호화 데이터 관련
     // 핀
     public final static String USER_PIN = "userPin";
 
+    // *** SharedPreferences End *** //
+
+    // 세션
     public static HashSet<String> cookieHash;
 
-    // Bundle 관련
+    // *** Bundle Start *** //
+
     // 인드로에서 앱 버전 체크 관련 --> true : 체크 | false : 체크 안함
     public static final String BUNDLE_KEY_APP_VERSION_CHECK = "BUNDLE_KEY_APP_VERSION_CHECK";
     public static final boolean BUNDLE_VALUE_APP_VERSION_CHECK = true;
@@ -70,4 +81,6 @@ public class GoSingConstants {
     public static final String INTENT_KEY_ADDRESS_INFO = "INTENT_KEY_ADDRESS_INFO";
     // 주소 좌표
     public static final String INTENT_KEY_ADDRESS_COORDINATES = "INTENT_KEY_ADDRESS_COORDINATES";
+
+    // *** Bundle End *** //
 }

@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".intro.IntroActivity"
+            android:name=".intro.main.IntroActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

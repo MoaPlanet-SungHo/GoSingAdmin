@@ -11,19 +11,32 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.intro.main.IntroActivity;
 import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.disposables.CompositeDisposable;
 import rx.android.schedulers.AndroidSchedulers;
 
+/**
+ * 앱 최초 진입시 권한 체크
+ */
 public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
+
+    private CompositeDisposable compositeDisposable;
 
     @Override
     public int layoutRes() {
         return R.layout.activity_gosing_admin_confirm_permission;
+    }
+
+    @Override
+    public void initActivity() {
+        super.initActivity();
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -51,19 +64,25 @@ public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onShowPermissionList();
+    }
+
+    /**
+     * 사용자에게 권한 종류둘울 보여줌 및 권한 허용 다이얼로그 띄움
+     */
+    private void onShowPermissionList() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(
+        compositeDisposable.add(rxPermissions.request(
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(granted -> {
-
                     if (granted) {
-                        Logger.d("권한 성공");
+                        Logger.i("권한 성공");
                     } else {
-                        Logger.d("권한 거절");
+                        Logger.i("권한 거절");
                     }
-                });
+                }));
     }
 }

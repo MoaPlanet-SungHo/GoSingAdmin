@@ -285,7 +285,6 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         reqStoreRegisterDto.setRemovePhoto(removePhotoList);
 //        }
 
-
         connectServer(fileMap);
 
     }
