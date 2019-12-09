@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerItemStyle"
     android:layout_width="match_parent"
-    android:layout_height="38dp"
-    android:background="@color/color_ffffff"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:fontFamily="@font/font_gd_13"
-        android:textAlignment="center"
-        android:textColor="@color/color_000000"
-        android:textSize="13dp"
-        tools:ignore="SpUsage"
-        tools:text="1명" />
-
-</RelativeLayout>
+    android:layout_height="41.8dp"
+    android:fontFamily="@font/font_gd_13"
+    android:gravity="center_vertical"
+    android:textColor="@color/color_000000"
+    android:textSize="14.3dp"
+    tools:ignore="SpUsage"
+    tools:text="1명" />

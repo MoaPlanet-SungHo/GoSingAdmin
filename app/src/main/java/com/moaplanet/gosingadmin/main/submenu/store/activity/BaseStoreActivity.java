@@ -9,10 +9,12 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDt
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.moaplanet.gosingadmin.utils.DeviceUtil;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -41,6 +44,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -153,6 +157,22 @@ public abstract class BaseStoreActivity extends BaseActivity {
         pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_seven));
         pictureImageViewList.add(findViewById(R.id.iv_activity_base_store_image_eight));
 
+        int screenSize = DeviceUtil.getScreenWith(this);
+
+        float thumbnailsGroupMargin =
+                getResources().getDimension(R.dimen.activity_base_store_thumbnails_group_margin) * 2;
+        float thumbnailsItemMargin =
+                getResources().getDimension(R.dimen.activity_base_store_thumbnails_item_margin);
+
+        int imgSize = (int) ((screenSize - thumbnailsGroupMargin - (thumbnailsItemMargin * 8)) / 4);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imgSize, imgSize);
+        layoutParams.leftMargin = (int) thumbnailsItemMargin;
+        layoutParams.rightMargin = (int) thumbnailsItemMargin;
+        for (ImageView imageView : pictureImageViewList) {
+            imageView.setLayoutParams(layoutParams);
+        }
+
         selectedUriList = new ArrayList<>();
 
         btnDone = findViewById(R.id.btn_activity_base_store_register);
@@ -164,6 +184,21 @@ public abstract class BaseStoreActivity extends BaseActivity {
         roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_large_room_personnel));
         roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_middle_room_personnel));
         roomPersonnelList.add(findViewById(R.id.sp_activity_base_store_small_room_personnel));
+
+        List<Integer> roomPersonnelDataList = new ArrayList<>();
+        roomPersonnelDataList.add(R.array.store_large_room_array);
+        roomPersonnelDataList.add(R.array.store_middle_room_array);
+        roomPersonnelDataList.add(R.array.store_small_room_array);
+
+        for (int i = 0; i < roomPersonnelDataList.size(); i++) {
+            List<String> list = Arrays.asList(getResources().getStringArray(roomPersonnelDataList.get(i)));
+            ArrayAdapter<String> spAdapter = new ArrayAdapter<>(
+                    this,
+                    R.layout.item_spinner_store_room,
+                    list);
+            spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            roomPersonnelList.get(i).setAdapter(spAdapter);
+        }
 
         EditText etLargeRoom = findViewById(R.id.et_activity_base_store_large_room_price);
         EditText etMiddleRoom = findViewById(R.id.et_activity_base_store_middle_room_price);

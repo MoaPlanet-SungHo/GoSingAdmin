@@ -2,4 +2,8 @@
 <resources>
     <dimen name="common_gradient_button_width_shadow_left_right_space">8dp</dimen>
     <dimen name="under_line_height">1dp</dimen>
+
+    <!-- BaseStoreActivity -->
+    <dimen name="activity_base_store_thumbnails_group_margin">17dp</dimen>
+    <dimen name="activity_base_store_thumbnails_item_margin">3dp</dimen>
 </resources>

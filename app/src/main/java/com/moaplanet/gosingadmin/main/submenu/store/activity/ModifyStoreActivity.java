@@ -172,12 +172,16 @@ public class ModifyStoreActivity extends BaseStoreActivity {
             String imgSrc = shopPhotoDto.getImgSrc();
             String srcFullPath = NetworkConstants.IMAGE_BASE_URL +
                     imgSrc;
-
             storeImageList.add(srcFullPath);
-
         }
 
-        for (int i = 0; i < pictureImageViewList.size(); i++) {
+        // 서버에서 이미지 삭제가 안될경우 위한 로직
+        int imgSize = storeImageList.size();
+        if (imgSize > 8) {
+            imgSize = 8;
+        }
+
+        for (int i = 0; i < imgSize; i++) {
             Glide.with(this)
                     .load(storeImageList.get(i))
                     .thumbnail(0.1f)

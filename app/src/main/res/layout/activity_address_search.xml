@@ -13,35 +13,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/activity_store_search_title_bar" />
+        app:title="@string/activity_address_search_title_bar" />
 
     <EditText
         android:id="@+id/et_address_search_keyword"
         style="@style/DefaultEditText"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="49.4dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:hint="@string/activity_store_search_address_keyword_search"
+        android:hint="@string/activity_address_search_address_keyword_search"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="text"
         android:maxLines="1"
+        android:textSize="16.9dp"
         app:layout_constraintEnd_toStartOf="@id/btn_address_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_address_search_title_bar" />
+        app:layout_constraintTop_toBottomOf="@id/common_address_search_title_bar"
+        tools:ignore="SpUsage" />
 
     <Button
         android:id="@+id/btn_address_search"
-        android:layout_width="74dp"
-        android:layout_height="38dp"
+        android:layout_width="96.2dp"
+        android:layout_height="49.4dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/border_rect_4_4_4_4_1dp_4300ff_ffffff"
+        android:fontFamily="@font/font_gd_15"
         android:text="검색"
         android:textColor="@color/color_4300ff"
+        android:textSize="15.6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/et_address_search_keyword" />
+        app:layout_constraintTop_toTopOf="@id/et_address_search_keyword"
+        tools:ignore="SpUsage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_address_search"
@@ -70,9 +75,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_gd_13"
-            android:text="@string/activity_store_search_tip_title"
+            android:text="@string/activity_address_search_tip_title"
             android:textColor="@color/color_000000"
-            android:textSize="12dp"
+            android:textSize="15.6dp"
             tools:ignore="SpUsage" />
 
         <TextView
@@ -80,9 +85,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14.7dp"
             android:fontFamily="@font/font_gd_13"
-            android:text="@string/activity_store_search_tip_one"
+            android:text="@string/activity_address_search_tip_one"
             android:textColor="@color/color_aaaaaa"
-            android:textSize="11dp"
+            android:textSize="14.3dp"
             tools:ignore="SpUsage" />
 
         <TextView
@@ -90,9 +95,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/font_gd_13"
-            android:text="@string/activity_store_search_tip_two"
+            android:text="@string/activity_address_search_tip_two"
             android:textColor="@color/color_aaaaaa"
-            android:textSize="11dp"
+            android:textSize="14.3dp"
             tools:ignore="SpUsage" />
 
         <TextView
@@ -100,9 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/font_gd_13"
-            android:text="@string/activity_store_search_tip_three"
+            android:text="@string/activity_address_search_tip_three"
             android:textColor="@color/color_aaaaaa"
-            android:textSize="11dp"
+            android:textSize="14.3dp"
             tools:ignore="SpUsage" />
 
     </LinearLayout>
@@ -122,9 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_gd_15"
-            android:text="@string/activity_store_search_empty_title"
+            android:text="@string/activity_address_search_empty_title"
             android:textColor="@color/color_aaaaaa"
-            android:textSize="15dp"
+            android:textSize="19.5dp"
             tools:ignore="SpUsage" />
 
         <TextView
@@ -133,10 +138,10 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/font_gd_15"
             android:lineSpacingExtra="4.7dp"
-            android:text="@string/activity_store_search_empty_content"
+            android:text="@string/activity_address_search_empty_content"
             android:textAlignment="center"
             android:textColor="@color/color_c7c7c7"
-            android:textSize="13dp"
+            android:textSize="16.9dp"
             tools:ignore="SpUsage" />
 
     </LinearLayout>
