@@ -29,8 +29,6 @@ public class ChargePriceWatcher implements TextWatcher {
     private int inputPos = 0;
     // 현재 입력된 값
     private int beforePrice = 0;
-    // 유로 가기 유무
-    private boolean isBack = false;
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -51,22 +49,22 @@ public class ChargePriceWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
+
         mEditText.removeTextChangedListener(this);
-        isBack = editable.length() < beforeInputLength;
+        // 숫자 삭제 유무
+        boolean isRemove = editable.length() < beforeInputLength;
         String inputText = editable.toString().replace("원", "");
 
         int price;
 
         int inputPr = Character.getNumericValue(editable.charAt(inputPos));
-        if (beforeInputLength == inputPos || (beforeInputLength - inputPos) <= 4 && !isBack) {
-            price = beforePrice + (inputPr * 1000);
-        } else {
-            try {
-                price = Integer.parseInt(inputText.replaceAll(",", ""));
-            } catch (NumberFormatException e) {
-                price = 0;
-            }
 
+        price = Integer.parseInt(inputText.replaceAll(",", ""));
+        if (!isRemove) {
+            if (price % 1000 != 0 || (beforeInputLength - inputPos) <= 4) {
+                price = beforePrice + (inputPr * 1000);
+            }
+        } else {
             if (price < 1000) {
                 price = 0;
             } else if (price % 1000 != 0) {
