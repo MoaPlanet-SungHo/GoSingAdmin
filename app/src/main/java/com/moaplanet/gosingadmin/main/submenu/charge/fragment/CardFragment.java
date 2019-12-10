@@ -1,8 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.charge.fragment;
 
 import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,15 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
-import com.moaplanet.gosingadmin.common.interfaces.PriceWatcher;
+import com.moaplanet.gosingadmin.common.interfaces.ChargePriceWatcher;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
-import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.adapter.CardAdapter;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.viewmodel.ChargeCardViewModel;
@@ -167,9 +163,9 @@ public class CardFragment extends BaseFragment {
 
         });
 
-        PriceWatcher priceWatcher = new PriceWatcher(etPriceCharge);
+        ChargePriceWatcher chargePriceWatcher = new ChargePriceWatcher(etPriceCharge);
 
-        priceWatcher.setCallback((completePrice, price) -> {
+        chargePriceWatcher.setCallback((completePrice, price) -> {
             mChargeViewModel.setPriceCharge(completePrice);
             tvAfterPoint.setText(getString(R.string.common_price_won,
                     StringUtil.convertCommaPrice(price + myPoint))
@@ -181,7 +177,7 @@ public class CardFragment extends BaseFragment {
             }
 
         });
-        etPriceCharge.addTextChangedListener(priceWatcher);
+        etPriceCharge.addTextChangedListener(chargePriceWatcher);
 
     }
 
