@@ -74,6 +74,14 @@ public class SignUpActivity extends BaseActivity {
 
         signUpViewModel.getCi().observe(this, reqModel::setCi);
 
+        signUpViewModel.getUserName().observe(this, reqModel::setUserName);
+
+        signUpViewModel.getUserAge().observe(this, reqModel::setUserAge);
+
+        signUpViewModel.getPhoneNumber().observe(this, reqModel::setPhoneNumber);
+
+        signUpViewModel.getUserGender().observe(this, reqModel::setUserGender);
+
         signUpViewModel.getSalesCode().observe(this, salesCode -> {
             reqModel.setSalesCode(salesCode);
             onSignUp();
@@ -112,7 +120,11 @@ public class SignUpActivity extends BaseActivity {
                 reqModel.getEventType(),
                 reqModel.getDeviceType(),
                 reqModel.getSignType(),
-                reqModel.getCi())
+                reqModel.getCi(),
+                reqModel.getUserName(),
+                reqModel.getUserAge(),
+                reqModel.getPhoneNumber(),
+                reqModel.getUserGender())
                 .enqueue(moaAuthCallback);
     }
 

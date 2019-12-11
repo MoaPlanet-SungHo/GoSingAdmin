@@ -21,8 +21,15 @@ public class ReqSignUpDto {
     @SerializedName("signType")
     private int signType = 0;
 
-    @SerializedName("ci")
     private String ci;
+
+    private String userName;
+
+    private String userAge;
+
+    private String phoneNumber;
+
+    private String userGender;
 
     public void setEmail(String email) {
         this.email = email;
@@ -42,6 +49,22 @@ public class ReqSignUpDto {
 
     public void setCi(String ci) {
         this.ci = ci;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserAge(String userAge) {
+        this.userAge = userAge;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
     }
 
     public String getEventType() {
@@ -70,5 +93,21 @@ public class ReqSignUpDto {
 
     public String getCi() {
         return ci;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserAge() {
+        return userAge;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getUserGender() {
+        return userGender;
     }
 }

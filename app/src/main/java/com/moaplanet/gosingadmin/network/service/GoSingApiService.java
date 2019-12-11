@@ -46,7 +46,11 @@ public interface GoSingApiService {
                                       @Query("is_agree_event_noti") String type,
                                       @Query("device_type") int deviceType,
                                       @Query("signType") int signType,
-                                      @Query("ci") String ci);
+                                      @Query("ci") String ci,
+                                      @Query("user_name") String userName,
+                                      @Query("user_age") String userAge,
+                                      @Query("phone_number") String phoneNumber,
+                                      @Query("user_gender") String userGender);
 
     // 로그인
     @POST("MemberManageCtr/s_login_action.json")

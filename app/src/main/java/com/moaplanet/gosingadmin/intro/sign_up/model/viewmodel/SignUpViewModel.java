@@ -22,6 +22,14 @@ public class SignUpViewModel extends ViewModel {
     private MutableLiveData<String> mSalesCode = new MutableLiveData<>();
     // CI 값
     private MutableLiveData<String> mCi = new MutableLiveData<>();
+    // 이름
+    private MutableLiveData<String> mUserName = new MutableLiveData<>();
+    // 생년월일
+    private MutableLiveData<String> mUserAge = new MutableLiveData<>();
+    // 휴대폰번호
+    private MutableLiveData<String> mPhoneNumber = new MutableLiveData<>();
+    // 성별
+    private MutableLiveData<String> mUserGender = new MutableLiveData<>();
 
     // --- Field End --- //
 
@@ -53,6 +61,22 @@ public class SignUpViewModel extends ViewModel {
         this.mCi.postValue(ci);
     }
 
+    public void setUserName(String userName) {
+        this.mUserName.postValue(userName);
+    }
+
+    public void setUserAge(String userAge) {
+        this.mUserAge.postValue(userAge);
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.mPhoneNumber.postValue(phoneNumber);
+    }
+
+    public void setUserGender(String userGender) {
+        this.mUserGender.postValue(userGender);
+    }
+
     // --- Setter End --- //
 
     // --- Getter Start --- //
@@ -77,4 +101,18 @@ public class SignUpViewModel extends ViewModel {
     public LiveData<String> getCi() {
         return mCi;
     }
+
+    public LiveData<String> getUserName() {
+        return mUserName;
+    }
+    public LiveData<String> getUserAge() {
+        return mUserAge;
+    }
+    public LiveData<String> getPhoneNumber() {
+        return mPhoneNumber;
+    }
+    public LiveData<String> getUserGender() {
+        return mUserGender;
+    }
+
 }

@@ -191,16 +191,50 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
         if (getActivity() instanceof SignUpActivity) {
 
             String ci = "";
+            // 이름
+            String name = "";
+            // 성별
+            String sex = "";
+            // 생년월일
+            String socialno = "";
+            // 핸드폰 번호
+            String phoneNUmber = "";
+
             try {
                 JSONObject jsonObject = new JSONObject(resultMsg);
                 if (!jsonObject.get("Ci").equals("")) {
                     ci = jsonObject.getString("Ci");
                 }
+
+                // 이름
+                if (!jsonObject.get("Name").equals("")) {
+                    name = jsonObject.getString("Name");
+                }
+
+                // 핸드폰 번호
+                if (!jsonObject.get("No").equals("")) {
+                    phoneNUmber = jsonObject.getString("No");
+                }
+
+                // 성별
+                if (!jsonObject.get("sex").equals("")) {
+                    sex = jsonObject.getString("sex");
+                }
+
+                // 생년 월일
+                if (!jsonObject.get("Socialno").equals("")) {
+                    socialno = jsonObject.getString("Socialno");
+                }
+
             } catch (JSONException e) {
                 Logger.d("Json Error\n" + e);
                 onJsReceiverFail();
             }
             signUpViewModel.setCi(ci);
+            signUpViewModel.setUserAge(socialno);
+            signUpViewModel.setPhoneNumber(phoneNUmber);
+            signUpViewModel.setUserGender(sex);
+            signUpViewModel.setUserName(name);
             onMoveNavigation(R.id.action_fragment_create_account);
         } else if (getActivity() instanceof CreatePinActivity) {
             onMoveNavigation(R.id.action_fragment_sign_up_input_password);
