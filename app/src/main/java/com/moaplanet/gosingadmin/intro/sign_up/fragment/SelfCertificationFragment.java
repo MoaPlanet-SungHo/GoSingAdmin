@@ -67,7 +67,13 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
         RxView.clicks(titleBar)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> onBackNavigation());
+                .subscribe(click -> {
+                    if (getActivity() != null && getActivity() instanceof CreatePinActivity) {
+                        getActivity().finish();
+                    } else {
+                        onBackNavigation();
+                    }
+                });
     }
 
     @Override
