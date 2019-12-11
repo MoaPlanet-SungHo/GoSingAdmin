@@ -72,7 +72,7 @@ public class AddressSearchActivity extends BaseActivity {
         RxView.clicks(commonTitleBar.getBtnBack())
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> onAddressSearch());
+                .subscribe(click -> finish());
     }
 
     @Override
