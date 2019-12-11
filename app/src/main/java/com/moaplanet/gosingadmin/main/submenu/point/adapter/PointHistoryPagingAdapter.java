@@ -19,14 +19,14 @@ import com.moaplanet.gosingadmin.utils.StringUtil;
 /**
  * 포인트 내역 페이징 어뎁터
  */
-public class PointHistoryPaingAdapter extends PagedListAdapter<ResPointHistoryDto.PointHistoryDto, PointHistoryPaingAdapter.PointHolder> {
+public class PointHistoryPagingAdapter extends PagedListAdapter<ResPointHistoryDto.PointHistoryDto, PointHistoryPagingAdapter.PointHolder> {
 
     @NonNull
     @Override
     public PointHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_point_history, parent, false);
-        return new PointHistoryPaingAdapter.PointHolder(view);
+        return new PointHistoryPagingAdapter.PointHolder(view);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class PointHistoryPaingAdapter extends PagedListAdapter<ResPointHistoryDt
         }
     }
 
-    public PointHistoryPaingAdapter() {
+    public PointHistoryPagingAdapter() {
         super(DIFF_CALLBACK);
     }
 

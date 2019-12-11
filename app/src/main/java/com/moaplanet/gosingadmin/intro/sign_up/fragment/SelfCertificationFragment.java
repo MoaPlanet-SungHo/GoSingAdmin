@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
@@ -22,8 +23,12 @@ import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.interfaces.JsReceiver;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
+import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
 import com.moaplanet.gosingadmin.utils.JsBridge;
 import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +38,17 @@ import rx.android.schedulers.AndroidSchedulers;
 public class SelfCertificationFragment extends BaseFragment implements JsReceiver {
 
     private WebView webViewKgMobilians;
+
+    // 뷰 모델
+    private SignUpViewModel signUpViewModel;
+
+    @Override
+    protected void initViewModel() {
+        super.initViewModel();
+        if (getActivity() != null && getActivity() instanceof SignUpActivity && signUpViewModel == null) {
+            signUpViewModel = ViewModelProviders.of(getActivity()).get(SignUpViewModel.class);
+        }
+    }
 
     @Override
     public int layoutRes() {
@@ -167,6 +183,18 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
     @Override
     public void onJsReceiverSuccess(String resultMsg) {
         if (getActivity() instanceof SignUpActivity) {
+
+            String ci = "";
+            try {
+                JSONObject jsonObject = new JSONObject(resultMsg);
+                if (!jsonObject.get("Ci").equals("")) {
+                    ci = jsonObject.getString("Ci");
+                }
+            } catch (JSONException e) {
+                Logger.d("Json Error\n" + e);
+                onJsReceiverFail();
+            }
+            signUpViewModel.setCi(ci);
             onMoveNavigation(R.id.action_fragment_create_account);
         } else if (getActivity() instanceof CreatePinActivity) {
             onMoveNavigation(R.id.action_fragment_sign_up_input_password);

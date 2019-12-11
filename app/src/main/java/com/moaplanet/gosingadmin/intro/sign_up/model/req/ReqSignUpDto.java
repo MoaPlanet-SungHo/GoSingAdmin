@@ -21,6 +21,9 @@ public class ReqSignUpDto {
     @SerializedName("signType")
     private int signType = 0;
 
+    @SerializedName("ci")
+    private String ci;
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -35,6 +38,10 @@ public class ReqSignUpDto {
 
     public void setAgreeEventNoti(String eventType) {
         this.agreeEventNoti = eventType;
+    }
+
+    public void setCi(String ci) {
+        this.ci = ci;
     }
 
     public String getEventType() {
@@ -59,5 +66,9 @@ public class ReqSignUpDto {
 
     public String getSalesCode() {
         return salesCode;
+    }
+
+    public String getCi() {
+        return ci;
     }
 }

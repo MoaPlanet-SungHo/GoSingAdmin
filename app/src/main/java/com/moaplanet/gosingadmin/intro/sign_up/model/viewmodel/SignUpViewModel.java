@@ -20,6 +20,8 @@ public class SignUpViewModel extends ViewModel {
     private MutableLiveData<String> mPw = new MutableLiveData<>();
     // 영업자 코드
     private MutableLiveData<String> mSalesCode = new MutableLiveData<>();
+    // CI 값
+    private MutableLiveData<String> mCi = new MutableLiveData<>();
 
     // --- Field End --- //
 
@@ -47,6 +49,10 @@ public class SignUpViewModel extends ViewModel {
         this.mSalesCode.setValue(salesCode);
     }
 
+    public void setCi(String ci) {
+        this.mCi.postValue(ci);
+    }
+
     // --- Setter End --- //
 
     // --- Getter Start --- //
@@ -68,4 +74,7 @@ public class SignUpViewModel extends ViewModel {
         return mSalesCode;
     }
 
+    public LiveData<String> getCi() {
+        return mCi;
+    }
 }

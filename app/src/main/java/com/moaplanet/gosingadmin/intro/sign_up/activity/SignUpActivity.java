@@ -72,6 +72,8 @@ public class SignUpActivity extends BaseActivity {
 
         signUpViewModel.getPw().observe(this, reqModel::setPw);
 
+        signUpViewModel.getCi().observe(this, reqModel::setCi);
+
         signUpViewModel.getSalesCode().observe(this, salesCode -> {
             reqModel.setSalesCode(salesCode);
             onSignUp();
@@ -109,7 +111,8 @@ public class SignUpActivity extends BaseActivity {
                 reqModel.getSalesCode(),
                 reqModel.getEventType(),
                 reqModel.getDeviceType(),
-                reqModel.getSignType())
+                reqModel.getSignType(),
+                reqModel.getCi())
                 .enqueue(moaAuthCallback);
     }
 

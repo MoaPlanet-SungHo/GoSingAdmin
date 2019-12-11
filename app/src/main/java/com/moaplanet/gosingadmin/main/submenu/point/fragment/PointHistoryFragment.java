@@ -11,7 +11,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryListAdapter;
-import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryPaingAdapter;
+import com.moaplanet.gosingadmin.main.submenu.point.adapter.PointHistoryPagingAdapter;
 import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointHistoryViewModel;
 import com.moaplanet.gosingadmin.main.submenu.point.model.viewmodel.PointViewModel;
 
@@ -21,7 +21,7 @@ public class PointHistoryFragment extends BaseFragment {
     private String viewType = GoSingConstants.BUNDLE_VALUE_POINT_VIEW_ALL;
     // 포인트 내역 리스트 어뎁터
     private PointHistoryListAdapter mAdapter;
-    private PointHistoryPaingAdapter pagingAdapter;
+    private PointHistoryPagingAdapter pagingAdapter;
     // 뷰모댈
     private PointHistoryViewModel mViewModel;
     private PointViewModel pointViewModel;
@@ -61,7 +61,7 @@ public class PointHistoryFragment extends BaseFragment {
         RecyclerView rvPointHistory = view.findViewById(R.id.rv_point_history);
         rvPointHistory.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        pagingAdapter = new PointHistoryPaingAdapter();
+        pagingAdapter = new PointHistoryPagingAdapter();
         mAdapter = new PointHistoryListAdapter();
         mAdapter.setFragmentManager(getFragmentManager());
 //        rvPointHistory.setAdapter(mAdapter);

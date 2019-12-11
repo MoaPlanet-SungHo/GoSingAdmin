@@ -57,11 +57,16 @@ public class ChargePriceWatcher implements TextWatcher {
 
         int price;
 
-        int inputPr = Character.getNumericValue(editable.charAt(inputPos));
 
-        price = Integer.parseInt(inputText.replaceAll(",", ""));
+        try {
+            price = Integer.parseInt(inputText.replaceAll(",", ""));
+        } catch (NumberFormatException e) {
+            price = 0;
+        }
+
         if (!isRemove) {
             if (price % 1000 != 0 || (beforeInputLength - inputPos) <= 4) {
+                int inputPr = Character.getNumericValue(editable.charAt(inputPos));
                 price = beforePrice + (inputPr * 1000);
             }
         } else {
