@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -48,6 +49,9 @@ public class SavePointFragment extends BaseFragment {
     // 포인트 초기화 통신을 할지 말지에 대한 플래그값
     private boolean isLoadSavePoint = true;
 
+    // 포인트 리셋
+    private ConstraintLayout clReset;
+
     @Override
     protected void initViewModel() {
         super.initViewModel();
@@ -80,6 +84,7 @@ public class SavePointFragment extends BaseFragment {
         btnSaving = view.findViewById(R.id.btn_save_point_saving);
         etInputPoint = view.findViewById(R.id.et_save_point_input_point);
         tvSaveAfterPoint = view.findViewById(R.id.tv_save_point_balance_point);
+        clReset = view.findViewById(R.id.cl_save_point_reset);
     }
 
     @Override
@@ -122,6 +127,13 @@ public class SavePointFragment extends BaseFragment {
                     if (getActivity() != null) {
                         getActivity().finish();
                     }
+                });
+
+        RxView.clicks(clReset)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    etInputPoint.setText("0원");
                 });
 
     }
@@ -203,12 +215,12 @@ public class SavePointFragment extends BaseFragment {
                                     tvSaveMaxPoint.getText().toString()));
                             dialog.show(getChildFragmentManager(), "dialog");
                             dialog.onDoneOnCliListener(v -> dialog.dismiss());
-                        } else if (resModel.getDetailCode() == 204){
+                        } else if (resModel.getDetailCode() == 204) {
                             NoTitleDialog dialog = new NoTitleDialog();
                             dialog.setContent(R.string.fragment_save_point_lacks_point);
                             dialog.show(getChildFragmentManager(), "dialog");
                             dialog.onDoneOnCliListener(v -> dialog.dismiss());
-                        } else if (resModel.getDetailCode() == 201){
+                        } else if (resModel.getDetailCode() == 201) {
                             NoTitleDialog dialog = new NoTitleDialog();
                             dialog.setContent(R.string.fragment_save_phone_number_exist_user);
                             dialog.show(getChildFragmentManager(), "dialog");
