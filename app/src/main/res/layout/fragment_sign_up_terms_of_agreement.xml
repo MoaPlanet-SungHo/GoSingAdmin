@@ -86,7 +86,7 @@
             <TextView
                 android:id="@+id/tv_sign_up_terms_of_agreement_use_read_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:fontFamily="@font/font_gd_13"
                 android:text="@string/fragment_sign_up_terms_of_agreement_read_all"
                 android:textColor="@color/color_777777"
@@ -110,7 +110,7 @@
             <TextView
                 android:id="@+id/tv_sign_up_terms_of_agreement_banking_read_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:fontFamily="@font/font_gd_13"
                 android:text="@string/fragment_sign_up_terms_of_agreement_read_all"
                 android:textColor="@color/color_777777"
@@ -134,7 +134,7 @@
             <TextView
                 android:id="@+id/tv_sign_up_terms_of_agreement_personal_info_read_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:fontFamily="@font/font_gd_13"
                 android:text="@string/fragment_sign_up_terms_of_agreement_read_all"
                 android:textColor="@color/color_777777"
@@ -158,8 +158,9 @@
             <TextView
                 android:id="@+id/tv_sign_up_terms_of_agreement_third_party_read_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:fontFamily="@font/font_gd_13"
+                android:gravity="center_vertical"
                 android:text="@string/fragment_sign_up_terms_of_agreement_read_all"
                 android:textColor="@color/color_777777"
                 android:textSize="12dp"

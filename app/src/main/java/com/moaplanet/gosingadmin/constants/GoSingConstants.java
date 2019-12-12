@@ -41,6 +41,12 @@ public class GoSingConstants {
     public static final boolean BUNDLE_VALUE_APP_VERSION_CHECK = true;
     public static final boolean BUNDLE_VALUE_APP_VERSION_NOT_CHECK = false;
 
+    // 웹뷰 보여주기 관련
+    // 타이틀
+    public static final String BUNDLE_KEY_WEB_VIEW_TITLE = "BUNDLE_KEY_WEB_VIEW_TITLE";
+    // url
+    public static final String BUNDLE_KEY_WEB_VIEW_URL = "BUNDLE_KEY_WEB_VIEW_URL";
+
     // bundle key 관련
     public static String BUNDLE_REQUEST_FROM_VIEW = "BUNDLE_REQUEST_FROM_VIEW";
     public static final String BUNDLE_KEY_TYPE_PASSWORD = "PASSWORD_TYPE";

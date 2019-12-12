@@ -104,6 +104,9 @@
         <activity
             android:name=".main.submenu.pointwithdrawal.activity.RegisterAccountActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".common.activity.WebViewActivity"
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

@@ -1,16 +1,21 @@
 package com.moaplanet.gosingadmin.intro.sign_up.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.activity.WebViewActivity;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
@@ -93,6 +98,61 @@ public class SignUpTermsOfAgreementFragment extends BaseFragment {
             checkBox.setOnClickListener(onCheckBoxClickListener);
         }
         mCbEvent.setOnClickListener(onCheckBoxClickListener);
+
+        // 개인정보 제 2자 제공동의 전문보기
+        TextView tvThirdPartyReadAll
+                = view.findViewById(R.id.tv_sign_up_terms_of_agreement_third_party_read_all);
+        RxView.clicks(tvThirdPartyReadAll)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_TITLE, "회원가입");
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_URL,
+                            NetworkConstants.GOSING_ADMIN_AGREE_SHARE_PRIVATE_URL);
+                    startActivity(intent);
+                });
+
+        // 개인정보 수집 및 이용동의 전문보기
+        TextView tvAgreePrivateInfoReadAll
+                = view.findViewById(R.id.tv_sign_up_terms_of_agreement_personal_info_read_all);
+        RxView.clicks(tvAgreePrivateInfoReadAll)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_TITLE, "회원가입");
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_URL,
+                            NetworkConstants.GOSING_ADMIN_AGREE_PRIVATE_INFO_URL);
+                    startActivity(intent);
+                });
+
+        // 전자거래 이용약관
+        TextView tvEletFin
+                = view.findViewById(R.id.tv_sign_up_terms_of_agreement_banking_read_all);
+        RxView.clicks(tvEletFin)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_TITLE, "회원가입");
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_URL,
+                            NetworkConstants.GOSING_ADMIN_AGREE_ELET_FIN_URL);
+                    startActivity(intent);
+                });
+
+        TextView tvTermsOfUse
+                = view.findViewById(R.id.tv_sign_up_terms_of_agreement_use_read_all);
+        RxView.clicks(tvTermsOfUse)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_TITLE, "회원가입");
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_URL,
+                            NetworkConstants.GOSING_ADMIN_AGREE_TERMS_USE_URL);
+                    startActivity(intent);
+                });
 
     }
 

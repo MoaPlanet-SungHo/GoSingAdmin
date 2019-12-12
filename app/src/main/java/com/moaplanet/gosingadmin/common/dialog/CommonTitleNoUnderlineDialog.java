@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import com.moaplanet.gosingadmin.R;
 
 /**
- * Created by jiwun on 2019-10-11.
+ * 타이틀 없는 다이얼로그
  */
 public class CommonTitleNoUnderlineDialog extends Dialog {
 
