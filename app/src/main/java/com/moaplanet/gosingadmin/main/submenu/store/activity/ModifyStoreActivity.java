@@ -219,8 +219,8 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         }
 
         addressCoordInfoDto = new ResAddressCoordDto().new AddressCoordInfoDto();
-        addressCoordInfoDto.setEntX(shopInfoDto.getEntX());
-        addressCoordInfoDto.setEntY(shopInfoDto.getEntY());
+//        addressCoordInfoDto.setEntX(shopInfoDto.getEntX());
+//        addressCoordInfoDto.setEntY(shopInfoDto.getEntY());
 
         addressInfoDto = new ResAddressSearchDto().new AddressInfoDto();
         addressInfoDto.setAdmCd(shopInfoDto.getAdmCd());
