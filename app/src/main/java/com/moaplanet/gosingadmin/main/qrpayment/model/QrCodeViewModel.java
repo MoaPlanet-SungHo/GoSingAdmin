@@ -85,8 +85,8 @@ public class QrCodeViewModel extends BaseViewModel {
         if (inputSavePrice.getValue() != null && reserveRatio.getValue() != null) {
             String tempSavePrice = inputSavePrice.getValue().replace(",", "");
             if (!tempSavePrice.equals("")) {
-                int savePriceResilt = Integer.valueOf(tempSavePrice) * reserveRatio.getValue() / 100;
-                saveMoney.setValue(StringUtil.convertCommaPrice(savePriceResilt));
+                long savePriceResilt = Long.valueOf(tempSavePrice) * reserveRatio.getValue() / 100;
+                saveMoney.setValue(StringUtil.convertCommaPrice((int)savePriceResilt));
             }
         }
     }
