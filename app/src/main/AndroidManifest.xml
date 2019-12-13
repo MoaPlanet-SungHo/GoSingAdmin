@@ -106,7 +106,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".common.activity.WebViewActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
