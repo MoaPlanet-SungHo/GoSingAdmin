@@ -35,7 +35,7 @@ public class ResSearchDepositAccount extends CommonResDto {
         private String accountNumber;
 
         // 예금주
-        @SerializedName("user_name")
+        @SerializedName("user_nm")
         private String name;
 
         // 출금 가능 금액

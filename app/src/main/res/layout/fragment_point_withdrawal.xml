@@ -116,7 +116,7 @@
             android:importantForAutofill="no"
             android:inputType="number"
             android:lineSpacingExtra="9.7dp"
-            android:maxLength="12"
+            android:maxLength="11"
             android:singleLine="true"
             android:textSize="27dp"
             app:layout_constraintBottom_toBottomOf="parent"
