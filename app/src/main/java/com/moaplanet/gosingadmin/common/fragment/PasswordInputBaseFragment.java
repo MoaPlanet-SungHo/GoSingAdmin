@@ -16,6 +16,7 @@ import com.chaos.view.PinView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -78,7 +79,11 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> {
                     if (!isFirstStack) {
-                        onBackNavigation();
+                        if (getActivity() != null && getActivity() instanceof CardRegisterActivity) {
+                            getActivity().finish();
+                        } else {
+                            onBackNavigation();
+                        }
                     } else {
                         if (getActivity() != null) {
                             getActivity().finish();

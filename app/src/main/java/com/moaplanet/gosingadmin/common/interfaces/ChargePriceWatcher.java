@@ -67,7 +67,12 @@ public class ChargePriceWatcher implements TextWatcher {
         if (!isRemove) {
             if (price % 1000 != 0 || (beforeInputLength - inputPos) <= 4) {
                 int inputPr = Character.getNumericValue(editable.charAt(inputPos));
-                price = beforePrice + (inputPr * 1000);
+                int tempInputPr = inputPr * 1000;
+                if (tempInputPr == 0) {
+                    price = beforePrice * 10;
+                } else {
+                    price = beforePrice + tempInputPr;
+                }
             }
         } else {
             if (price < 1000) {
