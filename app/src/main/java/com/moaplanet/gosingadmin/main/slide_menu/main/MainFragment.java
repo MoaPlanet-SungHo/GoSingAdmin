@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -259,6 +261,17 @@ public class MainFragment extends Fragment {
                 noTitleDialog.onNoOnClickListener(view -> noTitleDialog.dismiss());
             } else {
                 moveActivity(PointWithDrawalActivity.class);
+            }
+        });
+
+        // 하단 정보 관련 숨기기 및 표시
+        CheckBox cbMoaInfo = view.findViewById(R.id.cb_main_ceo_info);
+        View moaInfoView = view.findViewById(R.id.ll_main_ceo_info_content);
+        cbMoaInfo.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked) {
+                moaInfoView.setVisibility(View.GONE);
+            } else {
+                moaInfoView.setVisibility(View.VISIBLE);
             }
         });
 
