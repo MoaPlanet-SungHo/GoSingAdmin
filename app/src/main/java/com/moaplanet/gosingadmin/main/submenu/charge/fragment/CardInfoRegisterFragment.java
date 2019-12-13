@@ -54,9 +54,9 @@ public class CardInfoRegisterFragment extends BaseFragment {
         cardNumberFour =
                 view.findViewById(R.id.et_fragment_card_info_register_card_number_4);
 
-        etYear = view.findViewById(R.id.et_fragment_card_info_register_card_validity_1);
+        etMonth = view.findViewById(R.id.et_fragment_card_info_register_card_validity_1);
 
-        etMonth = view.findViewById(R.id.et_fragment_card_info_register_card_validity_2);
+        etYear = view.findViewById(R.id.et_fragment_card_info_register_card_validity_2);
 
         birthNumber = view.findViewById(R.id.et_fragment_card_info_register_card_birth);
 
@@ -154,7 +154,7 @@ public class CardInfoRegisterFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.length() == 4) {
-                    etYear.requestFocus();
+                    etMonth.requestFocus();
                 }
             }
         });
@@ -173,7 +173,7 @@ public class CardInfoRegisterFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.length() == 2) {
-                    etMonth.requestFocus();
+                    birthNumber.requestFocus();
                 }
             }
         });
@@ -192,7 +192,7 @@ public class CardInfoRegisterFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.length() == 2) {
-                    birthNumber.requestFocus();
+                    etYear.requestFocus();
                 }
             }
         });
