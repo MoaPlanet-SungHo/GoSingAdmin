@@ -181,7 +181,20 @@ public class PaymentMoneyFragment extends BaseFragment {
         RxView.clicks(btnQrPayment)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> onMoveNavigation(R.id.action_fragment_qr_payment));
+                .subscribe(click -> {
+                    if ((etInputSaveMoney.getText().toString().equals("") ||
+                            etInputSaveMoney.getText().toString().equals("0원")) &&
+                            (etInputNoSaveMoney.getText().toString().equals("") ||
+                                    etInputNoSaveMoney.getText().toString().equals("0원"))) {
+
+                        Toast.makeText(view.getContext(),
+                                "결제 금액을 입력해 주세요.",
+                                Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        onMoveNavigation(R.id.action_fragment_qr_payment);
+                    }
+                });
     }
 
     @Override

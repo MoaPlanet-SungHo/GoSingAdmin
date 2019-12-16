@@ -130,5 +130,4 @@ public class ChargePriceWatcher implements TextWatcher {
         void onTextChange(String completePrice, int price);
     }
 
-
 }
