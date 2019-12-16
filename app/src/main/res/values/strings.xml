@@ -407,7 +407,7 @@
     <!-- FragmentDepositWithoutBankbook -->
     <string name="fragment_deposit_without_bankbook_not_enough_points_header">GOSING 포인트 잔액이 </string>
     <string name="fragment_deposit_without_bankbook_not_enough_points_tail"> 부족합니다.</string>
-    <string name="fragment_deposit_without_bankbook_user_name_tail">님의 충전계좌</string>
+    <string name="fragment_deposit_without_bankbook_user_name_tail">%s님의 충전계좌</string>
     <string name="fragment_deposit_without_bankbook_copy">복사</string>
     <string name="fragment_deposit_without_bankbook_tool_tip">위의 가상계좌번호로 충전금액을 이체하여\nGOSING포인트를 충전할 수 있습니다.\n(1회 한도 50만원)</string>
     <string name="fragment_deposit_without_bankbook_register_virtual_account">

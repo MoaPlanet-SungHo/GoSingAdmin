@@ -170,6 +170,14 @@ public class DepositWithoutBankbookFragment extends BaseFragment {
                 view.findViewById(R.id.tv_fragment_deposit_without_bankbook_bank_number);
         bankAccountNumber.setText(dto.getVirtaulAccountNumber());
 
+        // 이름
+        TextView userName =
+                view.findViewById(R.id.tv_fragment_deposit_without_bankbook_user_name);
+        userName.setText(
+                getString(R.string.fragment_deposit_without_bankbook_user_name_tail,
+                        dto.getUserName())
+        );
+
         // 계좌번호 복사
         LinearLayout llCopy = view.findViewById(R.id.ll_fragment_deposit_without_bankbook_copy);
         RxView.clicks(llCopy)

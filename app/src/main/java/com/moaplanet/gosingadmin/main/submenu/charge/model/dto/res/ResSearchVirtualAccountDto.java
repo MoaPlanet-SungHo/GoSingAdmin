@@ -44,6 +44,10 @@ public class ResSearchVirtualAccountDto extends CommonResDto {
         @SerializedName("vrcis_number")
         private String mVirtaulAccountNumber;
 
+        //가상계좌 번호
+        @SerializedName("user_nm")
+        private String mUserName;
+
         // --- Field End --- //
 
         // -- Getter Start --- //
@@ -62,6 +66,10 @@ public class ResSearchVirtualAccountDto extends CommonResDto {
 
         public String getVirtaulAccountNumber() {
             return mVirtaulAccountNumber;
+        }
+
+        public String getUserName() {
+            return mUserName;
         }
 
         // -- Getter Start --- //
