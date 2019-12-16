@@ -71,7 +71,7 @@ public class ChargePriceWatcher implements TextWatcher {
                 if (tempInputPr == 0) {
                     price = beforePrice * 10;
                 } else {
-                    price = beforePrice + tempInputPr;
+                    price = (beforePrice * 10) + tempInputPr;
                 }
             }
         } else {
