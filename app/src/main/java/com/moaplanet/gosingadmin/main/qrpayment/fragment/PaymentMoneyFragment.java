@@ -51,6 +51,7 @@ public class PaymentMoneyFragment extends BaseFragment {
     private int myPoint = 0;
     private int savePoint = 0;
     private int noSavePoint = 0;
+    private int rewordPoint = 0;
 
     @Override
     public int layoutRes() {
@@ -119,7 +120,7 @@ public class PaymentMoneyFragment extends BaseFragment {
                     qrCodeViewModel.setInputSavePrice(completePrice);
                     savePoint = price;
                     tvGoSingPoint.setText(getString(R.string.fragment_payment_money_won,
-                            StringUtil.convertCommaPrice(myPoint + savePoint + noSavePoint)));
+                            StringUtil.convertCommaPrice(myPoint + savePoint + noSavePoint - rewordPoint)));
                 }
             }
         });
@@ -153,7 +154,7 @@ public class PaymentMoneyFragment extends BaseFragment {
                     qrCodeViewModel.setInputNoSavePrice(completePrice);
                     noSavePoint = price;
                     tvGoSingPoint.setText(getString(R.string.fragment_payment_money_won,
-                            StringUtil.convertCommaPrice(myPoint + noSavePoint + savePoint)));
+                            StringUtil.convertCommaPrice(myPoint + noSavePoint + savePoint - rewordPoint)));
                 }
             }
         });
@@ -261,6 +262,11 @@ public class PaymentMoneyFragment extends BaseFragment {
 
         // 적립 금액 초기화
         qrCodeViewModel.getSaveMoney().observe(this, savePrice -> {
+            try {
+                rewordPoint = Integer.parseInt(savePrice.replaceAll(",", ""));
+            } catch (NumberFormatException e) {
+                rewordPoint = 0;
+            }
             tvReserveFund.setText(getString(R.string.fragment_payment_money_won, savePrice));
         });
 
