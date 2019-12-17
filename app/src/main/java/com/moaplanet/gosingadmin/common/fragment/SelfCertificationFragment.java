@@ -42,6 +42,8 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
     // 뷰 모델
     private SignUpViewModel signUpViewModel;
 
+    private View loadingBar;
+
     @Override
     protected void initViewModel() {
         super.initViewModel();
@@ -59,6 +61,8 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
     public void initView(View view) {
         webViewKgMobilians = view.findViewById(
                 R.id.wv_self_certification_kg);
+
+        loadingBar = view.findViewById(R.id.pr_fragment_self_certification_loading);
     }
 
     @Override
@@ -149,6 +153,10 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
+                if (loadingBar.getVisibility() == View.VISIBLE) {
+                    loadingBar.setVisibility(View.GONE);
+                }
 
                 switch (url) {
 //                    case KG_MOBILIANS_BASE_URL + KG_MOBILIANS_START_URL:
