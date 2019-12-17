@@ -86,9 +86,9 @@ public class RegisterStoreActivity extends BaseStoreActivity {
     private void roomCheck() {
         List<ReqStoreRegisterDto.RoomInfoDto> roomList = new ArrayList<>();
         int ROOM_COUNT = 3;
-        ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
         for (int i = 0; i < ROOM_COUNT; i++) {
             if (checkRoomType(i) && checkRoomPrice(i) && checkRoomPersonnel(i)) {
+                ReqStoreRegisterDto.RoomInfoDto roomInfoDto = reqStoreRegisterDto.new RoomInfoDto();
                 roomInfoDto.setPrice(roomPriceList.get(i).getText().toString().replaceAll("[,원]", ""));
                 roomInfoDto.setRoomType(String.valueOf(i + 1));
                 roomInfoDto.setPeoplePerRoom(roomPersonnelList.get(i).getSelectedItem().toString());
