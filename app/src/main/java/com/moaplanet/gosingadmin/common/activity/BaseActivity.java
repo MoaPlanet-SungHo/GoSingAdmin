@@ -58,7 +58,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.mLoadingBar = loadingBar;
     }
 
-    public void initActivity(){}
+    public void initActivity() {
+    }
 
     /**
      * 로딩 시작
@@ -107,7 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void onNetworkConnectFail() {
         Toast.makeText(this,
-                "다시 시도해 주세요",
+                R.string.common_toast_network_fail,
                 Toast.LENGTH_SHORT)
                 .show();
     }

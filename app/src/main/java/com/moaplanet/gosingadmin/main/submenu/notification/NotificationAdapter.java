@@ -13,6 +13,9 @@ import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificati
 
 import java.util.List;
 
+/**
+ * 알림 리스트 표시 어댑터
+ */
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationHolder> {
 
     List<ResNotificationDto.NotificationDto> notificationDtoList;
@@ -48,6 +51,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         private TextView tvType;
         private TextView tvContent;
+
         public NotificationHolder(@NonNull View itemView) {
             super(itemView);
             tvType = itemView.findViewById(R.id.tv_item_notification_title);

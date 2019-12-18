@@ -1,7 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.notification;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,11 +20,12 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
-
+/**
+ * 알림 화면
+ */
 public class NotificationActivity extends BaseActivity {
 
-    private RecyclerView rvNotification;
-    private NotificationAdapter notificationAdapter;
+    private NotificationAdapter mNotificationAdapter;
 
     @Override
     public int layoutRes() {
@@ -34,28 +34,21 @@ public class NotificationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        rvNotification = findViewById(R.id.rv_notification);
-        rvNotification.setLayoutManager(new LinearLayoutManager(this));
-        notificationAdapter = new NotificationAdapter();
-        rvNotification.setAdapter(notificationAdapter);
-
-
+        RecyclerView recyclerView = findViewById(R.id.rv_activity_notification);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mNotificationAdapter = new NotificationAdapter();
+        recyclerView.setAdapter(mNotificationAdapter);
+        onNotificationList();
     }
 
     @Override
     public void initListener() {
         // 타이틀
-        CommonTitleBar titleBar = findViewById(R.id.common_notification_title_bar);
+        CommonTitleBar titleBar = findViewById(R.id.common_activity_notification_title_bar);
         RxView.clicks(titleBar.getBtnBack())
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> finish());
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        onNotificationList();
     }
 
     private void onNotificationList() {
@@ -68,24 +61,21 @@ public class NotificationActivity extends BaseActivity {
                     public void onFinalResponse(Call<ResNotificationDto> call, ResNotificationDto resModel) {
 
                         if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-                            if (resModel.getDetailCode() == 200) {
-                                notificationAdapter.setList(resModel.getNotificationDtoList());
+                            if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                                mNotificationAdapter.setList(resModel.getNotificationDtoList());
                                 return;
                             }
                         }
 
-                        serverErrorMsg();
+                        onNetworkConnectFail();
 
                     }
 
                     @Override
                     public void onFinalFailure(Call<ResNotificationDto> call, boolean isSession, Throwable t) {
-                        serverErrorMsg();
+                        onNetworkConnectFail();
                     }
                 });
     }
 
-    private void serverErrorMsg() {
-        Toast.makeText(this, "네트워크 에러입니다.", Toast.LENGTH_SHORT).show();
-    }
 }
