@@ -53,7 +53,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
-
+//todo 데이터 체크 로직 및 가맹점 등록 활성화 버튼 추후 수정 예정
 public abstract class BaseStoreActivity extends BaseActivity {
 
     // 로딩
@@ -235,6 +235,12 @@ public abstract class BaseStoreActivity extends BaseActivity {
         roomTypeList.add(findViewById(R.id.cb_activity_base_store_small_room));
 
         defaultAddPictureUi();
+
+        if (!checkData(false)) {
+            btnDone.setEnabled(false);
+        } else {
+            btnDone.setEnabled(true);
+        }
     }
 
     @Override
@@ -269,7 +275,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> {
-                    if (checkData()) {
+                    if (checkData(true)) {
                         registerStore();
                     }
                 });
@@ -284,6 +290,18 @@ public abstract class BaseStoreActivity extends BaseActivity {
                     Intent intent = new Intent(this, AddressSearchActivity.class);
                     startActivityForResult(intent, GoSingConstants.REQ_CODE_ADDRESS_SEARCH);
                 });
+
+        // 가맹점 이름
+        etStoreName.addTextChangedListener(textWatcher);
+        // 간단 주소
+        etShortAddress.addTextChangedListener(textWatcher);
+        // 상세 주소
+        etDetailAddress.addTextChangedListener(textWatcher);
+        // 업소 전화번호
+        etStoreCallNumber.addTextChangedListener(textWatcher);
+        // 대표 휴대폰번호
+        etCeoCallNumber.addTextChangedListener(textWatcher);
+
 
     }
 
@@ -358,41 +376,71 @@ public abstract class BaseStoreActivity extends BaseActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    private boolean checkData() {
+    private boolean checkData(boolean isShowToast) {
 
         if (checkEmpty(etStoreName)) {
             reqStoreRegisterDto.setStoreName(etStoreName.getText().toString());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "업소명을 입력해주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
         if (checkEmpty(etShortAddress)) {
             reqStoreRegisterDto.setSimpleAddress(etShortAddress.getText().toString());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "간략 주소를 입력해 주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
         if (checkEmpty(tvRoadAddress)) {
             reqStoreRegisterDto.setRoadAddress(tvRoadAddress.getText().toString());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "업소 주소를 입력해주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
         if (checkEmpty(etDetailAddress)) {
             reqStoreRegisterDto.setDetailAddress(etDetailAddress.getText().toString());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "상세 주소를 입력해주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
         if (checkEmpty(etStoreCallNumber)) {
             reqStoreRegisterDto.setStoreTel(etStoreCallNumber.getText().toString());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "업소 전화번호를 입력해주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
         if (checkEmpty(etCeoCallNumber)) {
             reqStoreRegisterDto.setCeoTel(etCeoCallNumber.getText().toString());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "휴대폰 번호를 입력해주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
@@ -402,6 +450,11 @@ public abstract class BaseStoreActivity extends BaseActivity {
             reqStoreRegisterDto.setEntX(addressCoordInfoDto.getEntX());
             reqStoreRegisterDto.setEntY(addressCoordInfoDto.getEntY());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "주소를 다시 설정해 주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
@@ -410,6 +463,11 @@ public abstract class BaseStoreActivity extends BaseActivity {
             reqStoreRegisterDto.setAdmCd(addressInfoDto.getAdmCd());
             reqStoreRegisterDto.setEmdNm(addressInfoDto.getEmdNm());
         } else {
+            if (isShowToast) {
+                Toast.makeText(this,
+                        "주소를 다시 설정해 주세요.",
+                        Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 
@@ -439,6 +497,12 @@ public abstract class BaseStoreActivity extends BaseActivity {
                                 ResAddressSearchDto.AddressInfoDto.class);
 
                 tvRoadAddress.setText(addressInfoDto.getRoadAddress());
+                checkData(false);
+                if (!checkData(false)) {
+                    btnDone.setEnabled(false);
+                } else {
+                    btnDone.setEnabled(true);
+                }
             }
         }
 
@@ -471,5 +535,26 @@ public abstract class BaseStoreActivity extends BaseActivity {
             finish();
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if (!checkData(false)) {
+                btnDone.setEnabled(false);
+            } else {
+                btnDone.setEnabled(true);
+            }
+        }
+    };
 
 }

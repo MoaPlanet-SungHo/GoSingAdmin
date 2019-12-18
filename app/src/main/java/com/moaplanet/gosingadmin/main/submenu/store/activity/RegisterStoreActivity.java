@@ -68,7 +68,7 @@ public class RegisterStoreActivity extends BaseStoreActivity {
                                         }
                                     });
                         } else {
-                            // Oups permission denied
+                            // permission denied
                             Logger.d("permission denied");
                         }
                     }));

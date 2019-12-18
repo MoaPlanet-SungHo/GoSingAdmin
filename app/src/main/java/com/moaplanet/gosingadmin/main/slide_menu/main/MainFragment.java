@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,15 +20,16 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.main.IntroActivity;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
+import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
 import com.moaplanet.gosingadmin.main.submenu.food.activity.FoodOrderActivity;
 import com.moaplanet.gosingadmin.main.submenu.non_member.activity.NonMemberSaveActivity;
-import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.point.activity.PointHistoryActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.PointWithDrawalActivity;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.activity.RegisterAccountActivity;
@@ -91,6 +91,25 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onFinalFailure(Call<ResGoSingPointSearchDto> call, boolean isSession, Throwable t) {
                         errMsg();
+                    }
+
+                    @Override
+                    public void onFinalNotSession() {
+                        super.onFinalNotSession();
+                        Toast.makeText(view.getContext(),
+                                R.string.common_not_exist_session,
+                                Toast.LENGTH_SHORT)
+                                .show();
+
+                        Intent intent = new Intent(view.getContext(), IntroActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra(
+                                GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
+                                GoSingConstants.BUNDLE_VALUE_APP_VERSION_NOT_CHECK);
+                        startActivity(intent);
+                        if (getActivity() != null) {
+                            getActivity().finishAffinity();
+                        }
                     }
                 });
     }
@@ -236,8 +255,8 @@ public class MainFragment extends Fragment {
         });
 
         // 통신 실패
-        mainViewModel.getSession().observe(this, isFail -> {
-            if (!isFail) {
+        mainViewModel.getIsApiSuccess().observe(this, isSuccess -> {
+            if (!isSuccess) {
                 Toast.makeText(view.getContext(),
                         "다시 시도해 주세요",
                         Toast.LENGTH_SHORT)

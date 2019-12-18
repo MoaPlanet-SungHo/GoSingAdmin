@@ -272,7 +272,7 @@
     <string name="activity_base_store_call_number">업소 전화번호</string>
     <string name="activity_base_store_input_call_number">업소 전화번호를 입력해 주세요.</string>
     <string name="activity_base_ceo_call_number">휴대폰 번호</string>
-    <string name="activity_base_ceo_input_call_number">사장님 전화번호를 입력해 주세요.</string>
+    <string name="activity_base_ceo_input_call_number">대표 휴대폰 번호를 입력해 주세요.</string>
     <string name="activity_base_store_thumbnail">대표사진</string>
     <string name="activity_base_store_select">(선택)</string>
     <string name="activity_base_store_thumbnail_info_one">- 매장을 대표할 수 있는 사진을 등록해 주세요.</string>
