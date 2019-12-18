@@ -18,7 +18,7 @@ import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResSearchVirt
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResNonMemberPointSaveInitDTO;
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResNonMemberSavePointDTO;
 import com.moaplanet.gosingadmin.main.submenu.non_member.model.ResPointSaveNonMemberCheckDTO;
-import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
+import com.moaplanet.gosingadmin.main.submenu.notification.dto.ResNotificationDTO;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoDto;
 import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResDepositablePointDto;
@@ -71,7 +71,7 @@ public interface GoSingApiService {
 
     // 알림 리스트
     @POST("session/MemberManageCtr/alert_list_serach.json")
-    Call<ResNotificationDto> onServerNotificationList(@Query("alam_type") String alarmType,
+    Call<ResNotificationDTO> onServerNotificationList(@Query("alam_type") String alarmType,
                                                       @Query("check_point") String checkPoint);
 
     // 포인트 내역

@@ -1,4 +1,4 @@
-package com.moaplanet.gosingadmin.main.submenu.notification.dto.res;
+package com.moaplanet.gosingadmin.main.submenu.notification.dto;
 
 import com.google.gson.annotations.SerializedName;
 import com.moaplanet.gosingadmin.network.model.CommonResDto;
@@ -6,14 +6,14 @@ import com.moaplanet.gosingadmin.network.model.CommonResDto;
 import java.util.List;
 
 /**
- * Created by jiwun on 2019-11-11.
+ * 알림 정보를 받을 res dto
  */
-public class ResNotificationDto extends CommonResDto {
+public class ResNotificationDTO extends CommonResDto {
 
     @SerializedName("alert_list")
-    private List<NotificationDto> notificationDtoList;
+    private List<NotificationModel> notificationDtoList;
 
-    public class NotificationDto {
+    public class NotificationModel {
         // 알림 pk
         @SerializedName("shop_alam_log_seq")
         private int notiPk;
@@ -47,7 +47,7 @@ public class ResNotificationDto extends CommonResDto {
         }
     }
 
-    public List<NotificationDto> getNotificationDtoList() {
+    public List<NotificationModel> getNotificationDtoList() {
         return notificationDtoList;
     }
 }

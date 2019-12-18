@@ -1,8 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.notification;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,14 +8,9 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
-import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
-import com.moaplanet.gosingadmin.network.NetworkConstants;
-import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
-import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
 import java.util.concurrent.TimeUnit;
 
-import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -25,7 +18,16 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 public class NotificationActivity extends BaseActivity {
 
-    private NotificationAdapter mNotificationAdapter;
+    // 알림 리스트 어댑터
+    private NotificationAdapter mAdapter;
+    // 뷰모델
+    private NotificationViewModel mViewModel;
+
+    @Override
+    public void initActivity() {
+        super.initActivity();
+        mViewModel = ViewModelProviders.of(this).get(NotificationViewModel.class);
+    }
 
     @Override
     public int layoutRes() {
@@ -36,9 +38,10 @@ public class NotificationActivity extends BaseActivity {
     public void initView() {
         RecyclerView recyclerView = findViewById(R.id.rv_activity_notification);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mNotificationAdapter = new NotificationAdapter();
-        recyclerView.setAdapter(mNotificationAdapter);
-        onNotificationList();
+        mAdapter = new NotificationAdapter();
+        recyclerView.setAdapter(mAdapter);
+        mViewModel.onLoadNotificationList();
+//        onNotificationList();
     }
 
     @Override
@@ -51,31 +54,26 @@ public class NotificationActivity extends BaseActivity {
                 .subscribe(click -> finish());
     }
 
-    private void onNotificationList() {
-        RetrofitService.getInstance().getGoSingApiService().onServerNotificationList(null, null)
-                .enqueue(new MoaAuthCallback<ResNotificationDto>(
-                        RetrofitService.getInstance().getMoaAuthConfig(),
-                        RetrofitService.getInstance().getSessionChecker()
-                ) {
-                    @Override
-                    public void onFinalResponse(Call<ResNotificationDto> call, ResNotificationDto resModel) {
+    @Override
+    protected void initObserve() {
+        super.initObserve();
 
-                        if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-                            if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
-                                mNotificationAdapter.setList(resModel.getNotificationDtoList());
-                                return;
-                            }
-                        }
+        mViewModel.getNotificationList().observe(this, list -> {
+            mAdapter.setList(list);
+        });
 
-                        onNetworkConnectFail();
+        mViewModel.getSession().observe(this, isSession -> {
+            if (!isSession) {
+                onNotSession();
+            }
+        });
 
-                    }
+        mViewModel.getIsApiSuccess().observe(this, isSuccess -> {
+            if (!isSuccess) {
+                onNetworkConnectFail();
+            }
+        });
 
-                    @Override
-                    public void onFinalFailure(Call<ResNotificationDto> call, boolean isSession, Throwable t) {
-                        onNetworkConnectFail();
-                    }
-                });
     }
 
 }

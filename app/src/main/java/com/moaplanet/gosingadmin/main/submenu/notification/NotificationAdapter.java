@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moaplanet.gosingadmin.R;
-import com.moaplanet.gosingadmin.main.submenu.notification.dto.res.ResNotificationDto;
+import com.moaplanet.gosingadmin.main.submenu.notification.dto.ResNotificationDTO;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationHolder> {
 
-    List<ResNotificationDto.NotificationDto> notificationDtoList;
+    List<ResNotificationDTO.NotificationModel> notificationDtoList;
 
     @NonNull
     @Override
@@ -33,7 +33,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.init(notificationDtoList.get(position));
     }
 
-    public void setList(List<ResNotificationDto.NotificationDto> notificationDtoList) {
+    public void setList(List<ResNotificationDTO.NotificationModel> notificationDtoList) {
         this.notificationDtoList = notificationDtoList;
         notifyDataSetChanged();
     }
@@ -58,7 +58,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             tvContent = itemView.findViewById(R.id.tv_item_notification_content);
         }
 
-        private void init(ResNotificationDto.NotificationDto notificationDto) {
+        private void init(ResNotificationDTO.NotificationModel notificationDto) {
             tvContent.setText(notificationDto.getNotiContent());
         }
 
