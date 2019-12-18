@@ -8,6 +8,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +42,6 @@ public class NotificationActivity extends BaseActivity {
         mAdapter = new NotificationAdapter();
         recyclerView.setAdapter(mAdapter);
         mViewModel.onLoadNotificationList();
-//        onNotificationList();
     }
 
     @Override
@@ -58,20 +58,28 @@ public class NotificationActivity extends BaseActivity {
     protected void initObserve() {
         super.initObserve();
 
-        mViewModel.getNotificationList().observe(this, list -> {
-            mAdapter.setList(list);
-        });
+        // 알림 리스트 데이터를 받아옴
+        mViewModel.getNotificationList().observe(this, list -> mAdapter.setList(list));
 
+        // 세션 유무 -> 세션 없을 경우만 호출
         mViewModel.getSession().observe(this, isSession -> {
+            Logger.i("세션 유무 : " + isSession);
             if (!isSession) {
                 onNotSession();
             }
         });
 
+        // 서버 통신 성공 유무 -> 실패시에만 호출
         mViewModel.getIsApiSuccess().observe(this, isSuccess -> {
+            Logger.i("서버 통신 유무 : " + isSuccess);
             if (!isSuccess) {
                 onNetworkConnectFail();
             }
+        });
+
+        // 로딩 유무를
+        mViewModel.getIsLoading().observe(this, isLoading -> {
+            Logger.i("isLoading : " + isLoading);
         });
 
     }
