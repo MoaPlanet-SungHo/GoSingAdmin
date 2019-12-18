@@ -226,7 +226,7 @@ public class ModifyStoreActivity extends BaseStoreActivity {
         addressInfoDto.setAdmCd(shopInfoDto.getAdmCd());
         addressInfoDto.setEmdNm(shopInfoDto.getEmdNm());
         addressInfoDto.setZipNo(shopInfoDto.getPostNumber());
-
+        onDataCheckNotToast();
         loadingBar.setVisibility(View.GONE);
     }
 

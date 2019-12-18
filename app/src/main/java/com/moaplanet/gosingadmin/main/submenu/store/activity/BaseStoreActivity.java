@@ -53,7 +53,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import rx.android.schedulers.AndroidSchedulers;
-//todo 데이터 체크 로직 및 가맹점 등록 활성화 버튼 추후 수정 예정
 public abstract class BaseStoreActivity extends BaseActivity {
 
     // 로딩
@@ -236,11 +235,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
         defaultAddPictureUi();
 
-        if (!checkData(false)) {
-            btnDone.setEnabled(false);
-        } else {
-            btnDone.setEnabled(true);
-        }
+        onDataCheckNotToast();
     }
 
     @Override
@@ -497,12 +492,7 @@ public abstract class BaseStoreActivity extends BaseActivity {
                                 ResAddressSearchDto.AddressInfoDto.class);
 
                 tvRoadAddress.setText(addressInfoDto.getRoadAddress());
-                checkData(false);
-                if (!checkData(false)) {
-                    btnDone.setEnabled(false);
-                } else {
-                    btnDone.setEnabled(true);
-                }
+                onDataCheckNotToast();
             }
         }
 
@@ -549,12 +539,16 @@ public abstract class BaseStoreActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (!checkData(false)) {
-                btnDone.setEnabled(false);
-            } else {
-                btnDone.setEnabled(true);
-            }
+            onDataCheckNotToast();
         }
     };
+
+    public void onDataCheckNotToast() {
+        if (!checkData(false)) {
+            btnDone.setEnabled(false);
+        } else {
+            btnDone.setEnabled(true);
+        }
+    }
 
 }
