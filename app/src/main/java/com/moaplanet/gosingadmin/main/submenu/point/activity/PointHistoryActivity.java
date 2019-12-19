@@ -164,19 +164,19 @@ public class PointHistoryActivity extends BaseActivity {
                     initDate(-365);
                 });
 
-        RxView.clicks(etStartDate)
-                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> {
-                    showStartDatePickerDialog();
-                });
+//        RxView.clicks(etStartDate)
+//                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(click -> {
+//                    showStartDatePickerDialog();
+//                });
 
-        RxView.clicks(etEndDate)
-                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> {
-                    showEndDatePickerDialog();
-                });
+//        RxView.clicks(etEndDate)
+//                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(click -> {
+//                    showEndDatePickerDialog();
+//                });
 
 
     }
