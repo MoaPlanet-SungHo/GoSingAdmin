@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.fragment.PasswordInputBaseFragment;
 import com.moaplanet.gosingadmin.common.model.viewmodel.CreatePinViewModel;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
@@ -103,6 +104,10 @@ public class SignUpInputPasswordFragment extends PasswordInputBaseFragment {
 
     @Override
     public String titleText() {
-        return getString(R.string.sign_up_title);
+        if (getActivity() instanceof CreatePinActivity) {
+            return getString(R.string.activity_create_pin_title);
+        } else {
+            return getString(R.string.sign_up_title);
+        }
     }
 }

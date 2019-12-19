@@ -169,6 +169,10 @@ public class MainFragment extends Fragment {
                         R.string.fragment_main_expected_active_point,
                         point)));
 
+        // 활성 예정 포인트 설명
+        tvExpectedActivePoint.setOnClickListener(view ->
+                Toast.makeText(view.getContext(), R.string.common_toast_ready, Toast.LENGTH_SHORT).show());
+
         //공지사항 (상단 우측)
         RxView.clicks(btnNotification)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())

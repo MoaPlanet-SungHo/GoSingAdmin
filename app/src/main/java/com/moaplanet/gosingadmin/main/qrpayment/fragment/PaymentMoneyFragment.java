@@ -1,7 +1,5 @@
 package com.moaplanet.gosingadmin.main.qrpayment.fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -196,6 +194,16 @@ public class PaymentMoneyFragment extends BaseFragment {
                         onMoveNavigation(R.id.action_fragment_qr_payment);
                     }
                 });
+
+        // 결제 금액 (적립) 설명
+        ImageView ivSaveMoneyEx = view.findViewById(R.id.tv_fragment_payment_money_save_money_ex);
+        ivSaveMoneyEx.setOnClickListener(view ->
+                Toast.makeText(view.getContext(), R.string.common_toast_ready, Toast.LENGTH_SHORT).show());
+
+        // 결제 금액 (적립) 설명
+        ImageView ivNoSaveMoneyEx = view.findViewById(R.id.tv_fragment_payment_money_no_save_money_ex);
+        ivNoSaveMoneyEx.setOnClickListener(view ->
+                Toast.makeText(view.getContext(), R.string.common_toast_ready, Toast.LENGTH_SHORT).show());
     }
 
     @Override

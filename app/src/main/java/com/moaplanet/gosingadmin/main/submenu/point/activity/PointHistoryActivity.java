@@ -1,9 +1,11 @@
 package com.moaplanet.gosingadmin.main.submenu.point.activity;
 
 import android.app.DatePickerDialog;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -163,6 +165,12 @@ public class PointHistoryActivity extends BaseActivity {
                     onChangeSelectButton(btnAYear);
                     initDate(-365);
                 });
+
+        // 활성 예정 포인트
+        TextView tvActiveSchedulePoint = findViewById(R.id.tv_point_history_active_schedule_point_title);
+        tvActiveSchedulePoint.setOnClickListener(view -> {
+            Toast.makeText(this, R.string.common_toast_ready, Toast.LENGTH_SHORT).show();
+        });
 
 //        RxView.clicks(etStartDate)
 //                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())

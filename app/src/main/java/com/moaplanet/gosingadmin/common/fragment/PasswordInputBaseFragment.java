@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.navigation.Navigation;
 
 import com.chaos.view.PinView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.CardRegisterActivity;
 
 import java.util.Objects;
@@ -90,6 +93,16 @@ public abstract class PasswordInputBaseFragment extends BaseFragment {
                         }
                     }
                 });
+
+        tvExplanation.setOnClickListener(view -> {
+            if (getActivity() != null) {
+                if (!(getActivity() instanceof SignUpActivity) && !(getActivity() instanceof CreatePinActivity)) {
+                    Toast.makeText(view.getContext(), R.string.common_toast_ready, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(view.getContext(), R.string.common_toast_ready, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private TextWatcher watcher = new TextWatcher() {

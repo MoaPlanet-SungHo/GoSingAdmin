@@ -123,6 +123,14 @@ public class LoginActivity extends BaseActivity {
                 onActivationButton();
             }
         });
+
+        // 아이디 찾기
+        TextView tvFindId = findViewById(R.id.tv_login_find_id);
+        tvFindId.setOnClickListener(view -> showReadyToast());
+
+        // 비밀번호 찾기
+        TextView tvChangePw = findViewById(R.id.tv_login_change_pw);
+        tvChangePw.setOnClickListener(view -> showReadyToast());
     }
 
     @Override
@@ -216,5 +224,9 @@ public class LoginActivity extends BaseActivity {
     private void moveActivity(Class moveActivity) {
         Intent intent = new Intent(this, moveActivity);
         startActivity(intent);
+    }
+
+    private void showReadyToast() {
+        Toast.makeText(this, R.string.common_toast_ready, Toast.LENGTH_SHORT).show();
     }
 }

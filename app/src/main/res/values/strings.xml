@@ -6,6 +6,7 @@
     <string name="common_toast_create_payment_password">결제 비밀번호를 생성해 주세요.</string>
     <string name="common_toast_msg_finish">뒤로 버튼을 한번 더 누르시면 종료됩니다.</string>
     <string name="common_toast_network_fail">다시 시도해 주세요.</string>
+    <string name="common_toast_ready">준비중입니다.</string>
 
 
     <!-- Common -->
@@ -29,6 +30,9 @@
     <string name="activity_intro_auto_login_fail">자동로그인을 실패 했습니다.</string>
     <string name="activity_intro_force_update">최신버전으로 업데이트를 \n진행하여 주세요.</string>
     <string name="activity_intro_select_update">최신버전이 있습니다. \n업데이트를 진행하시겠습니까?</string>
+
+    <!-- CreatePinActivity -->
+    <string name="activity_create_pin_title">결제 비밀번호 생성</string>
 
 
     <!-- GoSingAdminConfirmPermissionActivity -->
