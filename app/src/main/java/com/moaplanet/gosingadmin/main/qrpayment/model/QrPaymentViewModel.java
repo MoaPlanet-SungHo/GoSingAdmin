@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.moaplanet.gosingadmin.common.model.viewmodel.BaseViewModel;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.req.ReqCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
@@ -13,7 +14,7 @@ import com.moaplanet.gosingadmin.network.service.RetrofitService;
 
 import retrofit2.Call;
 
-public class QrPaymentViewModel extends ViewModel {
+public class QrPaymentViewModel extends BaseViewModel {
 
     // 가맹점 이름
     private MutableLiveData<String> storeName = new MutableLiveData<>();
@@ -76,6 +77,12 @@ public class QrPaymentViewModel extends ViewModel {
                                        boolean isSession, Throwable t) {
                 connectServerResult.setValue(false);
             }
+
+            @Override
+            public void onFinalNotSession() {
+                super.onFinalNotSession();
+                setSession(false);
+            }
         });
     }
 
@@ -98,6 +105,12 @@ public class QrPaymentViewModel extends ViewModel {
                 public void onFinalFailure(Call<ResQrCodeCheckDTO> call,
                                            boolean isSession, Throwable t) {
                     connectServerResult.setValue(false);
+                }
+
+                @Override
+                public void onFinalNotSession() {
+                    super.onFinalNotSession();
+                    setSession(false);
                 }
             });
         }

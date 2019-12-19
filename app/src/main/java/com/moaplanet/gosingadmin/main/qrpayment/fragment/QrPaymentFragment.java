@@ -246,6 +246,12 @@ public class QrPaymentFragment extends BaseFragment {
                 });
             }
         });
+
+        qrPaymentViewModel.getSession().observe(getViewLifecycleOwner(), isSession -> {
+            if (!isSession) {
+                onNotSession();
+            }
+        });
     }
 
     /**
