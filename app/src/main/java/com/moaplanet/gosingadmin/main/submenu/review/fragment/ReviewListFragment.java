@@ -23,6 +23,8 @@ public class ReviewListFragment extends BaseFragment {
     private ReviewViewModel mViewModel;
     // 리뷰 비었을때 표시할 뷰
     private View mEmptyReview;
+    // 로딩바
+    private View mLoadingBar;
 
     private int reviewType = GoSingConstants.BUNDLE_VALUE_REVIEW_LIST_ALL;
 
@@ -42,8 +44,13 @@ public class ReviewListFragment extends BaseFragment {
     @Override
     public void initView(View view) {
 
+        // 리뷰 리스트 공배일시 표시할 뷰
         mEmptyReview = view.findViewById(R.id.cl_fragment_empty_review);
         mEmptyReview.setVisibility(View.GONE);
+
+        // 로딩바
+        mLoadingBar = view.findViewById(R.id.pr_fragment_review_loading);
+        mLoadingBar.setVisibility(View.GONE);
 
         // 리뷰 리스트 세팅
         RecyclerView recyclerView = view.findViewById(R.id.rv_fragment_review);
@@ -80,9 +87,11 @@ public class ReviewListFragment extends BaseFragment {
         super.initObserve();
         mViewModel.getReviewList(reviewType);
 
+        // 리뷰 리스트 처리
         mViewModel.getReviewList().observe(getViewLifecycleOwner(), list ->
                 reviewAdapter.submitList(list));
 
+        // 가맹점 정보 처리
         mViewModel.getStoreInfoModel().observe(getViewLifecycleOwner(), storeInfoModel -> {
             if (getActivity() != null && getActivity() instanceof ReviewManagerActivity) {
                 ((ReviewManagerActivity) getActivity()).initStoreInfoModel(storeInfoModel);
@@ -98,11 +107,21 @@ public class ReviewListFragment extends BaseFragment {
 
         });
 
-        mViewModel.getmEmptyReview().observe(getViewLifecycleOwner(), isEmpty -> {
+        // 리뷰 리스트가 없을시 처리
+        mViewModel.getEmptyReview().observe(getViewLifecycleOwner(), isEmpty -> {
             if (isEmpty) {
                 mEmptyReview.setVisibility(View.VISIBLE);
             } else {
                 mEmptyReview.setVisibility(View.GONE);
+            }
+        });
+
+        // 로딩 처리
+        mViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading) {
+                mLoadingBar.setVisibility(View.VISIBLE);
+            } else {
+                mLoadingBar.setVisibility(View.GONE);
             }
         });
 

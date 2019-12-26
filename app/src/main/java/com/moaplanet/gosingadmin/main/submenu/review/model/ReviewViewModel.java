@@ -21,6 +21,8 @@ public class ReviewViewModel extends BaseViewModel {
     private LiveData<ResReviewDTO.StoreInfoModel> mStoreInfoModel;
     // 리스트 없음
     private LiveData<Boolean> mEmptyReview;
+    // 로딩
+    private LiveData<Boolean> mIsLoading;
 
     public LiveData<PagedList<ResReviewDTO.ReviewInfoModel>> getReviewList() {
         return mReviewList;
@@ -30,8 +32,12 @@ public class ReviewViewModel extends BaseViewModel {
         return mStoreInfoModel;
     }
 
-    public LiveData<Boolean> getmEmptyReview() {
+    public LiveData<Boolean> getEmptyReview() {
         return mEmptyReview;
+    }
+
+    public LiveData<Boolean> getIsLoading() {
+        return mIsLoading;
     }
 
     private ReviewDataFactory mDataFactory;
@@ -49,7 +55,10 @@ public class ReviewViewModel extends BaseViewModel {
                 ReviewDataSource::getStoreInfoModel);
 
         mEmptyReview = Transformations.switchMap(mDataFactory.getDataSrouce(),
-                ReviewDataSource::getmReviewEmpty);
+                ReviewDataSource::getReviewEmpty);
+
+        mIsLoading = Transformations.switchMap(mDataFactory.getDataSrouce(),
+                ReviewDataSource::getIsLoading);
 
         PagedList.Config config = (new PagedList.Config.Builder())
                 .setEnablePlaceholders(false)

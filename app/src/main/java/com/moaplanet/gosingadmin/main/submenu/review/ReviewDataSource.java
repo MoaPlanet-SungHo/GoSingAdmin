@@ -23,6 +23,8 @@ public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.
     private MutableLiveData<ResReviewDTO.StoreInfoModel> mStoreInfoModel = new MutableLiveData<>();
     // 리뷰 리스트 유무
     private MutableLiveData<Boolean> mReviewEmpty = new MutableLiveData<>();
+    // 로딩 유무
+    private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
 
     private int mReviewType = GoSingConstants.BUNDLE_VALUE_REVIEW_LIST_ALL;
 
@@ -30,8 +32,12 @@ public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.
         return mStoreInfoModel;
     }
 
-    public LiveData<Boolean> getmReviewEmpty() {
+    public LiveData<Boolean> getReviewEmpty() {
         return mReviewEmpty;
+    }
+
+    public MutableLiveData<Boolean> getIsLoading() {
+        return mIsLoading;
     }
 
     public void setReviewType(int mReviewType) {
@@ -40,6 +46,7 @@ public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, ResReviewDTO.ReviewInfoModel> callback) {
+        mIsLoading.postValue(true);
         RetrofitService.getInstance().getGoSingApiService()
                 .onServerReviewLis(1, GoSingConstants.REVIEW_LIST_LIMIT, mReviewType)
                 .enqueue(new MoaAuthCallback<ResReviewDTO>(
@@ -48,6 +55,7 @@ public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.
                 ) {
                     @Override
                     public void onFinalResponse(Call<ResReviewDTO> call, ResReviewDTO resModel) {
+                        mIsLoading.setValue(false);
                         if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
 
                             if (resModel.getStoreInfoModel() != null) {
@@ -65,10 +73,12 @@ public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.
                     @Override
                     public void onFinalFailure(Call<ResReviewDTO> call, boolean isSession, Throwable t) {
                         mReviewEmpty.setValue(true);
+                        mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onFinalNotSession() {
+                        mIsLoading.setValue(false);
                         super.onFinalNotSession();
                     }
                 });
