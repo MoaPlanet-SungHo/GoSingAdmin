@@ -1,5 +1,6 @@
 package com.moaplanet.gosingadmin.main.submenu.review.fragment;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.adapter.ReviewAdapter;
 import com.moaplanet.gosingadmin.main.submenu.review.model.ReviewViewModel;
+import com.orhanobut.logger.Logger;
 
 /**
  * 리뷰 리스트를 표시해줄 프레그먼트
@@ -25,6 +27,9 @@ public class ReviewListFragment extends BaseFragment {
     private View mEmptyReview;
     // 로딩바
     private View mLoadingBar;
+    private RecyclerView recyclerView;
+    // 갱신후 이동할 포지션 위치
+    private int movePos = 0;
 
     private int reviewType = GoSingConstants.BUNDLE_VALUE_REVIEW_LIST_ALL;
 
@@ -53,12 +58,13 @@ public class ReviewListFragment extends BaseFragment {
         mLoadingBar.setVisibility(View.GONE);
 
         // 리뷰 리스트 세팅
-        RecyclerView recyclerView = view.findViewById(R.id.rv_fragment_review);
+        recyclerView = view.findViewById(R.id.rv_fragment_review);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         reviewAdapter = new ReviewAdapter(getChildFragmentManager());
         recyclerView.setAdapter(reviewAdapter);
 
-        reviewAdapter.setOnRefreshCallback(type -> {
+        reviewAdapter.setOnRefreshCallback((type, pos) -> {
+            movePos = pos;
             if (type == reviewAdapter.REVIEW_REFRESH_ALL) {
                 if (getActivity() != null && getActivity() instanceof ReviewManagerActivity) {
                     ((ReviewManagerActivity) getActivity()).onAllRefresh();
@@ -133,6 +139,12 @@ public class ReviewListFragment extends BaseFragment {
     public void onRefresh() {
         if (mViewModel != null) {
             mViewModel.onRefresh();
+            new Handler().postDelayed(() -> {
+                if (movePos <= reviewAdapter.getItemCount() ) {
+                    recyclerView.scrollToPosition(movePos);
+                }
+                movePos = 0;
+            }, 200);
         }
     }
 }

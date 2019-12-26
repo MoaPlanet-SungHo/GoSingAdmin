@@ -61,7 +61,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
 
     @Override
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
-        holder.init(getItem(position));
+        holder.init(getItem(position), position);
     }
 
     public void setOnRefreshCallback(ReviewAdapter.onRefreshCallback onRefreshCallback) {
@@ -110,8 +110,6 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
         private Button mBtnRegisterOrModify;
         // 답글 텍스트 길이
         private TextView mTvReplySize;
-        // 리뷰 썸네일
-        private ImageView mIvReviewThumbnailOne, mIvReviewThumbnailTwo, mIvReviewThumbnailThree;
         // 리뷰 썸네일 그룹
         private View mReviewThumbnailGroup;
         private List<ImageView> mThumbnailList;
@@ -151,15 +149,12 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
             // 답변 글자수 표시
             mTvReplySize = itemView.findViewById(R.id.tv_item_review_reply_comment_count);
             // 리뷰 관련
-            mIvReviewThumbnailOne = itemView.findViewById(R.id.iv_item_review_thumbnail_one);
-            mIvReviewThumbnailTwo = itemView.findViewById(R.id.iv_item_review_thumbnail_two);
-            mIvReviewThumbnailThree = itemView.findViewById(R.id.iv_item_review_thumbnail_three);
             mReviewThumbnailGroup = itemView.findViewById(R.id.ll_item_review_image_group);
 
             mThumbnailList = new ArrayList<>();
-            mThumbnailList.add(mIvReviewThumbnailOne);
-            mThumbnailList.add(mIvReviewThumbnailTwo);
-            mThumbnailList.add(mIvReviewThumbnailThree);
+            mThumbnailList.add(itemView.findViewById(R.id.iv_item_review_thumbnail_one));
+            mThumbnailList.add(itemView.findViewById(R.id.iv_item_review_thumbnail_two));
+            mThumbnailList.add(itemView.findViewById(R.id.iv_item_review_thumbnail_three));
 
             replyRegisterDialog = new NoTitleDialog();
             replyRegisterDialog.setUseYesOrNo(true);
@@ -171,7 +166,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
             replyRemoveDialog.setUseYesOrNo(true);
         }
 
-        private void init(ResReviewDTO.ReviewInfoModel model) {
+        private void init(ResReviewDTO.ReviewInfoModel model, int pos) {
 
             if (model != null) {
                 mReplyType = REPLY_REGISTER;
@@ -219,6 +214,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
                 }
 
                 //리뷰 썸네일 괄녀
+                mReviewThumbnailGroup.setVisibility(View.GONE);
                 if (model.getReviewImg() == null || model.getReviewImg().size() <= 0) {
                     mReviewThumbnailGroup.setVisibility(View.GONE);
                 } else {
@@ -301,11 +297,11 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
                                 } else if (mReplyType == REPLY_MODIFY) {
                                     // 답글 수정
                                     replyRegisterDialog.setContent(R.string.item_review_modify_dialog_content);
-                                    showReplyRegisterDialog(model);
+                                    showReplyRegisterDialog(model, pos);
                                 } else {
                                     // 답글 등록
                                     replyRegisterDialog.setContent(R.string.item_review_register_dialog_content);
-                                    showReplyRegisterDialog(model);
+                                    showReplyRegisterDialog(model, pos);
                                 }
                             } else {
                                 // 답변이 공백일 경우
@@ -324,7 +320,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
 
                             if (mReplyType == REPLY_MODIFY_READY) {
                                 // 답글 삭제
-                                showReplyRemoveDialog(model);
+                                showReplyRemoveDialog(model, pos);
                             } else {
                                 showReplyCancelDialog(model);
                             }
@@ -338,7 +334,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
         /**
          * 답글 삭제
          */
-        private void showReplyRemoveDialog(ResReviewDTO.ReviewInfoModel model) {
+        private void showReplyRemoveDialog(ResReviewDTO.ReviewInfoModel model, int pos) {
 
             replyRemoveDialog.setContent("리뷰 댓글을 삭제하시겠습니까?");
             replyRemoveDialog.show(fm, "replyRemoveDialog");
@@ -347,7 +343,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
 
             replyRemoveDialog.onDoneOnCliListener(view -> {
                 replyRemoveDialog.dismiss();
-                onReplyRemove(model);
+                onReplyRemove(model, pos);
             });
         }
 
@@ -389,11 +385,11 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
         /**
          * 답글 달기 다이얼로그 띄우가
          */
-        private void showReplyRegisterDialog(ResReviewDTO.ReviewInfoModel model) {
+        private void showReplyRegisterDialog(ResReviewDTO.ReviewInfoModel model, int pos) {
             replyRegisterDialog.show(fm, "registerModifyDialog");
             replyRegisterDialog.onDoneOnCliListener(view -> {
                 replyRegisterDialog.dismiss();
-                onReplyModifyOrRegister(model);
+                onReplyModifyOrRegister(model, pos);
             });
 
             replyRegisterDialog.onNoOnClickListener(view -> {
@@ -404,7 +400,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
         /**
          * 답변 추가 및 수정
          */
-        private void onReplyModifyOrRegister(ResReviewDTO.ReviewInfoModel model) {
+        private void onReplyModifyOrRegister(ResReviewDTO.ReviewInfoModel model, int pos) {
             RetrofitService.getInstance().getGoSingApiService()
                     .onServerReviewModifyOrRegister(model.getReviewPk(), mEtReply.getText().toString())
                     .enqueue(new MoaAuthCallback<CommonResDto>(
@@ -422,7 +418,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
                                             "등록한 댓글이 등록되었습니다."
                                             , Toast.LENGTH_SHORT).show();
                                     if (onRefreshCallback != null) {
-                                        onRefreshCallback.onRefresh(REVIEW_REFRESH_ALL);
+                                        onRefreshCallback.onRefresh(REVIEW_REFRESH_ALL, pos);
                                     }
                                 } else {
                                     // 수정일 경우
@@ -430,7 +426,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
                                             "수정한 댓글이 수정되었습니다."
                                             , Toast.LENGTH_SHORT).show();
                                     if (onRefreshCallback != null) {
-                                        onRefreshCallback.onRefresh(REVIEW_REFRESH_NOW);
+                                        onRefreshCallback.onRefresh(REVIEW_REFRESH_NOW, pos);
                                     }
                                 }
                             }
@@ -457,7 +453,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
         /**
          * 답변 삭제
          */
-        private void onReplyRemove(ResReviewDTO.ReviewInfoModel model) {
+        private void onReplyRemove(ResReviewDTO.ReviewInfoModel model, int pos) {
 
             RetrofitService.getInstance().getGoSingApiService()
                     .onServerReviewRemove(model.getReviewPk())
@@ -470,7 +466,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
 
                             if (resModel.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
                                 if (onRefreshCallback != null) {
-                                    onRefreshCallback.onRefresh(REVIEW_REFRESH_ALL);
+                                    onRefreshCallback.onRefresh(REVIEW_REFRESH_ALL, pos);
                                 }
                                 Toast.makeText(itemView.getContext(),
                                         "리뷰 댓글이 삭제되었습니다."
@@ -502,7 +498,7 @@ public class ReviewAdapter extends PagedListAdapter<ResReviewDTO.ReviewInfoModel
     }
 
     public interface onRefreshCallback {
-        void onRefresh(int type);
+        void onRefresh(int type, int pos);
     }
 
     public interface onNotSessionCallback {

@@ -88,7 +88,7 @@ public class GoSingConstants {
 
     // 리뷰 관련
     // 리뷰 리스트 불러올떄 최대 개수
-    public static final int REVIEW_LIST_LIMIT = 100;
+    public static final int REVIEW_LIST_LIMIT = 50;
     // 리뷰 타입 키값
     public static final String BUNDLE_KEY_REVIEW_TYPE = "BUNDLE_KEY_REVIEW_TYPE";
     // 전체 리뷰
