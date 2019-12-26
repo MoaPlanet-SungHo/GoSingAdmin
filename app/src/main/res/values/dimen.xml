@@ -6,4 +6,7 @@
     <!-- BaseStoreActivity -->
     <dimen name="activity_base_store_thumbnails_group_margin">17dp</dimen>
     <dimen name="activity_base_store_thumbnails_item_margin">3dp</dimen>
+
+    <!-- item_review -->
+    <dimen name="item_review_thumbnail_space">52dp</dimen>
 </resources>

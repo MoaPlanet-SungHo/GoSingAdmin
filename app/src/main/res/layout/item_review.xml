@@ -33,12 +33,12 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/font_gd_16"
             android:lineSpacingExtra="5.3dp"
-            android:text="치키차카 노래방"
             android:textColor="@color/color_000000"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="치키차카 노래방" />
 
         <View
             android:id="@+id/view_item_review_store_name_under_line"
@@ -68,12 +68,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="@font/font_gd_13"
-            android:text="작성일 2019.00.00  00:00:00"
             android:textColor="#aaaaaa"
             android:textSize="9dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rating_item_review"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="작성일 2019.00.00  00:00:00" />
 
         <TextView
             android:id="@+id/tv_item_review_content"
@@ -100,10 +100,12 @@
             app:layout_constraintTop_toBottomOf="@id/tv_item_review_content">
 
             <ImageView
-                android:layout_width="0dp"
+                android:id="@+id/iv_item_review_thumbnail_one"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_intro"
+                android:scaleType="fitXY"
+                tools:layout_weight="1"
+                tools:background="@drawable/bg_intro"
                 android:contentDescription="@string/item_review_img_description" />
 
             <View
@@ -111,10 +113,12 @@
                 android:layout_height="match_parent" />
 
             <ImageView
-                android:layout_width="0dp"
+                android:id="@+id/iv_item_review_thumbnail_two"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_intro"
+                android:scaleType="fitXY"
+                tools:layout_weight="1"
+                tools:background="@drawable/bg_intro"
                 android:contentDescription="@string/item_review_img_description" />
 
             <View
@@ -122,10 +126,12 @@
                 android:layout_height="match_parent" />
 
             <ImageView
-                android:layout_width="0dp"
+                android:id="@+id/iv_item_review_thumbnail_three"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_intro"
+                android:scaleType="fitXY"
+                tools:layout_weight="1"
+                tools:background="@drawable/bg_intro"
                 android:contentDescription="@string/item_review_img_description" />
 
         </LinearLayout>
@@ -147,6 +153,7 @@
             tools:ignore="SpUsage" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_item_review_ceo_reply_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +172,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:lineSpacingExtra="4.7dp"
+                android:maxLength="300"
                 android:paddingStart="11dp"
                 android:paddingTop="13dp"
                 android:paddingEnd="11dp"

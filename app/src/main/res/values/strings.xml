@@ -497,9 +497,13 @@
     <!-- ReviewManagerActivity -->
     <string name="activity_review_manager_title_bar">리뷰 관리</string>
     <string name="activity_review_manager_total_rating_title">전체 평점</string>
-    <string name="activity_review_manager_total_rating">(%s)</string>
+    <string name="activity_review_manager_total_rating">(%.1f)</string>
     <string name="activity_review_manager_all_review">전체 리뷰</string>
     <string name="activity_review_manager_empty_comment_review">댓글 없는 리뷰</string>
+
+    <!-- ReviewListFragment -->
+    <string name="fragment_review_list_total_review_count">전체 리뷰 총 %d개</string>
+    <string name="fragment_review_list_reply_review_count">등록 댓글 총 %d개</string>
 
     <!-- item_review -->
     <string name="item_review_reply_comment">댓글 달기</string>
@@ -509,6 +513,14 @@
         \n고객님의 신고 혹은 작성 댓글에 부적절한 단어가 포함될 경우,
         \n관리자에 의해 사전 경고 없이 차단 삭제 될 수 있습니다.
     </string>
+    <string name="item_review_date_reg_date">작성일 %s</string>
+    <string name="item_review_reply_count">%d / 300자</string>
+    <string name="item_review_cancel">취소</string>
+    <string name="item_review_remove">삭제</string>
+    <string name="item_review_modify">수정</string>
+    <string name="item_review_register">등록</string>
+    <string name="item_review_register_dialog_content">작성한 댓글을 등록하시겠습니까?</string>
+    <string name="item_review_modify_dialog_content">수정한 댓글을 등록하시겠습니까?</string>
 
     <!-- BankSelectActivity -->
     <string name="activity_bank_select_title">은행 선택</string>

@@ -7,7 +7,7 @@
     android:background="@color/color_ffffff">
 
     <LinearLayout
-        android:id="@+id/ll_fragment_base_review_count_group"
+        android:id="@+id/ll_fragment_review_count_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
@@ -22,10 +22,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_fragment_review_total_review_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_gd_14"
-            android:text="전체 리뷰 총 3개"
+            tools:text="전체 리뷰 총 3개"
             android:textColor="@color/color_000000"
             android:textSize="12dp"
             tools:ignore="SpUsage" />
@@ -38,6 +39,7 @@
             android:background="@color/color_f5f5f5" />
 
         <TextView
+            android:id="@+id/tv_fragment_review_reply_review_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_gd_14"
@@ -56,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_fragment_base_review_count_group"
+        app:layout_constraintTop_toBottomOf="@id/ll_fragment_review_count_group"
         tools:listitem="@layout/item_review" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

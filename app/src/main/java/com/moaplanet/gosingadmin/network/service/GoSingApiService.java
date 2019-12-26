@@ -23,6 +23,7 @@ import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResBankInfoD
 import com.moaplanet.gosingadmin.main.submenu.point.model.dto.ResPointHistoryDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResDepositablePointDto;
 import com.moaplanet.gosingadmin.main.submenu.pointwithdrawal.model.ResPointWithDrawalDTO;
+import com.moaplanet.gosingadmin.main.submenu.review.model.ResReviewDTO;
 import com.moaplanet.gosingadmin.main.submenu.store.model.req.ReqStoreRegisterDto;
 import com.moaplanet.gosingadmin.main.submenu.store.model.res.ResStoreRegisterDto;
 import com.moaplanet.gosingadmin.network.model.CommonResDto;
@@ -241,6 +242,37 @@ public interface GoSingApiService {
     Call<ResVersionDTO> onServerAppVersionCheck(
             @Query("app_type") String deviceType,
             @Query("side_type") String userType);
+
+    /**
+     * 리뷰 리스트 불러오기
+     *
+     * @param pageNo     불러올 리뷰 페이지
+     * @param limit      불러올 리뷰 개수
+     * @param reviewType 리뷰 리스트 타입 -> ( 1 : 전체 리뷰, 2 : 덧글 없는 리뷰 )
+     */
+    @POST("session/ReviewManageCtr/review_list.json")
+    Call<ResReviewDTO> onServerReviewLis(@Query("pageNo") int pageNo,
+                                         @Query("limit") int limit,
+                                         @Query("shop_count") int reviewType);
+
+    /**
+     * 리뷰 답변 수정 및 추가
+     *
+     * @param pk    리류 pk 값
+     * @param reply 리뷰 답변
+     */
+    @POST("session/ReviewManageCtr/review_content_join.json")
+    Call<CommonResDto> onServerReviewModifyOrRegister(@Query("review_seq") String pk,
+                                                      @Query("shop_comment") String reply);
+
+    /**
+     * 리뷰 삭제
+     *
+     * @param reviewPk 리뷰 pk 값
+     */
+    @POST("session/ReviewManageCtr/review_comment_del.json")
+    Call<CommonResDto> onServerReviewRemove(@Query("review_seq") String reviewPk);
+
 
 }
 

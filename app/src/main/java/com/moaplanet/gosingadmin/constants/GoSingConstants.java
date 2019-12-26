@@ -34,8 +34,6 @@ public class GoSingConstants {
     // 세션
     public static HashSet<String> cookieHash;
 
-    // *** Bundle Start *** //
-
     // 인드로에서 앱 버전 체크 관련 --> true : 체크 | false : 체크 안함
     public static final String BUNDLE_KEY_APP_VERSION_CHECK = "BUNDLE_KEY_APP_VERSION_CHECK";
     public static final boolean BUNDLE_VALUE_APP_VERSION_CHECK = true;
@@ -88,5 +86,13 @@ public class GoSingConstants {
     // 주소 좌표
     public static final String INTENT_KEY_ADDRESS_COORDINATES = "INTENT_KEY_ADDRESS_COORDINATES";
 
-    // *** Bundle End *** //
+    // 리뷰 관련
+    // 리뷰 리스트 불러올떄 최대 개수
+    public static final int REVIEW_LIST_LIMIT = 100;
+    // 리뷰 타입 키값
+    public static final String BUNDLE_KEY_REVIEW_TYPE = "BUNDLE_KEY_REVIEW_TYPE";
+    // 전체 리뷰
+    public static final int BUNDLE_VALUE_REVIEW_LIST_ALL = 1;
+    // 덧글 없는 리뷰만
+    public static final int BUNDLE_VALUE_REVIEW_LIST_NOT_REPLY = 2;
 }

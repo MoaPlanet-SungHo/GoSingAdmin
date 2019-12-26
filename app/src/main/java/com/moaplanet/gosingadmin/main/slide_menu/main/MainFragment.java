@@ -201,7 +201,7 @@ public class MainFragment extends Fragment {
         RxView.clicks(btnReview)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivityWidthDebug(ReviewManagerActivity.class));
+                .subscribe(click -> moveActivity(ReviewManagerActivity.class));
 
         //포인트내역
         RxView.clicks(btnPointHistory)
