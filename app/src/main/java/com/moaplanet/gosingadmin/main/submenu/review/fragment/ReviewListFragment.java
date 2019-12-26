@@ -21,6 +21,8 @@ public class ReviewListFragment extends BaseFragment {
 
     private ReviewAdapter reviewAdapter;
     private ReviewViewModel mViewModel;
+    // 리뷰 비었을때 표시할 뷰
+    private View mEmptyReview;
 
     private int reviewType = GoSingConstants.BUNDLE_VALUE_REVIEW_LIST_ALL;
 
@@ -39,7 +41,12 @@ public class ReviewListFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.rv_fragment_base_review);
+
+        mEmptyReview = view.findViewById(R.id.cl_fragment_empty_review);
+        mEmptyReview.setVisibility(View.GONE);
+
+        // 리뷰 리스트 세팅
+        RecyclerView recyclerView = view.findViewById(R.id.rv_fragment_review);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         reviewAdapter = new ReviewAdapter(getChildFragmentManager());
         recyclerView.setAdapter(reviewAdapter);
@@ -47,7 +54,7 @@ public class ReviewListFragment extends BaseFragment {
         reviewAdapter.setOnRefreshCallback(type -> {
             if (type == reviewAdapter.REVIEW_REFRESH_ALL) {
                 if (getActivity() != null && getActivity() instanceof ReviewManagerActivity) {
-                    ((ReviewManagerActivity)getActivity()).onAllRefresh();
+                    ((ReviewManagerActivity) getActivity()).onAllRefresh();
                 }
             } else {
                 onRefresh();
@@ -90,6 +97,15 @@ public class ReviewListFragment extends BaseFragment {
                     storeInfoModel.getReviewReplyCount()));
 
         });
+
+        mViewModel.getmEmptyReview().observe(getViewLifecycleOwner(), isEmpty -> {
+            if (isEmpty) {
+                mEmptyReview.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyReview.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     /**

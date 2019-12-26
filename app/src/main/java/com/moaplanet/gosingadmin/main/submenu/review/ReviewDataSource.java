@@ -19,12 +19,19 @@ import retrofit2.Call;
  */
 public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.ReviewInfoModel> {
 
+    // 가맹점 정보
     private MutableLiveData<ResReviewDTO.StoreInfoModel> mStoreInfoModel = new MutableLiveData<>();
+    // 리뷰 리스트 유무
+    private MutableLiveData<Boolean> mReviewEmpty = new MutableLiveData<>();
 
     private int mReviewType = GoSingConstants.BUNDLE_VALUE_REVIEW_LIST_ALL;
 
     public LiveData<ResReviewDTO.StoreInfoModel> getStoreInfoModel() {
         return mStoreInfoModel;
+    }
+
+    public LiveData<Boolean> getmReviewEmpty() {
+        return mReviewEmpty;
     }
 
     public void setReviewType(int mReviewType) {
@@ -49,13 +56,15 @@ public class ReviewDataSource extends PageKeyedDataSource<Integer, ResReviewDTO.
 
                             if (resModel.getReviewList() != null && resModel.getReviewList().size() > 0) {
                                 callback.onResult(resModel.getReviewList(), null, 2);
+                            } else {
+                                mReviewEmpty.setValue(true);
                             }
                         }
                     }
 
                     @Override
                     public void onFinalFailure(Call<ResReviewDTO> call, boolean isSession, Throwable t) {
-
+                        mReviewEmpty.setValue(true);
                     }
 
                     @Override

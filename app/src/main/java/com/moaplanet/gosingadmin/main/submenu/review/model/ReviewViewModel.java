@@ -15,9 +15,12 @@ import com.moaplanet.gosingadmin.main.submenu.review.ReviewDataSource;
  */
 public class ReviewViewModel extends BaseViewModel {
 
+    // 리뷰 리스트
     private LiveData<PagedList<ResReviewDTO.ReviewInfoModel>> mReviewList;
-
+    // 가맹점 정보
     private LiveData<ResReviewDTO.StoreInfoModel> mStoreInfoModel;
+    // 리스트 없음
+    private LiveData<Boolean> mEmptyReview;
 
     public LiveData<PagedList<ResReviewDTO.ReviewInfoModel>> getReviewList() {
         return mReviewList;
@@ -25,6 +28,10 @@ public class ReviewViewModel extends BaseViewModel {
 
     public LiveData<ResReviewDTO.StoreInfoModel> getStoreInfoModel() {
         return mStoreInfoModel;
+    }
+
+    public LiveData<Boolean> getmEmptyReview() {
+        return mEmptyReview;
     }
 
     private ReviewDataFactory mDataFactory;
@@ -40,6 +47,9 @@ public class ReviewViewModel extends BaseViewModel {
 
         mStoreInfoModel = Transformations.switchMap(mDataFactory.getDataSrouce(),
                 ReviewDataSource::getStoreInfoModel);
+
+        mEmptyReview = Transformations.switchMap(mDataFactory.getDataSrouce(),
+                ReviewDataSource::getmReviewEmpty);
 
         PagedList.Config config = (new PagedList.Config.Builder())
                 .setEnablePlaceholders(false)
