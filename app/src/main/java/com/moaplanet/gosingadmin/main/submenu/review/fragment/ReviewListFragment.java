@@ -14,7 +14,6 @@ import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.main.submenu.review.activity.ReviewManagerActivity;
 import com.moaplanet.gosingadmin.main.submenu.review.adapter.ReviewAdapter;
 import com.moaplanet.gosingadmin.main.submenu.review.model.ReviewViewModel;
-import com.orhanobut.logger.Logger;
 
 /**
  * 리뷰 리스트를 표시해줄 프레그먼트

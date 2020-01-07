@@ -1,6 +1,8 @@
 <resources>
     <string name="apps_name">고씽사장님</string>
 
+    <string name="kakao_app_key">759f7b834de9aaccbff77bfa09f7f76f</string>
+
     <!-- Common Toast -->
     <string name="common_toast_payment_password_not_create">결제 비밀번호 생성을 실패했습니다.</string>
     <string name="common_toast_create_payment_password">결제 비밀번호를 생성해 주세요.</string>
@@ -504,6 +506,7 @@
     <!-- ReviewListFragment -->
     <string name="fragment_review_list_total_review_count">전체 리뷰 총 %d개</string>
     <string name="fragment_review_list_reply_review_count">등록 댓글 총 %d개</string>
+    <string name="fragment_review_list_no_review">등록된 리뷰가 없습니다.</string>
 
     <!-- item_review -->
     <string name="item_review_reply_comment">댓글 달기</string>

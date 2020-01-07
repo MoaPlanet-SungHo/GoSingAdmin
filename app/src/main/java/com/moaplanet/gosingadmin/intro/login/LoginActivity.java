@@ -181,6 +181,7 @@ public class LoginActivity extends BaseActivity {
     LoginManager.onLoginListener onLoginListener = new LoginManager.onLoginListener() {
         @Override
         public void onLoginSuccess(int stateCode, int detailCode) {
+            tvErrMsg.setVisibility(View.GONE);
             mDetailCode = detailCode;
             onCheckPin();
         }

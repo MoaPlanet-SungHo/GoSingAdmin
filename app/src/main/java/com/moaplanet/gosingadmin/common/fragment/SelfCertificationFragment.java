@@ -78,6 +78,11 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
                         onBackNavigation();
                     }
                 });
+
+        if (getActivity() != null && getActivity() instanceof CreatePinActivity) {
+            titleBar.setTitle("결제 비밀번호 인증");
+        }
+
     }
 
     @Override

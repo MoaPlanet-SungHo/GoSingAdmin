@@ -4,6 +4,16 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+    signingConfigs {
+        release {
+            keyAlias 'ahdkvmffoslt'
+            storePassword 'ahdkvmffoslt'
+            keyPassword 'ahdkvmffoslt'
+            storeFile file('D:\\workspace\\GOSING_JKS\\keystore.jks')
+        }
+    }
+
     defaultConfig {
         applicationId "com.moaplanet.gosingadmin"
         minSdkVersion 19
@@ -18,6 +28,11 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -90,4 +105,7 @@ dependencies {
 
     /* paging */
     implementation "androidx.paging:paging-runtime:2.1.0"
+
+    /* 카카오톡 */
+    implementation group: 'com.kakao.sdk', name: 'plusfriend', version: '1.25.0'
 }

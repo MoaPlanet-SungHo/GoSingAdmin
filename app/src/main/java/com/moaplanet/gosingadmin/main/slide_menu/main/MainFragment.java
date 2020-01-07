@@ -1,7 +1,10 @@
 package com.moaplanet.gosingadmin.main.slide_menu.main;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.kakao.plusfriend.PlusFriendService;
+import com.kakao.util.exception.KakaoException;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
@@ -38,7 +43,10 @@ import com.moaplanet.gosingadmin.main.submenu.store.activity.ModifyStoreActivity
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.orhanobut.logger.Logger;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -231,7 +239,14 @@ public class MainFragment extends Fragment {
         RxView.clicks(slideMenu)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> onServiceReady());
+//                .subscribe(click -> onServiceReady());
+                .subscribe(click -> {
+                    try {
+                        PlusFriendService.getInstance().chat(view.getContext(), "_NjlZxb");
+                    } catch (KakaoException e) {
+                        Toast.makeText(view.getContext(), "카카오 실패", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         RxView.clicks(btnQrCode)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())

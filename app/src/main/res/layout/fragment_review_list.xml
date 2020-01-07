@@ -43,10 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_gd_14"
-            android:text="등록 댓글 총 2개"
             android:textColor="@color/color_000000"
             android:textSize="12dp"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"
+            tools:text="등록 댓글 총 2개" />
 
     </LinearLayout>
 
@@ -70,13 +70,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_fragment_review_count_group">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/font_gd_15"
-            android:text="등록된 리뷰가 없습니다."
+            android:text="@string/fragment_review_list_no_review"
             android:textColor="@color/color_aaaaaa"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
