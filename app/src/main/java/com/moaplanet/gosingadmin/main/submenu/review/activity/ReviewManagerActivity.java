@@ -37,18 +37,18 @@ public class ReviewManagerActivity extends BaseActivity {
     public void initView() {
         TabLayout tabLayout = findViewById(R.id.tab_activity_review_manager);
 
+        // 타이틀 세팅
         List<String> tabList = new ArrayList<>();
         tabList.add(getString(R.string.activity_review_manager_all_review));
         tabList.add(getString(R.string.activity_review_manager_empty_comment_review));
 
+        // 뷰페이져
         ViewPager viewPager = findViewById(R.id.vp_activity_review_manager);
         CommonViewPagerAdapter viewPagerAdapter = new CommonViewPagerAdapter(
                 getSupportFragmentManager(),
                 CommonViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         );
         viewPagerAdapter.setTitleList(tabList);
-
-        List<Fragment> fragmentList = new ArrayList<>();
 
         // 전체 리뷰
         allReviewFragment = new ReviewListFragment();
@@ -64,6 +64,8 @@ public class ReviewManagerActivity extends BaseActivity {
                 GoSingConstants.BUNDLE_VALUE_REVIEW_LIST_NOT_REPLY);
         noReplyReviewFragment.setArguments(noReplyReviewBundle);
 
+        // 표시해줄 프레그먼트 리스트
+        List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(allReviewFragment);
         fragmentList.add(noReplyReviewFragment);
         viewPagerAdapter.setFragmentList(fragmentList);

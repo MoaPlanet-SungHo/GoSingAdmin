@@ -338,6 +338,7 @@
 
     <!-- EventFragment -->
     <string name="fragment_event_title_bar">이벤트</string>
+    <string name="item_event_date">기간 : %s</string>
 
     <!-- SettingFragment -->
     <string name="title">설정</string>

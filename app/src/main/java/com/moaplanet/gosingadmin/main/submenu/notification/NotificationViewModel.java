@@ -55,13 +55,13 @@ public class NotificationViewModel extends BaseViewModel {
 
                     @Override
                     public void onFinalFailure(Call<ResNotificationDTO> call, boolean isSession, Throwable t) {
-                        mIsApiSuccess.postValue(false);
+                        isApiSuccess.postValue(false);
                     }
 
                     @Override
                     public void onFinalNotSession() {
                         super.onFinalNotSession();
-                        mSession.postValue(false);
+                        session.postValue(false);
                     }
                 });
     }

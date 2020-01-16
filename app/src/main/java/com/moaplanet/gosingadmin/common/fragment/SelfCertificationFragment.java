@@ -104,8 +104,8 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
                         "\"logoYn\":\"N\",\"okurl\":\"http://backend.goeat.co.kr/mobiAuth/mobiAuthResult.jsp\"," +
                         "\"tradeid\":\"MLVnGs0WdHia5dq1ISpIqgg==\"}";
 
-        final String PHONE_CHECK_URL = "http://175.198.102.230:8085/MOAGossingShop/notLogin/kgMobilTestPage.do?typeInfo=";
-        final String RESULT_PAGE = "http://175.198.102.230:8085/MOAGossingShop/notLogin/okayMobile.do";
+        final String PHONE_CHECK_URL = "http://14.36.10.149:8080/MOAGossingShop/notLogin/kgMobilTestPage.do?typeInfo=";
+        final String RESULT_PAGE = "http://14.36.10.149:8080/MOAGossingShop/notLogin/okayMobile.do";
 
 
         webViewKgMobilians.getSettings().setJavaScriptEnabled(true);
@@ -150,7 +150,7 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 super.onPageCommitVisible(view, url);
-                if (url.equals("http://175.198.102.230:8085/MOAGossingShop/notLogin/okayMobile.do")) {
+                if (url.equals("http://14.36.10.149:8080/MOAGossingShop/notLogin/okayMobile.do")) {
                     webViewKgMobilians.setVisibility(View.INVISIBLE);
                 }
             }

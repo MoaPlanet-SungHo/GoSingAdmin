@@ -106,7 +106,28 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 세션 없을 경우
      */
+    @Deprecated
     protected void onNotSession() {
+        Toast.makeText(view.getContext(),
+                R.string.common_not_exist_session,
+                Toast.LENGTH_SHORT)
+                .show();
+
+        if (getActivity() != null) {
+            Intent intent = new Intent(view.getContext(), IntroActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(
+                    GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
+                    GoSingConstants.BUNDLE_VALUE_APP_VERSION_NOT_CHECK);
+            startActivity(intent);
+            getActivity().finishAffinity();
+        }
+    }
+
+    /**
+     * 세션 만료
+     */
+    protected void onExpireSession() {
         Toast.makeText(view.getContext(),
                 R.string.common_not_exist_session,
                 Toast.LENGTH_SHORT)

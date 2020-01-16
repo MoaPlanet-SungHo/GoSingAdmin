@@ -26,16 +26,22 @@ import com.moaplanet.gosingadmin.intro.ResVersionDTO;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
+import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
+import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
+import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -121,6 +127,28 @@ public class IntroActivity extends BaseActivity {
      * 앱 버전체크
      */
     private void onAppVersionCheck() {
+
+//        RetrofitService.getInstance()
+//                .getGoSingApi()
+//                .onServerCreateQrCodeCheck("7")
+//                .enqueue(new RetrofitCallBack<ResQrCodeCheckDTO>() {
+//                    @Override
+//                    public void onFail(Response<ResQrCodeCheckDTO> response, Throwable t) {
+//                        Logger.d("통신 : fail");
+//                    }
+//
+//                    @Override
+//                    public void onExpireSession(Response<ResQrCodeCheckDTO> response, Throwable t) {
+//                        Logger.d("통신 : onExpireSession");
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(ResQrCodeCheckDTO response) {
+//                        Logger.d("통신 : onSuccess");
+//                    }
+//                });
+
+
 //        checkIntroType();
 
         RetrofitService

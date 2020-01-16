@@ -39,8 +39,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         drawerLayout = findViewById(R.id.drawer_main);
-//        NavigationView navigationView = findViewById(R.id.nav_main_slide_view);
-//        View navHeaderView = navigationView.getHeaderView(0);
+        NavigationView navigationView = findViewById(R.id.nav_main_slide_view);
+        View navHeaderView = navigationView.getHeaderView(0);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.fragment_main,
@@ -51,25 +51,25 @@ public class MainActivity extends BaseActivity {
                 .setDrawerLayout(drawerLayout)
                 .build();
 
-//        NavController navController = Navigation.findNavController(this, R.id.fm_main_nav_host);
-//        NavigationUI.setupWithNavController(navigationView, navController);
-//
-//        List<String> slideMenuTitleList =
-//                new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.slide_menu)));
-//        Menu menuView = navigationView.getMenu();
-//        for (int i = 0; i < slideMenuTitleList.size(); i++) {
-//            View menuItemView = menuView.getItem(i).getActionView();
-//            TextView sideMenuTitle = menuItemView.findViewById(R.id.tv_main_side_navigation_title);
-//            sideMenuTitle.setText(slideMenuTitleList.get(i));
-//        }
+        NavController navController = Navigation.findNavController(this, R.id.fm_main_nav_host);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
-//        mTvInformation = navHeaderView.findViewById(R.id.tv_header_slide_menu_name);
+        List<String> slideMenuTitleList =
+                new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.slide_menu)));
+        Menu menuView = navigationView.getMenu();
+        for (int i = 0; i < slideMenuTitleList.size(); i++) {
+            View menuItemView = menuView.getItem(i).getActionView();
+            TextView sideMenuTitle = menuItemView.findViewById(R.id.tv_main_side_navigation_title);
+            sideMenuTitle.setText(slideMenuTitleList.get(i));
+        }
+
+        mTvInformation = navHeaderView.findViewById(R.id.tv_header_slide_menu_name);
 
     }
 
     @Override
     public void initListener() {
-//        mTvInformation.setOnClickListener(view -> moveActivity(InformationActivity.class));
+        mTvInformation.setOnClickListener(view -> moveActivity(InformationActivity.class));
     }
 
 

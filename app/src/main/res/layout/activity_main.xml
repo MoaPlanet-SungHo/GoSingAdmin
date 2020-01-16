@@ -18,17 +18,17 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:navGraph="@navigation/navigation_main" />
 
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:id="@+id/nav_main_slide_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        android:background="@color/color_ffffff"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        android:paddingBottom="0dp"-->
-<!--        android:theme="@style/NavigationTheme"-->
-<!--        app:headerLayout="@layout/header_slide_menu"-->
-<!--        app:itemHorizontalPadding="0dp"-->
-<!--        app:menu="@menu/menu_slide_menu_list" />-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_main_slide_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/color_ffffff"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="0dp"
+        android:theme="@style/NavigationTheme"
+        app:headerLayout="@layout/header_slide_menu"
+        app:itemHorizontalPadding="0dp"
+        app:menu="@menu/menu_slide_menu_list" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

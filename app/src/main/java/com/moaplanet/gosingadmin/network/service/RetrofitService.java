@@ -5,18 +5,23 @@ import com.moaplanet.gosingadmin.network.retrofit.MoaAuthConfig;
 import com.moaplanet.gosingadmin.network.retrofit.RetrofitBuilder;
 import com.moaplanet.gosingadmin.network.retrofit.SessionChecker;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class RetrofitService {
 
     private MoaAuthConfig moaAuthConfig;
     private SessionChecker sessionChecker;
     private GoSingApiService goSingApiService;
     private AddressApiService addressApiService;
+    private GoSingApiService goSingApi;
 
     private RetrofitService() {
         getSessionChecker();
         getMoaAuthConfig();
         getAddressApiService();
         getGoSingApiService();
+        getGoSingApi();
     }
 
     private static class LazyHolder {
@@ -25,6 +30,15 @@ public class RetrofitService {
 
     public static RetrofitService getInstance() {
         return LazyHolder.INSTANCE;
+    }
+
+    public GoSingApiService getGoSingApi() {
+        if (goSingApi == null) {
+            goSingApi = new RetrofitBuilder().init(
+                    NetworkConstants.GOSING_ADMIN_BASE_URL,
+                    GoSingApiService.class);
+        }
+        return goSingApi;
     }
 
     public GoSingApiService getGoSingApiService() {

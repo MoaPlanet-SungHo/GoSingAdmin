@@ -27,6 +27,7 @@ import com.moaplanet.gosingadmin.common.dialog.NoTitleDialog;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.main.IntroActivity;
+import com.moaplanet.gosingadmin.main.MainActivity;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
@@ -239,14 +240,18 @@ public class MainFragment extends Fragment {
         RxView.clicks(slideMenu)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(click -> onServiceReady());
                 .subscribe(click -> {
-                    try {
-                        PlusFriendService.getInstance().chat(view.getContext(), "_NjlZxb");
-                    } catch (KakaoException e) {
-                        Toast.makeText(view.getContext(), "카카오 실패", Toast.LENGTH_SHORT).show();
+                    if (getActivity() != null && getActivity() instanceof MainActivity) {
+                        ((MainActivity)getActivity()).openNavigation();
                     }
                 });
+//                .subscribe(click -> {
+//                    try {
+//                        PlusFriendService.getInstance().chat(view.getContext(), "_NjlZxb");
+//                    } catch (KakaoException e) {
+//                        Toast.makeText(view.getContext(), "카카오 실패", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
         RxView.clicks(btnQrCode)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())

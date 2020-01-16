@@ -11,6 +11,14 @@ import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 public class NoticeFragment extends BaseFragment {
 
     private RecyclerView rvNotice;
+    private NoticeViewModel viewModel;
+
+    @Override
+    protected void initViewModel() {
+        super.initViewModel();
+        if (viewModel != null) {
+        }
+    }
 
     @Override
     public int layoutRes() {

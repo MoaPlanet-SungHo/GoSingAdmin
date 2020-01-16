@@ -7,6 +7,7 @@ import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
+import com.moaplanet.gosingadmin.main.slide_menu.event.EventDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
@@ -272,6 +273,26 @@ public interface GoSingApiService {
      */
     @POST("session/ReviewManageCtr/review_comment_del.json")
     Call<CommonResDto> onServerReviewRemove(@Query("review_seq") String reviewPk);
+
+    /**
+     * 이벤트 리스트
+     *
+     * @param pageNo 페이지 번호, 1번부터 시작
+     * @param limit  불러올 개수
+     */
+    @POST("NoticeManageCtr/event_list_f.json")
+    Call<EventDTO> postEventList(@Query("pageNo") int pageNo,
+                                 @Query("limit") int limit);
+
+    /**
+     * 공지사항 리스트
+     *
+     * @param pageNo 페이지 번호, 1번부터 시작
+     * @param limit  불러올 개수
+     */
+    @POST("NoticeManageCtr/notice_list_f.json")
+    Call<EventDTO> postNoticeList(@Query("pageNo") int pageNo,
+                                 @Query("limit") int limit);
 
 
 }

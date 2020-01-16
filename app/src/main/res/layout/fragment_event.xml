@@ -7,7 +7,7 @@
     android:background="@color/color_ffffff">
 
     <com.moaplanet.gosingadmin.common.view.CommonTitleBar
-        android:id="@+id/common_event_title_bar"
+        android:id="@+id/common_fragment_event_title_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,8 +20,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_event_title_bar"
+        app:layout_constraintTop_toBottomOf="@id/common_fragment_event_title_bar"
         tools:listitem="@layout/item_event" />
 
+    <ProgressBar
+        android:id="@+id/pr_fragment_event_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
