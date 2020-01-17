@@ -51,6 +51,10 @@ public class NoticeDTO extends CommonResDto {
         public String getSeq() {
             return seq;
         }
+
+        public String getModifyTime() {
+            return modifyTime;
+        }
     }
 
     public class PageInfoModel {

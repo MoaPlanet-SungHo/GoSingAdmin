@@ -8,10 +8,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.interfaces.AdapterClick;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -50,11 +53,25 @@ public class NoticeFragment extends BaseFragment {
     @Override
     public void initListener() {
 
+        // 뒤로가기 버튼 클릭시
         CommonTitleBar titleBar = view.findViewById(R.id.common_fragment_notice_title);
         RxView.clicks(titleBar.getBtnBack())
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> onBackNavigation());
+
+        // 어뎁터에서 클릭 이벤트
+        noticeAdapter.setAdapterClick(new AdapterClick<NoticeDTO.NoticeModel>() {
+            @Override
+            public void click(NoticeDTO.NoticeModel model) {
+                Logger.i("클릭한 공지사항 정보 : " + new Gson().toJson(model));
+            }
+
+            @Override
+            public void click(NoticeDTO.NoticeModel model, int type) {
+
+            }
+        });
 
     }
 
