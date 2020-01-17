@@ -52,6 +52,22 @@ public class EventAdapter extends ListAdapter<EventDTO.EventModel, EventAdapter.
         this.callback = callback;
     }
 
+    private static final DiffUtil.ItemCallback<EventDTO.EventModel> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<EventDTO.EventModel>() {
+                @Override
+                public boolean areItemsTheSame(
+                        @NonNull EventDTO.EventModel oldItem, @NonNull EventDTO.EventModel newItem) {
+                    return oldItem.getEventSeq().equals(newItem.getEventSeq());
+                }
+
+                @SuppressLint("DiffUtilEquals")
+                @Override
+                public boolean areContentsTheSame(
+                        @NonNull EventDTO.EventModel oldItem, @NonNull EventDTO.EventModel newItem) {
+                    return oldItem.equals(newItem);
+                }
+            };
+
     class EventHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
@@ -68,21 +84,5 @@ public class EventAdapter extends ListAdapter<EventDTO.EventModel, EventAdapter.
             tvDate.setText(itemView.getContext().getString(R.string.item_event_date, model.getEventDate()));
         }
     }
-
-    private static final DiffUtil.ItemCallback<EventDTO.EventModel> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<EventDTO.EventModel>() {
-                @Override
-                public boolean areItemsTheSame(
-                        @NonNull EventDTO.EventModel oldItem, @NonNull EventDTO.EventModel newItem) {
-                    return oldItem.getEventSeq().equals(newItem.getEventSeq());
-                }
-
-                @SuppressLint("DiffUtilEquals")
-                @Override
-                public boolean areContentsTheSame(
-                        @NonNull EventDTO.EventModel oldItem, @NonNull EventDTO.EventModel newItem) {
-                    return oldItem.equals(newItem);
-                }
-            };
 
 }

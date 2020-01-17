@@ -7,7 +7,7 @@
     android:background="@color/color_ffffff">
 
     <TextView
-        android:id="@+id/tv_notice_title"
+        android:id="@+id/tv_item_notice_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -18,14 +18,14 @@
         android:text="GOSING 공지사항"
         android:textColor="@color/color_000000"
         android:textSize="13dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_notice_date"
-        app:layout_constraintEnd_toStartOf="@id/tv_notice_new_ic"
+        app:layout_constraintBottom_toTopOf="@id/tv_item_notice_date"
+        app:layout_constraintEnd_toStartOf="@id/tv_item_notice_new_ic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpUsage" />
 
     <TextView
-        android:id="@+id/tv_notice_date"
+        android:id="@+id/tv_item_notice_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -34,12 +34,12 @@
         android:textColor="@color/color_aaaaaa"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/tv_notice_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_notice_title"
+        app:layout_constraintStart_toStartOf="@id/tv_item_notice_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_notice_title"
         tools:ignore="SpUsage" />
 
     <ImageView
-        android:id="@+id/iv_notice_arrow"
+        android:id="@+id/iv_item_notice_arrow"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginEnd="15dp"
@@ -50,15 +50,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/tv_notice_new_ic"
+        android:id="@+id/tv_item_notice_new_ic"
         android:layout_width="13dp"
         android:layout_height="13dp"
         android:layout_marginEnd="5dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_new"
-        app:layout_constraintBottom_toBottomOf="@id/iv_notice_arrow"
-        app:layout_constraintEnd_toStartOf="@id/iv_notice_arrow"
-        app:layout_constraintTop_toTopOf="@id/iv_notice_arrow" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_notice_arrow"
+        app:layout_constraintEnd_toStartOf="@id/iv_item_notice_arrow"
+        app:layout_constraintTop_toTopOf="@id/iv_item_notice_arrow" />
 
     <View
         android:layout_width="match_parent"

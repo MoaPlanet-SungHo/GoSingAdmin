@@ -528,4 +528,7 @@
 
     <!-- BankSelectActivity -->
     <string name="activity_bank_select_title">은행 선택</string>
+
+    <!-- NoticeFragment -->
+    <string name="fragment_notice_title">공지사항</string>
 </resources>

@@ -11,6 +11,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.event.EventDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
+import com.moaplanet.gosingadmin.main.slide_menu.notice.NoticeDTO;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
@@ -291,8 +292,8 @@ public interface GoSingApiService {
      * @param limit  불러올 개수
      */
     @POST("NoticeManageCtr/notice_list_f.json")
-    Call<EventDTO> postNoticeList(@Query("pageNo") int pageNo,
-                                 @Query("limit") int limit);
+    Call<NoticeDTO> postNoticeList(@Query("pageNo") int pageNo,
+                                   @Query("limit") int limit);
 
 
 }
