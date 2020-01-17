@@ -1,7 +1,9 @@
 package com.moaplanet.gosingadmin.main.slide_menu.notice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.activity.WebViewActivity;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.interfaces.AdapterClick;
 import com.orhanobut.logger.Logger;
 
@@ -65,6 +69,18 @@ public class NoticeFragment extends BaseFragment {
             @Override
             public void click(NoticeDTO.NoticeModel model) {
                 Logger.i("클릭한 공지사항 정보 : " + new Gson().toJson(model));
+
+                if (viewModel != null) {
+                    Intent intent = new Intent(view.getContext(), WebViewActivity.class);
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_TITLE,
+                            getString(R.string.fragment_notice_title));
+                    intent.putExtra(GoSingConstants.BUNDLE_KEY_WEB_VIEW_URL,
+                            viewModel.getNoticeUrl(model.getSeq()));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(view.getContext(), R.string.common_toast_network_fail,
+                            Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

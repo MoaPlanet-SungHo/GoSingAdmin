@@ -22,14 +22,18 @@ public class NoticeViewModel extends BaseViewModel {
     // 공지사항 리스트
     private MutableLiveData<List<NoticeDTO.NoticeModel>> noticeList = new MutableLiveData<>();
 
-    public LiveData<List<NoticeDTO.NoticeModel>> getNoticeList() {
+    // 공지사항 베이스 url
+    private String baseUrl = "";
+
+    LiveData<List<NoticeDTO.NoticeModel>> getNoticeList() {
         return noticeList;
     }
+
 
     /**
      * 공지사항 리스트
      */
-    public void postNoticeList(int pageNumber) {
+    void postNoticeList(int pageNumber) {
 
         RetrofitService.getInstance().getGoSingApi()
                 .postNoticeList(pageNumber, NetworkConstants.NOTICE_LIMIT)
@@ -38,6 +42,7 @@ public class NoticeViewModel extends BaseViewModel {
                     public void onSuccess(NoticeDTO response) {
                         Logger.d("공지사항 데이터 : " + new Gson().toJson(response));
                         if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                            baseUrl = response.getBaseNoticeUrl();
                             noticeList.setValue(response.getNoticeList());
                         } else {
                             failNetwork.setValue(true);
@@ -55,6 +60,12 @@ public class NoticeViewModel extends BaseViewModel {
                         expireSession.setValue(true);
                     }
                 });
+    }
 
+    /**
+     * 공지사항 url 가져오기
+     */
+    String getNoticeUrl (String seq) {
+       return baseUrl +  seq;
     }
 }

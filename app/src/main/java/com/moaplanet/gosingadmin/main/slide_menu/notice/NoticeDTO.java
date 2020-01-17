@@ -26,6 +26,10 @@ public class NoticeDTO extends CommonResDto {
         return noticeList;
     }
 
+    public String getBaseNoticeUrl() {
+        return baseNoticeUrl;
+    }
+
     public class NoticeModel {
 
         // 공지사항 고유 값
