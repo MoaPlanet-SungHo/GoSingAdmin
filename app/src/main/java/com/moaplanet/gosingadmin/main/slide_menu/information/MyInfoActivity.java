@@ -32,15 +32,6 @@ public class MyInfoActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
-//        myInfoViewModel = ViewModelProviders.of(this).get(MyInfoViewModel.class);
-//
-//        titleVIew = findViewById(R.id.common_information_title_bar);
-//        titleVIew.setTitle("내 정보");
-//
-//        tvUserEmail = findViewById(R.id.my_info_email_content);
-//        tvPw = findViewById(R.id.tv_activity_my_info_pw);
-//        tvPhoneNumber = findViewById(R.id.tv_activity_my_info_phone_number);
     }
 
     @Override
@@ -52,17 +43,6 @@ public class MyInfoActivity extends BaseActivity {
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> finish());
-
-
-//        myInfoViewModel.getPhoneNumber().observe(this,
-//                phoneNumber -> tvPhoneNumber.setText(phoneNumber));
-//
-//        myInfoViewModel.getPwd().observe(this,
-//                pw -> tvPw.setText(pw));
-//
-//        myInfoViewModel.getUserEmail().observe(this,
-//                email -> tvUserEmail.setText(email));
-
     }
 
     @Override
@@ -98,44 +78,5 @@ public class MyInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         viewModel.postMyInfo();
     }
-
-    //    @Override
-//    public void onClick(View v) {
-//        Intent intent = new Intent(this, SettingDetailDataActivity.class);
-//        switch (v.getId()) {
-//            case R.id.terms_service:
-//                intent.putExtra("url", "1");
-//                startActivity(intent);
-//                break;
-//        }
-//    }
-
-//    private void getMyInfoServer() {
-//        RetrofitService.getInstance().getGoSingApiService().onServerMyInformation()
-//                .enqueue(new MoaAuthCallback<MyInfoDTO>(
-//                        RetrofitService.getInstance().getMoaAuthConfig(),
-//                        RetrofitService.getInstance().getSessionChecker()
-//                ) {
-//                    @Override
-//                    public void onFinalResponse(Call<MyInfoDTO> call, MyInfoDTO resModel) {
-//                        if (resModel.getStateCode() == NetworkConstants.STATE_CODE_SUCCESS) {
-//                            if (resModel.getStateCode() == 200) {
-//                                myInfoViewModel.setUserInfoDto(resModel.getInformationDto());
-//                                return;
-//                            }
-//                        }
-//                        errMsg();
-//                    }
-//
-//                    @Override
-//                    public void onFinalFailure(Call<MyInfoDTO> call, boolean isSession, Throwable t) {
-//                        errMsg();
-//                    }
-//                });
-//    }
-
-//    private void errMsg() {
-//        Toast.makeText(this, "잠시후 다시 실행해 주세요.", Toast.LENGTH_SHORT).show();
-//    }
 
 }

@@ -54,6 +54,8 @@ public class MyInfoViewModel extends BaseViewModel {
 
                             email.setValue(model.getUserEmail());
                             pw.setValue(model.getPwd());
+
+                            // 핸드폰 번호에 하이픈 추가
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 phoneNumber.setValue(
                                         PhoneNumberUtils.formatNumber(model.getPhoneNumber(), Locale.getDefault().getCountry()));
