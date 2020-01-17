@@ -28,8 +28,12 @@ public class NoticeFragment extends BaseFragment {
 
     // 뷰 모델
     private NoticeViewModel viewModel;
+
     // 공지사항 리스트 어뎁터
     private NoticeAdapter noticeAdapter;
+
+    // 로딩바
+    private View prLoading;
 
     @Override
     protected void initViewModel() {
@@ -52,6 +56,8 @@ public class NoticeFragment extends BaseFragment {
         rvNotice.setLayoutManager(new LinearLayoutManager(view.getContext()));
         noticeAdapter = new NoticeAdapter();
         rvNotice.setAdapter(noticeAdapter);
+
+        prLoading = view.findViewById(R.id.pb_fragment_notice_loading);
     }
 
     @Override
@@ -98,8 +104,18 @@ public class NoticeFragment extends BaseFragment {
         if (viewModel != null) {
 
             // 공지사항 리스트
-            viewModel.getNoticeList().observe(getViewLifecycleOwner(),
-                    list -> noticeAdapter.submitList(list));
+            viewModel.getNoticeList().observe(getViewLifecycleOwner(), list -> {
+                noticeAdapter.submitList(list);
+                prLoading.setVisibility(View.GONE);
+
+                // 공지사항 없을떄 표시 문구 세팅
+                View emptyView = view.findViewById(R.id.tv_fragment_notice_empty);
+                if (list.size() == 0) {
+                    emptyView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyView.setVisibility(View.GONE);
+                }
+            });
 
             // 세션 만료
             viewModel.getExpireSession().observe(getViewLifecycleOwner(), expireSession -> {

@@ -531,5 +531,6 @@
 
     <!-- NoticeFragment -->
     <string name="fragment_notice_title">공지사항</string>
+    <string name="fragment_notice_empty_notice">공지사항이 없습니다.</string>
     <string name="item_notice_date">기간 : %s</string>
 </resources>

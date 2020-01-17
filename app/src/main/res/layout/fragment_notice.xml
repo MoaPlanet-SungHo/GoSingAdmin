@@ -17,9 +17,33 @@
         android:id="@+id/rv_fragment_notice"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/color_ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/common_fragment_notice_title"
         tools:listitem="@layout/item_notice" />
+
+    <ProgressBar
+        android:id="@+id/pb_fragment_notice_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_fragment_notice_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_gd_15"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage"
+        android:text="@string/fragment_notice_empty_notice"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

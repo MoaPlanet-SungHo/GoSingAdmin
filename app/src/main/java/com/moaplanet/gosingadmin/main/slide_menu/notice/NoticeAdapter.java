@@ -82,7 +82,7 @@ public class NoticeAdapter extends ListAdapter<NoticeDTO.NoticeModel,NoticeAdapt
             tvTitle.setText(model.getTitle());
             tvDate.setText(itemView.getContext().getString(
                     R.string.item_notice_date,
-                    model.getModifyTime()));
+                    model.noticeDate()));
         }
     }
 }

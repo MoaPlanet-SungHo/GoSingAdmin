@@ -56,8 +56,15 @@ public class NoticeDTO extends CommonResDto {
             return seq;
         }
 
-        public String getModifyTime() {
-            return modifyTime;
+        /**
+         * 공지사항 시간 반환
+         */
+        public String noticeDate() {
+            if (modifyTime == null || modifyTime.length() == 0) {
+                return wrtieTime;
+            } else {
+                return modifyTime;
+            }
         }
     }
 
