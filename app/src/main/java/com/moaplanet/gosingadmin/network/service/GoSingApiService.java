@@ -8,7 +8,7 @@ import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.event.EventDTO;
-import com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res.ResInformationDto;
+import com.moaplanet.gosingadmin.main.slide_menu.information.MyInfoDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
 import com.moaplanet.gosingadmin.main.slide_menu.notice.NoticeDTO;
@@ -88,10 +88,6 @@ public interface GoSingApiService {
     // 고씽 포인트 조회
     @POST("session/MemberManageCtr/gossingPointSearch_Init.json")
     Call<ResGoSingPointSearchDto> onServerGoSingPoint();
-
-    // 고씽 내정보 조회
-    @POST("session/MemberManageCtr/my_info_search_f.json")
-    Call<ResInformationDto> onServerMyInformation();
 
     // QR코드 초기화 관련
     @POST("session/PaymenyManageCtr/qr_code_page_init.json")
@@ -295,6 +291,9 @@ public interface GoSingApiService {
     Call<NoticeDTO> postNoticeList(@Query("pageNo") int pageNo,
                                    @Query("limit") int limit);
 
+    // 고씽 내정보 조회
+    @POST("session/MemberManageCtr/my_info_search_f.json")
+    Call<MyInfoDTO> postMyInfo();
 
 }
 

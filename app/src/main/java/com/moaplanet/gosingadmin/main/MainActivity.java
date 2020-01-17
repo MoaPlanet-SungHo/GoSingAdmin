@@ -17,7 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
-import com.moaplanet.gosingadmin.main.slide_menu.information.InformationActivity;
+import com.moaplanet.gosingadmin.main.slide_menu.information.MyInfoActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.MainFragment;
 
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        mTvInformation.setOnClickListener(view -> moveActivity(InformationActivity.class));
+        mTvInformation.setOnClickListener(view -> moveActivity(MyInfoActivity.class));
     }
 
 

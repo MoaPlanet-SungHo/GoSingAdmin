@@ -70,6 +70,8 @@ public class RetrofitBuilder {
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         okHttpClient.addInterceptor(getLoggingInterface()).build();
+        okHttpClient.addNetworkInterceptor(new AddCookiesInterceptor());
+        okHttpClient.addInterceptor(new ReceivedCookiesInterceptor());
 
         // todo 서버에서 retry 로직 추가되면 작성
         // retry 용 Interceptor 추가

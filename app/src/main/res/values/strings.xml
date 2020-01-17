@@ -339,6 +339,7 @@
     <!-- EventFragment -->
     <string name="fragment_event_title_bar">이벤트</string>
     <string name="item_event_date">기간 : %s</string>
+    <string name="fragment_event_empty_event">진행중인 이벤트가 없습니다.</string>
 
     <!-- SettingFragment -->
     <string name="title">설정</string>
@@ -438,30 +439,33 @@
     <string name="fragment_password_input_title_user_join">회원가입</string>
     <string name="fragment_password_input_title_account_register">계좌 등록</string>
 
-    <!--Information -->
-    <string name="my_info_email">이메일</string>
-    <string name="my_info_profile_image">프로필\n이미지</string>
-    <string name="my_info_nickname">닉네임</string>
-    <string name="my_info_password">로그인\n비밀번호</string>
-    <string name="my_info_phone_number">휴대폰</string>
-    <string name="my_info_logout"><u>로그아웃</u></string>
-    <string name="my_info_profile_image_change">이미지 변경</string>
-    <string name="my_info_nickname_change">닉네임 변경</string>
-    <string name="my_info_password_change">비밀번호 변경</string>
-    <string name="my_info_phone_number_change">휴대폰 변경</string>
+    <!--MyInfoActivity -->
+    <string name="activity_my_info_title">내 정보</string>
+    <string name="activity_my_info_email">이메일</string>
+    <string name="activity_my_info_pw">로그인\n비밀번호</string>
+    <string name="activity_my_info_phone">휴대폰</string>
+    <string name="activity_my_info_logout">로그아웃</string>
+    <string name="activity_my_info_send_msg">- 등록된 휴대폰 번호로 각종 알림, 이벤트 정보 등\n
+        GOSING 서비스에 필요한 유용한 정보를 보내드립니다.</string>
+<!--    <string name="my_info_profile_image">프로필\n이미지</string>-->
+<!--    <string name="my_info_nickname">닉네임</string>-->
+<!--    <string name="my_info_profile_image_change">이미지 변경</string>-->
+<!--    <string name="my_info_nickname_change">닉네임 변경</string>-->
+<!--    <string name="my_info_password_change">비밀번호 변경</string>-->
+<!--    <string name="my_info_phone_number_change">휴대폰 변경</string>-->
 
-    <string name="my_info_email_content">store_use@email.com</string>
-    <string name="common_my_info_profile_image_description">프로필 이미지 미등록 시 기본 디폴트 이미지 표시. 프로필 이미지가 등록된 경우, 해당 이미지 표시</string>
-    <string name="my_info_nickname_content">닉네임을 등록해 주세요.</string>
-    <string name="my_info_password_content">********</string>
-    <string name="my_info_phone_number_content">010-1234-1234</string>
+<!--    <string name="my_info_email_content">store_use@email.com</string>-->
+<!--    <string name="common_my_info_profile_image_description">프로필 이미지 미등록 시 기본 디폴트 이미지 표시. 프로필 이미지가 등록된 경우, 해당 이미지 표시</string>-->
+<!--    <string name="my_info_nickname_content">닉네임을 등록해 주세요.</string>-->
+<!--    <string name="my_info_password_content">********</string>-->
+<!--    <string name="my_info_phone_number_content">010-1234-1234</string>-->
 
 
-    <string name="common_my_info_profile_image_change_description">사진 촬영/사진 앨범/삭제 3가지 기능 선택 팝업 출력</string>
-    <string name="common_my_info_nickname_change_description">닉네임 변경 화면으로 이동</string>
-    <string name="common_my_info_password_change_description">본인 인증 화면으로 이동</string>
-    <string name="common_my_info_phone_number_change_description">본인 인증 화면으로 이동</string>
-    <string name="common_my_info_logout_description">로그아웃 확인 팝업</string>
+<!--    <string name="common_my_info_profile_image_change_description">사진 촬영/사진 앨범/삭제 3가지 기능 선택 팝업 출력</string>-->
+<!--    <string name="common_my_info_nickname_change_description">닉네임 변경 화면으로 이동</string>-->
+<!--    <string name="common_my_info_password_change_description">본인 인증 화면으로 이동</string>-->
+<!--    <string name="common_my_info_phone_number_change_description">본인 인증 화면으로 이동</string>-->
+<!--    <string name="common_my_info_logout_description">로그아웃 확인 팝업</string>-->
 
     <!-- PaymentFragment-->
     <string name="fragment_payment_title">결제하기</string>

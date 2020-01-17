@@ -110,6 +110,14 @@ public class EventFragment extends BaseFragment {
             viewModel.getEventList().observe(getViewLifecycleOwner(), list -> {
                 eventAdapter.submitList(list);
                 loadingBar.setVisibility(View.GONE);
+
+                // 진행중인 이벤트 없음문구 표시 컨트롤
+                View emptyView = view.findViewById(R.id.tv_fragment_event_empty);
+                if (list.size() == 0) {
+                    emptyView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyView.setVisibility(View.GONE);
+                }
             });
         }
     }

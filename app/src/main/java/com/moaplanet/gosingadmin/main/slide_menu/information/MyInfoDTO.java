@@ -1,20 +1,24 @@
-package com.moaplanet.gosingadmin.main.slide_menu.information.model.dto.res;
+package com.moaplanet.gosingadmin.main.slide_menu.information;
 
 import com.google.gson.annotations.SerializedName;
 import com.moaplanet.gosingadmin.network.model.CommonResDto;
 
-public class ResInformationDto extends CommonResDto {
+public class MyInfoDTO extends CommonResDto {
 
     @SerializedName("returnMap")
-    private InformationDto informationDto;
+    private MyInfoModel myInfoModel;
 
-    public class InformationDto {
+    public class MyInfoModel {
+
+        // 유저 이메일
         @SerializedName("user_email")
         private String userEmail;
 
+        // 핸드폰 번호
         @SerializedName("phone_number")
         private String phoneNumber;
 
+        // 비밀번호
         @SerializedName("pwd")
         private String pwd;
 
@@ -31,7 +35,7 @@ public class ResInformationDto extends CommonResDto {
         }
     }
 
-    public InformationDto getInformationDto() {
-        return informationDto;
+    public MyInfoModel getMyInfoModel() {
+        return myInfoModel;
     }
 }

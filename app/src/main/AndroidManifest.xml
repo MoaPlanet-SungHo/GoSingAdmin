@@ -78,7 +78,7 @@
             android:name=".main.submenu.pointwithdrawal.activity.PointWithDrawalActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.slide_menu.information.InformationActivity"
+            android:name=".main.slide_menu.information.MyInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.submenu.store.activity.WaitingApprovalActivity"
