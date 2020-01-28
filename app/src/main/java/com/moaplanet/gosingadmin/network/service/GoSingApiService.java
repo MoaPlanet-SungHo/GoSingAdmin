@@ -8,6 +8,8 @@ import com.moaplanet.gosingadmin.main.SlideMenuDTO;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
+import com.moaplanet.gosingadmin.main.slide_menu.customer_center.FaqModel;
+import com.moaplanet.gosingadmin.main.slide_menu.customer_center.ResFaqDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.event.EventDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.information.MyInfoDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
@@ -312,6 +314,9 @@ public interface GoSingApiService {
     // 사이드 매뉴 정보
     @POST("MemberManageCtr/left_side_menu.json")
     Call<SlideMenuDTO> postSlideMenuInfo();
+
+    @POST("NoticeManageCtr/qa_list_search.json")
+    Call<ResFaqDTO> postFaq(@Query("qa_info_number") String number);
 
 }
 

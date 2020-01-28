@@ -1,7 +1,10 @@
 package com.moaplanet.gosingadmin.main.slide_menu.customer_center;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.navigation.Navigation;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kakao.plusfriend.PlusFriendService;
@@ -34,6 +37,7 @@ public class CustomerCenterFragment extends BaseFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> onBackNavigation());
 
+        // 1대1 문의하기
         View oneToOneInquire = view.findViewById(R.id.cl_customer_center_one_to_one_question_group);
         RxView.clicks(oneToOneInquire)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
@@ -44,6 +48,17 @@ public class CustomerCenterFragment extends BaseFragment {
                     } catch (KakaoException e) {
                         Toast.makeText(view.getContext(), "다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                     }
+                });
+
+        View faqView = view.findViewById(R.id.cl_customer_center_many_question_group);
+        RxView.clicks(faqView)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FaqFragment.BUNDLE_KEY_VIEW_TYPE, FaqFragment.VIEW_TYPE_LIST);
+                    bundle.putString(FaqFragment.BUNDLE_KEY_FAQ_SEQ, "0");
+                    Navigation.findNavController(this.view).navigate(R.id.action_fragment_faq, bundle);
                 });
 
     }
