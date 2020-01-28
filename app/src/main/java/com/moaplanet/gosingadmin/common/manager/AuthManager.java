@@ -7,7 +7,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
 
-import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesUtil;
 
 import java.math.BigInteger;
 import java.security.KeyPairGenerator;
@@ -70,7 +70,7 @@ public class AuthManager {
 
         if (existKey != null && existKey) {
             try {
-                String userPin = SharedPreferencesManager.getInstance().getPin();
+                String userPin = SharedPreferencesUtil.getInstance().getPin();
 
                 if (userPin.equals("")) {
                     onFail();
@@ -111,7 +111,7 @@ public class AuthManager {
             signature.update(pin.getBytes());
             byte[] signPin = signature.sign();
 
-            SharedPreferencesManager
+            SharedPreferencesUtil
                     .getInstance()
                     .setPin(Base64.encodeToString(signPin, Base64.DEFAULT));
 

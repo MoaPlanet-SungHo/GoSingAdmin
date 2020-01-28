@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,20 +15,17 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.manager.LoginManager;
-import com.moaplanet.gosingadmin.common.manager.StoreManager;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.login.moel.req.ReqLoginDto;
 import com.moaplanet.gosingadmin.main.MainActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
-import com.moaplanet.gosingadmin.main.submenu.store.activity.StoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
-import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesUtil;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.utils.StringUtil;
 
@@ -193,7 +189,7 @@ public class LoginActivity extends BaseActivity {
     };
 
     private void onCheckPin() {
-        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
+        if (SharedPreferencesUtil.getInstance().getPin().equals("")) {
             Toast.makeText(this,
                     "결제 비밀번호를 생성해 주세요.",
                     Toast.LENGTH_SHORT)

@@ -26,22 +26,16 @@ import com.moaplanet.gosingadmin.intro.ResVersionDTO;
 import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
-import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
-import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.RegisterStoreActivity;
 import com.moaplanet.gosingadmin.main.submenu.store.activity.WaitingApprovalActivity;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
-import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesUtil;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
-import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -242,7 +236,7 @@ public class IntroActivity extends BaseActivity {
 
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(() -> {
-            int introType = SharedPreferencesManager.getInstance().getType();
+            int introType = SharedPreferencesUtil.getInstance().getType();
 
             if (introType == GoSingConstants.INTRO_TYPE_FIRST_START) {
                 // 권한 설정 화면으로 이동
@@ -272,7 +266,7 @@ public class IntroActivity extends BaseActivity {
      * 결제 코드 체크
      */
     private void onCheckPaymentCode() {
-        if (SharedPreferencesManager.getInstance().getPin().equals("")) {
+        if (SharedPreferencesUtil.getInstance().getPin().equals("")) {
             // 결제 코드 생성
             Toast.makeText(this,
                     getString(R.string.common_toast_create_payment_password),

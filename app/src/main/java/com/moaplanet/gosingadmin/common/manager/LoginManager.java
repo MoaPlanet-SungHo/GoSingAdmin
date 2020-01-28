@@ -8,7 +8,7 @@ import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.network.NetworkConstants;
 import com.moaplanet.gosingadmin.network.retrofit.MoaAuthCallback;
 import com.moaplanet.gosingadmin.network.service.RetrofitService;
-import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesUtil;
 import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
@@ -35,7 +35,7 @@ public class LoginManager {
 
     public void onLogin(Context context, LoginType loginType) {
         this.context = context;
-        SharedPreferencesManager pref = new SharedPreferencesManager();
+        SharedPreferencesUtil pref = new SharedPreferencesUtil();
         onLogin(pref.getEmail(), pref.getPw(), LoginType.AUTO_LOGIN, context);
         this.loginType = loginType;
     }
@@ -92,10 +92,10 @@ public class LoginManager {
                                 resModel.getDetailCode());
                     } else {
                         if (loginType == LoginType.LOGIN) {
-                            SharedPreferencesManager sharedPreferencesManager =
-                                    new SharedPreferencesManager();
-                            sharedPreferencesManager.setIntroType(GoSingConstants.INTRO_TYPE_AUTO_LOGIN);
-                            sharedPreferencesManager.setLoginInfo(id, pw);
+                            SharedPreferencesUtil sharedPreferencesUtil =
+                                    new SharedPreferencesUtil();
+                            sharedPreferencesUtil.setIntroType(GoSingConstants.INTRO_TYPE_AUTO_LOGIN);
+                            sharedPreferencesUtil.setLoginInfo(id, pw);
                         }
                         onLoginListener.onLoginSuccess(
                                 resModel.getStateCode(),

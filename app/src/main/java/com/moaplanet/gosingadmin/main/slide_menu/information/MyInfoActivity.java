@@ -1,6 +1,8 @@
 package com.moaplanet.gosingadmin.main.slide_menu.information;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -10,6 +12,9 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
+import com.moaplanet.gosingadmin.intro.main.IntroActivity;
+import com.moaplanet.gosingadmin.preference.UserSharedPreference;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +48,23 @@ public class MyInfoActivity extends BaseActivity {
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> finish());
+
+        TextView tvLogout = findViewById(R.id.tv_activity_my_info_logout);
+        RxView.clicks(tvLogout)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    UserSharedPreference userSharedPreference = new UserSharedPreference();
+                    userSharedPreference.onLogout();
+                    Intent intent = new Intent(this, IntroActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra(
+                            GoSingConstants.BUNDLE_KEY_APP_VERSION_CHECK,
+                            GoSingConstants.BUNDLE_VALUE_APP_VERSION_NOT_CHECK);
+                    startActivity(intent);
+                    finishAffinity();
+                });
+
     }
 
     @Override
@@ -77,6 +99,13 @@ public class MyInfoActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel.postMyInfo();
+    }
+
+    /**
+     * 로그이웃
+     */
+    private void onLogout() {
+
     }
 
 }

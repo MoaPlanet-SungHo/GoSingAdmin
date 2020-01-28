@@ -4,6 +4,7 @@ import com.moaplanet.gosingadmin.common.model.dto.res.ResStoreSearchDto;
 import com.moaplanet.gosingadmin.intro.ResVersionDTO;
 import com.moaplanet.gosingadmin.intro.login.moel.res.ResLoginDto;
 import com.moaplanet.gosingadmin.intro.sign_up.model.res.ResSignUpDto;
+import com.moaplanet.gosingadmin.main.SlideMenuDTO;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResCreateQrCodeDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResPaymentInitDto;
 import com.moaplanet.gosingadmin.main.qrpayment.dto.res.ResQrCodeCheckDTO;
@@ -12,6 +13,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.information.MyInfoDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
 import com.moaplanet.gosingadmin.main.slide_menu.notice.NoticeDTO;
+import com.moaplanet.gosingadmin.main.slide_menu.setting.SettingDTO;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardChargeDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResCardListDto;
 import com.moaplanet.gosingadmin.main.submenu.charge.model.dto.res.ResRegisterCardDto;
@@ -294,6 +296,22 @@ public interface GoSingApiService {
     // 고씽 내정보 조회
     @POST("session/MemberManageCtr/my_info_search_f.json")
     Call<MyInfoDTO> postMyInfo();
+
+    // 고씽 내정보 조회
+    @POST("session/NoticeManageCtr/alert_setting_info.json")
+    Call<SettingDTO> postSetting();
+
+    // 혜택알림 변경
+    @POST("session/NoticeManageCtr/gossing_benefits_setting.json")
+    Call<SettingDTO> postChangeBenefit(@Query("gossing_benefits") String state);
+
+    // 야간 알림
+    @POST("session/NoticeManageCtr/nighttime_benefits_setting.json")
+    Call<SettingDTO> postChangeNight(@Query("nighttime_benefits") String state);
+
+    // 사이드 매뉴 정보
+    @POST("MemberManageCtr/left_side_menu.json")
+    Call<SlideMenuDTO> postSlideMenuInfo();
 
 }
 

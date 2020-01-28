@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.GoSingAdminConfirmPermissionActivity;
-import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesUtil;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -34,7 +34,7 @@ public class IntroViewModel extends ViewModel {
 
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(() -> {
-            final int INTRO_TYPE = SharedPreferencesManager.getInstance().getType();
+            final int INTRO_TYPE = SharedPreferencesUtil.getInstance().getType();
 
             if (INTRO_TYPE == GoSingConstants.INTRO_TYPE_FIRST_START) {
                 // 권한 설정 화면으로 이동

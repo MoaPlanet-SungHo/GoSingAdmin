@@ -1,11 +1,13 @@
 package com.moaplanet.gosingadmin.main;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -19,17 +21,31 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.information.MyInfoActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.MainFragment;
+import com.moaplanet.gosingadmin.network.NetworkConstants;
+import com.moaplanet.gosingadmin.network.retrofit.RetrofitCallBack;
+import com.moaplanet.gosingadmin.network.service.RetrofitService;
+import com.moaplanet.gosingadmin.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
 
     private long backKeyPressedTime = 0;                //사용자가 뒤로가기를 하였을시 시간
     private Toast toast;
     private DrawerLayout drawerLayout;
-    private TextView mTvInformation;
+
+    // 가게 이름
+    private TextView tvShopName;
+
+    // 포인트
+    private TextView tvPoint;
+
+    // 활성 예정 포인트
+    private TextView tvActiveSchedulePoint;
 
     @Override
     public int layoutRes() {
@@ -63,13 +79,15 @@ public class MainActivity extends BaseActivity {
             sideMenuTitle.setText(slideMenuTitleList.get(i));
         }
 
-        mTvInformation = navHeaderView.findViewById(R.id.tv_header_slide_menu_name);
+        tvShopName = navHeaderView.findViewById(R.id.tv_header_slide_menu_name);
+        tvPoint = navHeaderView.findViewById(R.id.tv_header_slide_menu_point);
+        tvActiveSchedulePoint = navHeaderView.findViewById(R.id.tv_header_slide_menu_active_schedule_point);
 
     }
 
     @Override
     public void initListener() {
-        mTvInformation.setOnClickListener(view -> moveActivity(MyInfoActivity.class));
+        tvShopName.setOnClickListener(view -> moveActivity(MyInfoActivity.class));
     }
 
 
@@ -91,6 +109,45 @@ public class MainActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        RetrofitService.getInstance().getGoSingApi()
+                .postSlideMenuInfo()
+                .enqueue(new RetrofitCallBack<SlideMenuDTO>() {
+                    @Override
+                    public void onSuccess(SlideMenuDTO response) {
+
+                        if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                            tvShopName.setText(response.getSlideMenuInfoModel().getShopName());
+                            tvPoint.setText(
+                                    getString(R.string.common_price_won,
+                                            StringUtil.convertCommaPrice(response.getSlideMenuInfoModel().getPoint()))
+                            );
+                            tvActiveSchedulePoint.setText(
+                                    getString(R.string.fragment_main_expected_active_point,
+                                            StringUtil.convertCommaPrice(response.getSlideMenuInfoModel().getPointExpectedActive()))
+                            );
+                        } else {
+                            onNetworkConnectFail();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFail(Response<SlideMenuDTO> response, Throwable t) {
+                        onNetworkConnectFail();
+                    }
+
+                    @Override
+                    public void onExpireSession(Response<SlideMenuDTO> response, Throwable t) {
+                        onNotSession();
+                    }
+                });
+
     }
 
     private Fragment getNowFragment() {

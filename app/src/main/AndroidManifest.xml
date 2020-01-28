@@ -107,6 +107,9 @@
         <activity
             android:name=".common.activity.WebViewActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.slide_menu.information.PhoneChangeActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

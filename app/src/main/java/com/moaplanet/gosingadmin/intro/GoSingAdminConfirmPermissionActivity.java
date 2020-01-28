@@ -12,7 +12,7 @@ import com.moaplanet.gosingadmin.R;
 import com.moaplanet.gosingadmin.common.activity.BaseActivity;
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.intro.main.IntroActivity;
-import com.moaplanet.gosingadmin.manager.SharedPreferencesManager;
+import com.moaplanet.gosingadmin.utils.SharedPreferencesUtil;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -52,9 +52,9 @@ public class GoSingAdminConfirmPermissionActivity extends BaseActivity {
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> {
-                    SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager();
+                    SharedPreferencesUtil sharedPreferencesUtil = new SharedPreferencesUtil();
                     Intent intent = new Intent(this, IntroActivity.class);
-                    sharedPreferencesManager.setIntroType(GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS);
+                    sharedPreferencesUtil.setIntroType(GoSingConstants.INTRO_TYPE_PERMISSION_CHECK_SUCCESS);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();

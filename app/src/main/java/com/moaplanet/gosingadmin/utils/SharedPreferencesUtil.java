@@ -1,19 +1,19 @@
-package com.moaplanet.gosingadmin.manager;
+package com.moaplanet.gosingadmin.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.moaplanet.gosingadmin.constants.GoSingConstants;
 
-public class SharedPreferencesManager {
+public class SharedPreferencesUtil {
 
     private static SharedPreferences pref;
 
     private static class LazyHolder {
-        private static final SharedPreferencesManager INSTANCE = new SharedPreferencesManager();
+        private static final SharedPreferencesUtil INSTANCE = new SharedPreferencesUtil();
     }
 
-    public static SharedPreferencesManager getInstance() {
+    public static SharedPreferencesUtil getInstance() {
         return LazyHolder.INSTANCE;
     }
 
@@ -22,6 +22,24 @@ public class SharedPreferencesManager {
             pref = prefContext.getSharedPreferences(
                     GoSingConstants.GOSING_ADMIN_FILE_NAME,
                     Context.MODE_PRIVATE);
+        }
+    }
+
+    public void setPreference(String key, Object value) {
+        SharedPreferences.Editor edit = pref.edit();
+        if (edit != null) {
+            if (value instanceof String) {
+                edit.putString(key, (String) value);
+            } else if (value instanceof Boolean) {
+                edit.putBoolean(key, (Boolean) value);
+            } else if (value instanceof Integer) {
+                edit.putInt(key, (Integer) value);
+            } else if (value instanceof Float) {
+                edit.putFloat(key, (Float) value);
+            } else if (value instanceof Long) {
+                edit.putLong(key, (Long) value);
+            }
+            edit.apply();
         }
     }
 

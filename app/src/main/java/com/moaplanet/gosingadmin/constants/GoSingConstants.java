@@ -18,6 +18,8 @@ public class GoSingConstants {
     public static int INTRO_TYPE_PERMISSION_CHECK_SUCCESS = 1;
     // 로그인 완료
     public static int INTRO_TYPE_AUTO_LOGIN = 2;
+    // 로그아웃
+    public static int INTRO_TYPE_LOGOUT = 3;
 
     // 사용자 계정 관련
     // 아이디
