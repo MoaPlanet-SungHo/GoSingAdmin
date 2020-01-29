@@ -30,6 +30,10 @@ public class NoticeDTO extends CommonResDto {
         return baseNoticeUrl;
     }
 
+    public PageInfoModel getPageInfoModel() {
+        return pageInfoModel;
+    }
+
     public class NoticeModel {
 
         // 공지사항 고유 값
@@ -82,6 +86,9 @@ public class NoticeDTO extends CommonResDto {
         @SerializedName("totalCount")
         private int totalCount;
 
+        public int getTotalPage() {
+            return totalPage;
+        }
     }
 
 }

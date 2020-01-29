@@ -65,6 +65,32 @@ public class MyInfoActivity extends BaseActivity {
                     finishAffinity();
                 });
 
+        View phoneNumberChange = findViewById(R.id.tv_activity_my_info_phone_number_change);
+        RxView.clicks(phoneNumberChange)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (viewModel != null) {
+                        Intent intent = new Intent(this, PhoneNumberChangeActivity.class);
+                        intent.putExtra(GoSingConstants.INTENT_KEY_MY_PHONE_NUMBER,
+                                viewModel.getPhoneNumber().getValue());
+                        startActivity(intent);
+                    }
+                });
+
+        View pwChange = findViewById(R.id.tv_activity_my_info_pw_change);
+        RxView.clicks(pwChange)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    if (viewModel != null) {
+                        Intent intent = new Intent(this, PwChangeActivity.class);
+                        intent.putExtra(GoSingConstants.INTENT_KEY_MY_PHONE_NUMBER,
+                                viewModel.getPhoneNumber().getValue());
+                        startActivity(intent);
+                    }
+                });
+
     }
 
     @Override

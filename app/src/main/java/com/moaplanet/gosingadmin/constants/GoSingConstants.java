@@ -87,6 +87,8 @@ public class GoSingConstants {
     public static final String INTENT_KEY_ADDRESS_INFO = "INTENT_KEY_ADDRESS_INFO";
     // 주소 좌표
     public static final String INTENT_KEY_ADDRESS_COORDINATES = "INTENT_KEY_ADDRESS_COORDINATES";
+    // 사용자 핸드폰 번호
+    public static final String INTENT_KEY_MY_PHONE_NUMBER = "INTENT_KEY_MY_PHONE_NUMBER";
 
     // 리뷰 관련
     // 리뷰 리스트 불러올떄 최대 개수

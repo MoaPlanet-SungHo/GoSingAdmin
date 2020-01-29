@@ -7,12 +7,15 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.moaplanet.gosingadmin.BuildConfig;
 import com.moaplanet.gosingadmin.R;
+import com.moaplanet.gosingadmin.common.activity.CreatePinActivity;
 import com.moaplanet.gosingadmin.common.fragment.BaseFragment;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
+import com.moaplanet.gosingadmin.constants.GoSingConstants;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
@@ -101,11 +104,26 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void initListener() {
 
+        View pwChange = view.findViewById(R.id.cl_fragment_setting_change_pw_group);
+        RxView.clicks(pwChange)
+                .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(click -> {
+                    Intent intent = new Intent(view.getContext(), PaymentPwChangeActivity.class);
+                    startActivity(intent);
+                });
+
         CommonTitleBar titleBar = view.findViewById(R.id.common_notice_title);
         RxView.clicks(titleBar.getBtnBack())
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> onBackNavigation());
+                .subscribe(click -> {
+                    if (getActivity() != null && getActivity() instanceof SettingActivity) {
+                        getActivity().finish();
+                    } else {
+                        onBackNavigation();
+                    }
+                });
 
         View termsView = view.findViewById(R.id.cl_fragment_setting_terms_group);
         RxView.clicks(termsView)
@@ -140,5 +158,6 @@ public class SettingFragment extends BaseFragment {
         });
 
     }
+
 
 }

@@ -41,7 +41,7 @@ public class EventDTO extends CommonResDto {
     /**
      * 페이지 정보
      */
-    private class PageInfoModel {
+    public class PageInfoModel {
 
         // 현재 페이지
         @SerializedName("currentPage")
@@ -55,6 +55,13 @@ public class EventDTO extends CommonResDto {
         @SerializedName("totalCount")
         private int totalCount;
 
+        public int getTotalPage() {
+            return totalPage;
+        }
+
+        public int getCurrentPage() {
+            return currentPage;
+        }
     }
 
     /**

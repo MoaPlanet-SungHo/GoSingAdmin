@@ -35,7 +35,13 @@ public class CustomerCenterFragment extends BaseFragment {
         RxView.clicks(titleBar.getBtnBack())
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> onBackNavigation());
+                .subscribe(click -> {
+                    if (getActivity() != null && getActivity() instanceof CustomerCenterActivity) {
+                        getActivity().finish();
+                    } else {
+                        onBackNavigation();
+                    }
+                });
 
         // 1대1 문의하기
         View oneToOneInquire = view.findViewById(R.id.cl_customer_center_one_to_one_question_group);

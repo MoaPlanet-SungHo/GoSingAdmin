@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ import com.moaplanet.gosingadmin.constants.GoSingConstants;
 import com.moaplanet.gosingadmin.interfaces.AdapterClick;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -34,6 +37,10 @@ public class NoticeFragment extends BaseFragment {
 
     // 로딩바
     private View prLoading;
+    private RecyclerView rvNotice;
+
+    // 공지사항 리스트
+    private List<NoticeDTO.NoticeModel> noticeList;
 
     @Override
     protected void initViewModel() {
@@ -51,8 +58,10 @@ public class NoticeFragment extends BaseFragment {
     @Override
     public void initView(View view) {
 
+        noticeList = new ArrayList<>();
+
         // 리스트 세팅
-        RecyclerView rvNotice = view.findViewById(R.id.rv_fragment_notice);
+        rvNotice = view.findViewById(R.id.rv_fragment_notice);
         rvNotice.setLayoutManager(new LinearLayoutManager(view.getContext()));
         noticeAdapter = new NoticeAdapter();
         rvNotice.setAdapter(noticeAdapter);
@@ -105,7 +114,10 @@ public class NoticeFragment extends BaseFragment {
 
             // 공지사항 리스트
             viewModel.getNoticeList().observe(getViewLifecycleOwner(), list -> {
-                noticeAdapter.submitList(list);
+                noticeList.addAll(list);
+//                noticeAdapter.submitList(list);
+                noticeAdapter.submitList(noticeList);
+                noticeAdapter.notifyDataSetChanged();
                 prLoading.setVisibility(View.GONE);
 
                 // 공지사항 없을떄 표시 문구 세팅
@@ -137,7 +149,25 @@ public class NoticeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (viewModel != null) {
-            viewModel.postNoticeList(1);
+            viewModel.postNoticeList();
+
+            LinearLayoutManager layoutManager = (LinearLayoutManager) rvNotice.getLayoutManager();
+            rvNotice.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+
+
+                    if (lastVisiblePosition + visibleItemCount >= totalItemCount) {
+                        viewModel.postNoticeList();
+                    }
+
+                }
+            });
+
         }
     }
 }

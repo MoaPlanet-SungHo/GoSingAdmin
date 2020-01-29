@@ -25,6 +25,13 @@ public class NoticeViewModel extends BaseViewModel {
     // 공지사항 베이스 url
     private String baseUrl = "";
 
+    // 현재 페이지
+    private int currentPage = 1;
+    // 총 페이지
+    private int totalPage = 1;
+    // 서버 통신 플래그
+    private boolean isPaging = false;
+
     LiveData<List<NoticeDTO.NoticeModel>> getNoticeList() {
         return noticeList;
     }
@@ -33,33 +40,41 @@ public class NoticeViewModel extends BaseViewModel {
     /**
      * 공지사항 리스트
      */
-    void postNoticeList(int pageNumber) {
+    void postNoticeList() {
 
-        RetrofitService.getInstance().getGoSingApi()
-                .postNoticeList(pageNumber, NetworkConstants.NOTICE_LIMIT)
-                .enqueue(new RetrofitCallBack<NoticeDTO>() {
-                    @Override
-                    public void onSuccess(NoticeDTO response) {
-                        Logger.d("공지사항 데이터 : " + new Gson().toJson(response));
-                        if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
-                            baseUrl = response.getBaseNoticeUrl();
-                            noticeList.setValue(response.getNoticeList());
-                        } else {
-                            failNetwork.setValue(true);
+        if (!isPaging && currentPage <= totalPage) {
+            isPaging = true;
+            RetrofitService.getInstance().getGoSingApi()
+                    .postNoticeList(currentPage, NetworkConstants.NOTICE_LIMIT)
+                    .enqueue(new RetrofitCallBack<NoticeDTO>() {
+                        @Override
+                        public void onSuccess(NoticeDTO response) {
+                            Logger.d("공지사항 데이터 : " + new Gson().toJson(response));
+                            if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                                baseUrl = response.getBaseNoticeUrl();
+                                noticeList.setValue(response.getNoticeList());
+                                totalPage = response.getPageInfoModel().getTotalPage();
+                                currentPage++;
+                            } else {
+                                failNetwork.setValue(true);
+                            }
+                            isPaging = false;
+
                         }
 
-                    }
+                        @Override
+                        public void onFail(Response<NoticeDTO> response, Throwable t) {
+                            failNetwork.setValue(true);
+                            isPaging = false;
+                        }
 
-                    @Override
-                    public void onFail(Response<NoticeDTO> response, Throwable t) {
-                        failNetwork.setValue(true);
-                    }
-
-                    @Override
-                    public void onExpireSession(Response<NoticeDTO> response, Throwable t) {
-                        expireSession.setValue(true);
-                    }
-                });
+                        @Override
+                        public void onExpireSession(Response<NoticeDTO> response, Throwable t) {
+                            expireSession.setValue(true);
+                            isPaging = false;
+                        }
+                    });
+        }
     }
 
     /**

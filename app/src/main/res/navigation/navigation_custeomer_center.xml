@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/fragment_customer_center">
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="com.moaplanet.gosingadmin.main.slide_menu.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_notice"-->
+<!--            app:destination="@id/fragment_notice" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_customer_center"-->
+<!--            app:destination="@id/fragment_customer_center" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_event"-->
+<!--            app:destination="@id/fragment_event" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_setting"-->
+<!--            app:destination="@id/fragment_setting" />-->
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_event"
+        android:name="com.moaplanet.gosingadmin.main.slide_menu.event.EventFragment"
+        tools:layout="@layout/fragment_event" />
+    <fragment
+        android:id="@+id/fragment_notice"
+        android:name="com.moaplanet.gosingadmin.main.slide_menu.notice.NoticeFragment"
+        tools:layout="@layout/fragment_notice" />
+    <fragment
+        android:id="@+id/fragment_customer_center"
+        android:name="com.moaplanet.gosingadmin.main.slide_menu.customer_center.CustomerCenterFragment"
+        tools:layout="@layout/fragment_customer_center" />
+    <fragment
+        android:id="@+id/fragment_setting"
+        android:name="com.moaplanet.gosingadmin.main.slide_menu.setting.SettingFragment"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/fragment_faq"
+        android:name="com.moaplanet.gosingadmin.main.slide_menu.customer_center.FaqFragment"
+        tools:layout="@layout/fragment_faq">
+    </fragment>
+
+    <action
+        android:id="@+id/action_fragment_faq"
+        app:destination="@id/fragment_faq" />
+</navigation>

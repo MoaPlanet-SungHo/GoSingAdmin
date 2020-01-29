@@ -25,6 +25,13 @@ public class EventViewModel extends BaseViewModel {
     // 이벤트 베이스 url 주소
     private String baseEventUrl = "";
 
+    // 현재 페이지
+    private int currentPage = 1;
+    // 총 페이지
+    private int totalPage = 1;
+    // 서버 통신 플래그
+    private boolean isPaging = false;
+
     LiveData<List<EventDTO.EventModel>> getEventList() {
         return eventList;
     }
@@ -32,33 +39,41 @@ public class EventViewModel extends BaseViewModel {
     /**
      * 이벤트 리스트 불러오기
      *
-     * @param pageNumber 보여줄 페이지 번호
      */
-    void postEventList(int pageNumber) {
-        RetrofitService.getInstance().getGoSingApi()
-                .postEventList(pageNumber, NetworkConstants.EVENT_LIMIT)
-                .enqueue(new RetrofitCallBack<EventDTO>() {
-                    @Override
-                    public void onSuccess(EventDTO response) {
-                        if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
-                            Logger.d("이벤트 리스트 : " + new Gson().toJson(response));
-                            baseEventUrl = response.getEventUrl();
-                            eventList.setValue(response.getEventList());
-                        } else {
-                            failNetwork.setValue(true);
+    void postEventList() {
+
+        if (!isPaging && currentPage <= totalPage) {
+            isPaging = true;
+            RetrofitService.getInstance().getGoSingApi()
+                    .postEventList(currentPage, NetworkConstants.EVENT_LIMIT)
+                    .enqueue(new RetrofitCallBack<EventDTO>() {
+                        @Override
+                        public void onSuccess(EventDTO response) {
+                            if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                                Logger.d("이벤트 리스트 : " + new Gson().toJson(response));
+                                baseEventUrl = response.getEventUrl();
+                                eventList.setValue(response.getEventList());
+                                totalPage = response.getPageInfoModel().getTotalPage();
+                                currentPage++;
+                            } else {
+                                failNetwork.setValue(true);
+                            }
+                            isPaging = false;
                         }
-                    }
 
-                    @Override
-                    public void onFail(Response<EventDTO> response, Throwable t) {
-                        failNetwork.setValue(true);
-                    }
+                        @Override
+                        public void onFail(Response<EventDTO> response, Throwable t) {
+                            failNetwork.setValue(true);
+                            isPaging = false;
+                        }
 
-                    @Override
-                    public void onExpireSession(Response<EventDTO> response, Throwable t) {
-                        expireSession.setValue(true);
-                    }
-                });
+                        @Override
+                        public void onExpireSession(Response<EventDTO> response, Throwable t) {
+                            expireSession.setValue(true);
+                            isPaging = false;
+                        }
+                    });
+        }
     }
 
     String getEventUrl(String seq) {

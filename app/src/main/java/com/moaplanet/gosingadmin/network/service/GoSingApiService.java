@@ -12,6 +12,7 @@ import com.moaplanet.gosingadmin.main.slide_menu.customer_center.FaqModel;
 import com.moaplanet.gosingadmin.main.slide_menu.customer_center.ResFaqDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.event.EventDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.information.MyInfoDTO;
+import com.moaplanet.gosingadmin.main.slide_menu.information.PhoneNumberChangeDTO;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResSearchDepositAccount;
 import com.moaplanet.gosingadmin.main.slide_menu.notice.NoticeDTO;
@@ -318,5 +319,17 @@ public interface GoSingApiService {
     @POST("NoticeManageCtr/qa_list_search.json")
     Call<ResFaqDTO> postFaq(@Query("qa_info_number") String number);
 
+    // 핸드폰 번호 변경
+    @POST("session/MemberManageCtr/phone_number_reseet.json")
+    Call<PhoneNumberChangeDTO> postPhoneNumberChange(@Query("new_phone_number") String phoneNumber,
+                                                     @Query("ci") String ci,
+                                                     @Query("user_name") String userNmae,
+                                                     @Query("user_age") String age,
+                                                     @Query("user_gender") String gender);
+
+    // 비밀번호 변경
+    @POST("MemberManageCtr/s_id_search_pwd_resset.json")
+    Call<CommonResDto> postPwChange(@Query("phone_number") String phoneNumber,
+                                    @Query("new_pwd") String pw);
 }
 

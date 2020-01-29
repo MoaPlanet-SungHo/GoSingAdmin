@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,8 @@ import com.moaplanet.gosingadmin.interfaces.AdapterClick;
 import com.moaplanet.gosingadmin.main.slide_menu.event.adapter.EventAdapter;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -31,6 +34,11 @@ public class EventFragment extends BaseFragment {
     private EventAdapter eventAdapter;
     // 로딩
     private View loadingBar;
+    // 리스트뷰
+    private RecyclerView rvEvent;
+
+    // 이벤트 리스트
+    private List<EventDTO.EventModel> eventList;
 
     @Override
     protected void initViewModel() {
@@ -47,8 +55,9 @@ public class EventFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        eventList = new ArrayList<>();
         loadingBar = view.findViewById(R.id.pr_fragment_event_loading);
-        RecyclerView rvEvent = view.findViewById(R.id.rv_event_list);
+        rvEvent = view.findViewById(R.id.rv_event_list);
         rvEvent.setLayoutManager(new LinearLayoutManager(view.getContext()));
         eventAdapter = new EventAdapter();
         rvEvent.setAdapter(eventAdapter);
@@ -108,7 +117,11 @@ public class EventFragment extends BaseFragment {
 
             // 이벤트 리스트
             viewModel.getEventList().observe(getViewLifecycleOwner(), list -> {
-                eventAdapter.submitList(list);
+                eventList.addAll(list);
+//                eventAdapter.submitList(list);
+                eventAdapter.submitList(eventList);
+                eventAdapter.notifyDataSetChanged();
+                Logger.d("이벤트 리스트 : " + eventList.size());
                 loadingBar.setVisibility(View.GONE);
 
                 // 진행중인 이벤트 없음문구 표시 컨트롤
@@ -125,6 +138,24 @@ public class EventFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel.postEventList(0);
+        viewModel.postEventList();
+
+        LinearLayoutManager layoutManager = (LinearLayoutManager) rvEvent.getLayoutManager();
+        rvEvent.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+
+
+                if (lastVisiblePosition + visibleItemCount >= totalItemCount) {
+                    viewModel.postEventList();
+                }
+
+            }
+        });
+
     }
 }

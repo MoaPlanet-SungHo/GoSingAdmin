@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+
+    <com.moaplanet.gosingadmin.common.view.CommonTitleBar
+            android:id="@+id/title_activity_pw_change"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/activity_pw_change_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_activity_pw_change_certified_group"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_gd_15"
+                android:text="비밀번호 변경을 위해 본인인증을 진행합니다."
+                android:textColor="@color/color_000000"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpUsage" />
+
+        <Button
+                android:id="@+id/btn_activity_pw_change"
+                style="@style/CommonGradientButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+                android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+                android:text="@string/activity_payment_pw_change_certified"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_activity_pw_change_group"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_activity_pw_change">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gd_14"
+                    android:text="새 로그인 비밀번호"
+                    android:textColor="@color/color_000000"
+                    android:textSize="12dp"
+                    tools:ignore="SpUsage" />
+
+            <EditText
+                    android:id="@+id/et_activity_pw_change_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+                    android:drawableEnd="@drawable/ic_checkbox_nor"
+                    android:fontFamily="@font/font_gd_13"
+                    android:hint="영문/숫자/특수문자 8~20자"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="0dp"
+                    android:textColor="@color/color_000000"
+                    android:textColorHint="@color/color_aaaaaa"
+                    android:textSize="13dp"
+                    tools:ignore="SpUsage" />
+
+            <TextView
+                    android:id="@+id/tv_activity_pw_change_err"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="비밀번호를 영문/숫자/특수문자 8~20자로 입력하세요."
+                    android:textColor="@color/color_ff4a24"
+                    android:textSize="10dp"
+                    tools:ignore="SpUsage" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/font_gd_14"
+                    android:text="비밀번호 확인"
+                    android:textColor="@color/color_000000"
+                    android:textSize="12dp"
+                    tools:ignore="SpUsage" />
+
+            <EditText
+                    android:id="@+id/et_activity_pw_change_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/border_rect_0_0_0_0_1dp_e9e9e9_ffffff"
+                    android:drawableEnd="@drawable/ic_checkbox_nor"
+                    android:fontFamily="@font/font_gd_13"
+                    android:hint="비밀번호 재확인"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="0dp"
+                    android:textColor="@color/color_000000"
+                    android:textColorHint="@color/color_aaaaaa"
+                    android:textSize="13dp"
+                    tools:ignore="SpUsage" />
+
+            <TextView
+                    android:id="@+id/tv_activity_pw_change_check_err"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="입력한 비밀번호가 서로 일치하지 않습니다."
+                    android:textColor="@color/color_ff4a24"
+                    android:textSize="10dp"
+                    tools:ignore="SpUsage" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="- 비밀번호는 최소 8자 이상 최대 20자까지 사용가능합니다."
+                    android:textColor="@color/color_aaaaaa"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/font_gd_13"
+                    android:text="- 영문 / 숫자 / 특수문자만 비밀번호로 사용할 수 있습니다."
+                    android:textColor="@color/color_aaaaaa"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/btn_activity_pw_change_done"
+                style="@style/CommonGradientButton"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/common_gradient_button_width_shadow_left_right_space"
+                android:layout_marginEnd="@dimen/common_gradient_button_width_shadow_left_right_space"
+                android:enabled="false"
+                android:text="확인"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+            android:id="@+id/fl_activity_pw_change"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_activity_pw_change" />
+
+    <ProgressBar
+            android:id="@+id/pr_activity_pw_change_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

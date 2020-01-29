@@ -47,6 +47,6 @@ public class NetworkConstants {
     public static int LOGIN_CODE_ACCOUNT_INACTIVE = 2012;
     public static int LOGIN_CODE_EMPTY_STORE = 2013;
 
-    public static int EVENT_LIMIT = 100;
-    public static int NOTICE_LIMIT = 100;
+    public static int EVENT_LIMIT = 10;
+    public static int NOTICE_LIMIT = 10;
 }

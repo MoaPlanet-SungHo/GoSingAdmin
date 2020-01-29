@@ -29,8 +29,10 @@ import com.moaplanet.gosingadmin.intro.login.LoginActivity;
 import com.moaplanet.gosingadmin.intro.main.IntroActivity;
 import com.moaplanet.gosingadmin.main.MainActivity;
 import com.moaplanet.gosingadmin.main.qrpayment.activity.QrCodeActivity;
+import com.moaplanet.gosingadmin.main.slide_menu.customer_center.CustomerCenterActivity;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.MainViewModel;
 import com.moaplanet.gosingadmin.main.slide_menu.main.model.dto.res.ResGoSingPointSearchDto;
+import com.moaplanet.gosingadmin.main.slide_menu.setting.SettingActivity;
 import com.moaplanet.gosingadmin.main.submenu.ad.activity.GoSingAdActivity;
 import com.moaplanet.gosingadmin.main.submenu.notification.NotificationActivity;
 import com.moaplanet.gosingadmin.main.submenu.charge.activity.ChargeActivity;
@@ -224,17 +226,17 @@ public class MainFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(click -> moveActivityWidthDebug(GoSingAdActivity.class));
 
-        //먹거리주문
+        // 고객센터
         RxView.clicks(btnFoodOrder)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivityWidthDebug(FoodOrderActivity.class));
+                .subscribe(click -> moveActivity(CustomerCenterActivity.class));
 
-        //비회원적립
+        // 설정
         RxView.clicks(btnNonmemberSave)
                 .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(click -> moveActivity(NonMemberSaveActivity.class));
+                .subscribe(click -> moveActivity(SettingActivity.class));
 
         //슬라이드 메뉴
         RxView.clicks(slideMenu)

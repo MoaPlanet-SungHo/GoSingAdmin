@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.moaplanet.gosingadmin">
+        package="com.moaplanet.gosingadmin">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- NETWORK_PROVIDER ?�근 권한 -->
@@ -10,18 +10,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".GoSingAdminApplication"
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher_gosing"
-        android:label="@string/apps_name"
-        android:roundIcon="@mipmap/ic_launcher_gosing_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+            android:name=".GoSingAdminApplication"
+            android:allowBackup="false"
+            android:icon="@mipmap/ic_launcher_gosing"
+            android:label="@string/apps_name"
+            android:roundIcon="@mipmap/ic_launcher_gosing_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".intro.main.IntroActivity"
-            android:screenOrientation="portrait">
+                android:name=".intro.main.IntroActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -30,90 +30,105 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".intro.GoSingAdminConfirmPermissionActivity"
-            android:screenOrientation="portrait" />
+                android:name=".intro.GoSingAdminConfirmPermissionActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".intro.sign_up.activity.SignUpActivity"
-            android:screenOrientation="portrait" />
+                android:name=".intro.sign_up.activity.SignUpActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".intro.login.LoginActivity"
-            android:screenOrientation="portrait" />
+                android:name=".intro.login.LoginActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.MainActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.MainActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.point.activity.PointHistoryActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.point.activity.PointHistoryActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.notification.NotificationActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.notification.NotificationActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.ad.activity.GoSingAdActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.ad.activity.GoSingAdActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.store.activity.StoreActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.store.activity.StoreActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.review.activity.ReviewManagerActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.review.activity.ReviewManagerActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.food.activity.FoodOrderActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.food.activity.FoodOrderActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.slide_menu.setting.SettingDetailActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.slide_menu.setting.SettingDetailActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.slide_menu.setting.SettingDetailDataActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.slide_menu.setting.SettingDetailDataActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.non_member.activity.NonMemberSaveActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.non_member.activity.NonMemberSaveActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.charge.activity.ChargeActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.charge.activity.ChargeActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.charge.activity.CardRegisterActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.charge.activity.CardRegisterActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.pointwithdrawal.activity.PointWithDrawalActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.pointwithdrawal.activity.PointWithDrawalActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.slide_menu.information.MyInfoActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.slide_menu.information.MyInfoActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.store.activity.WaitingApprovalActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.store.activity.WaitingApprovalActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.address.AddressSearchActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.address.AddressSearchActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.store.activity.ModifyStoreActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.store.activity.ModifyStoreActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.store.activity.RegisterStoreActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.store.activity.RegisterStoreActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.qrpayment.activity.QrCodeActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.qrpayment.activity.QrCodeActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.pointwithdrawal.activity.BankSelectActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.pointwithdrawal.activity.BankSelectActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".common.activity.CreatePinActivity"
-            android:screenOrientation="portrait" />
+                android:name=".common.activity.CreatePinActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.submenu.pointwithdrawal.activity.RegisterAccountActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.submenu.pointwithdrawal.activity.RegisterAccountActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".common.activity.WebViewActivity"
-            android:screenOrientation="portrait" />
+                android:name=".common.activity.WebViewActivity"
+                android:screenOrientation="portrait" />
         <activity
-            android:name=".main.slide_menu.information.PhoneChangeActivity"
-            android:screenOrientation="portrait" />
+                android:name=".main.slide_menu.information.PhoneChangeActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".main.slide_menu.information.PhoneNumberChangeActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".main.slide_menu.setting.PaymentPwChangeActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".main.slide_menu.information.PwChangeActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".main.slide_menu.customer_center.CustomerCenterActivity"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".main.slide_menu.setting.SettingActivity"
+                android:screenOrientation="portrait" />
 
         <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
+                android:name="com.kakao.sdk.AppKey"
+                android:value="@string/kakao_app_key" />
 
     </application>
 

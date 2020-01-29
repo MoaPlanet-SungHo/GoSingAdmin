@@ -24,6 +24,8 @@ import com.moaplanet.gosingadmin.common.interfaces.JsReceiver;
 import com.moaplanet.gosingadmin.common.view.CommonTitleBar;
 import com.moaplanet.gosingadmin.intro.sign_up.activity.SignUpActivity;
 import com.moaplanet.gosingadmin.intro.sign_up.model.viewmodel.SignUpViewModel;
+import com.moaplanet.gosingadmin.main.slide_menu.information.PhoneNumberChangeActivity;
+import com.moaplanet.gosingadmin.main.slide_menu.information.PwChangeActivity;
 import com.moaplanet.gosingadmin.utils.JsBridge;
 import com.orhanobut.logger.Logger;
 
@@ -79,8 +81,14 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
                     }
                 });
 
-        if (getActivity() != null && getActivity() instanceof CreatePinActivity) {
-            titleBar.setTitle("결제 비밀번호 인증");
+        if (getActivity() != null) {
+            if (getActivity() instanceof CreatePinActivity) {
+                titleBar.setTitle("결제 비밀번호 인증");
+            } else if (getActivity() instanceof PhoneNumberChangeActivity) {
+                titleBar.setVisibility(View.GONE);
+            } else if (getActivity() instanceof PwChangeActivity) {
+                titleBar.setVisibility(View.GONE);
+            }
         }
 
     }
@@ -119,6 +127,10 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
                 authMobileType = "01";
             } else if (getActivity() instanceof CreatePinActivity) {
                 authMobileType = "04";
+            } else if (getActivity() instanceof PhoneNumberChangeActivity) {
+                authMobileType = "03";
+            } else if (getActivity() instanceof PwChangeActivity) {
+                authMobileType = "02";
             }
         }
 
@@ -251,6 +263,53 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
             onMoveNavigation(R.id.action_fragment_create_account);
         } else if (getActivity() instanceof CreatePinActivity) {
             onMoveNavigation(R.id.action_fragment_sign_up_input_password);
+        } else if (getActivity() instanceof PhoneNumberChangeActivity) {
+            String ci = "";
+            // 이름
+            String name = "";
+            // 성별
+            String sex = "";
+            // 생년월일
+            String socialno = "";
+            // 핸드폰 번호
+            String phoneNumber = "";
+
+            try {
+                JSONObject jsonObject = new JSONObject(resultMsg);
+                if (!jsonObject.get("Ci").equals("")) {
+                    ci = jsonObject.getString("Ci");
+                }
+
+                // 이름
+                if (!jsonObject.get("Name").equals("")) {
+                    name = jsonObject.getString("Name");
+                }
+
+                // 핸드폰 번호
+                if (!jsonObject.get("No").equals("")) {
+                    phoneNumber = jsonObject.getString("No");
+                }
+
+                // 성별
+                if (!jsonObject.get("sex").equals("")) {
+                    sex = jsonObject.getString("sex");
+                }
+
+                // 생년 월일
+                if (!jsonObject.get("Socialno").equals("")) {
+                    socialno = jsonObject.getString("Socialno");
+                }
+
+            } catch (JSONException e) {
+                Logger.d("Json Error\n" + e);
+                ((PhoneNumberChangeActivity) getActivity()).onFailCertification();
+                return;
+            }
+
+            ((PhoneNumberChangeActivity) getActivity()).onSuccessCertification(
+                    phoneNumber, ci, name, socialno, sex);
+        } else if (getActivity() instanceof PwChangeActivity) {
+            ((PwChangeActivity) getActivity()).onSuccessCertified();
         }
     }
 
@@ -263,6 +322,10 @@ public class SelfCertificationFragment extends BaseFragment implements JsReceive
             onBackNavigation();
         } else if (getActivity() instanceof CreatePinActivity) {
             getActivity().finish();
+        } else if (getActivity() instanceof PhoneNumberChangeActivity) {
+            ((PhoneNumberChangeActivity) getActivity()).onFailCertification();
+        } else if (getActivity() instanceof PwChangeActivity) {
+            ((PwChangeActivity) getActivity()).onFailCertified();
         }
     }
 }
