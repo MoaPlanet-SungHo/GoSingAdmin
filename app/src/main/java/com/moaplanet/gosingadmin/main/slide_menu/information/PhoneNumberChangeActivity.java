@@ -112,6 +112,8 @@ public class PhoneNumberChangeActivity extends BaseActivity {
                         loadingBar.setVisibility(View.GONE);
                         inLoading = false;
                         if (response.getDetailCode() == NetworkConstants.DETAIL_CODE_SUCCESS) {
+                            View tvPhonNumberChangeBefore = findViewById(R.id.ll_activity_phone_number_change_before_group);
+                            tvPhonNumberChangeBefore.setVisibility(View.GONE);
                             tvPhonNumberChangeSuccess.setText(response.getPhoneNumber());
                             tvPhonNumberChangeSuccess.setVisibility(View.VISIBLE);
                             btnCertified.setText(getString(R.string.activity_phone_number_change_done));

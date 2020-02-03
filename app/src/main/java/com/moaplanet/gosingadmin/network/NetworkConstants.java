@@ -25,6 +25,9 @@ public class NetworkConstants {
     // 이용약관
     public static String GOSING_ADMIN_AGREE_TERMS_USE_URL
             = "http://14.36.10.149:8080/MOAGossingShop/res/3.TermsOPfUse.html";
+    // 이용약관
+    public static String GOSING_ADMIN_GPS_USE_URL
+            = "http://14.36.10.149:8080/MOAGossingShop/res/7.area_terms_of_use.html";
 
     // 주소 페이징 개수
     public static int ADDRESS_SEACH_PAGING_COUNT = 30;
